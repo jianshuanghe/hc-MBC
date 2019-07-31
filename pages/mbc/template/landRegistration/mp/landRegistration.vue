@@ -2,106 +2,18 @@
   <view class="landRegistration-content">
     <view class="landRegistration">
       <view class="phone-passWord-LR">
-        <!--手机号登录-->
-        <view class="phonw-LR" v-if="landType === 1 && !setPassWorld">
-          <view class="top-PLR">
-            <p class="">你好，<br/>
-              欢迎来到陌拜资本</p>
-          </view>
-          <view class="LR-cont">
-            <view class="inputPhone-PLR">
-				<wInput
-					v-model="phoneLand.phone"
-					type="number"
-					maxlength="11"
-					placeholder="请输入手机号码"
-				></wInput>
-              <view class="line"></view>
-            </view>
-            <view class="inputYan-PLR">
-              <view class="yan-left-PLR left">
-				  <wInput
-				  	v-model="phoneLand.code"
-				  	type="number"
-				  	maxlength="4"
-				  	placeholder="请输入验证码"
-				  ></wInput>
-              </view>
-              <view class="ma-right-PLR left">
-                <!--<p class="">获取验证码</p>-->
-                <view :class="{ yazm: isOvertime , 're-yazm': !isOvertime }"  type="primary" action-type="button" mini @click="sendMessage">{{word}}</view>
-              </view>
-              <view class="clear"></view>
-              <view class="line"></view>
-            </view>
-            <view class="switchPassWorld">
-              <p class="" @click="clickPassWordLand">账号密码登录</p>
-            </view>
-          </view>
-        </view>
         <!--账号登陆-->
-        <view class="passWord-LR" v-if="landType === 2 && !setPassWorld">
+        <view class="passWord-LR">
           <view class="top-PWLR">
-            <img :src="logo" alt="" class="">
-          </view>
-          <view class="LR-cont">
-            <view class="inputPhone-PLR">
-				<wInput
-					v-model="passWordLand.phone"
-					type="number"
-					maxlength="11"
-					placeholder="请输入手机号码"
-				></wInput>
-              <view class="line"></view>
-            </view>
-            <view class="inputPhone-PLR">
-				<wInput
-					v-model="passWordLand.passWord"
-					type="password"
-					placeholder="请输入密码"
-				></wInput>
-              <view class="line"></view>
-            </view>
-            <view class="switchPassWorld">
-              <p class="left"  @click="clickPhoneLand">手机号验证码登录</p>
-              <p class="right text-Right" @click="clickForgetPassWord">忘记密码</p>
-              <view class="clear"></view>
-            </view>
-          </view>
-        </view>
-        <!--设置密码-->
-        <view class="passWord-LR" v-if="setPassWorld">
-          <view class="top-PWLR">
-            <img :src="logo" alt="" class="">
-          </view>
-          <view class="LR-cont">
-            <view class="inputPhone-PLR">
-				<wInput
-					v-model="phoneLand.passWord"
-					type="password"
-					placeholder="请设置登录密码"
-				></wInput>
-              <view class="line"></view>
-            </view>
+            <image :src="logo" alt="" class=""></image>
           </view>
         </view>
         <!--登录按钮-->
         <view class="landBtn">
-          <view class="" v-if="!setPassWorld">
+          <view class="">
             <!--登录-->
-            <view class="land-btn-box" @click="clickLand">
+            <view class="land-btn-box" @tap="clickMpLand">
               <p class="">登录</p>
-            </view>
-            <!--微信登录-->
-            <view class="land-btn-box" @click="clickWxLand" v-if="browserType === 'WX'">
-              <p class="wx-land">微信账号登录</p>
-            </view>
-          </view>
-          <!--保存密码-->
-          <view class="land-btn-box"  v-if="setPassWorld" >
-            <p class=""@click="clickSetPassWorld">保存</p>
-            <view class="skipLand" @click="clickSkipLand">
-              <p class="">暂不设置</p>
             </view>
           </view>
         </view>
@@ -111,7 +23,7 @@
 </template>
 
 <script>
-	import wInput from './../../../../components/watch-login/watch-input.vue';
+	import wInput from './../../../../../components/watch-login/watch-input.vue';
     import logo from '@/static/mbcImg//landRegistration/logo.png';
 
     export default {
@@ -147,16 +59,16 @@
               this.setPassWorld = true; // 设置密码显示
             }
           } else {
-            localStorage.setItem('tabItems', 1);
+            uni.setStorageSync('tabItems', 1);
           }
           if (uni.getStorageSync('landType')) {
             this.landType = Number(uni.getStorageSync('landType'));
           };
-          // if (uni.getStorageSync('browserType') === 'WX') {
-          //   this.browserType = 'WX';
-          // } else if (uni.getStorageSync('browserType') === 'FWX') {
-          //   this.browserType = 'FWX';
-          // }
+          if (uni.getStorageSync('browserType') === 'WX') {
+            this.browserType = 'WX';
+          } else if (uni.getStorageSync('browserType') === 'FWX') {
+            this.browserType = 'FWX';
+          }
         },
         mounted () {
           console.log(this.api2, '全局数据');
@@ -166,6 +78,88 @@
           //   setLoadingShow: 'setLoadingShow',
           //   setLoadingText: 'setLoadingText'
           // }),
+		  clickMpLand () {
+			uni.showLoading({ // 展示loading
+				title: '登陆中···'
+			});  
+			console.log('触发小程序登录');
+			// #ifdef MP-WEIXIN
+				this.mpWxLand();
+			// #endif
+			// #ifdef MP-TOUTIAO
+				this.mpTtLand();
+			// #endif
+			// #ifdef  MP-BAIDU
+				this.mpBdLand();
+			// #endif
+			// #ifdef MP-ALIPAY
+				this.mpApLand();
+			// #endif
+		  },
+		  mpWxLand () {
+			console.log('微信小程序登录');
+			let _this = this;
+			uni.login({
+			  provider: 'weixin',
+			  success: function (loginRes) {
+				console.log(loginRes, '微信返回的code');
+				uni.getUserInfo({
+					provider: 'weixin',
+					success: function (loginRes) {
+						console.log(loginRes);
+					}
+				})
+				// let params = { // 登录参数
+				// 	code: loginRes.code
+				// };
+				// uni.request({
+				//   	url: _this.api2 + '/wechat/portal/wxMiniLogin', //接口地址。
+				//   	data: params,
+				//   	method: 'POST',
+				//   	header: {},
+				//   	success: (response) => {
+				//   		console.log(response.data);
+				//   	},
+				//   	fail: (error) => {
+				//   		uni.hideLoading(); // 隐藏 loading
+				//   		uni.showToast({
+				//   			title: '网络繁忙，请稍后',
+				//   			icon: 'none',
+				//   			duration: 1000
+				//   		});
+				//   		console.log(error, '网络繁忙，请稍后');
+				//   	}
+				// });
+			  }
+			});  
+		  },
+		  mpTtLand () {
+		  	console.log('头条小程序登录');
+		  	uni.login({
+		  	  provider: 'toutiao',
+		  	  success: function (loginRes) {
+		  		console.log(loginRes.authResult);
+		  	  }
+		  	});		  
+		  },
+		  mpBdLand () {
+		  	console.log('百度小程序登录');
+		  	uni.login({
+		  	  provider: 'baidu',
+		  	  success: function (loginRes) {
+		  		console.log(loginRes.authResult);
+		  	  }
+		  	});		  
+		  },
+		  mpApLand () {
+		  	console.log('支付宝小程序登录');
+		  	uni.login({
+		  	  provider: 'alipay',
+		  	  success: function (loginRes) {
+		  		console.log(loginRes.authResult);
+		  	  }
+		  	});		  
+		  },
           sendMessage () {
             let phone = this.phoneLand.phone;
             if (phone === '') { // 校验手机号不能为空
@@ -263,7 +257,7 @@
           clickForgetPassWord () {
             console.log('触发忘记密码按钮');
             uni.navigateTo({
-				url: '/pages/mbc/template/landRegistration/forgetPassWord'
+				url: '/pages/mbc/template/landRegistration/h5/forgetPassWord'
 			});
           },
           clickLand () {
@@ -694,9 +688,10 @@
     margin-top: 6vw;
     margin: auto;
   }
-  .top-PWLR>img{
+  .top-PWLR>image{
     position: relative;
     width: 100%;
+	height: 84upx;
   }
   .landBtn{
     position: relative;
@@ -708,6 +703,7 @@
     width: 100%;
     height: 12vw;
     margin-bottom: 6vw;
+	margin-top: 30vw;
   }
   .land-btn-box>p{
     font-family: PingFangSC-Regular;

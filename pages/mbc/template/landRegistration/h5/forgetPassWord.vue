@@ -24,7 +24,7 @@
           ></wInput>
               </view>
               <view class="ma-right-PLR left">
-                <view v-bind:class="{ yazm: isOvertime , 're-yazm': !isOvertime }" type="primary" action-type="button" mini @click="sendMessage">{{word}}</view>
+                <view v-bind:class="{ yazm: isOvertime , 're-yazm': !isOvertime }" type="primary" action-type="button" mini @tap="sendMessage">{{word}}</view>
               </view>
               <view class="clear"></view>
               <view class="line"></view>
@@ -51,7 +51,7 @@
         <view class="landBtn">
           <view class="">
             <!--登录-->
-            <view class="land-btn-box" @click="clickSubmit">
+            <view class="land-btn-box" @tap="clickSubmit">
               <p class="">提交</p>
             </view>
         </view>
@@ -62,7 +62,7 @@
 </template>
 
 <script>
-	import wInput from './../../../../components/watch-login/watch-input.vue';
+	import wInput from './../../../../../components/watch-login/watch-input.vue';
   export default {
     name: 'forgetPassWord',
     components: {
@@ -299,7 +299,7 @@
 										console.log('清空用户信息');
 										setTimeout(() => {
 											uni.navigateTo({
-												url: '/pages/mbc/template/landRegistration/landRegistration'
+												url: '/pages/mbc/template/landRegistration/h5/landRegistration'
 											});
 										}, 1000);
 									} else {

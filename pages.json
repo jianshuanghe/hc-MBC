@@ -8,17 +8,26 @@
 				"app-plus": {}
 			}
 		},
+		// h5
 		{
-			"path": "pages/mbc/template/landRegistration/landRegistration",
+			"path": "pages/mbc/template/landRegistration/h5/landRegistration",
 			"style": {
 				"navigationBarTitleText": "登录注册",
 				"app-plus": {}
 			}
 		},
 		{
-			"path": "pages/mbc/template/landRegistration/forgetPassWord",
+			"path": "pages/mbc/template/landRegistration/h5/forgetPassWord",
 			"style": {
 				"navigationBarTitleText": "忘记密码",
+				"app-plus": {}
+			}
+		},
+		// mp|| 微信小程序 支付宝小程序 百度小程序 头条小程序
+		{
+			"path": "pages/mbc/template/landRegistration/mp/landRegistration",
+			"style": {
+				"navigationBarTitleText": "登录",
 				"app-plus": {}
 			}
 		}
