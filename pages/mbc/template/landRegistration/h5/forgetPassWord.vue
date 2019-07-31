@@ -4,14 +4,18 @@
       <view class="phone-passWord-LR">
         <!--手机号登录-->
         <view class="phonw-LR">
+			<view class="top-PLR1">
+				<p class="">找回密码</p>
+				<view class="line"></view>
+			</view>
           <view class="LR-cont">
             <view class="inputPhone-PLR">
-        <wInput
-          v-model="phone"
-          type="number"
-          maxlength="11"
-          placeholder="请输入手机号码"
-        ></wInput>
+				<wInput
+				  v-model="phone"
+				  type="number"
+				  maxlength="11"
+				  placeholder="请输入手机号码"
+				></wInput>
               <view class="line"></view>
             </view>
             <view class="inputYan-PLR">

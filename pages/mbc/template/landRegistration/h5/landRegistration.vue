@@ -253,12 +253,12 @@
           clickPassWordLand () {
             console.log('触发账号密码登录按钮');
             this.landType = 2;
-            localStorage.setItem('landType', this.landType); // 缓存登录方式
+            uni.setStorageSync('landType', this.landType); // 缓存登录方式
           },
           clickPhoneLand () {
             console.log('触发手机号登录按钮');
             this.landType = 1;
-            localStorage.setItem('landType', this.landType); // 缓存登录方式
+            uni.setStorageSync('landType', this.landType); // 缓存登录方式
           },
           clickForgetPassWord () {
             console.log('触发忘记密码按钮');
@@ -459,7 +459,7 @@
 					console.log(response.data);
 					if (String(response.data.code) === '200') {
 					  let UserData = response.data.content;
-					  localStorage.setItem('UserData', JSON.stringify(UserData)); // 缓存用户信息
+					  uni.setStorageSync('UserData', JSON.stringify(UserData)); // 缓存用户信息
 					  if (this.password === '' || this.password === null || this.password === undefined) { // 查询没有密码，去设置密码
 					    this.setPassWorld = true; // 设置密码显示
 					  } else { // 查询存在密码 返回登录

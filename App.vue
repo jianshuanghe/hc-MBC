@@ -38,33 +38,33 @@
 		onShow: function() {
 			console.log('App Show');
 			// #ifdef H5
-			this.isWeiXin(); // h5 判断是否为微信浏览器
-			console.log('h5');
-			if (!uni.getStorageSync('landRegist')) { // 用户没有登录 跳转去登陆 每次应用打开都要取判断
-			  uni.reLaunch({
-			  	url: '/pages/mbc/template/landRegistration/h5/landRegistration'
-			  });
-			}
+				this.isWeiXin(); // h5 判断是否为微信浏览器
+				console.log('h5');
+				if (!uni.getStorageSync('landRegist')) { // 用户没有登录 跳转去登陆 每次应用打开都要取判断
+				  uni.reLaunch({
+					url: '/pages/mbc/template/landRegistration/h5/landRegistration'
+				  });
+				}
 			// #endif
 			// #ifdef MP-WEIXIN || MP-TOUTIAO || MP-BAIDU || MP-ALIPAY
-			console.log('小程序');
-			// #ifdef MP-WEIXIN
-				console.log('微信小程序');
-			// #endif
-			// #ifdef MP-TOUTIAO
-				console.log('头条小程序');
-			// #endif
-			// #ifdef  MP-BAIDU
-				console.log('百度小程序');
-			// #endif
-			// #ifdef MP-ALIPAY
-				console.log('支付宝小程序');
-			// #endif
-			if (!uni.getStorageSync('landRegist')) { // 用户没有登录 跳转去登陆 每次应用打开都要取判断
-			  uni.reLaunch({
-			  	url: '/pages/mbc/template/landRegistration/mp/landRegistration'
-			  });
-			}
+				console.log('小程序');
+				// #ifdef MP-WEIXIN
+					console.log('微信小程序');
+				// #endif
+				// #ifdef MP-TOUTIAO
+					console.log('头条小程序');
+				// #endif
+				// #ifdef  MP-BAIDU
+					console.log('百度小程序');
+				// #endif
+				// #ifdef MP-ALIPAY
+					console.log('支付宝小程序');
+				// #endif
+				if (!uni.getStorageSync('landRegist')) { // 用户没有登录 跳转去登陆 每次应用打开都要取判断
+				  uni.reLaunch({
+					url: '/pages/mbc/template/landRegistration/mp/landRegistration'
+				  });
+				}
 			// #endif
 			
 		},
@@ -116,4 +116,7 @@
 		height: 330upx !important;
 	}
     /* #endif*/
+	.uni-app {
+		overflow: hidden !important;
+	}
 </style>

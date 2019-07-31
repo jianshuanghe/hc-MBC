@@ -17,6 +17,10 @@ Vue.prototype.endParams = endParams
 
 Vue.prototype.isWeiXin = isWeiXin
 
+Vue.prototype.APPID = 'wxfe5497e8a3f7578a'
+Vue.prototype.SECRET = 'e7de9721ba154902733fa00ce2aa6641'
+Vue.prototype.WX_AUTH_URL = 'https://api.weixin.qq.com/sns/jscode2session'
+
 Vue.prototype.$backgroundAudioData = {
 	playing: false,
 	playTime: 0,

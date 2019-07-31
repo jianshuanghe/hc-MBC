@@ -4,6 +4,9 @@
 		{
 			"path": "pages/mbc/home",
 			"style": {
+				// #ifdef H5
+					"navigationStyle":"custom",
+				// #endif
 				"navigationBarTitleText": "陌拜资本",
 				"app-plus": {}
 			}
@@ -12,15 +15,13 @@
 		{
 			"path": "pages/mbc/template/landRegistration/h5/landRegistration",
 			"style": {
-				"navigationBarTitleText": "登录注册",
-				"app-plus": {}
+				"navigationStyle":"custom"
 			}
 		},
 		{
 			"path": "pages/mbc/template/landRegistration/h5/forgetPassWord",
 			"style": {
-				"navigationBarTitleText": "忘记密码",
-				"app-plus": {}
+				"navigationStyle":"custom"
 			}
 		},
 		// mp|| 微信小程序 支付宝小程序 百度小程序 头条小程序
@@ -93,7 +94,7 @@
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "Hello uniapp",
+		"navigationBarTitleText": "陌拜资本",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8",
 		"backgroundColorTop": "#F4F5F6",
