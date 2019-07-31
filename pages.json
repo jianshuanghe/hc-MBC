@@ -38,8 +38,10 @@
 			"pages": [{
 				"path": "homeList/homeList",
 				"style": {
+					// #ifdef H5
+						"navigationStyle":"custom",
+					// #endif
 					"navigationBarTitleText": "首页",
-					"navigationStyle": "custom",
 					"enablePullDownRefresh": true,
 					"app-plus": {
 						"titleNView": false,

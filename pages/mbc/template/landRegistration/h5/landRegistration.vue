@@ -405,7 +405,7 @@
               passWord: this.passWordLand.passWord
             };
 			uni.request({
-				url: this.api2 + '/rest-rp/mbUser/login', //接口地址。
+				url: this.api2 + '/user/login', //接口地址。
 				data:  params,
 				method: 'POST',
 				header: {
@@ -532,7 +532,7 @@
 			  	},
 			  	success: (response) => {
 			  		console.log(response.data);
-			  		if (String(response.data.ret) === '200') {
+			  		if (String(response.data.code) === '200') {
 			  		  uni.hideLoading(); // 隐藏 loading
 			  		  uni.showToast({
 			  		  	title: '登陆成功！',
@@ -580,7 +580,7 @@
             console.log('触发微信登录');
             let UUID = this.generateUUID(); // 用户唯一ID
 			uni.setStorageSync('UUID', UUID);
-            window.location.href = this.api2 + '/rest-rp/mbUser/goWxLogin?uuid=' + UUID;
+            window.location.href = this.api2 + '/wechat/portal/goWxLogin?uuid=' + UUID;
           },
           generateUUID () { // 生成用户唯一ID
             var d = new Date().getTime();

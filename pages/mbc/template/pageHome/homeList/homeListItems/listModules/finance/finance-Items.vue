@@ -1,5 +1,5 @@
 <template>
-	<view class="financeItems-content">
+	<view class="financeItems-content"  @click="goToFinanceDetail">
 		<view class="FI-content">
 			<view class="FI-top">
 				<view class="left FI-t-left">
@@ -112,6 +112,12 @@
 			};
 	    },
 	    methods: {
+			goToFinanceDetail (e){
+				console.log('去' + e + '详情页面');
+				uni.navigateTo({
+					url: '/modules/pageHome/homeList/homeList'
+				});
+			},
 			goToPutIn () {
 				console.log('点击触发发布项目');
 			},

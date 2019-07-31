@@ -84,6 +84,9 @@
 			console.log(home, '加载主页');
 		},
 		methods: {
+			...mapMutations({
+				setHome: 'setHome'
+			}),
 			tabBarItems (e) {
 				console.log(e, '触发tabbar按钮');
 				this.clickItems = e;
