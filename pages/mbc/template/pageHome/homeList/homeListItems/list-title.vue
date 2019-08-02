@@ -1,5 +1,5 @@
 <template>
-	<view class="listTitle">
+	<view class="listTitle" id="listTitle">
 		<div class="center-listTitle">
 			<div class="news-TBox left" @tap="clickListTitle(1)">
 			  <div :class="clickItemsIndex === 1 ? 'Tbox-items Tb-checked' : 'Tbox-items'">
@@ -25,6 +25,8 @@
 				clickItemsIndex: 1
 			};
 	    },
+		mounted(){
+		},
 	    methods: {
 			clickListTitle (e) {
 				this.clickItemsIndex = e;

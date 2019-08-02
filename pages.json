@@ -42,14 +42,18 @@
 						"navigationStyle":"custom",
 					// #endif
 					"navigationBarTitleText": "首页",
-					"enablePullDownRefresh": true,
 					"app-plus": {
-						"titleNView": false,
-						"bounce": "none",
-						"pullToRefresh": {
-							"style": "circle",
-							"offset": "70px"
-						}
+					}
+				}
+			},
+			{
+				"path": "searchDetile/searchDetile",
+				"style": {
+					// #ifdef H5
+						"navigationStyle":"custom",
+					// #endif
+					"navigationBarTitleText": "陌拜资本",
+					"app-plus": {
 					}
 				}
 			}]

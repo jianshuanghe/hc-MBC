@@ -1,5 +1,5 @@
 <template>
-	<view class="financeItems-content"  @click="goToFinanceDetail">
+	<view class="financeItems-content"  @tap="goToFinanceDetail">
 		<view class="FI-content">
 			<view class="FI-top">
 				<view class="left FI-t-left">
@@ -22,6 +22,9 @@
 			</view>
 			<view class="FI-modules">
 				<text class="modules-items-FI left">顺为资本完成天使轮融资2000万</text>
+			</view>
+			<view class="FI-insCd">
+				<view class="FI-C-text">我需要寻找投资相关的服务我需要寻找投资相我需要寻找投资相关的服务我需要寻找投资相我需要寻找资…</view>
 			</view>
 			<view class="FI-cont">
 				<image :src="fiImg"></image>
@@ -233,6 +236,22 @@
 		letter-spacing: 0;
 		line-height: 24upx;
 		padding: 4upx 8upx;
+	}
+	.FI-insCd{
+		position: relative;
+		width: 100%;
+		margin: 20upx 0 20upx 0;
+		height: 72upx;
+	}
+	.FI-C-text{
+		font-family: PingFangSC-Regular;
+		font-size: 24upx;
+		color: #5D5D5D;
+		line-height: 16px;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 2;
+		overflow: hidden;
 	}
 	.FI-bot{
 		position: relative;

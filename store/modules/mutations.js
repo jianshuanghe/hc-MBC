@@ -1,5 +1,5 @@
 /**
- * Created by 菅双鹤 on 2019/07/25.
+ * Created by 菅双�on 2019/07/25.
  */
 
 const mutations = {
@@ -15,5 +15,9 @@ const mutations = {
     console.log(info, 'setHome');
     state.home.tabItems = info;
   },
+  setFinanceListData (state, info) {
+    console.log(info, 'setFinanceListData');
+    state.home.HomeList.finance.listData = info;
+  }
 };
 export default mutations;

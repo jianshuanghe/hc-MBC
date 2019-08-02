@@ -4,8 +4,8 @@
 			<view class="search-NI-img left">
 				<image :src='search'></image>
 			</view>
-			<view class="search-NI-text left" @tab="clickSearch">
-				<input type="text" class="left inputSearch" placeholder="请输入您的关键词，如：项目、机构、活动等" />
+			<view class="search-NI-text left" @tap="clickSearch">
+				<input type="text" class="left inputSearch" disabled=true placeholder="请输入您的关键词，如：项目、机构、活动等" />
 			</view>
 			<view class="clear"></view>
 		</view>
@@ -24,10 +24,9 @@
         methods: {
           clickSearch () {
             console.log('点击触发搜索组件');
-            // this.$router.push({
-            //   path: '/searchDetile',
-            //   query: {}
-            // });
+			uni.navigateTo({
+				url: '/modules/pageHome/searchDetile/searchDetile'
+			});
           }
         }
     };
@@ -35,9 +34,12 @@
 
 <style>
 .homeSerach{
-  position: relative;
-  width: 100%;
-  margin-top: 30upx;
+	position: fixed;
+    width: 100%;
+    padding: 30upx 0 20upx 0;
+    z-index: 100;
+    top: 0;
+    background: #F4F5F6;
 }
 .search_box-No{
   position: relative;

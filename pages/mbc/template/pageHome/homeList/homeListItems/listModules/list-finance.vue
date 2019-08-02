@@ -1,7 +1,12 @@
 
 <template>
 	<view class="listFinance">
-		<financeItems @click="goToFinanceDetail"></financeItems>
+		<financeItems></financeItems>
+		<financeItems></financeItems>
+		<financeItems></financeItems>
+		<financeItems></financeItems>
+		<financeItems></financeItems>
+		<financeItems></financeItems>
 	</view>
 </template>
 

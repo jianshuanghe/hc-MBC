@@ -5,19 +5,22 @@
 		<!-- 列表 精品在融项目 -->
 		<listFinance></listFinance>
 		<!-- 列表 活跃投资机构 -->
+		<listInvest v-if='false'></listInvest>
 	</view>
 </template>
 
 <script>
 	import listTitle from "./homeListItems/list-title.vue";
 	import listFinance from "./homeListItems/listModules/list-finance.vue";
+	import listInvest from "./homeListItems/listModules/list-invest.vue";
 	export default {
 	    data () {
 			return {};
 	    },
 		components: {
 			listTitle,
-			listFinance
+			listFinance,
+			listInvest
 		},
 	    methods: {
 			goToPutIn () {
