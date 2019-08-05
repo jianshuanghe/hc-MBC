@@ -1,38 +1,41 @@
 <template>
-	<view class="financeItems-content"  @click="goToFinanceDetail">
+	<view class="financeItems-content"  @tap="goToFinanceDetail">
 		<view class="FI-content">
 			<view class="FI-top">
 				<view class="left FI-t-left">
-					<image :src="fiImg"></image>
+					<image :src="msgData.projLogo"></image>
 				</view>
 				<view class="left FI-t-cont">
 					<view class="FI-t-title">
-						<text class="title">如何秀</text>
+						<text class="title">{{msgData.projName}}</text>
 						<text class="inst">营销平台</text>
 					</view>
-					<view class="FI-t-ins">移动智能说明书平台</view>
+					<view class="FI-t-ins">{{msgData.projSlogan}}</view>
 				</view>
 				<view class="right FI-t-right">
 					<view class="FI-t-money">
-						￥<text class="money">500</text>万
+						￥<text class="money">{{msgData.finanMoney}}</text>万
 					</view>
-					<view class="FI-t-ins2">融资轮次：A轮</view>
+					<view class="FI-t-ins2">{{msgData.finanLevelCode}}</view>
 				</view>
 				<view class="clear"></view>
 			</view>
 			<view class="FI-modules">
 				<text class="modules-items-FI left">顺为资本完成天使轮融资2000万</text>
 			</view>
-			<view class="FI-cont">
-				<image :src="fiImg"></image>
+			<view class="FI-insCd">
+				<view class="FI-C-text">我需要寻找投资相关的服务我需要寻找投资相我需要寻找投资相关的服务我需要寻找投资相我需要寻找资…</view>
+			</view>
+			<view class="FI-cont" v-if="msgData.imgs.length === 1">
+				<image :src="msgData.imgs[0].imgName"></image>
 			</view>
 			<view class="FI-bot">
 				<view class="FI-address left">
 					<view class="icon-img left">
 						<image :src="address"></image>
 					</view>
-					<view class="icon-text left">
-						<p class="">北京</p>
+					<view class="icon-text1 left">
+						<p class="">{{msgData.pcode}}</p>
 					</view>
 					<view class="clear"></view>
 				</view>
@@ -43,7 +46,7 @@
 								<image :src="find"></image>
 							</view>
 							<view class="icon-text left">
-								<p class="">268</p>
+								<p class="">{{msgData.infoCount}}</p>
 							</view>
 							<view class="clear"></view>
 						</view>
@@ -54,7 +57,7 @@
 								<image :src="doc"></image>
 							</view>
 							<view class="icon-text left">
-								<p class="">268</p>
+								<p class="">{{msgData.infoCount}}</p>
 							</view>
 							<view class="clear"></view>
 						</view>
@@ -65,7 +68,7 @@
 								<image :src="like"></image>
 							</view>
 							<view class="icon-text left">
-								<p class="">268</p>
+								<p class="">{{msgData.likeCount}}</p>
 							</view>
 							<view class="clear"></view>
 						</view>
@@ -76,7 +79,7 @@
 								<image :src="love"></image>
 							</view>
 							<view class="icon-text left">
-								<p class="">268</p>
+								<p class="">{{msgData.followCount}}</p>
 							</view>
 							<view class="clear"></view>
 						</view>
@@ -111,6 +114,17 @@
 				love: love // 收藏
 			};
 	    },
+		props: {
+			msgData: {
+				type: Object
+			}
+		},
+		created() {
+			console.log(this.msgData, '子组件获取的数据');
+		},
+		mounted() {
+			
+		},
 	    methods: {
 			goToFinanceDetail (e){
 				console.log('去' + e + '详情页面');
@@ -234,6 +248,22 @@
 		line-height: 24upx;
 		padding: 4upx 8upx;
 	}
+	.FI-insCd{
+		position: relative;
+		width: 100%;
+		margin: 20upx 0 20upx 0;
+		height: 72upx;
+	}
+	.FI-C-text{
+		font-family: PingFangSC-Regular;
+		font-size: 24upx;
+		color: #5D5D5D;
+		line-height: 16px;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 2;
+		overflow: hidden;
+	}
 	.FI-bot{
 		position: relative;
 		width: 100%;
@@ -246,12 +276,13 @@
 	}
 	.FI-address .icon-img{
 		position: relative;
-		width: 30%;
+		width: 18%;
 	}
 	.FI-address .icon-img>image{
 		position: relative;
 		width: 30upx;
-		height: 36upx;
+		height: 32upx;
+		margin-top: 4upx;
 		text-align: left;
 		float: left;
 	}
@@ -273,7 +304,8 @@
 	  }
 	.list-item{
 		position: relative;
-		width: 100%;
+		/* width: 100%; */
+		float: right;
 	}
 	.icon-img{
 		position: relative;
@@ -287,9 +319,22 @@
 	}
 	.icon-text{
 		position: relative;
-		width: 40%;
+		max-width: 40%;
+		width: 20upx;
 	}
 	.icon-text>p{
+		position: relative;
+		width: 100%;
+		font-size: 22upx;
+		color: #9B9B9B;
+		line-height: 36upx;
+		text-align: right;
+	}
+	.icon-text1{
+		position: relative;
+		width: 40%;
+	}
+	.icon-text1>p{
 		position: relative;
 		width: 100%;
 		font-size: 22upx;

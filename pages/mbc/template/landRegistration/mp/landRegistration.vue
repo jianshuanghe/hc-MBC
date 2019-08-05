@@ -17,7 +17,8 @@
             </vie -->
 			<!-- <button open-type='getUserInfo' bindgetuserinfo="bindGetUserInfo" class="land-btn-box">登录</button> -->
 			<!-- #ifdef MP-WEIXIN -->  
-			<button  open-type="getUserInfo" withCredentials="true" lang="zh_CN" @getuserinfo="getPhoneNumber" class="land-btn-box">登录</button> 
+			<button  open-type="getUserInfo" withCredentials="true" lang="zh_CN" @getuserinfo="getPhoneNumber" class="land-btn-box" v-if="phoneIsGet">登录</button> 
+			<button  open-type="getPhoneNumber" withCredentials="true" lang="zh_CN" @getphonenumber="getPhoneNumber" class="land-btn-box" v-else>注册</button> 
 			<!-- #endif -->  
           </view>
         </view>
@@ -35,7 +36,8 @@
         },
         data () {
           return {
-            logo: logo
+            logo: logo,
+			phoneIsGet: true // 判断用户是否再平台注册过，默认是注册过，如果没有注册需要获取用户手机号
           };
         },
         created () {
@@ -120,6 +122,14 @@
 											};
 											uni.setStorageSync('landRegist', JSON.stringify(landRegist));// 缓存用户登录信息
 											_this.getUserData();
+										} else if (String(response.data.code) === '400') {
+											uni.hideLoading(); // 隐藏 loading
+											_this.phoneIsGet = false; // 显示获取手机号
+											uni.showToast({
+												title: '请同意获取手机号注册，再登录！',
+												icon: 'none',
+												duration: 500
+											});
 										} else {
 											uni.hideLoading(); // 隐藏 loading
 											uni.showToast({

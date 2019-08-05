@@ -3,21 +3,47 @@
 		<!-- 标题 -->
 		<listTitle></listTitle>
 		<!-- 列表 精品在融项目 -->
-		<listFinance></listFinance>
+		<view :class="GET_HOME.HomeList.titleIndex === 1 ? 'show' : 'hide'">
+			<listFinance></listFinance>
+		</view>
 		<!-- 列表 活跃投资机构 -->
+		<view :class="GET_HOME.HomeList.titleIndex === 2 ? 'show' : 'hide'">
+			<listInvest></listInvest>
+		</view>
+		
 	</view>
 </template>
 
 <script>
 	import listTitle from "./homeListItems/list-title.vue";
 	import listFinance from "./homeListItems/listModules/list-finance.vue";
+	import listInvest from "./homeListItems/listModules/list-invest.vue";
+	import { mapMutations, mapGetters } from 'vuex';
 	export default {
 	    data () {
-			return {};
+			return {
+				clickItemsIndex: 1
+			};
 	    },
 		components: {
 			listTitle,
-			listFinance
+			listFinance,
+			listInvest
+		},
+		computed: {
+			...mapGetters(['GET_HOME'])
+		},
+		watch: {
+		  GET_HOME: {
+		    handler (a, b) {
+		      this.clickItemsIndex = a.HomeList.titleIndex; // 切换的title
+			  console.log(this.clickItemsIndex, '切换的数据');
+		    },
+		    deep: true
+		  }
+		},
+		created() {
+			console.log(this.clickItemsIndex, 'this.clickItemsIndex切换的title');
 		},
 	    methods: {
 			goToPutIn () {
@@ -37,7 +63,7 @@
 		margin-top: 20upx;
 		padding: 10upx 30upx 10upx 30upx;
 		background: #fff;
-		margin-bottom: 200upx;
+		margin-bottom: 2upx;
 	}
 	.newsTitle-box{
     position: relative;

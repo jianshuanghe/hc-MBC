@@ -1,5 +1,5 @@
 <template>
-	<view class="listTitle">
+	<view class="listTitle" id="listTitle">
 		<div class="center-listTitle">
 			<div class="news-TBox left" @tap="clickListTitle(1)">
 			  <div :class="clickItemsIndex === 1 ? 'Tbox-items Tb-checked' : 'Tbox-items'">
@@ -19,16 +19,23 @@
 </template>
 
 <script>
+	import { mapMutations } from 'vuex';
 	export default {
 	    data () {
 			return {
 				clickItemsIndex: 1
 			};
 	    },
+		mounted(){
+		},
 	    methods: {
+			...mapMutations({
+				setHomeListTitleIndex: 'setHomeListTitleIndex'
+			}),
 			clickListTitle (e) {
 				this.clickItemsIndex = e;
 				console.log(e, '切换精品在融项目和活跃投资机构类型');
+				this.$store.commit('setHomeListTitleIndex', this.clickItemsIndex); // 更新setHomeListTitleIndex
 			}
 	    }
 	};

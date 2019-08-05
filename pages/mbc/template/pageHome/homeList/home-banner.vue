@@ -49,6 +49,7 @@ export default {
 		margin-left: 40upx;
 		margin-top: 20upx;
 		border-radius: 10upx;
+		padding-top: 92upx;
 	}
 	.uni-swiper-wrapper{
 		border-radius: 10upx;
