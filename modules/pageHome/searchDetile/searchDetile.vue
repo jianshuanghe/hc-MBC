@@ -1,18 +1,23 @@
 <template>
-	<!-- 搜索框 -->
-	<serchBox></serchBox>
-	<!-- 搜索结果 -->
-	<!-- 搜索历史 -->
+	<view class="searchDetile-content">
+		<!-- 搜索框 -->
+		<serchBox></serchBox>
+		<!-- 搜索结果 -->
+		<rearchResule></rearchResule>
+		<!-- 搜索历史 -->
+	</view>
 </template>
 
 <script>
 	import serchBox from "./searchModules/serch-Box.vue";
+	import rearchResule from "./searchModules/search-Resule.vue";
 	export default {
 		data() {
 			return {};
 		},
 		components: {
-			serchBox
+			serchBox,
+			rearchResule
 		},
 		computed: {
 		},
@@ -27,4 +32,7 @@
 </script>
 
 <style>
+	.searchDetile-content{
+		min-height: 1334upx;
+	}
 </style>

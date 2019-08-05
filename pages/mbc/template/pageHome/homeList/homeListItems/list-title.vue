@@ -19,6 +19,7 @@
 </template>
 
 <script>
+	import { mapMutations } from 'vuex';
 	export default {
 	    data () {
 			return {
@@ -28,9 +29,13 @@
 		mounted(){
 		},
 	    methods: {
+			...mapMutations({
+				setHomeListTitleIndex: 'setHomeListTitleIndex'
+			}),
 			clickListTitle (e) {
 				this.clickItemsIndex = e;
 				console.log(e, '切换精品在融项目和活跃投资机构类型');
+				this.$store.commit('setHomeListTitleIndex', this.clickItemsIndex); // 更新setHomeListTitleIndex
 			}
 	    }
 	};

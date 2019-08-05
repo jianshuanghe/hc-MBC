@@ -326,3 +326,16 @@ p{
   background: rgba(14, 14, 14, 0.12);
   top: 0;
 }
+.show{
+	display: block;
+}
+.hide{
+	display: none;
+}
+.resule-modules-num{
+	font-family: PingFang-SC-Medium;
+	font-size: 24upx;
+	color: #5D5D5D;
+	line-height: 40upx;
+}
+	

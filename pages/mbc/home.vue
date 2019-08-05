@@ -3,15 +3,25 @@
 		<!-- 组件模块 -->
 		<view class="homeTemplate">
 			<!-- 首页 -->
-			<pageHome v-if="GET_HOME.tabItems === 1"></pageHome>
+			<view :class="GET_HOME.tabItems === 1 ? 'show' : 'hide'">
+				<pageHome></pageHome>
+			</view>
 			<!-- 发现 -->
-			<pageFind v-if="GET_HOME.tabItems === 2"></pageFind>
+			<view :class="GET_HOME.tabItems === 2 ? 'show' : 'hide'">
+				<pageFind></pageFind>
+			</view>
 			<!-- 消息 -->
-			<pageNews v-if="GET_HOME.tabItems === 3"></pageNews>
+			<view :class="GET_HOME.tabItems === 3 ? 'show' : 'hide'">
+				<pageNews></pageNews>
+			</view>
 			<!-- 我的 -->
-			<pageMy v-if="GET_HOME.tabItems === 4"></pageMy>
+			<view :class="GET_HOME.tabItems === 4 ? 'show' : 'hide'">
+				<pageMy></pageMy>
+			</view>
 			<!-- 发布 -->
-			<pagePublish v-if="GET_HOME.tabItems === 5"></pagePublish>
+			<view :class="GET_HOME.tabItems === 5 ? 'show' : 'hide'">
+				<pagePublish></pagePublish>
+			</view>
 		</view>
 		<!-- tab切换组件 -->
 		<view class="homeTabBar">

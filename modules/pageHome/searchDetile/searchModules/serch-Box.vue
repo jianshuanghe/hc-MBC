@@ -85,8 +85,10 @@
 			onCancel () {
 				console.log('on cancel');
 				this.searchText = '';
-				uni.navigateTo({
-					url: '/pages/mbc/home'
+				uni.navigateBack({
+					delta: 1,
+					animationType: 'pop-out',
+					animationDuration: 200
 				});
 			}
 	    }
@@ -100,7 +102,7 @@
 		padding: 30upx 0 20upx 0;
 		z-index: 100;
 		top: 0;
-		background: #F4F5F6;
+		background:#FFFFFF;;
 	}
 	.serchBox{
 		position: relative;
@@ -129,7 +131,7 @@
 	.search_box{
 	  position: relative;
 	  width: 596upx;
-	  background: #Fff;
+	  background: #F6F6F6;
 	  border-radius: 30upx;
 	  height: 60upx;
 	}

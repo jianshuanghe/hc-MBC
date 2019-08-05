@@ -1,5 +1,5 @@
 function pageNums (str) {
-	return Math.ceil(cont / 8);
+	return Math.ceil(str / 8);
 }
 
 export {pageNums};

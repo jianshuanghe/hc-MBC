@@ -14,26 +14,11 @@
               投资人
             </view>
             <view class="mbc">
-              <view class="left mbc-text">{{msgData.comp || '无'}}</view>
-              <view class="IIline-Y left"></view>
-              <view class="left mbc-text">{{msgData.position || '无'}}</view>
-              <view class="clear"></view>
+              <view class="mbc-text">在线教育付费平台</view>
             </view>
           </view>
         </view>
-        <view class="right II-user-address">
-          <view class="adderss">
-            <text v-if="msgData.city">中国·{{msgData.city}}</text>
-			<text v-if="!msgData.city">中国</text>
-          </view>
-        </view>
         <view class="clear"></view>
-      </view>
-      <view class="II-bot">
-        <view class="II-mod" >
-          <view class="mod-items left" v-for="(items,index) in msgData.field" :key="index">{{items}}</view>
-          <view class="clear"></view>
-        </view>
       </view>
     </view>
     <view class="line"></view>
@@ -45,13 +30,34 @@
 	export default {
 	    data () {
 			return {
-				iiImg: iiImg
+				iiImg: iiImg,
+				msgData:{
+					"ccode":"",
+					"city":"北京",
+					"comp":"公司名称",
+					"compName":"",
+					"field":[
+						"环保",
+						"金融",
+						"生活服务"
+					],
+					"fields":"",
+					"headImg":"https://img01.iambuyer.com/imgup/upload/images/2019/05/31/NbleKsQMxfHMRukd0zYiYUZs2d6uwC0F6TJgjrazgGb7n0HpekYAa3dTUY6H9GWy.png",
+					"leves":"",
+					"mechId":"",
+					"pCode":"110000",
+					"position":"职位",
+					"userCard":"",
+					"userContent":"",
+					"userId":760,
+					"userName":"用户名",
+					"userProj":"",
+					"userType":"1",
+					"wxCode":""
+				}
 			};
 	    },
 		props: {
-			msgData: {
-				type: Object
-			}
 		},
 	    methods: {
 			goToFinanceDetail (e){
@@ -76,6 +82,7 @@
 		width: 690upx;
 		margin-top: 26upx;
 		background: #fff;
+		margin: auto;
 	}
 	.II-content{
 		position: relative;
@@ -117,6 +124,7 @@
 		color: #2E2E30;
 		letter-spacing: 0;
 		line-height: 40upx;
+		font-weight: bold;
 	}
 	.II-insr .mbc{
 		font-family: PingFangSC-Regular;
@@ -127,7 +135,7 @@
 	.II-insr .mbc .mbc-text{
 		font-family: PingFangSC-Regular;
 		font-size: 24upx;
-		color: #5D5D5D;
+		color: #9B9B9B;
 		line-height: 48upx;
 	}
 	.IIline-Y{

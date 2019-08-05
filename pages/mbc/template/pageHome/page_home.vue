@@ -4,16 +4,21 @@
 		<homeSearch></homeSearch>
 		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
 		@scroll="scroll">
-			<!-- banner -->
-			<homeBanner></homeBanner>
-			<!-- 融头条 -->
-			<homeTt></homeTt>
-			<!-- 发布项目、寻找资本 -->
-			<homePutInSeek></homePutInSeek>
-			<!-- 服务模块 -->
-			<homeModules></homeModules>
-			<!-- 列表 -->
-			<homeList></homeList>
+			<view class="scrollContent">
+								<!-- banner -->
+				<homeBanner></homeBanner>
+				<!-- 融头条 -->
+				<homeTt></homeTt>
+				<!-- 发布项目、寻找资本 -->
+				<homePutInSeek></homePutInSeek>
+				<!-- 服务模块 -->
+				<homeModules></homeModules>
+				<!-- 列表 -->
+				<homeList></homeList>
+			</view>
+			<view class="loading-more">
+			    <text class="loading-more-text">{{loadingText}}</text>
+			</view>
 		</scroll-view>
 			
 	</view>
@@ -33,6 +38,42 @@ export default {
 			old: {
 				scrollTop: 0
 			},
+			loadingText: '加载更多...',
+			clickItemsIndex: 1,
+			HomeList:{
+				titleIndex: 1, // 切换的title
+				finance: {
+					loadingText: '加载更多...',
+					search: { // 搜索
+						searchText: '', // 搜索内容
+						isSearch: false, // 判断用户时候处于搜索状态
+						searchItemsNum: 0, // 搜索到数据的条数
+						pageNum: 0, // 总页数
+						searchCondition: {  // 分页属性
+							page: '1'
+						},
+						searchData: [], // search数据
+						searchHistoryData: [] // 搜索历史数据
+					},
+					listData: '' // 主页在融项目列表数据
+				},
+				invest: {
+					loadingText: '加载更多...',
+					search: { // 搜索
+						searchText: '', // 搜索内容
+						isSearch: false, // 判断用户时候处于搜索状态
+						searchItemsNum: 0, // 搜索到数据的条数
+						pageNum: 0, // 总页数
+						searchCondition: {  // 分页属性
+							page: '1'
+						},
+						searchData: [], // search数据
+						searchHistoryData: [] // 搜索历史数据
+					},
+					listData: '' // 主页投资机构列表数据
+				}
+			},
+			paramsList: {}, // 切换title，数显数据函数的参数
 			searchCondition: {  // 分页属性
               page: '1',
               name: ''
@@ -52,43 +93,94 @@ export default {
 	computed: {
 		...mapGetters(['GET_HOME'])
 	},
+	watch: {
+		GET_HOME: {
+			handler (a, b) {
+				this.HomeList = a.HomeList; // 切换的title
+				if (this.HomeList.titleIndex === 2) {
+					this.paramsList = this.HomeList.invest; // 参数为投资机构 
+					this.loadingText = this.HomeList.invest.loadingText; // 底部加载提示显示
+				} else {
+					this.paramsList = this.HomeList.finance; // 参数为在融项目模块 
+					this.loadingText = this.HomeList.invest.loadingText; // 底部加载提示显示
+				}
+			},
+			deep: true
+		}
+	},
 	created() {
 		console.log('在组件中并不能使用页面生命周期函数');
-		this.getList();
+		this.getFinanceList(this.HomeList.finance); // 首页初始化时，默认显示在融项目，参数为在融项目模块
+		this.getInvestList(this.HomeList.invest);
 	},
 	mounted() {
 		
 	},
 	methods: {
 		...mapMutations({
-			setFinanceListData: 'setFinanceListData'
+			setFinance: 'setFinance',
+			setInvest: 'setInvest'
 		}),
 		upper: function(e) {
 			console.log(e)
 		},
 		loadMore: function() {
 			console.log('触发加载更多。。。');
-			 setTimeout(() => {
-			    this.getMoreList();
-			}, 500)
+			if(this.HomeList.titleIndex === 1){ // 在融项目
+				let pageNum = this.paramsList.search.pageNum;
+				let page = this.paramsList.search.searchCondition.page;
+				console.log(pageNum, '总页数');
+				console.log(pageNum, '当前页数');
+				if (page < pageNum) { // 当前页数小于总页数时上啦加载数据
+					setTimeout(() => {
+						this.getFinanceMoreList(this.paramsList);
+					}, 500)
+				} else {
+					this.loadingText = '已经没有数据了';
+					this.paramsList.loadingText = this.loadingText;
+					this.$store.commit('setFinance', this.paramsList); // 更新setFinance
+					uni.showToast({
+						title: '已经没有数据了！',
+						icon: 'none',
+						duration: 1000
+					});
+				}
+			} else if (this.HomeList.titleIndex === 2) {
+				let pageNum = this.paramsList.search.pageNum;
+				let page = this.paramsList.search.searchCondition.page;
+				console.log(pageNum, '总页数');
+				console.log(pageNum, '当前页数');
+				if (page < pageNum) { // 当前页数小于总页数时上啦加载数据
+					setTimeout(() => {
+						this.getInvestMoreList(this.paramsList);
+					}, 500)
+				} else {
+					this.loadingText = '已经没有数据了';
+					this.paramsList.loadingText = this.loadingText;
+					this.$store.commit('setInvest', this.paramsList); // 更新setInvest
+					uni.showToast({
+						title: '已经没有数据了！',
+						icon: 'none',
+						duration: 1000
+					});
+				}
+			}
+			 
 		},
 		scroll: function(e) {
 			console.log(e)
 			this.old.scrollTop = e.detail.scrollTop
 		},
-		goTop: function(e) {
+		goScrollTop: function(e) {
 			// 解决view层不同步的问题
-			this.scrollTop = this.old.scrollTop
+			this.scrollTop = this.old.scrollTop;
+			console.log(this.scrollTop - 5);
 			this.$nextTick(function() {
-				this.scrollTop = 0
+				this.scrollTop = Number(this.scrollTop - 5)
 			});
-			uni.showToast({
-				icon:"none",
-				title:"纵向滚动 scrollTop 值已被修改为 0"
-			})
 		},
-		getList(){
-			console.log('获取首页数据');
+		getFinanceList(e){
+			console.log(e, '数显数据函数的参数');
 			if (uni.getStorageSync('landRegist')) {
 			    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 			    console.log(landRegistLG.user.id);
@@ -105,10 +197,11 @@ export default {
 					},
 					success: (response) => {
 						console.log(response.data);
-						this.pageList = response.data.rows; // 第一页返回的数据
-						this.pageNum = this.this.pageNums(response.data.rows.total) // 总页数
+						e.listData = response.data.rows; // 第一页返回的数据
+						e.search.pageNum = this.pageNums(response.data.total) // 总页数
+						console.log(response.data.total, e.search.pageNum);
 						uni.hideLoading(); // 隐藏 loading
-						this.$store.commit('setFinanceListData', this.pageList); // 更新setFinanceListData
+						this.$store.commit('setFinance', e); // 更新setFinance
 					},
 					fail: (error) => {
 						uni.hideLoading(); // 隐藏 loading
@@ -122,8 +215,9 @@ export default {
 				});
 			}
 		},
-		getMoreList(){
-			this.searchCondition.page = String(parseInt(this.searchCondition.page) + 1);
+		getFinanceMoreList(e){
+			console.log(e, '数显数据函数的参数More');
+			e.search.searchCondition.page = String(parseInt(e.search.searchCondition.page) + 1);
 			if (uni.getStorageSync('landRegist')) {
 			    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 			    console.log(landRegistLG.user.id);
@@ -132,7 +226,7 @@ export default {
 					title: '加载中'
 				});
 				uni.request({
-					url: this.api2 + '/proj/list?page=' + this.searchCondition.page, //接口地址。
+					url: this.api2 + '/proj/list?page=' + e.search.searchCondition.page, //接口地址。
 					data: this.endParams(params),
 					method: 'POST',
 					header: {
@@ -140,10 +234,81 @@ export default {
 					},
 					success: (response) => {
 						console.log(response.data);
-						this.pageList = response.data.rows; // 第一页返回的数据
-						this.pageNum = this.this.pageNums(response.data.rows.total) // 总页数
+						e.listData = e.listData.concat(response.data.rows);
 						uni.hideLoading(); // 隐藏 loading
-						this.$store.commit('setFinanceListData', this.pageList); // 更新setFinanceListData
+						this.$store.commit('setFinance', e); // 更新setFinance
+						this.goScrollTop(); // 页面触底之后调取loadMore方法，为了让用户再次调用此方法，需要自動将scroll向上滚动一些位置，这样下次滑动才会触发loadMore方法，详细需要看API
+					},
+					fail: (error) => {
+						uni.hideLoading(); // 隐藏 loading
+						uni.showToast({
+							title: '网络繁忙，请稍后',
+							icon: 'none',
+							duration: 1000
+						});
+						console.log(error, '网络繁忙，请稍后');
+					}
+				});
+			}
+		},
+		getInvestList(e){
+			console.log(e, '数显数据函数的参数');
+			if (uni.getStorageSync('landRegist')) {
+			    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+			    console.log(landRegistLG.user.id);
+				let params = {}; // 请求总数居时 参数为空
+				uni.showLoading({ // 展示loading
+					title: '加载中'
+				});
+				uni.request({
+					url: this.api2 + '/inve/list?type=0&sortType=ID&area=&leves=&fields=&page=' + this.searchCondition.page, //接口地址。
+					data: this.endParams(params),
+					header: {
+						Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
+					},
+					success: (response) => {
+						console.log(response.data);
+						e.listData = response.data.rows; // 第一页返回的数据
+						e.search.pageNum = this.pageNums(response.data.total) // 总页数
+						console.log(response.data.total, e.search.pageNum);
+						uni.hideLoading(); // 隐藏 loading
+						this.$store.commit('setInvest', e); // 更新setInvest
+					},
+					fail: (error) => {
+						uni.hideLoading(); // 隐藏 loading
+						uni.showToast({
+							title: '网络繁忙，请稍后',
+							icon: 'none',
+							duration: 1000
+						});
+						console.log(error, '网络繁忙，请稍后');
+					}
+				});
+			}
+		},
+		getInvestMoreList(e){
+			console.log(e, '数显数据函数的参数More');
+			e.search.searchCondition.page = String(parseInt(e.search.searchCondition.page) + 1);
+			if (uni.getStorageSync('landRegist')) {
+			    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+			    console.log(landRegistLG.user.id);
+				let params = {}; // 请求总数居时 参数为空
+				uni.showLoading({ // 展示loading
+					title: '加载中'
+				});
+				uni.request({
+					url: this.api2 + '/inve/list?type=0&sortType=ID&area=&leves=&fields=&page=' + e.search.searchCondition.page, //接口地址。
+					data: this.endParams(params),
+					method: 'POST',
+					header: {
+						Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
+					},
+					success: (response) => {
+						console.log(response.data);
+						e.listData = e.listData.concat(response.data.rows);
+						uni.hideLoading(); // 隐藏 loading
+						this.$store.commit('setInvest', e); // 更新setInvest
+						this.goScrollTop(); // 页面触底之后调取loadMore方法，为了让用户再次调用此方法，需要自動将scroll向上滚动一些位置，这样下次滑动才会触发loadMore方法，详细需要看API
 					},
 					fail: (error) => {
 						uni.hideLoading(); // 隐藏 loading
@@ -191,7 +356,8 @@ button {
 	font-size: 32upx;
 }
 .scroll-Y {
-		height: 1300upx;
+		height: 1334upx;
+		padding-bottom: 100upx;
 	}
 
 	.scroll-view_H {
@@ -214,4 +380,15 @@ button {
 		text-align: center;
 		font-size: 36upx;
 	}
+	.loading-more {
+        align-items: center;
+        justify-content: center;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-align: center;
+    }
+    .loading-more-text {
+        font-size: 28upx;
+        color: #999;
+    }
 </style>

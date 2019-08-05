@@ -45,13 +45,34 @@
 	export default {
 	    data () {
 			return {
-				iiImg: iiImg
+				iiImg: iiImg,
+				msgData:{
+					"ccode":"",
+					"city":"北京",
+					"comp":"公司名称",
+					"compName":"",
+					"field":[
+						"环保",
+						"金融",
+						"生活服务"
+					],
+					"fields":"",
+					"headImg":"https://img01.iambuyer.com/imgup/upload/images/2019/05/31/NbleKsQMxfHMRukd0zYiYUZs2d6uwC0F6TJgjrazgGb7n0HpekYAa3dTUY6H9GWy.png",
+					"leves":"",
+					"mechId":"",
+					"pCode":"110000",
+					"position":"职位",
+					"userCard":"",
+					"userContent":"",
+					"userId":760,
+					"userName":"用户名",
+					"userProj":"",
+					"userType":"1",
+					"wxCode":""
+				}
 			};
 	    },
 		props: {
-			msgData: {
-				type: Object
-			}
 		},
 	    methods: {
 			goToFinanceDetail (e){
@@ -76,6 +97,7 @@
 		width: 690upx;
 		margin-top: 26upx;
 		background: #fff;
+		margin: auto;
 	}
 	.II-content{
 		position: relative;
@@ -117,6 +139,7 @@
 		color: #2E2E30;
 		letter-spacing: 0;
 		line-height: 40upx;
+		font-weight: bold;
 	}
 	.II-insr .mbc{
 		font-family: PingFangSC-Regular;
