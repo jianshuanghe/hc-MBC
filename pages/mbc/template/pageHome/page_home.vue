@@ -46,6 +46,10 @@ export default {
 </script>
 
 <style>
+	.homeContent{
+		width: 100%;
+		min-height: 100%;
+	}
 .item {
 	font-size: 28upx;
 	line-height: 60upx;

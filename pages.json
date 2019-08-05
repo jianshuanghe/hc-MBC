@@ -102,8 +102,6 @@
 		},{
 			"root": "modules/pageMy",
 			"pages": [{
-					// "path": "myList/myList",
-					// "path": "myList/myListabout/about",
 					"path": "myList/myListdata/myList-data",
 					
 					"style": {
@@ -117,9 +115,46 @@
 		},{
 			"root": "modules/pageMy",
 			"pages": [{
-					// "path": "myList/myList",
-					// "path": "myList/myListabout/about",
 					"path": "myList/myListSetup/myListSetup",
+					
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "我的"
+					}
+				}
+			]
+		},{
+			"root": "modules/pageMy",
+			"pages": [{
+					"path": "myList/myListCollection/Collection",
+					
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "我的"
+					}
+				}
+			]
+		},{
+			"root": "modules/pageMy",
+			"pages": [{
+					"path": "myList/myListlookme/Lookme",
+					
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "我的"
+					}
+				}
+			]
+		},{
+			"root": "modules/pageMy",
+			"pages": [{
+					"path": "myList/myListfootprint/footprint",
 					
 					"style": {
 						// #ifdef H5
