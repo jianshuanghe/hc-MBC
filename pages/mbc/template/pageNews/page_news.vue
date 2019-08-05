@@ -1,12 +1,23 @@
 <template>
 	<view class="newsContent">
-		<view class="des">消息</view>
+		<!-- 联系人组件 -->
+		<newsContacts></newsContacts>
+		<!-- 系统通知 -->
+		<system></system>
 	</view>
 </template>
 <script>
+	import newsContacts from "./newsList/news-Contacts.vue"
+	import system from "./newsList/news-system.vue"
+	
 export default {
-	data() {
-		return {};
+	data () {
+		return {
+		};
+	},
+	components: {
+		newsContacts,
+		system
 	},
 	computed: {
 	},
@@ -21,6 +32,7 @@ export default {
 </script>
 
 <style>
+
 .item {
 	font-size: 28upx;
 	line-height: 60upx;

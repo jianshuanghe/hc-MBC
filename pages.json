@@ -83,6 +83,9 @@
 			"pages": [{
 					"path": "newsList/newsList",
 					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
 						"navigationBarTitleText": "消息"
 					}
 				}
@@ -90,8 +93,42 @@
 		}, {
 			"root": "modules/pageMy",
 			"pages": [{
-					"path": "myList/myList",
+					"path": "myList/myListabout/about",
+					
 					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "我的"
+					}
+				}
+			]
+		},{
+			"root": "modules/pageMy",
+			"pages": [{
+					// "path": "myList/myList",
+					// "path": "myList/myListabout/about",
+					"path": "myList/myListdata/myList-data",
+					
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "我的"
+					}
+				}
+			]
+		},{
+			"root": "modules/pageMy",
+			"pages": [{
+					// "path": "myList/myList",
+					// "path": "myList/myListabout/about",
+					"path": "myList/myListSetup/myListSetup",
+					
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
 						"navigationBarTitleText": "我的"
 					}
 				}
