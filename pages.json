@@ -72,9 +72,12 @@
 		}, {
 			"root": "modules/pagePublish",
 			"pages": [{
-					"path": "publishList/publishList",
+					"path": "publishList/publishUpload",
 					"style": {
-						"navigationBarTitleText": "发布"
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "电脑上传BP"
 					}
 				}
 			]

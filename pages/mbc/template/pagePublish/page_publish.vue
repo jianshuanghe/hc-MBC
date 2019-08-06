@@ -1,12 +1,48 @@
 <template>
 	<view class="publishContent">
-		<view class="des">发布</view>
+		<view class="des">
+			<!-- title -->
+			<publishTitle></publishTitle>
+			<!-- content -->
+			<!-- pc登录上传 -->
+			<uploadBP v-if='false'></uploadBP>
+			<!-- infor -->
+			<view class="inforContent">
+				<!-- 基本信息 -->
+				<basicInfor></basicInfor>
+				<!-- 公司信息 -->
+				<companyInfor></companyInfor>
+			</view>
+		</view>
 	</view>
 </template>
 <script>
+	import publishTitle from "./publishList/publishTitle.vue";
+	import uploadBP from "./publishList/uploadBP/uploadBP.vue";
+	import basicInfor from "./publishList/Infor/basicInfor.vue";
+	import companyInfor from "./publishList/Infor/companyInfor.vue";
 export default {
 	data() {
 		return {};
+	},
+	
+	components: {
+		publishTitle,
+		uploadBP,
+		basicInfor,
+		companyInfor
+	},
+	computed: {
+		// ...mapGetters(['GET_HOME'])
+	},
+	watch: {
+	  // GET_HOME: {
+	  //   handler (a, b) {
+	  //     this.clickItemsIndex = a.HomeList.titleIndex; // 切换的title
+		 //  console.log(this.clickItemsIndex, '切换的数据');
+	  //   },
+	  //   deep: true
+	  // }
 	},
 	computed: {
 	},
@@ -33,20 +69,5 @@ export default {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-}
-.des {
-	text-align: center;
-	padding: 30upx;
-	margin-top: 100upx;
-	font-size: 30upx;
-	color: #888888;
-}
-button {
-	width: 330upx;
-	float: left;
-	margin-left: 30upx;
-	margin-top: 30upx;
-	padding: 10upx 20upx;
-	font-size: 32upx;
 }
 </style>

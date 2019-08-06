@@ -1445,3 +1445,9 @@ radio-group label, checkbox-group label{
     left: 0;
     transform: translateY(50%);
 }
+.uni-system-preview-image .uni-swiper{
+	height: 1334upx !important;
+}
+.uni-picker-action.uni-picker-action-confirm {
+	color: #02C2A2 !important;
+}

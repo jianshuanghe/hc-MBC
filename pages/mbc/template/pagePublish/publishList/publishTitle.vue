@@ -1,25 +1,25 @@
 <template>
-	<view class="listTitle" id="listTitle">
-		<view class="center-listTitle">
-			<view class="news-TBox left" @tap="clickListTitle(1)">
+	<view class="publishTitle" id="publishTitle">
+		<view class="center-publishTitle">
+			<view class="news-TBox left" @tap="clickpublishTitle(1)">
 			  <view :class="clickItemsIndex === 1 ? 'Tbox-items Tb-checked' : 'Tbox-items'">
-				<p class="home-left-p">精品在融项目</p>
+				<p class="home-left-p">1、上传BP</p>
 				<view class="hengLine" v-if="clickItemsIndex === 1"></view>
 			  </view>
 			</view>
-			<view class="news-TBox left" @tap="clickListTitle(2)">
+			<view class="news-TBox left" @tap="clickpublishTitle(2)">
 			  <view  :class="clickItemsIndex === 2 ? 'Tbox-items Tb-checked' : 'Tbox-items'">
-				<p class="home-right-p">活跃投资机构</p>
+				<p class="home-right-p">2、基本信息</p>
 				<view class="hengLine"  v-if="clickItemsIndex === 2"></view>
 			  </view>
 			</view>
 			<view class="clear"></view>
 		</view>
+		<view class="line"></view>
 	</view>
 </template>
 
 <script>
-	import { mapMutations, mapGetters } from 'vuex';
 	export default {
 	    data () {
 			return {
@@ -27,49 +27,42 @@
 			};
 	    },
 		computed: {
-			...mapGetters(['GET_HOME'])
 		},
 		watch: {
-		  GET_HOME: {
-		    handler (a, b) {
-		      this.clickItemsIndex = a.HomeList.titleIndex; // 切换的title
-		    },
-		    deep: true
-		  }
 		},
 		mounted(){
 		},
 	    methods: {
-			...mapMutations({
-				setHomeListTitleIndex: 'setHomeListTitleIndex'
-			}),
-			clickListTitle (e) {
+			clickpublishTitle (e) {
 				this.clickItemsIndex = e;
-				console.log(e, '切换精品在融项目和活跃投资机构类型');
-				this.$store.commit('setHomeListTitleIndex', this.clickItemsIndex); // 更新setHomeListTitleIndex
+				console.log(e, '切换上传BP和基本信息');
 			}
 	    }
 	};
 </script>
 
 <style>
-	.newsTitle-box{
-    position: relative;
-    width: 100%;
-  }
+	.publishTitle{
+		position: fixed;
+		width: 100%;
+		z-index: 100;
+		top: 0;
+		background: #fff;
+		height: 88upx;
+	}
   .newsTitle{
     position: relative;
     width: 100%;
   }
-  .center-listTitle{
+  .center-publishTitle{
     position: relative;
     width: 70%;
-    margin-left: 0%;
+	margin: auto;
 
   }
   .news-TBox{
     position: relative;
-    width: 40%;
+    width: 50%;
   }
   .Tbox-items{
     position: relative;
@@ -79,28 +72,29 @@
 	ont-family: PingFangSC-Regular;
 	font-size: 28upx;
 	color: #5D5D5D;
-	line-height: 66upx;
-	text-align: left;
+	line-height: 60upx;
+	margin-top: 16upx;
+	text-align: center;
   }
   .home-right-p{
     ont-family: PingFangSC-Regular;
 	font-size: 28upx;
 	color: #5D5D5D;
-	line-height: 66upx;
-	text-align: right;
+	line-height: 60upx;
+	margin-top: 16upx;
+	text-align: center;
   }
   .hengLine{
     position: relative;
     background: #02C2A2;
-	height: 6upx;
-	width: 64upx;
+	height: 4upx;
+	width: 40upx;
 	border-radius: 100upx;
     margin: 0 auto;
+	margin-bottom: 8upx;
   }
   .Tb-checked>p{
     font-family: PingFangSC-Medium;
-	font-size: 34upx !important;
-	color: #2E2E30 !important;
-	line-height: 66upx !important;
+	color: #02C2A2 !important;
   }
 </style>
