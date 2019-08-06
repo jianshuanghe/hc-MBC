@@ -1,5 +1,5 @@
 <template>
-	<view class="myAuthentication">
+	<view class="myAuthentication" @tap="gotomyListAuthentication">
 		<view>
 			我的认证
 			<image :src="right"></image>
@@ -23,6 +23,12 @@
 		mounted() {
 		},
 		methods: {
+			gotomyListAuthentication(e){
+				console.log('去' + e + '我的认证');
+				uni.navigateTo({
+					url: '/modules/pageMy/myList/myListAuthentication/Authentication',
+				});
+			}
 		}
 	};
 </script>

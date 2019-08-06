@@ -19,6 +19,7 @@
 			};
 		},
 		methods:{
+			
 			goToMessageList(e) {   
                 uni.navigateTo({
                     url: '/modules/pageNews/newsList/newsList',

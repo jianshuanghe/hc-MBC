@@ -99,7 +99,7 @@
 						// #ifdef H5
 							"navigationStyle":"custom",
 						// #endif
-						"navigationBarTitleText": "我的"
+						"navigationBarTitleText": "关于我们"
 					}
 				}
 			]
@@ -112,7 +112,7 @@
 						// #ifdef H5
 							"navigationStyle":"custom",
 						// #endif
-						"navigationBarTitleText": "我的"
+						"navigationBarTitleText": "个人中心"
 					}
 				}
 			]
@@ -125,7 +125,7 @@
 						// #ifdef H5
 							"navigationStyle":"custom",
 						// #endif
-						"navigationBarTitleText": "我的"
+						"navigationBarTitleText": "设置"
 					}
 				}
 			]
@@ -138,7 +138,7 @@
 						// #ifdef H5
 							"navigationStyle":"custom",
 						// #endif
-						"navigationBarTitleText": "我的"
+						"navigationBarTitleText": "我的收藏"
 					}
 				}
 			]
@@ -151,7 +151,7 @@
 						// #ifdef H5
 							"navigationStyle":"custom",
 						// #endif
-						"navigationBarTitleText": "我的"
+						"navigationBarTitleText": "看过我的项目"
 					}
 				}
 			]
@@ -164,7 +164,72 @@
 						// #ifdef H5
 							"navigationStyle":"custom",
 						// #endif
-						"navigationBarTitleText": "我的"
+						"navigationBarTitleText": "足迹"
+					}
+				}
+			]
+		},{
+			"root": "modules/pageMy",
+			"pages": [{
+					"path": "myList/myListAuthentication/Authentication",
+					
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "身份认证"
+					}
+				}
+			]
+		},{
+			"root": "modules/pageMy",
+			"pages": [{
+					"path": "myList/myListAuthentication/AuthenticationList/EntrepreneursCertification/EntrepreneursCertification",
+					
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "创业者认证"
+					}
+				}
+			]
+		},{
+			"root": "modules/pageMy",
+			"pages": [{
+					"path": "myList/myListAuthentication/AuthenticationList/InvestorCertification/InvestorCertification",
+					
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "投资人认证"
+					}
+				}
+			]
+		},{
+			"root": "modules/pageMy",
+			"pages": [{
+					"path": "myList/myListAuthentication/AuthenticationList/Submission-success/Submission-success",
+					
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "提交成功"
+					}
+				}
+			]
+		},{
+			"root": "modules/pageMy",
+			"pages": [{
+					"path": "myList/myListAuthentication/AuthenticationList/Certification-status/Certification-status",
+					
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "身份认证"
 					}
 				}
 			]
