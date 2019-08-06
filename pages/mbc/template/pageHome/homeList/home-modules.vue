@@ -2,7 +2,7 @@
 	<div class="homeModules">
 		<div class="Hm-conetnt">
 			<div class="left hm-items">
-				<div class="hm-item">
+				<div class="hm-item" @tap='goToLookServices'>
 					<div class="hm-img-itms">
 						<image :src='modules3'></image>
 					</div>
@@ -10,7 +10,7 @@
 				</div>
 			</div>
 			<div class="left hm-items">
-				<div class="hm-item">
+				<div class="hm-item" @tap='goToLookProject'>
 					<div class="hm-img-itms">
 						<image :src='modules4'></image>
 					</div>
@@ -18,7 +18,7 @@
 				</div>
 			</div>
 			<div class="left hm-items">
-				<div class="hm-item">
+				<div class="hm-item" @tap='goToMeltTt'>
 					<div class="hm-img-itms">
 						<image :src='modules2'></image>
 					</div>
@@ -26,7 +26,7 @@
 				</div>
 			</div>
 			<div class="left hm-items">
-				<div class="hm-item">
+				<div class="hm-item" @tap='goToActivity'>
 					<div class="hm-img-itms">
 						<image :src='modules1'></image>
 					</div>
@@ -53,8 +53,29 @@
 			};
 	    },
 	    methods: {
-			goToPutIn () {
-				console.log('点击触发发布项目');
+			goToLookServices () {
+				console.log('to找服务');
+				uni.navigateTo({
+					url: '/modules/pageHome/homeModules/lookServices/lookServices'
+				});
+			},
+			goToLookProject () {
+				console.log('to找项目');
+				uni.navigateTo({
+					url: '/modules/pageHome/homeModules/lookProject/lookProject'
+				});
+			},
+			goToMeltTt () {
+				console.log('to融头条');
+				uni.navigateTo({
+					url: '/modules/pageHome/homeModules/meltTt/meltTt'
+				});
+			},
+			goToActivity () {
+				console.log('to活动');
+				uni.navigateTo({
+					url: '/modules/pageHome/homeModules/activity/activity'
+				});
 			},
 			goToSeek () {
 				console.log('点击触发寻找资本');

@@ -1,97 +1,97 @@
 <template>
 	<view class="basicInfor-content">
-		<div class="infor-content-box">
-			<div class="basicInfor-box">
+		<view class="infor-content-box">
+			<view class="basicInfor-box">
 				<!-- 项目名称 -->
-				<div class="BI-items">
-					<div class="left BI-items-left">
-						<div class="mustFill">
+				<view class="BI-items">
+					<view class="left BI-items-left">
+						<view class="mustFill">
 							<image :src='xing'></image>
-						</div>
-						<div class="BI-text-left">项目名称</div>
-					</div>
-					<div class="right BI-items-right">
-						<div class="BI-text-right">
+						</view>
+						<view class="BI-text-left">项目名称</view>
+					</view>
+					<view class="right BI-items-right">
+						<view class="BI-text-right">
 							<wInput
 								v-model="text"
 								placeholder="请输入"
 							></wInput>
-						</div>
-					</div>
-					<div class="clear"></div>
-					<div class="line"></div>
-				</div>
+						</view>
+					</view>
+					<view class="clear"></view>
+					<view class="line"></view>
+				</view>
 				<!-- 一句话介绍 -->
-				<div class="BI-items">
-					<div class="left BI-items-left">
-						<div class="mustFill">
+				<view class="BI-items">
+					<view class="left BI-items-left">
+						<view class="mustFill">
 							<image :src='xing'></image>
-						</div>
-						<div class="BI-text-left">一句话介绍</div>
-					</div>
-					<div class="right BI-items-right">
-						<div class="BI-text-right">
+						</view>
+						<view class="BI-text-left">一句话介绍</view>
+					</view>
+					<view class="right BI-items-right">
+						<view class="BI-text-right">
 							<wInput
 								v-model="text"
 								placeholder="请输入"
 							></wInput>
-						</div>
-					</div>
-					<div class="clear"></div>
-					<div class="line"></div>
-				</div>
+						</view>
+					</view>
+					<view class="clear"></view>
+					<view class="line"></view>
+				</view>
 				<!-- 所属领域 -->
-				<div class="BI-items">
-					<div class="left BI-items-left">
-						<div class="mustFill">
+				<view class="BI-items">
+					<view class="left BI-items-left">
+						<view class="mustFill">
 							<image :src='xing'></image>
-						</div>
-						<div class="BI-text-left">所属领域</div>
-					</div>
-					<div class="right BI-items-right">
-						<div class="BI-text-right">
+						</view>
+						<view class="BI-text-left">所属领域</view>
+					</view>
+					<view class="right BI-items-right">
+						<view class="BI-text-right">
 							<picker @change="bindPickerChange" :value="index" :range="array">
 								<view class="uni-input BI-picker">{{pickerValue? pickerValue : '请选择'}}</view>
 								<image :src="rightArrow" class="BI-rightArrow"></image>
 							</picker>
-						</div>
-					</div>
-					<div class="clear"></div>
-					<div class="line"></div>
-				</div>
+						</view>
+					</view>
+					<view class="clear"></view>
+					<view class="line"></view>
+				</view>
 				<!-- 所在地区 -->
-				<div class="BI-items">
-					<div class="left BI-items-left">
-						<div class="mustFill">
+				<view class="BI-items">
+					<view class="left BI-items-left">
+						<view class="mustFill">
 							<image :src='xing'></image>
-						</div>
-						<div class="BI-text-left">所在地区</div>
-					</div>
-					<div class="right BI-items-right">
-						<div class="BI-text-right">
+						</view>
+						<view class="BI-text-left">所在地区</view>
+					</view>
+					<view class="right BI-items-right">
+						<view class="BI-text-right">
 							<picker @change="bindPickerChange" :value="index" :range="array">
 								<view class="uni-input BI-picker">{{pickerValue? pickerValue : '请选择'}}</view>
 								<image :src="rightArrow" class="BI-rightArrow"></image>
 							</picker>
-						</div>
-					</div>
-					<div class="clear"></div>
-					<div class="line"></div>
-				</div>
+						</view>
+					</view>
+					<view class="clear"></view>
+					<view class="line"></view>
+				</view>
 				<!-- 项目logo -->
-				<div class="BI-items">
-					<div class="left BI-items-left">
-						<div class="mustFill">
+				<view class="BI-items">
+					<view class="left BI-items-left">
+						<view class="mustFill">
 							<image :src='xing'></image>
-						</div>
-						<div class="BI-text-left">项目log</div>
-					</div>
-					<div class="right BI-items-right">
-						<div class="BI-text-right">
+						</view>
+						<view class="BI-text-left">项目log</view>
+					</view>
+					<view class="right BI-items-right">
+						<view class="BI-text-right">
 							<view class="BI-picker" v-if="!logo">点击上传</view>
 							<view class="Img-logo">
 								<!-- 图片上传 -->
-								<div class="Img-Upload">
+								<view class="Img-Upload">
 									<imageUploadOne 
 										v-model="imageData" 
 										:server-url="serverUrl" 
@@ -99,17 +99,16 @@
 										@delete="deleteImage" 
 										@add="addImage">
 									</imageUploadOne>
-								</div>
+								</view>
 							</view>
 							<image :src="rightArrow" class="BI-rightArrow"></image>
-						</div>
-					</div>
-					<div class="clear"></div>
-					<div class="line"></div>
-				</div>
-			</div>
-		</div>
-		<div class="tip-infor">请上传清晰容易识别的照片，支持jpg、png格式</div>
+						</view>
+					</view>
+					<view class="clear"></view>
+				</view>
+			</view>
+		</view>
+		<view class="tip-infor">请上传清晰容易识别的照片，支持jpg、png格式</view>
 	</view>
 </template>
 
@@ -144,7 +143,7 @@
 			bindPickerChange: function(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value);
 				this.array.map((items, index) => {
-					if(index === e.target.value) {
+					if(String(index) === String(e.target.value)) {
 						this.pickerValue = items;
 					}
 				})
@@ -172,7 +171,7 @@
 		position: relative;
 		padding: 14upx 30upx;
 		background: #fff;
-		height: 670upx;
+		height: 640upx;
 		margin-top: 88upx;
 	}
 	.tip-infor{
