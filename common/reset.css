@@ -338,4 +338,7 @@ p{
 	color: #5D5D5D;
 	line-height: 40upx;
 }
+.uni-system-preview-image .uni-swiper{
+	height: 1334upx !important;
+}
 	
