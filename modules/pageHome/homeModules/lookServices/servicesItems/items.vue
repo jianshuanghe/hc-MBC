@@ -2,12 +2,12 @@
 	<view class="servicesItems-content-items">
 		<view class="SICI-content">
 			<view class="SICI-img">
-				<image :src='banner1'></image>
+				<image :src='msgData.img  || banner4'></image>
 			</view>
-			<view class="SICI-title">BP诊断</view>
-			<view class="SICI-inrc">行业资深分析师帮你诊断BP，线上线下推送诊断报告</view>
+			<view class="SICI-title">{{msgData.name}}</view>
+			<view class="SICI-inrc">{{msgData.serverContent}}</view>
 			<view class="SICI-money">
-				￥<text class="SICI-money-Y">980</text>
+				￥<text class="SICI-money-Y">{{msgData.monye}}</text>
 				 <text class="SICI-money-X">¥1280</text>
 			</view>
 		</view>
@@ -15,13 +15,21 @@
 </template>
 
 <script>
-	import banner1 from '@/static/mbcImg/home/banner1.png';
+	import banner4 from '@/static/mbcImg/home/banner1.png';
 	export default {
 		data() {
 	        return {
-				banner1: banner1
+				banner4: banner4
 	        }
 	    },
+		props: {
+			msgData: {
+				type: Object
+			}
+		},
+		created() {
+			console.log(this.msgData, '子组件获取的数据');
+		},
 	    methods: {
 	        change(e) {
 	            this.current = e.detail.current;
@@ -55,13 +63,13 @@
 		font-family: PingFangSC-Medium;
 		font-size: 40upx;
 		color: #2E2E30;
-		line-height: 60upx;
+		line-height: 72upx;
 	}
 	.SICI-inrc{
 		font-family: PingFangSC-Regular;
 		font-size: 26upx;
 		color: #9B9B9B;
-		line-height: 50upx;
+		line-height: 36upx;
 		margin-bottom: 16upx;
 	}
 	.SICI-money{

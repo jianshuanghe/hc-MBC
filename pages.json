@@ -58,6 +58,17 @@
 				}
 			},
 			{
+				"path": "seekCapital/seekCapital",
+				"style": {
+					// #ifdef H5
+						"navigationStyle":"custom",
+					// #endif
+					"navigationBarTitleText": "找资本",
+					"app-plus": {
+					}
+				}
+			},
+			{
 				"path": "homeModules/lookServices/lookServices",
 				"style": {
 					// #ifdef H5

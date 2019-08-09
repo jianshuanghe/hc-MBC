@@ -4,7 +4,7 @@
 			<view class="putInSeek">
 				<view class="gadget-cont">
 					<view class="gadget-toufang left">
-						<view class="conten-box" @tab="goToPutIn">
+						<view class="conten-box" @tap="goToPutIn(5)">
 							<view class="img left">
 								<img :src="putIn" alt="" class="">
 							</view>
@@ -19,7 +19,7 @@
 						<view class="Y-line"></view>
 					</view>
 					<view class="gadget-toufang left">
-						<view class="conten-box" @tab="goToSeek">
+						<view class="conten-box" @tap="goToSeek">
 							<view class="img left">
 								<img :src="seek" alt="" class="">
 							</view>
@@ -42,19 +42,30 @@
 <script>
 	import putIn from '@/static/mbcImg/home/putIn.png';
 	import seek from '@/static/mbcImg/home/seek.png';
+	import { mapMutations } from 'vuex';
 	export default {
 	    data () {
 			return {
 				putIn: putIn,
-				seek: seek
+				seek: seek,
+				clickItems: 1, // 用户初次进来默认用户为首页
 			};
 	    },
 	    methods: {
-			goToPutIn () {
-				console.log('点击触发发布项目');
+			...mapMutations({
+				setHome: 'setHome'
+			}),
+			goToPutIn (e) {
+				console.log(e, '点击触发发布项目');
+				this.clickItems = e;
+				this.$store.commit('setHome', this.clickItems);
+				uni.setStorageSync('clickItems', e);
 			},
 			goToSeek () {
 				console.log('点击触发寻找资本');
+				uni.navigateTo({
+					url: '/modules/pageHome/seekCapital/seekCapital'
+				});
 			}
 	    }
 	};

@@ -73,6 +73,16 @@
 		computed: {
 			...mapGetters(['GET_HOME'])
 		},
+		
+		watch: {
+		  GET_HOME: {
+		    handler (a, b) {
+		      this.clickItems = a.tabItems; // 切换tabbar
+			  this.tabBarItems(this.clickItems);
+		    },
+		    deep: true
+		  }
+		},
 		created() {
 			console.log(home, '加载主页');
 			if(uni.getStorageSync('clickItems')) {

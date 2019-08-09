@@ -9,6 +9,14 @@ const getters = {
 	// home 主页数据
 	GET_HOME: state => state.home,
 	// imgData 附件
-	IMGDATA: state => state.imgData
+	IMGDATA: state => state.imgData,
+	// seekCapitaltitleIndex 找投资的title
+	SEEKCAPITALTITLE: state => state.home.seekCapital.titleIndex,
+	// multipleScreen 找投资---- 展示筛选和综合组件
+	MULTIPLESCREEN: state => state.home.multipleScreen,
+	// investorSearch 找投资的----投资人参数
+	INVESTORSEARCH: state => state.home.investorSearch,
+	// investInsSearch 找投资的----投资项目的参数
+	INVERSTINSSEARCH: state => state.home.investInsSearch,
 };
 export default getters;

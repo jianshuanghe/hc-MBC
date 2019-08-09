@@ -118,7 +118,7 @@ export default {
 			console.log('触发加载更多。。。');
 			if(this.HomeList.titleIndex === 1){ // 在融项目
 				let pageNum = this.paramsList.search.pageNum;
-				let page = this.paramsList.search.searchCondition.page;
+				let page = Number(this.paramsList.search.searchCondition.page);
 				console.log(pageNum, '总页数');
 				console.log(pageNum, '当前页数');
 				if (page < pageNum) { // 当前页数小于总页数时上啦加载数据
@@ -137,7 +137,7 @@ export default {
 				}
 			} else if (this.HomeList.titleIndex === 2) {
 				let pageNum = this.paramsList.search.pageNum;
-				let page = this.paramsList.search.searchCondition.page;
+				let page = Number(this.paramsList.search.searchCondition.page);
 				console.log(pageNum, '总页数');
 				console.log(pageNum, '当前页数');
 				if (page < pageNum) { // 当前页数小于总页数时上啦加载数据

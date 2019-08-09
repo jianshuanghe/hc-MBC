@@ -1,6 +1,8 @@
 <template>
 	<view class="looServices-content">
-		<items></items>
+		<view v-for="(items,index) in dataList" :key="index">
+			<items :msgData="items"></items>
+		</view>
 	</view>
 	
 </template>

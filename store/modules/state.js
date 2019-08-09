@@ -45,6 +45,59 @@ const state = {
 		},
 		searchData: [], // search数据
 		searchHistoryData: [] // 搜索历史数据
+	},
+	seekCapital: { // 找投资
+		titleIndex: 1, // 切换的title
+		invest: { // 投资人
+			loadingText: '加载更多...',
+			search: { // 搜索
+				pageNum: 0, // 总页数
+				searchCondition: {  // 分页属性
+					page: '1'
+				}
+			},
+			listData: '' // 列表数据
+		},
+		investInstitution: { // 投资机构
+			loadingText: '加载更多...',
+			search: { // 搜索
+				pageNum: 0, // 总页数
+				searchCondition: {  // 分页属性
+					page: '1'
+				}
+			},
+			listData: '' // 列表数据
+		}
+	},
+	investorSearch: { // 筛选结果 --- 投资人参数
+		sortType: 'ID', // 排序 ID 综合 INFO_COUNT 最热 CREATE_TIME 最新
+		area: '', //  省份codelist
+		leves: '', //  轮数idlist
+		fields: '' // 领域 idlist
+	},
+	investInsSearch: { // 筛选结果 --- 投资项目参数
+		sortType: 'ID', // 排序 ID 综合 INFO_COUNT 最热 CREATE_TIME 最新
+		area: '', //  省份codelist
+		leves: '', //  轮数idlist
+		fields: '' // 领域 idlist
+	},
+	multipleScreen: { // 找投资中的筛选模块
+		screenShow: false, // 展示组件，默认为false不展示
+		multipleShow: false,// 展示组件，默认为false不展示
+	},
+	homeModules: { // 四大模块 服务/项目/活动/融头条
+		lookServices: { // 服务
+			dataList: [] // 列表数据
+		},
+		lookProject: { // 项目
+			dataList: [] // 列表数据
+		},
+		meltTt: { // 融头条
+			dataList: [] // 列表数据
+		},
+		activity: { // 活动
+			dataList: [] // 列表数据
+		},
 	}
   }
 };
