@@ -8,8 +8,8 @@
 					<view class="multiple-list">
 						<view class="multiple-item-title">
 							阶段
-							<view class="right right-MIL" @tap="clickToAll()">
-								全部 <image class="img-r" :src='rightArrow'></image>
+							<view class="right right-MIL" @tap="clickToAll(0)">
+								全部 <image class="img-r" :src='isAll[0].arrow'></image>
 							</view>
 						</view>
 						<view class="multiple-item-list">
@@ -28,6 +28,52 @@
 							</view>
 							<view class="left MIL-item">
 								<view class="MIL-item-text">全部</view>
+							</view>
+							<view class="clear"></view>
+							<view class="lineMIL"></view>
+						</view>
+					</view>
+					<!-- 模块 -->
+					<view class="multiple-list">
+						<view class="multiple-item-title">
+							领域
+							<view class="right right-MIL" @tap="clickToAll(1)">
+								全部 <image class="img-r" :src='isAll[1].arrow'></image>
+							</view>
+						</view>
+						<view class="multiple-item-list">
+							<view class="left MIL-item" @tap="clickItems(1)">
+								<view :class=" clickItemsIndex === 1 ? 'MIL-item-text MILClicked' : 'MIL-item-text'">全部</view>
+								<image :src="checkedItems" v-if="clickItemsIndex === 1" class="clickImg"></image>
+							</view>
+							<view class="left MIL-item">
+								<view class="MIL-item-text">全部</view>
+							</view>
+							<view class="left MIL-item">
+								<view class="MIL-item-text">全部</view>
+							</view>
+							<view class="left MIL-item">
+								<view class="MIL-item-text">全部</view>
+							</view>
+							<view class="left MIL-item">
+								<view class="MIL-item-text">全部</view>
+							</view>
+							<view class="clear"></view>
+							<view class="lineMIL"></view>
+						</view>
+					</view>
+					<!-- 模块 -->
+					<view class="multiple-list">
+						<view class="multiple-item-title">
+							地区
+							<view class="right right-MIL" @tap="clickToAll(2)">
+								全部 <image class="img-r" :src='isAll[2].arrow'></image>
+							</view>
+						</view>
+						<view class="multiple-item-list">
+							<view class="left MIL-item" @tap="clickItems(items.id)" v-for="(items,index) in AREADATA.province" :key="index" >
+								<view :class=" clickItemsIndex === items.id ? 'MIL-item-text MILClicked' : 'MIL-item-text'">{{items.name}}</view>
+								<image :src="checkedItems" v-if="clickItemsIndex === items.id" class="clickImg"></image>
 							</view>
 							<view class="clear"></view>
 							<view class="lineMIL"></view>
@@ -54,19 +100,37 @@
 <script>
 	import close from '@/static/mbcImg/home/seekCapital/close.png';
 	import rightArrow from '@/static/mbcImg/home/seekCapital/rightArrow.png';
+	import downArrow from '@/static/mbcImg/home/seekCapital/downArrow.png';
 	import checkedItems from '@/static/mbcImg/home/seekCapital/checkedItems.png';
 	import { mapMutations, mapGetters } from 'vuex';
 	export default {
 	    data () {
 			return {
 				close: close,
+				arrow: rightArrow,
+				downArrow: downArrow,
 				rightArrow: rightArrow,
+				isAll: [
+					{
+						arrow: rightArrow,
+						allShow: false
+					},
+					{
+						arrow: rightArrow,
+						allShow: false
+					},
+					{
+						arrow: rightArrow,
+						allShow: false
+					}
+				],
 				checkedItems: checkedItems,
-				clickItemsIndex: 0
+				clickItemsIndex: 0,
+				areaDate: '' // 地区
 			};
 	    },
 		computed: {
-			...mapGetters(['GET_HOME'])
+			...mapGetters(['GET_HOME', 'AREADATA'])
 		},
 		watch: {
 		  GET_HOME: {
@@ -77,14 +141,24 @@
 		  }
 		},
 		mounted(){
+			console.log(this.AREADATA, 'AREADAT地区数据')
 		},
 	    methods: {
 			...mapMutations({
 				setMultipleShow: 'setMultipleShow' // 筛选展示
 			}),
-			clickToAll() {
-				console.log('触发去全部');
-				this.$store.commit('setMultipleShow', false); // 更新setMultipleShow
+			clickToAll(e) {
+				this.isAll.map((items, index) => {
+					if (index === e) {
+						if (items.arrow === this.downArrow) {
+							items.arrow = this.rightArrow;
+							items.allShow = false
+						} else {
+							items.arrow = this.downArrow;
+							items.allShow = true
+						}
+					}
+				})
 			},
 			clickItems (e) {
 				console.log(e, '触发点击筛选items');

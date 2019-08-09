@@ -10,6 +10,11 @@ const state = {
     emptyShow: false,
     emptyText: '当前没有数据！',
   },
+  areaData: { // 地区
+	area: [], // 全国省市区
+	province: [], // 全国省
+	provinceAndCity: [] // 全国省市
+  },
   home: { // 主页
 	tabItems: 1,
 	HomeList:{

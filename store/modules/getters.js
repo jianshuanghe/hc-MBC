@@ -10,6 +10,8 @@ const getters = {
 	GET_HOME: state => state.home,
 	// imgData 附件
 	IMGDATA: state => state.imgData,
+	// 全国地址省市区
+	AREADATA: state => state.areaData,
 	// seekCapitaltitleIndex 找投资的title
 	SEEKCAPITALTITLE: state => state.home.seekCapital.titleIndex,
 	// multipleScreen 找投资---- 展示筛选和综合组件
