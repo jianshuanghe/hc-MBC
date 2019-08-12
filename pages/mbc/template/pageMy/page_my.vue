@@ -62,6 +62,7 @@
 							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
 						},
 						success: (response) => {
+							uni.hideLoading();
 							console.log(response.data);
 							this.List=response.data.content
 							console.log(this.List)
