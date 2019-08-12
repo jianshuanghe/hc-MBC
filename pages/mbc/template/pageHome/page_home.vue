@@ -5,7 +5,7 @@
 		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
 		@scroll="scroll">
 			<view class="scrollContent">
-								<!-- banner -->
+				<!-- banner -->
 				<homeBanner></homeBanner>
 				<!-- 融头条 -->
 				<homeTt></homeTt>
@@ -20,7 +20,6 @@
 			    <text class="loading-more-text">{{loadingText}}</text>
 			</view>
 		</scroll-view>
-			
 	</view>
 </template>
 <script>
@@ -316,6 +315,10 @@ export default {
 </script>
 
 <style>
+	.homeContent{
+		width: 100%;
+		min-height: 100%;
+	}
 .item {
 	font-size: 28upx;
 	line-height: 60upx;

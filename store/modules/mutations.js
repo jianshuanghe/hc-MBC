@@ -39,6 +39,11 @@ const mutations = {
     console.log(info, 'setInvest');
     state.home.HomeList.invest = info;
   },
+  // 我的=》用户信息
+  setheader(state, info){
+	  console.log(info,'setheader')
+	  state.my.MyList.header=info
+  },
   setSeekCapitalTitleIndex (state, info) { // 找投资的title
     console.log(info, 'setHomeListTitleIndex');
     state.home.seekCapital.titleIndex = info;

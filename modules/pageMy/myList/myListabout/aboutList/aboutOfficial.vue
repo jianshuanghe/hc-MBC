@@ -19,20 +19,20 @@
 		width: 266upx;
 		height: 24upx;
 		margin: 0 auto;
-		font-size: 12px;
+		font-size: 24upx;
 		color: #9B9B9B;
 	}.aboutOfficial view:nth-of-type(2){
 		width: 228upx;
 		height: 24upx;
 		margin: 0 auto;
-		font-size: 12px;
+		font-size: 24upx;
 		color: #9B9B9B;
 		padding-top: 12upx;
 	}.aboutOfficial view:nth-of-type(3){
 		width: 316upx;
 		height: 24upx;
 		margin: 0 auto;
-		font-size: 12px;
+		font-size: 24upx;
 		color: #9B9B9B;
 		padding-top: 12upx;
 	}.aboutOfficial view:nth-of-type(4){

@@ -1,22 +1,26 @@
 <template>
 	<view class="Message">
-		<view class="Message-Tips">
-			<view>身份认证<span>12:08</span></view>
-			<view>恭喜您创业者身份认证成功，接下来可以上传BP，更新项目信息等。</view>
-		</view><view class="Message-Tips">
-			<view>身份认证<span>12:08</span></view>
-			<view>恭喜您创业者身份认证成功，接下来可以上传BP，更新项目信息等。</view>
-		</view><view class="Message-Tips">
-			<view>身份认证<span>12:08</span></view>
-			<view>恭喜您创业者身份认证成功，接下来可以上传BP，更新项目信息等。</view>
-		</view><view class="Message-Tips">
-			<view>身份认证<span>12:08</span></view>
-			<view>恭喜您创业者身份认证成功，接下来可以上传BP，更新项目信息等。</view>
+		<view class="Message-Tips" v-for="(item,index) in Newdata.rows" :key="index">
+			<view>{{item.title}}<span>12:08</span></view>
+			<view>{{item.content}}</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	import { mapMutations, mapGetters } from 'vuex';
+	export default {
+		props:['Newdata'],
+		data () {
+			return {
+				
+			};
+		},
+		methods:{
+			
+		}
+		
+	}
 </script>
 
 <style>

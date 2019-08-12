@@ -106,6 +106,12 @@ const state = {
 			dataList: [] // 列表数据
 		},
 	}
+  },
+  my: {
+	MyList:{
+		header:[],
+		Collection:[]
+	}  
   }
 };
 export default state;
