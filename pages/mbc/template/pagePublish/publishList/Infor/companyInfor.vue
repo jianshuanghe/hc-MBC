@@ -1,47 +1,46 @@
 <template>
 	<view class="companyInfor-content">
-		<div class="company-content-box">
-			<div class="basicInfor-box">
+		<view class="company-content-box">
+			<view class="basicInfor-box">
 				<!-- 公司全称 -->
-				<div class="BI-items">
-					<div class="left BI-items-left">
-						<div class="mustFill">
+				<view class="BI-items">
+					<view class="left BI-items-left">
+						<view class="mustFill">
 							<image :src='xing'></image>
-						</div>
-						<div class="BI-text-left">公司全称</div>
-					</div>
-					<div class="right BI-items-right">
-						<div class="BI-text-right">
+						</view>
+						<view class="BI-text-left">公司全称</view>
+					</view>
+					<view class="right BI-items-right">
+						<view class="BI-text-right">
 							<wInput
 								v-model="text"
 								placeholder="请输入"
 							></wInput>
-						</div>
-					</div>
-					<div class="clear"></div>
-					<div class="line"></div>
-				</div>
+						</view>
+					</view>
+					<view class="clear"></view>
+					<view class="line"></view>
+				</view>
 				<!-- 官网(选填) -->
-				<div class="BI-items">
-					<div class="left BI-items-left">
-						<!-- <div class="mustFill">
+				<view class="BI-items">
+					<view class="left BI-items-left">
+						<!-- <view class="mustFill">
 							<image :src='xing'></image>
-						</div> -->
-						<div class="BI-text-left">官网(选填)</div>
-					</div>
-					<div class="right BI-items-right">
-						<div class="BI-text-right">
+						</view> -->
+						<view class="BI-text-left">官网(选填)</view>
+					</view>
+					<view class="right BI-items-right">
+						<view class="BI-text-right">
 							<wInput
 								v-model="text"
 								placeholder="请输入"
 							></wInput>
-						</div>
-					</div>
-					<div class="clear"></div>
-					<div class="line"></div>
-				</div>
-			</div>
-		</div>
+						</view>
+					</view>
+					<view class="clear"></view>
+				</view>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -77,7 +76,7 @@
 		position: relative;
 		padding: 14upx 30upx;
 		background: #fff;
-		height: 260upx;
+		height: 234upx;
 	}
 	.basicInfor-box{
 		position: relative;

@@ -56,7 +56,63 @@
 					"app-plus": {
 					}
 				}
-			}]
+			},
+			{
+				"path": "seekCapital/seekCapital",
+				"style": {
+					// #ifdef H5
+						"navigationStyle":"custom",
+					// #endif
+					"navigationBarTitleText": "找资本",
+					"app-plus": {
+					}
+				}
+			},
+			{
+				"path": "homeModules/lookServices/lookServices",
+				"style": {
+					// #ifdef H5
+						"navigationStyle":"custom",
+					// #endif
+					"navigationBarTitleText": "找服务",
+					"app-plus": {
+					}
+				}
+			},
+			{
+				"path": "homeModules/lookProject/lookProject",
+				"style": {
+					// #ifdef H5
+						"navigationStyle":"custom",
+					// #endif
+					"navigationBarTitleText": "找项目",
+					"app-plus": {
+					}
+				}
+			},
+			{
+				"path": "homeModules/activity/activity",
+				"style": {
+					// #ifdef H5
+						"navigationStyle":"custom",
+					// #endif
+					"navigationBarTitleText": "活动",
+					"app-plus": {
+					}
+				}
+			},
+			{
+				"path": "homeModules/meltTt/meltTt",
+				"style": {
+					// #ifdef H5
+						"navigationStyle":"custom",
+					// #endif
+					"navigationBarTitleText": "融头条",
+					"app-plus": {
+					}
+				}
+			}
+			]
 		},
 		{
 			"root": "modules/pageFind",

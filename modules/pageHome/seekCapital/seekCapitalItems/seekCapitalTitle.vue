@@ -1,15 +1,15 @@
 <template>
-	<view class="publishTitle" id="publishTitle">
+	<view class="publishTitle">
 		<view class="center-publishTitle">
-			<view class="news-TBox left" @tap="clickpublishTitle(1)">
+			<view class="news-TBox left" @tap="clickSeekCapitalTitle(1)">
 			  <view :class="clickItemsIndex === 1 ? 'Tbox-items Tb-checked' : 'Tbox-items'">
-				<p class="home-left-p">1、上传BP</p>
+				<p class="home-left-p">投资人</p>
 				<view class="hengLine" v-if="clickItemsIndex === 1"></view>
 			  </view>
 			</view>
-			<view class="news-TBox left" @tap="clickpublishTitle(2)">
+			<view class="news-TBox left" @tap="clickSeekCapitalTitle(2)">
 			  <view  :class="clickItemsIndex === 2 ? 'Tbox-items Tb-checked' : 'Tbox-items'">
-				<p class="home-right-p">2、基本信息</p>
+				<p class="home-right-p">投资机构</p>
 				<view class="hengLine"  v-if="clickItemsIndex === 2"></view>
 			  </view>
 			</view>
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+	import { mapMutations, mapGetters } from 'vuex';
 	export default {
 	    data () {
 			return {
@@ -27,15 +28,27 @@
 			};
 	    },
 		computed: {
+			...mapGetters(['SEEKCAPITALTITLE'])
 		},
 		watch: {
+			SEEKCAPITALTITLE: {
+				handler (a, b) {
+					console.log(a, '切换的title222');
+					this.clickItemsIndex = a; // 切换的title
+				},
+				deep: true
+			}
 		},
 		mounted(){
 		},
 	    methods: {
-			clickpublishTitle (e) {
+			...mapMutations({
+				setSeekCapitalTitleIndex: 'setSeekCapitalTitleIndex'
+			}),
+			clickSeekCapitalTitle (e) {
 				this.clickItemsIndex = e;
-				console.log(e, '切换上传BP和基本信息');
+				console.log(e, '投资人BP和投资机构');
+				this.$store.commit('setSeekCapitalTitleIndex', this.clickItemsIndex); // 更新setSeekCapitalTitleIndex
 			}
 	    }
 	};
