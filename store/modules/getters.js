@@ -8,6 +8,10 @@ const getters = {
 	EMPTY: state => state.empty,
 	// home 主页数据
 	GET_HOME: state => state.home,
+	//news 消息数据
+	GET_NEWS: state =>state.news,
+	//my 我的
+	GET_MY:state=>state.my,
 	// imgData 附件
 	IMGDATA: state => state.imgData
 };

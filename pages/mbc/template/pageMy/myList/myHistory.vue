@@ -1,11 +1,11 @@
 <template>
 	<view class="myHistory">
 		<!-- 未认证 -->
-		<!-- <Historyone></Historyone> -->
+		<Historyone v-if="this.Mylist.userType==-1"></Historyone>
 		<!-- 创业者 -->
-		<Historytwo></Historytwo>
+		<Historytwo v-if="this.Mylist.userType==0"></Historytwo>
 		<!-- 投资人 -->
-		<!-- <HistoryThree></HistoryThree> -->
+		<HistoryThree v-if="this.Mylist.userType==1"></HistoryThree>
 	</view>
 </template>
 
@@ -14,15 +14,16 @@
 	import Historytwo from './Historytwo/Historytwo.vue'
 	import HistoryThree from './HistoryThree/HistoryThree.vue'
 	export default {
+		props:['Mylist'],
 		data() {
 			return {
 	
 			};
 		},
 		components: {
-			// Historyone
-			Historytwo
-			// HistoryThree
+			Historyone,
+			Historytwo,
+			HistoryThree
 			
 		},
 		computed: {},

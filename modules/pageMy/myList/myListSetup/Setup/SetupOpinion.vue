@@ -1,6 +1,6 @@
 <template>
 	<view class="SetupOpinion">
-		<view>
+		<view @tap="gotoOpinion">
 			意见反馈
 			<image :src="right"></image>
 		</view>
@@ -23,7 +23,12 @@
 		mounted() {
 		},
 		methods: {
-			
+			gotoOpinion(e){
+				console.log('去' + e + '意见反馈');
+				uni.navigateTo({
+					url: '../myListSetup/Setup/Opinion/Opinion',
+				});
+			}
 		}
 	};
 </script>

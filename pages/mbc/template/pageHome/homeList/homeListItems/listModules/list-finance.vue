@@ -25,6 +25,7 @@
 		watch: {
           GET_HOME: {
             handler (a, b) {
+			console.log(a,b)
               this.listData = a.HomeList.finance.listData; // 主页在融项目列表数据
             },
             deep: true

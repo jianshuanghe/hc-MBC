@@ -1,9 +1,9 @@
 <template>
 	<view class="myContent">
 		<!-- 名字 头像 -->
-		<myInformation></myInformation>
+		<myInformation :Mylist="List"></myInformation>
 		<!-- 收藏 足迹 -->
-		<myHistory></myHistory>
+		<myHistory :Mylist="List"></myHistory>
 		<!-- 我的认证 -->
 		<myAuthentication></myAuthentication>
 		<!-- 关于陌拜资本 -->
@@ -18,10 +18,12 @@
 	import myAuthentication from './myList/myAuthentication.vue'
 	import myabout from './myList/myabout.vue'
 	import mySetup from './myList/mySetup.vue'
+	import { mapMutations, mapGetters } from 'vuex';
 	export default {
 		data() {
 			return {
-
+				List:[],
+				
 			};
 		},
 		components: {
@@ -31,12 +33,53 @@
 			myabout,
 			mySetup
 		},
-		computed: {},
+		computed: {
+			...mapGetters(['GET_MY'])
+		},
 		created() {
 			console.log('在组件中并不能使用页面生命周期函数');
+			this.getHeader();
+			
 		},
 		mounted() {},
-		methods: {}
+		methods: {
+			...mapMutations({
+				setheader: 'setheader'
+			}),
+			getHeader(){
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					// let params = {}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/user/760', //接口地址。
+						// data: this.endParams(params),
+						method: 'GET',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							console.log(response.data);
+							this.List=response.data.content
+							console.log(this.List)
+							this.$store.commit('setheader', this.List); // 更新setFinance
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			}
+		}
 	};
 </script>
 

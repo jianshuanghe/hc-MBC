@@ -46,6 +46,12 @@ const state = {
 		searchData: [], // search数据
 		searchHistoryData: [] // 搜索历史数据
 	}
+  },
+  my: {
+	MyList:{
+		header:[],
+		Collection:[]
+	}  
   }
 };
 export default state;

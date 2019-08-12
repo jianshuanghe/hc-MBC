@@ -26,6 +26,11 @@ const mutations = {
   setInvest (state, info) {
     console.log(info, 'setInvest');
     state.home.HomeList.invest = info;
-  }
+  },
+  // 我的=》用户信息
+  setheader(state, info){
+	  console.log(info,'setheader')
+	  state.my.MyList.header=info
+  },
 };
 export default mutations;

@@ -236,6 +236,109 @@
 					}
 				}
 			]
+		},{
+			"root": "modules/pageMy",
+			"pages": [{
+					"path": "myList/myListAuthentication/AuthenticationList/Certification-status/inspect-List/inspect-List-in",
+					
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "认证详情"
+					}
+				}
+			]
+		},{
+			"root": "modules/pageMy",
+			"pages": [{
+					"path": "myList/myListAuthentication/AuthenticationList/Certification-status/inspect-List/inspect-List-success",
+					
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "认证详情"
+					}
+				}
+			]
+		},{
+			"root": "modules/pageMy",
+			"pages": [{
+					"path": "myList/myListAuthentication/AuthenticationList/Certification-status/inspect-List/inspect-List-fail",
+					
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "认证详情"
+					}
+				}
+			]
+		},{
+			"root": "modules/pageMy",
+			"pages": [{
+					"path": "myList/myListAuthentication/AuthenticationList/Certification-status/Investment-status/InvestmentList/InvestmentList-data/InvestmentList-data",
+					
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "编辑更多资料"
+					}
+				}
+			]
+		},{
+			"root": "modules/pageMy",
+			"pages": [{
+					"path": "myList/myListAuthentication/AuthenticationList/Certification-status/Investment-status/InvestmentList/InvestmentList-data/datas-List/datas-List-me",
+					
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "个人介绍"
+					}
+				}
+			]
+		},{
+			"root": "modules/pageMy",
+			"pages": [{
+					"path": "myList/myListAuthentication/AuthenticationList/Certification-status/Investment-status/InvestmentList/InvestmentList-data/datas-List/datas-List-vitae",
+					
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "任职履历"
+					}
+				}
+			]
+		},{
+			"root": "modules/pageMy",
+			"pages": [{
+					"path": "myList/myListAuthentication/AuthenticationList/Certification-status/Investment-status/InvestmentList/InvestmentList-data/datas-List/datas-List-case",
+					
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "投资案例"
+					}
+				}
+			]
+		},{
+			"root": "modules/pageMy",
+			"pages": [{
+					"path": "myList/myListSetup/Setup/Opinion/Opinion",
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "意见反馈"
+					}
+				}
+			]
 		}
 	],
 	"globalStyle": {

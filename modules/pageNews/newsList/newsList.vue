@@ -1,6 +1,6 @@
 <template>
 	<view class="newsList">
-		<newsTips></newsTips>
+		<newsTips :Newdata="datas"></newsTips>
 	</view>
 </template>
 
@@ -8,7 +8,9 @@
 	import newsTips from "../newsList/newsTips/newsTips.vue"
 	export default {
 		data() {
-			return {};
+			return {
+				datas:[]
+			};
 		},
 		components: {
 			newsTips
@@ -16,9 +18,20 @@
 		computed: {},
 		created() {
 			console.log('在组件中并不能使用页面生命周期函数');
+			
 		},
-		mounted() {},
-		methods: {}
+		mounted() {
+			
+		},
+		methods: {
+			
+		},
+		 onLoad(options) {
+            var data = JSON.parse(options.index); // 字符串转对象
+            console.log(data)
+			this.datas=data
+        }
+ 
 	};
 </script>
 

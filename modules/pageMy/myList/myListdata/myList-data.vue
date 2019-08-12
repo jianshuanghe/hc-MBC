@@ -1,23 +1,14 @@
 <template>
 	<view class="myList-data">
-		<!-- 头像 -->
-		<dataHeadportrait></dataHeadportrait>
-		<!-- 名字 -->
-		<dataname></dataname>
-		<!-- 手机号 -->
-		<dataNumber></dataNumber>
-		<!-- 邮箱 -->
-		<dataMailbox></dataMailbox>
+		<!-- 个人资料 -->
+		<DataList></DataList>
 	</view>
 </template>
 
 <script>
 	import right from '@/static/mbcImg/my/right.png'
 	import green from '@/static/mbcImg/my/green.png'
-	import dataHeadportrait from './dataList/dataHeadportrait'
-	import dataname from './dataList/dataname'
-	import dataNumber from './dataList/dataNumber'
-	import dataMailbox from './dataList/dataMailbox'
+	import DataList from './dataList/DataList'
 	export default {
 		data() {
 			return {
@@ -26,10 +17,7 @@
 			};
 		},
 		components: {
-			dataHeadportrait,
-			dataname,
-			dataNumber,
-			dataMailbox
+			DataList
 		},
 		computed: {
 		},
