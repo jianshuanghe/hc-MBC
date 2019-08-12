@@ -11,9 +11,17 @@ const mutations = {
     console.log(info, 'setEmptyShow');
     state.empty.emptyShow = info;
   },
-  setAreaData (state, info) {
+  setAreaData (state, info) { // 地区
     console.log(info, 'setAreaData');
     state.areaData = info;
+  },
+  setFieldData (state, info) { // 领域
+    console.log(info, 'setFieldData');
+    state.fieldData = info;
+  },
+  setLevelData (state, info) { // 融资阶段
+    console.log(info, 'setLevelData');
+    state.levelData = info;
   },
   setHome (state, info) {
     console.log(info, 'setHome');

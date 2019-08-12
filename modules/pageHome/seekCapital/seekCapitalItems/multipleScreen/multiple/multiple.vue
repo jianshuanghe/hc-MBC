@@ -13,22 +13,15 @@
 							</view>
 						</view>
 						<view class="multiple-item-list">
-							<view class="left MIL-item" @tap="clickItems(1)">
-								<view :class=" clickItemsIndex === 1 ? 'MIL-item-text MILClicked' : 'MIL-item-text'">全部</view>
-								<image :src="checkedItems" v-if="clickItemsIndex === 1" class="clickImg"></image>
-							</view>
-							<view class="left MIL-item">
-								<view class="MIL-item-text">全部</view>
-							</view>
-							<view class="left MIL-item">
-								<view class="MIL-item-text">全部</view>
-							</view>
-							<view class="left MIL-item">
-								<view class="MIL-item-text">全部</view>
-							</view>
-							<view class="left MIL-item">
-								<view class="MIL-item-text">全部</view>
-							</view>
+							<checkbox-group @change="checkboxChange">
+							  <label @click="labelBtn(item.value,index)"  v-for="(item,index) in LEVELDATA" :key="index" v-if="(index > 8 && isAll[0].allShow === false) ? false : true" >
+							    <checkbox :value="item.value" :checked="item.checked" v-show="false"/>
+								<view class="left MIL-item">
+									<view :class="[item.checked ? 'MILClicked' : '', 'MIL-item-text']">{{item.name}}</view>
+									<image :src="checkedItems" :class="{clickImgShow: item.checked}" class="clickImg"></image>
+								</view>
+							  </label>
+							</checkbox-group>
 							<view class="clear"></view>
 							<view class="lineMIL"></view>
 						</view>
@@ -42,28 +35,21 @@
 							</view>
 						</view>
 						<view class="multiple-item-list">
-							<view class="left MIL-item" @tap="clickItems(1)">
-								<view :class=" clickItemsIndex === 1 ? 'MIL-item-text MILClicked' : 'MIL-item-text'">全部</view>
-								<image :src="checkedItems" v-if="clickItemsIndex === 1" class="clickImg"></image>
-							</view>
-							<view class="left MIL-item">
-								<view class="MIL-item-text">全部</view>
-							</view>
-							<view class="left MIL-item">
-								<view class="MIL-item-text">全部</view>
-							</view>
-							<view class="left MIL-item">
-								<view class="MIL-item-text">全部</view>
-							</view>
-							<view class="left MIL-item">
-								<view class="MIL-item-text">全部</view>
-							</view>
+							<checkbox-group @change="checkboxChange1">
+							  <label @click="labelBtn1(item.value,index)"  v-for="(item,index) in FIELDDATA" :key="index" v-if="(index > 8 && isAll[1].allShow === false) ? false : true" >
+							    <checkbox :value="item.value" :checked="item.checked" v-show="false"/>
+								<view class="left MIL-item">
+									<view :class="[item.checked ? 'MILClicked' : '', 'MIL-item-text']">{{item.name}}</view>
+									<image :src="checkedItems" :class="{clickImgShow: item.checked}" class="clickImg"></image>
+								</view>
+							  </label>
+							</checkbox-group>
 							<view class="clear"></view>
 							<view class="lineMIL"></view>
 						</view>
 					</view>
 					<!-- 模块 -->
-					<view class="multiple-list">
+					<view class="multiple-list mG-btn">
 						<view class="multiple-item-title">
 							地区
 							<view class="right right-MIL" @tap="clickToAll(2)">
@@ -71,10 +57,15 @@
 							</view>
 						</view>
 						<view class="multiple-item-list">
-							<view class="left MIL-item" @tap="clickItems(items.id)" v-for="(items,index) in AREADATA.province" :key="index" >
-								<view :class=" clickItemsIndex === items.id ? 'MIL-item-text MILClicked' : 'MIL-item-text'">{{items.name}}</view>
-								<image :src="checkedItems" v-if="clickItemsIndex === items.id" class="clickImg"></image>
-							</view>
+							<checkbox-group @change="checkboxChange2">
+							  <label @click="labelBtn2(item.value,index)"  v-for="(item,index) in AREADATA.province" :key="index" v-if="(index > 8 && isAll[2].allShow === false) ? false : true" >
+							    <checkbox :value="item.value" :checked="item.checked" v-show="false"/>
+								<view class="left MIL-item">
+									<view :class="[item.checked ? 'MILClicked' : '', 'MIL-item-text']">{{item.name}}</view>
+									<image :src="checkedItems" :class="{clickImgShow: item.checked}" class="clickImg"></image>
+								</view>
+							  </label>
+							</checkbox-group>
 							<view class="clear"></view>
 							<view class="lineMIL"></view>
 						</view>
@@ -125,28 +116,83 @@
 					}
 				],
 				checkedItems: checkedItems,
-				clickItemsIndex: 0,
-				areaDate: '' // 地区
+				labelName:'',
+				fieldsDataList:'',
+				levesDataList:'',
+				areaDataList:'',
+				investorSearch: { // 筛选结果 --- 投资人参数
+					sortType: 'ID', // 排序 ID 综合 INFO_COUNT 最热 CREATE_TIME 最新
+					area: '', //  省份codelist
+					leves: '', //  轮数idlist
+					fields: '' // 领域 idlist
+				},
+				investInsSearch: { // 筛选结果 --- 投资项目参数
+					sortType: 'ID', // 排序 ID 综合 INFO_COUNT 最热 CREATE_TIME 最新
+					area: '', //  省份codelist
+					leves: '', //  轮数idlist
+					fields: '' // 领域 idlist
+				},
+				clickItemsTitle: 1 // 当前title,所在的位置，1代表的投资人，2代表时投资项目
 			};
 	    },
 		computed: {
-			...mapGetters(['GET_HOME', 'AREADATA'])
+			...mapGetters(['SEEKCAPITALTITLE', 'INVESTORSEARCH', 'INVERSTINSSEARCH', 'AREADATA', 'FIELDDATA', 'LEVELDATA'])
 		},
-		watch: {
-		  GET_HOME: {
-		    handler (a, b) {
-		      console.log(a, b)
-		    },
-		    deep: true
-		  }
+		watch: {},
+		created() {
+			this.investorSearch = this.INVESTORSEARCH;
+			this.investInsSearch = this.INVERSTINSSEARCH;
+			this.clickItemsTitle = this.SEEKCAPITALTITLE;
 		},
 		mounted(){
-			console.log(this.AREADATA, 'AREADAT地区数据')
+			console.log(this.FIELDDATA, 'AREADAT地区数据')
 		},
 	    methods: {
 			...mapMutations({
-				setMultipleShow: 'setMultipleShow' // 筛选展示
+				setMultipleShow: 'setMultipleShow', // 筛选展示
+				setAreaData: 'setAreaData', // 公共组件省市区
+				setFieldData: 'setFieldData', // 公共组件领域
+				setLevelData: 'setLevelData', // 公共组件融资阶段
 			}),
+			// 领域
+			labelBtn(name,index){
+			  console.log(name,index,"nameindex")
+			  if(this.levesDataList.join(',').indexOf(name) >-1){
+			    this.LEVELDATA[index].checked = true
+			  }else{
+			    this.LEVELDATA[index].checked = false
+			  }
+			},
+			checkboxChange: function (e) {
+			  this.levesDataList = e.detail.value; // 获取选中的值
+			  console.log(this.levesDataList,"levesDataList");
+			},
+			// 阶段
+			labelBtn1(name,index){
+			  console.log(name,index,"nameindex")
+			  if(this.fieldsDataList.join(',').indexOf(name) >-1){
+			    this.FIELDDATA[index].checked = true
+			  }else{
+			    this.FIELDDATA[index].checked = false
+			  }
+			},
+			checkboxChange1: function (e) {
+			  this.fieldsDataList = e.detail.value; // 获取选中的值
+			  console.log(this.fieldsDataList,"fieldsDataList");
+			},
+			// 地区
+			labelBtn2(name,index){
+			  console.log(name,index,"nameindex")
+			  if(this.areaDataList.join(',').indexOf(name) >-1){
+			    this.AREADATA.province[index].checked = true
+			  }else{
+			    this.AREADATA.province[index].checked = false
+			  }
+			},
+			checkboxChange2: function (e) {
+			  this.areaDataList = e.detail.value; // 获取选中的值
+			  console.log(this.areaDataList,"areaDataList");
+			},
 			clickToAll(e) {
 				this.isAll.map((items, index) => {
 					if (index === e) {
@@ -160,9 +206,21 @@
 					}
 				})
 			},
-			clickItems (e) {
+			clickItems0 (e) {
 				console.log(e, '触发点击筛选items');
-				this.clickItemsIndex = e;
+				this.arr0[e] = !this.arr0[e];
+				console.log(this.arr0);
+				this.$store.commit('setArr0', this.arr0); // 更新setArr0
+			},
+			clickItems1 (e) {
+				console.log(e, '触发点击筛选items');
+				this.arr1[e] = !this.arr1[e];
+				this.$store.commit('setArr1', this.arr1); // 更新setArr1
+			},
+			clickItems2 (e) {
+				console.log(e, '触发点击筛选items');
+				this.arr2[e] = !this.arr2[e];
+				this.$store.commit('setArr2', this.arr2); // 更新setArr2
 			},
 			clickClose(){
 				console.log('触发关闭按钮');
@@ -174,6 +232,30 @@
 			},
 			clickSure(){
 				console.log('触发确认按钮');
+				if (this.clickItemsTitle === 1) {
+					if (this.fieldsDataList !== '') {
+						this.investorSearch.fields = this.fieldsDataList.join(',');
+					}
+					if (this.levesDataList !== '') {
+						this.investorSearch.leves = this.levesDataList.join(',');
+					}
+					if (this.areaDataList !== '') {
+						this.investorSearch.area = this.areaDataList.join(',');
+					};
+					this.$store.commit('setInvestorSearch', this.investorSearch); // 更新setInvestorSearch
+				} else if (this.clickItemsTitle === 2) {
+					if (this.fieldsDataList !== '') {
+						this.investInsSearch.fields = this.fieldsDataList.join(',');
+					}
+					if (this.levesDataList !== '') {
+						this.investInsSearch.leves = this.levesDataList.join(',');
+					}
+					if (this.areaDataList !== '') {
+						this.investInsSearch.area = this.areaDataList.join(',');
+					};
+					this.investInsSearch.sortType = this.clickItemsCode;
+					this.$store.commit('setInvestInsSearch', this.investInsSearch); // 更新setInvestInsSearch
+				}
 				this.$store.commit('setMultipleShow', false); // 更新setMultipleShow
 			}
 	    }
@@ -181,6 +263,9 @@
 </script>
 
 <style>
+	uni-checkbox-group uni-label {
+		padding-right: 0px !important;
+	}
 	.multiple-content{
 		position: relative;
 		width: 100%;
@@ -241,7 +326,7 @@
 	.multiple-item-list{
 		position: relative;
 		width: 624upx;
-		float: right;
+		margin-left: 28upx;
 	}
 	.MIL-item{
 		position: relative;
@@ -278,6 +363,15 @@
 		height: 40upx;
 		right: 30upx;
 		top: 30upx;
+		display: none;
+	}
+	.clickImgShow{
+		position: absolute;
+		width: 36upx;
+		height: 40upx;
+		right: 30upx;
+		top: 30upx;
+		display: block;
 	}
 	.multiple-bot{
 		position: fixed;
@@ -322,5 +416,19 @@
 		height: 1px;
 		background: #F5F5F5;
 		margin-top: 20upx;
+	}
+	.mG-btn{
+		margin-bottom: 800upx;
+	}
+	.selectBox{
+	  background: #EB5248!important;
+	  color: #fff!important;
+	}
+	.checkbox{
+	  padding: 5px 10px;
+	  border: 1px solid #EB5248;
+	  margin: 10px;
+	  border-radius: 7upx;
+	  color: #000;
 	}
 </style>

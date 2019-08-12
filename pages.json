@@ -80,6 +80,17 @@
 				}
 			},
 			{
+				"path": "homeModules/lookServices/serviceDetails/serviceDetails",
+				"style": {
+					// #ifdef H5
+						"navigationStyle":"custom",
+					// #endif
+					"navigationBarTitleText": "速融服务",
+					"app-plus": {
+					}
+				}
+			},
+			{
 				"path": "homeModules/lookProject/lookProject",
 				"style": {
 					// #ifdef H5

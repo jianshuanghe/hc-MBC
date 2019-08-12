@@ -18,9 +18,9 @@
 		<!-- bot -->
 		<view class="multipleScreen-list">
 			<!-- 综合 -->
-			<screenBox v-show='MULTIPLESCREEN.screenShow'></screenBox>
+			<screenBox v-if='MULTIPLESCREEN.screenShow'></screenBox>
 			<!-- 筛选 -->
-			<multipleBox v-show='MULTIPLESCREEN.multipleShow'></multipleBox>
+			<multipleBox v-if='MULTIPLESCREEN.multipleShow'></multipleBox>
 		</view>
 	</view>
 </template>
@@ -36,6 +36,14 @@
 	export default {
 	    data () {
 			return {
+				areaData: { // 地区
+					area: [], // 全国省市区
+					province: [], // 全国省
+					provinceAndCity: [] // 全国省市
+				},
+				arr0: [], // 定义样式
+				arr1: [], // 定义样式
+				arr2: [], // 定义样式
 				screenUp: screenUp,
 				screenDown: screenDown,
 				screen: screenUp,
@@ -70,12 +78,20 @@
 		    deep: true
 		  }
 		},
+		created() {
+			this.getArea();
+			this.getField();
+			this.getLevel();
+		},
 		mounted(){
 		},
 	    methods: {
 			...mapMutations({
 				setScreenShow: 'setScreenShow', // 综合展示
-				setMultipleShow: 'setMultipleShow' // 筛选展示
+				setMultipleShow: 'setMultipleShow', // 筛选展示
+				setAreaData: 'setAreaData', // 公共组件省市区
+				setFieldData: 'setFieldData', // 公共组件领域
+				setLevelData: 'setLevelData', // 公共组件融资阶段
 			}),
 			clickMultipleScreen (e) {
 				if(e === 1) {
@@ -106,6 +122,132 @@
 					}
 				}
 				
+			},
+			getArea () { // 公共组件省市区
+				let area = []; // 全国省市区
+				let province = []; // 全国省
+				let provinceAndCity = []; // 全国省市
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					let params = {}; // 请求总数居时 参数为空
+					uni.request({
+						url: this.api2 + '/field/cityJson', //接口地址。
+						data: this.endParams(params),
+						header: {
+							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
+						},
+						success: (response) => {
+							area = response.data; // 全国省市区
+							area.map((items, index) => {
+								let provinceItems = {
+									name: items.name,
+									value: items.id,
+									checked: false
+								};
+								let city = []; // 市
+								items.child.map((item, index) => {
+									let child = {
+										name: item.name,
+										id: item.id
+									}
+									city.push(child)
+								});
+								let provinceAndCityItems = {
+									name: items.name,
+									id: items.id,
+									child: city
+								};
+								province.push(provinceItems);
+								provinceAndCity.push(provinceAndCityItems);
+							});
+							this.areaData.area = area;
+							this.areaData.province = province;
+							this.areaData.provinceAndCity = provinceAndCity;
+							this.$store.commit('setAreaData', this.areaData); // 更新setAreaData
+						},
+						fail: (error) => {
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
+			getField () { // 公共组件领域
+				let fieldData = [];
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					let params = {}; // 请求总数居时 参数为空
+					uni.request({
+						url: this.api2 + '/field/fieldList', //接口地址。
+						data: this.endParams(params),
+						header: {
+							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
+						},
+						success: (response) => {
+							console.log(response.data.content); // 领域
+							let field = response.data.content;
+							field.map((items, index) => {
+								let fieldItems = {
+									name: items.name,
+									value: items.id,
+									checked: false
+								};
+								fieldData.push(fieldItems);
+							})
+							this.$store.commit('setFieldData', fieldData); // 更新setFieldData
+						},
+						fail: (error) => {
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
+			getLevel () { // 公共组件融资阶段
+			let levelData = [];
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					let params = {}; // 请求总数居时 参数为空
+					uni.request({
+						url: this.api2 + '/field/levelList', //接口地址。
+						data: this.endParams(params),
+						header: {
+							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
+						},
+						success: (response) => {
+							console.log(response.data.content); // 融资阶段
+							let level = response.data.content;
+							level.map((items, index) => {
+								let levelItems = {
+									name: items.name,
+									value: items.id,
+									checked: false
+								};
+								levelData.push(levelItems);
+							})
+							this.$store.commit('setLevelData',levelData); // 更新setLevelData
+						},
+						fail: (error) => {
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
 			}
 	    }
 	};

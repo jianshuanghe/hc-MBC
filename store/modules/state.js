@@ -15,6 +15,8 @@ const state = {
 	province: [], // 全国省
 	provinceAndCity: [] // 全国省市
   },
+  fieldData: {}, // 领域
+  levelData: {}, // 融资阶段
   home: { // 主页
 	tabItems: 1,
 	HomeList:{

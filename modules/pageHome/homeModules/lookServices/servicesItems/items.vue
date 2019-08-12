@@ -1,6 +1,6 @@
 <template>
 	<view class="servicesItems-content-items">
-		<view class="SICI-content">
+		<view class="SICI-content" @tap="goToServiceDetails()">
 			<view class="SICI-img">
 				<image :src='msgData.img  || banner4'></image>
 			</view>
@@ -33,7 +33,13 @@
 	    methods: {
 	        change(e) {
 	            this.current = e.detail.current;
-	        }
+	        },
+			goToServiceDetails () {
+				console.log('去服务详情页面，bp打磨，速溶服务等');
+				 uni.navigateTo({
+					url: '/modules/pageHome/homeModules/lookServices/serviceDetails/serviceDetails'
+				});
+			}
 	    }
 	}
 </script>
