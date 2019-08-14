@@ -124,7 +124,12 @@
 										success: function(res){
 											if(res.statusCode === 200){
 												console.log(JSON.parse(res.data), '上传成功');
-												_self.imageList[remoteUrlIndex] = JSON.parse(res.data).httpUrl
+												let imgObj = {
+													imgUrl: JSON.parse(res.data).httpUrl,
+													imgName: JSON.parse(res.data).name
+												};
+												_self.imageList[remoteUrlIndex] = imgObj;
+												console.log(_self.imageList, '_self.imageList');
 												completeImages ++
 												
 												if(_self.showUploadProgress){

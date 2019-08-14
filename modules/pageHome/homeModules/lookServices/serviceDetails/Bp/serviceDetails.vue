@@ -1,13 +1,15 @@
 <template>
 	<view class="serciveDetails-conetnt">
 		<detailTop></detailTop>
-		<costSave></costSave>
+		<detailsContent></detailsContent>
+		<constSubmit></constSubmit>
 	</view>
 </template>
 
 <script>
 	import detailTop from "./detailsItems/detailTop.vue";
-	import costSave from "./detailsItems/costSave.vue";
+	import detailsContent from "./detailsItems/detailsContent.vue";
+	import constSubmit from "./detailsItems/constSubmit.vue";
 	export default {
 	    data () {
 			return {
@@ -16,7 +18,8 @@
 	    },
 		components: {
 			detailTop,
-			costSave
+			detailsContent,
+			constSubmit
 		},
 		computed: {},
 		watch: {},

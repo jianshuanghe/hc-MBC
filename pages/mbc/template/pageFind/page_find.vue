@@ -1,23 +1,36 @@
 <template>
 	<view class="findContent">
-		<view class="des">发现</view>
+		<!-- 搜索 -->
+		<findSearch></findSearch>
+		<!-- tab切换 -->
+		<findTab></findTab>
+		<!-- 列表展示 -->
+		<findList></findList>
 	</view>
 </template>
 <script>
-export default {
-	data() {
-		return {};
-	},
-	computed: {
-	},
-	created() {
-		console.log('在组件中并不能使用页面生命周期函数');
-	},
-	mounted() {
-	},
-	methods: {
-	}
-};
+	import findSearch from "./findList/findSearch.vue";
+	import findTab from "./findList/findTab.vue";
+	import findList from "./findList/findList.vue";
+	export default {
+		data() {
+			return {};
+		},
+		components: {
+			findSearch,
+			findTab,
+			findList
+		},
+		computed: {
+		},
+		created() {
+			console.log('在组件中并不能使用页面生命周期函数');
+		},
+		mounted() {
+		},
+		methods: {
+		}
+	};
 </script>
 
 <style>

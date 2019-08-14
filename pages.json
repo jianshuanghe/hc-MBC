@@ -56,6 +56,45 @@
 					}
 				},
 				{
+					"path": "homeModules/lookServices/lookServices",
+					"style": {
+						// #ifdef H5
+						"navigationStyle": "custom",
+						// #endif
+						"navigationBarTitleText": "找服务",
+						"app-plus": {}
+					}
+				},
+				{
+					"path": "homeModules/lookServices/serviceDetails/quickMelt/serviceDetails",
+					"style": {
+						// #ifdef H5
+						"navigationStyle": "custom",
+						// #endif
+						"navigationBarTitleText": "速融服务",
+						"app-plus": {}
+					}
+				},
+				{
+					"path": "homeModules/lookServices/serviceDetails/Bp/serviceDetails",
+					"style": {
+						// #ifdef H5
+						"navigationStyle": "custom",
+						// #endif
+						"navigationBarTitleText": "BP打磨",
+						"app-plus": {}
+					}
+				},
+				{
+					"path": "homeModules/lookProject/lookProject",
+					"style": {
+						// #ifdef H5
+						"navigationStyle": "custom",
+						// #endif
+						"navigationBarTitleText": "找项目"
+					}
+				},
+				{
 					"path": "seekCapital/seekCapital",
 					"style": {
 						// #ifdef H5
@@ -74,19 +113,42 @@
 						"navigationBarTitleText": "找服务",
 						"app-plus": {}
 					}
-				},
-				{
-					"path": "homeModules/lookServices/serviceDetails/serviceDetails",
-					"style": {
-						// #ifdef H5
-						"navigationStyle": "custom",
-						// #endif
-						"navigationBarTitleText": "速融服务",
-						"app-plus": {}
-					}
-				},
-				{
-					"path": "homeModules/lookProject/lookProject",
+				}
+				// {
+				// 	"path": "homeModules/lookServices/serviceDetails/serviceDetails",
+				// 	"style": {
+				// 		// #ifdef H5
+				// 		"navigationStyle": "custom",
+				// 		// #endif
+				// 		"navigationBarTitleText": "速融服务",
+				// 		"app-plus": {}
+				// 	}
+				// }
+				// {
+				// 	"path": "homeModules/lookProject/lookProject",
+				// 	"path": "active/activeDetails",
+				// 	"style": {
+				// 		// #ifdef H5
+				// 		"navigationStyle": "custom",
+				// 		// #endif
+				// 		"navigationBarTitleText": "活动详情"
+				// 	}
+				// },
+				// {
+				// 	"path": "information/informationDetails",
+				// 	"style": {
+				// 		// #ifdef H5
+				// 		"navigationStyle": "custom",
+				// 		// #endif
+				// 		"navigationBarTitleText": "资讯详情"
+				// 	}
+				// }
+			]
+		},
+		{
+			"root": "modules/pagePublish",
+			"pages": [{
+					"path": "publishList/publishUpload",
 					"style": {
 						// #ifdef H5
 						"navigationStyle": "custom",
@@ -94,37 +156,40 @@
 						"navigationBarTitleText": "找项目",
 						"app-plus": {}
 					}
-				},
-				{
-					"path": "homeModules/activity/activity",
-					"style": {
-						// #ifdef H5
-						"navigationStyle": "custom",
-						// #endif
-						"navigationBarTitleText": "活动",
-						"app-plus": {}
-					}
-				},
-				{
-					"path": "homeModules/meltTt/meltTt",
-					"style": {
-						// #ifdef H5
-						"navigationStyle": "custom",
-						// #endif
-						"navigationBarTitleText": "融头条",
-						"app-plus": {}
-					}
 				}
+				// {
+				// 	"path": "homeModules/activity/activity",
+				// 	"style": {
+				// 		// #ifdef H5
+				// 		"navigationStyle": "custom",
+				// 		// #endif
+				// 		"navigationBarTitleText": "活动",
+				// 		"app-plus": {}
+				// 	}
+				// },
+				// {
+				// 	"path": "/meltTt/meltTt",
+				// 	"style": {
+				// 		// #ifdef H5
+				// 		"navigationStyle": "custom",
+				// 		// #endif
+				// 		"navigationBarTitleText": "融头条",
+				// 		"app-plus": {}
+				// 	}
+				// }
 			]
-		}, {
+		},
+		{
 			"root": "modules/pageMy",
 			"pages": [{
+					// "path": "myList/myList",
+					// "path": "myList/myListabout/about",
 					"path": "myList/myListdata/myList-data",
 					"style": {
 						// #ifdef H5
 						"navigationStyle": "custom",
 						// #endif
-						"navigationBarTitleText": "个人中心"
+						"navigationBarTitleText": "我的"
 					}
 				}, {
 					"path": "myList/myListabout/about",
@@ -135,7 +200,10 @@
 						// #endif
 						"navigationBarTitleText": "关于我们"
 					}
-				}, {
+				},
+				{
+					// "path": "myList/myList",
+					// "path": "myList/myListabout/about",
 					"path": "myList/myListSetup/myListSetup",
 
 					"style": {
@@ -319,7 +387,8 @@
 					"onReachBottomDistance": 20
 				}
 			}]
-		}, {
+		},
+		{
 			"root": "modules/pagePublish",
 			"pages": [{
 				"path": "publishList/publishUpload",
@@ -330,7 +399,8 @@
 					"navigationBarTitleText": "电脑上传BP"
 				}
 			}]
-		}, {
+		},
+		{
 			"root": "modules/pageNews",
 			"pages": [{
 				"path": "newsList/newsList",

@@ -46,101 +46,11 @@
 			};
 	    },
 		computed: {
-			...mapGetters(['SEEKCAPITALTITLE', 'INVESTORSEARCH', 'INVERSTINSSEARCH', 'AREADATA', 'FIELDDATA', 'LEVELDATA'])
+			...mapGetters(['SEEKCAPITALTITLE'])
 		},
 		watch: {
-			 INVESTORSEARCH: {
-				handler (a, b) {
-					console.log(a, '获取VUX投资人的参数')
-					this.investorSearch = a; // 接口投资人参数
-				},
-				deep: true
-			},
-			INVERSTINSSEARCH: {
-				handler (a, b) {
-					console.log(a, '获取VUX投资项目参数')
-					this.investInsSearch = a; // 接口投资项目参数
-				},
-				deep: true
-			},
 			SEEKCAPITALTITLE: {
-				handler (a, b) {
-					console.log(a, '获取VUX切换的title');
-					this.clickItemsIndex = a; // 切换的title
-					this.$store.commit('setScreenShow', false); // 更新setScreenShow
-					this.$store.commit('setMultipleShow', false); // 更新setMultipleShow
-					if (a === 1) {
-						this.fieldsDataList = this.investorSearch.fields.split(','); // 用户选中的领域
-						this.FIELDDATA.map((items, index) => {
-							this.fieldsDataList.map((item, index) => {
-								if (items === item) {
-									items.checked = true;
-								}
-							})
-							this.FIELDDATAS.push(items);
-						})
-						this.$store.commit('setFieldData', this.FIELDDATAS); // 更新setFieldData
-						// -----------------------------------------------------------------------------------------------------------------------------
-						this.levesDataList = this.investorSearch.leves.split(','); // 用户选中的融资阶段
-						console.log(this.levesDataList, '1--------------this.levesDataList');
-						this.LEVELDATA.map((items, index) => {
-							this.levesDataListt.map((item, index) => {
-								if (items === item) {
-									items.checked = true;
-								}
-							})
-							this.LEVELDATAS.push(items);
-						})
-						console.log(this.LEVELDATA, '1--------------this.LEVELDATA');
-						this.$store.commit('setLevelData', this.LEVELDATAS); // 更新setLevelData
-						// -------------------------------------------------------------------------------------------------------------------------------
-						this.areaDataList = this.investorSearch.area.split(','); // 用户选中的地区
-						this.AREADATA.province.map((items, index) => {
-							this.areaDataList.map((item, index) => {
-								if (items === item) {
-									items.checked = true;
-								}
-							})
-							this.AREADATAS.push(items);
-						})
-						this.$store.commit('setAreaData', this.LEVELDATAS); // 更新setAreaData
-					} else if (a === 2) {
-						this.fieldsDataList = this.investorSearch.fields.split(','); // 用户选中的领域
-						this.FIELDDATA.map((items, index) => {
-							this.fieldsDataList.map((item, index) => {
-								if (items === item) {
-									items.checked = true;
-								}
-							})
-							this.FIELDDATAS.push(items);
-						})
-						this.$store.commit('setFieldData', this.FIELDDATAS); // 更新setFieldData
-								// -----------------------------------------------------------------------------------------------------------------------------
-						this.levesDataList = this.investorSearch.leves.split(','); // 用户选中的融资阶段
-						console.log(this.levesDataList, '2--------------this.levesDataList');
-						this.LEVELDATA.map((items, index) => {
-							this.levesDataListt.map((item, index) => {
-								if (items === item) {
-									items.checked = true;
-								}
-							})
-							this.LEVELDATAS.push(items);
-						})
-						console.log(this.LEVELDATAS, '2--------------this.LEVELDATA');
-						this.$store.commit('setLevelData', this.LEVELDATAS); // 更新setLevelData
-								// -------------------------------------------------------------------------------------------------------------------------------
-						this.areaDataList = this.investorSearch.area.split(','); // 用户选中的地区
-						this.AREADATA.province.map((items, index) => {
-							this.areaDataList.map((item, index) => {
-								if (items === item) {
-									items.checked = true;
-								}
-							})
-							this.AREADATAS.push(items);
-						})
-						this.$store.commit('setAreaData', this.LEVELDATAS); // 更新setAreaData
-					}
-				},
+				handler (a, b) {},
 				deep: true
 			}
 		},
@@ -150,10 +60,7 @@
 		},
 	    methods: {
 			...mapMutations({
-				setSeekCapitalTitleIndex: 'setSeekCapitalTitleIndex',
-				setAreaData: 'setAreaData', // 公共组件省市区
-				setFieldData: 'setFieldData', // 公共组件领域
-				setLevelData: 'setLevelData', // 公共组件融资阶段
+				setSeekCapitalTitleIndex: 'setSeekCapitalTitleIndex'
 			}),
 			clickSeekCapitalTitle (e) {
 				this.clickItemsIndex = e;
