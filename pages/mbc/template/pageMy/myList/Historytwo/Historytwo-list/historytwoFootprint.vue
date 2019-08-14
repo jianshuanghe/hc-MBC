@@ -19,7 +19,7 @@
 		watch: {
 			GET_MY: {
 				handler(a, b) {
-					console.log(a, b, 'header----list');
+					// console.log(a, b, 'header----list');
 				},
 				deep: true
 			}

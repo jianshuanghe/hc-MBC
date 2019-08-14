@@ -110,7 +110,8 @@ const state = {
   my: {
 	MyList:{
 		header:[],
-		Collection:[]
+		Collection:[],
+		Authentication:[]
 	}  
   }
 };

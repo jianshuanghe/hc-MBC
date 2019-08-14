@@ -12,6 +12,10 @@
 				<view class="ListMechanismtwo">最近投资：{{items.inves}}</view>
 			</view>
 		</view>
+		<view class="meirenkanwo" v-if="List.rows!==undefined &&List.rows.length==0">
+			<image :src="kong" mode=""></image>
+			您还没有收藏投资机构！
+		</view>
 	</view>
 </template>
 
@@ -20,9 +24,11 @@
 		mapMutations,
 		mapGetters
 	} from 'vuex';
+	import kong from '@/static/mbcImg/my/kong.png'
 	export default {
 		data() {
 			return {
+				kong:kong,
 				List: [],
 				page: 1,
 				picArr:[],
@@ -55,7 +61,7 @@
 						title: '加载中'
 					});
 					uni.request({
-						url: this.api2 + '/follow/capiList?userId=760&page=' + this.page, //接口地址。
+						url: this.api2 + '/follow/capiList?userId='+landRegistLG.user.id+'&page=' + this.page, //接口地址。
 						// data: this.endParams(params),
 						method: 'GET',
 						header: {
@@ -157,5 +163,18 @@
 		font-size: 24upx;
 		color: #5D5D5D;
 		margin-top: 60upx;
+	}
+	.meirenkanwo{
+		width: 320upx;
+		height: 280upx;
+		display: block;
+		margin: 120upx auto auto auto;
+		font-size: 28upx;
+		text-align: center;
+		color: #9B9B9B;
+	}
+	.meirenkanwo image{
+		width: 95%;
+		height: 85%;
 	}
 </style>

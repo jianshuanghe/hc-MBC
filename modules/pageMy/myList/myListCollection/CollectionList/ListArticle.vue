@@ -3,15 +3,22 @@
 		<view class="ListArticlefist" v-for="(item,index) in CollectionList" :key="index">
 			<view>
 				<view>{{item.title}}</view>
-				<span class="ListArticlefist-times">{{item.createTime}}</span>
+				<span class="ListArticlefist-times">{{item.createTime|formatDate}}</span>
 			</view>
-			<view><image :src="item.headImg"></image></view>
+			<view>
+				<image :src="item.headImg"></image>
+			</view>
+		</view>
+		<view class="meirenkanwo" v-if="CollectionList!==undefined &&CollectionList.length==0">
+			<image :src="kong" mode=""></image>
+			您还没有收藏文章！
 		</view>
 	</view>
 </template>
 
 <script>
 	import yong from '@/static/mbcImg/my/yong.png'
+	import kong from '@/static/mbcImg/my/kong.png'
 	import {
 		mapMutations,
 		mapGetters
@@ -20,20 +27,35 @@
 		data() {
 			return {
 				yong: yong,
+				kong: kong,
 				CollectionList: [],
 				page: 1,
 			};
 		},
 		computed: {
 			...mapGetters(['GET_MY']),
-			ipaddrArray:function() {
-				return this.picArr.split(';')
+
+		},
+		filters: {
+			formatDate: function(value) {
+				let date = new Date(value);
+				let y = date.getFullYear();
+				let MM = date.getMonth() + 1;
+				MM = MM < 10 ? ('0' + MM) : MM;
+				let d = date.getDate();
+				d = d < 10 ? ('0' + d) : d;
+				let h = date.getHours();
+				h = h < 10 ? ('0' + h) : h;
+				let m = date.getMinutes();
+				m = m < 10 ? ('0' + m) : m;
+				let s = date.getSeconds();
+				s = s < 10 ? ('0' + s) : s;
+				return y + '.' + MM + '.' + d ;
 			}
 		},
 		created() {
 			console.log('在组件中并不能使用页面生命周期函数');
 			this.getConcang();
-	
 		},
 		mounted() {},
 		methods: {
@@ -49,7 +71,7 @@
 						title: '加载中'
 					});
 					uni.request({
-						url: this.api2 + '/follow/newsList?userId=760&page=' + this.page, //接口地址。
+						url: this.api2 + '/follow/newsList?userId='+landRegistLG.user.id+'&page=' + this.page, //接口地址。
 						// data: this.endParams(params),
 						method: 'GET',
 						header: {
@@ -71,18 +93,20 @@
 						}
 					});
 				}
+
 			}
 		}
 	};
 </script>
 
 <style>
-	.ListArticle{
+	.ListArticle {
 		padding-top: 88upx;
 		width: 100%;
 		min-height: 100%;
 	}
-	.ListArticlefist{
+
+	.ListArticlefist {
 		width: 90%;
 		height: 200upx;
 		border-bottom: 2upx solid #F5F5F5;
@@ -90,34 +114,54 @@
 		display: flex;
 		justify-content: space-between;
 	}
-	.ListArticlefist view:nth-of-type(1){
+
+	.ListArticlefist view:nth-of-type(1) {
 		width: 65%;
 		height: 80%;
 		margin-top: 20upx;
 	}
-	.ListArticlefist view:nth-of-type(1) view:nth-of-type(1){
+
+	.ListArticlefist view:nth-of-type(1) view:nth-of-type(1) {
 		font-size: 30upx;
 		width: 100%;
 		height: 84upx;
 		font-weight: 700;
 		color: #2E2E30;
 	}
-	.ListArticlefist-times{
+
+	.ListArticlefist-times {
 		font-size: 24upx;
 		color: #9B9B9B;
 		margin-top: 20upx;
 		position: absolute;
 	}
-	.ListArticlefist view:nth-of-type(2){
+
+	.ListArticlefist view:nth-of-type(2) {
 		width: 30%;
 		height: 80%;
 		margin-top: 20upx;
 		border-radius: 4upx;
 		background: pink;
 	}
-	.ListArticlefist view:nth-of-type(2) image{
+
+	.ListArticlefist view:nth-of-type(2) image {
 		width: 100%;
 		height: 100%;
 		border-radius: 4upx;
+	}
+
+	.meirenkanwo {
+		width: 284upx;
+		height: 280upx;
+		display: block;
+		margin: 120upx auto auto auto;
+		font-size: 28upx;
+		text-align: center;
+		color: #9B9B9B;
+	}
+
+	.meirenkanwo image {
+		width: 100%;
+		height: 85%;
 	}
 </style>

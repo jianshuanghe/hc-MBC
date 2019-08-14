@@ -5,7 +5,7 @@
 			"path": "pages/mbc/home",
 			"style": {
 				// #ifdef H5
-					"navigationStyle":"custom",
+				"navigationStyle": "custom",
 				// #endif
 				"navigationBarTitleText": "陌拜资本",
 				"app-plus": {}
@@ -15,13 +15,13 @@
 		{
 			"path": "pages/mbc/template/landRegistration/h5/landRegistration",
 			"style": {
-				"navigationStyle":"custom"
+				"navigationStyle": "custom"
 			}
 		},
 		{
 			"path": "pages/mbc/template/landRegistration/h5/forgetPassWord",
 			"style": {
-				"navigationStyle":"custom"
+				"navigationStyle": "custom"
 			}
 		},
 		// mp|| 微信小程序 支付宝小程序 百度小程序 头条小程序
@@ -36,376 +36,311 @@
 	"subPackages": [{
 			"root": "modules/pageHome",
 			"pages": [{
-				"path": "homeList/homeList",
-				"style": {
-					// #ifdef H5
-						"navigationStyle":"custom",
-					// #endif
-					"navigationBarTitleText": "首页",
-					"app-plus": {
-					}
-				}
-			},
-			{
-				"path": "searchDetile/searchDetile",
-				"style": {
-					// #ifdef H5
-						"navigationStyle":"custom",
-					// #endif
-					"navigationBarTitleText": "陌拜资本",
-					"app-plus": {
-					}
-				}
-			},
-			{
-				"path": "seekCapital/seekCapital",
-				"style": {
-					// #ifdef H5
-						"navigationStyle":"custom",
-					// #endif
-					"navigationBarTitleText": "找资本",
-					"app-plus": {
-					}
-				}
-			},
-			{
-				"path": "homeModules/lookServices/lookServices",
-				"style": {
-					// #ifdef H5
-						"navigationStyle":"custom",
-					// #endif
-					"navigationBarTitleText": "找服务",
-					"app-plus": {
-					}
-				}
-			},
-			{
-				"path": "homeModules/lookServices/serviceDetails/serviceDetails",
-				"style": {
-					// #ifdef H5
-						"navigationStyle":"custom",
-					// #endif
-					"navigationBarTitleText": "速融服务",
-					"app-plus": {
-					}
-				}
-			},
-			{
-				"path": "homeModules/lookProject/lookProject",
-				"style": {
-					// #ifdef H5
-						"navigationStyle":"custom",
-					// #endif
-					"navigationBarTitleText": "找项目",
-					"app-plus": {
-					}
-				}
-			},
-			{
-				"path": "homeModules/activity/activity",
-				"style": {
-					// #ifdef H5
-						"navigationStyle":"custom",
-					// #endif
-					"navigationBarTitleText": "活动",
-					"app-plus": {
-					}
-				}
-			},
-			{
-				"path": "homeModules/meltTt/meltTt",
-				"style": {
-					// #ifdef H5
-						"navigationStyle":"custom",
-					// #endif
-					"navigationBarTitleText": "融头条",
-					"app-plus": {
-					}
-				}
-			}
-			]
-		},
-		{
-			"root": "modules/pageFind",
-			"pages": [{
-					"path": "findList/findList",
+					"path": "homeList/homeList",
 					"style": {
-						"navigationBarTitleText": "发现",
-						"enablePullDownRefresh": true,
-						"onReachBottomDistance": 20
+						// #ifdef H5
+						"navigationStyle": "custom",
+						// #endif
+						"navigationBarTitleText": "首页",
+						"app-plus": {}
+					}
+				},
+				{
+					"path": "searchDetile/searchDetile",
+					"style": {
+						// #ifdef H5
+						"navigationStyle": "custom",
+						// #endif
+						"navigationBarTitleText": "陌拜资本",
+						"app-plus": {}
+					}
+				},
+				{
+					"path": "seekCapital/seekCapital",
+					"style": {
+						// #ifdef H5
+						"navigationStyle": "custom",
+						// #endif
+						"navigationBarTitleText": "找资本",
+						"app-plus": {}
+					}
+				},
+				{
+					"path": "homeModules/lookServices/lookServices",
+					"style": {
+						// #ifdef H5
+						"navigationStyle": "custom",
+						// #endif
+						"navigationBarTitleText": "找服务",
+						"app-plus": {}
+					}
+				},
+				{
+					"path": "homeModules/lookServices/serviceDetails/serviceDetails",
+					"style": {
+						// #ifdef H5
+						"navigationStyle": "custom",
+						// #endif
+						"navigationBarTitleText": "速融服务",
+						"app-plus": {}
+					}
+				},
+				{
+					"path": "homeModules/lookProject/lookProject",
+					"style": {
+						// #ifdef H5
+						"navigationStyle": "custom",
+						// #endif
+						"navigationBarTitleText": "找项目",
+						"app-plus": {}
+					}
+				},
+				{
+					"path": "homeModules/activity/activity",
+					"style": {
+						// #ifdef H5
+						"navigationStyle": "custom",
+						// #endif
+						"navigationBarTitleText": "活动",
+						"app-plus": {}
+					}
+				},
+				{
+					"path": "homeModules/meltTt/meltTt",
+					"style": {
+						// #ifdef H5
+						"navigationStyle": "custom",
+						// #endif
+						"navigationBarTitleText": "融头条",
+						"app-plus": {}
 					}
 				}
 			]
 		}, {
-			"root": "modules/pagePublish",
-			"pages": [{
-					"path": "publishList/publishUpload",
-					"style": {
-						// #ifdef H5
-							"navigationStyle":"custom",
-						// #endif
-						"navigationBarTitleText": "电脑上传BP"
-					}
-				}
-			]
-		}, {
-			"root": "modules/pageNews",
-			"pages": [{
-					"path": "newsList/newsList",
-					"style": {
-						// #ifdef H5
-							"navigationStyle":"custom",
-						// #endif
-						"navigationBarTitleText": "消息"
-					}
-				}
-			]
-		}, {
-			"root": "modules/pageMy",
-			"pages": [{
-					"path": "myList/myListabout/about",
-					
-					"style": {
-						// #ifdef H5
-							"navigationStyle":"custom",
-						// #endif
-						"navigationBarTitleText": "关于我们"
-					}
-				}
-			]
-		},{
 			"root": "modules/pageMy",
 			"pages": [{
 					"path": "myList/myListdata/myList-data",
-					
 					"style": {
 						// #ifdef H5
-							"navigationStyle":"custom",
+						"navigationStyle": "custom",
 						// #endif
 						"navigationBarTitleText": "个人中心"
 					}
-				}
-			]
-		},{
-			"root": "modules/pageMy",
-			"pages": [{
-					"path": "myList/myListSetup/myListSetup",
-					
+				}, {
+					"path": "myList/myListabout/about",
+
 					"style": {
 						// #ifdef H5
-							"navigationStyle":"custom",
+						"navigationStyle": "custom",
+						// #endif
+						"navigationBarTitleText": "关于我们"
+					}
+				}, {
+					"path": "myList/myListSetup/myListSetup",
+
+					"style": {
+						// #ifdef H5
+						"navigationStyle": "custom",
 						// #endif
 						"navigationBarTitleText": "设置"
 					}
-				}
-			]
-		},{
-			"root": "modules/pageMy",
-			"pages": [{
+				}, {
 					"path": "myList/myListCollection/Collection",
-					
+
 					"style": {
 						// #ifdef H5
-							"navigationStyle":"custom",
+						"navigationStyle": "custom",
 						// #endif
 						"navigationBarTitleText": "我的收藏"
 					}
-				}
-			]
-		},{
-			"root": "modules/pageMy",
-			"pages": [{
-					"path": "myList/myListlookme/Lookme",
-					
+				}, {
+					"path": "myList/myListAuthentication/Authentication",
+
 					"style": {
 						// #ifdef H5
-							"navigationStyle":"custom",
+						"navigationStyle": "custom",
+						// #endif
+						"navigationBarTitleText": "身份认证"
+					}
+				}, {
+					"path": "myList/myListlookme/Lookme",
+
+					"style": {
+						// #ifdef H5
+						"navigationStyle": "custom",
 						// #endif
 						"navigationBarTitleText": "看过我的项目"
 					}
-				}
-			]
-		},{
-			"root": "modules/pageMy",
-			"pages": [{
+				}, {
 					"path": "myList/myListfootprint/footprint",
-					
+
 					"style": {
 						// #ifdef H5
-							"navigationStyle":"custom",
+						"navigationStyle": "custom",
 						// #endif
 						"navigationBarTitleText": "足迹"
 					}
-				}
-			]
-		},{
-			"root": "modules/pageMy",
-			"pages": [{
-					"path": "myList/myListAuthentication/Authentication",
-					
+				}, {
+					"path": "myList/myLisprojectt/myproject",
+
 					"style": {
 						// #ifdef H5
-							"navigationStyle":"custom",
+						"navigationStyle": "custom",
 						// #endif
-						"navigationBarTitleText": "身份认证"
+						"navigationBarTitleText": "我的项目"
 					}
-				}
-			]
-		},{
-			"root": "modules/pageMy",
-			"pages": [{
+				}, {
 					"path": "myList/myListAuthentication/AuthenticationList/EntrepreneursCertification/EntrepreneursCertification",
-					
+
 					"style": {
 						// #ifdef H5
-							"navigationStyle":"custom",
+						"navigationStyle": "custom",
 						// #endif
 						"navigationBarTitleText": "创业者认证"
 					}
-				}
-			]
-		},{
-			"root": "modules/pageMy",
-			"pages": [{
+				}, {
 					"path": "myList/myListAuthentication/AuthenticationList/InvestorCertification/InvestorCertification",
-					
+
 					"style": {
 						// #ifdef H5
-							"navigationStyle":"custom",
+						"navigationStyle": "custom",
 						// #endif
 						"navigationBarTitleText": "投资人认证"
 					}
-				}
-			]
-		},{
-			"root": "modules/pageMy",
-			"pages": [{
+				}, {
 					"path": "myList/myListAuthentication/AuthenticationList/Submission-success/Submission-success",
-					
+
 					"style": {
 						// #ifdef H5
-							"navigationStyle":"custom",
+						"navigationStyle": "custom",
 						// #endif
 						"navigationBarTitleText": "提交成功"
 					}
-				}
-			]
-		},{
-			"root": "modules/pageMy",
-			"pages": [{
+				}, {
 					"path": "myList/myListAuthentication/AuthenticationList/Certification-status/Certification-status",
-					
+
 					"style": {
 						// #ifdef H5
-							"navigationStyle":"custom",
+						"navigationStyle": "custom",
 						// #endif
 						"navigationBarTitleText": "身份认证"
 					}
-				}
-			]
-		},{
-			"root": "modules/pageMy",
-			"pages": [{
+				}, {
 					"path": "myList/myListAuthentication/AuthenticationList/Certification-status/inspect-List/inspect-List-in",
-					
+
 					"style": {
 						// #ifdef H5
-							"navigationStyle":"custom",
+						"navigationStyle": "custom",
 						// #endif
 						"navigationBarTitleText": "认证详情"
 					}
-				}
-			]
-		},{
-			"root": "modules/pageMy",
-			"pages": [{
+				}, {
 					"path": "myList/myListAuthentication/AuthenticationList/Certification-status/inspect-List/inspect-List-success",
-					
+
 					"style": {
 						// #ifdef H5
-							"navigationStyle":"custom",
+						"navigationStyle": "custom",
 						// #endif
 						"navigationBarTitleText": "认证详情"
 					}
-				}
-			]
-		},{
-			"root": "modules/pageMy",
-			"pages": [{
+				}, {
 					"path": "myList/myListAuthentication/AuthenticationList/Certification-status/inspect-List/inspect-List-fail",
-					
+
 					"style": {
 						// #ifdef H5
-							"navigationStyle":"custom",
+						"navigationStyle": "custom",
 						// #endif
 						"navigationBarTitleText": "认证详情"
 					}
-				}
-			]
-		},{
-			"root": "modules/pageMy",
-			"pages": [{
-					"path": "myList/myListAuthentication/AuthenticationList/Certification-status/Investment-status/InvestmentList/InvestmentList-data/InvestmentList-data",
-					
-					"style": {
-						// #ifdef H5
-							"navigationStyle":"custom",
-						// #endif
-						"navigationBarTitleText": "编辑更多资料"
-					}
-				}
-			]
-		},{
-			"root": "modules/pageMy",
-			"pages": [{
+				}, {
 					"path": "myList/myListAuthentication/AuthenticationList/Certification-status/Investment-status/InvestmentList/InvestmentList-data/datas-List/datas-List-me",
-					
+
 					"style": {
 						// #ifdef H5
-							"navigationStyle":"custom",
+						"navigationStyle": "custom",
 						// #endif
 						"navigationBarTitleText": "个人介绍"
 					}
-				}
-			]
-		},{
-			"root": "modules/pageMy",
-			"pages": [{
+				}, {
 					"path": "myList/myListAuthentication/AuthenticationList/Certification-status/Investment-status/InvestmentList/InvestmentList-data/datas-List/datas-List-vitae",
-					
+
 					"style": {
 						// #ifdef H5
-							"navigationStyle":"custom",
+						"navigationStyle": "custom",
 						// #endif
 						"navigationBarTitleText": "任职履历"
 					}
-				}
-			]
-		},{
-			"root": "modules/pageMy",
-			"pages": [{
+				}, {
 					"path": "myList/myListAuthentication/AuthenticationList/Certification-status/Investment-status/InvestmentList/InvestmentList-data/datas-List/datas-List-case",
-					
+
 					"style": {
 						// #ifdef H5
-							"navigationStyle":"custom",
+						"navigationStyle": "custom",
 						// #endif
 						"navigationBarTitleText": "投资案例"
 					}
-				}
-			]
-		},{
-			"root": "modules/pageMy",
-			"pages": [{
+				}, {
+					"path": "myList/myLisprojectt/projectList/project-details/project-details",
+
+					"style": {
+						// #ifdef H5
+						"navigationStyle": "custom",
+						// #endif
+						"navigationBarTitleText": "项目信息"
+					}
+				}, {
+					"path": "myList/myListAuthentication/AuthenticationList/Certification-status/Investment-status/InvestmentList/InvestmentList-data/InvestmentList-data",
+
+					"style": {
+						// #ifdef H5
+						"navigationStyle": "custom",
+						// #endif
+						"navigationBarTitleText": "编辑更多资料"
+					}
+				},
+				{
 					"path": "myList/myListSetup/Setup/Opinion/Opinion",
 					"style": {
 						// #ifdef H5
-							"navigationStyle":"custom",
+						"navigationStyle": "custom",
 						// #endif
 						"navigationBarTitleText": "意见反馈"
 					}
 				}
 			]
+		},
+		{
+			"root": "modules/pageFind",
+			"pages": [{
+				"path": "findList/findList",
+				"style": {
+					"navigationBarTitleText": "发现",
+					"enablePullDownRefresh": true,
+					"onReachBottomDistance": 20
+				}
+			}]
+		}, {
+			"root": "modules/pagePublish",
+			"pages": [{
+				"path": "publishList/publishUpload",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "电脑上传BP"
+				}
+			}]
+		}, {
+			"root": "modules/pageNews",
+			"pages": [{
+				"path": "newsList/newsList",
+				"style": {
+					// #ifdef H5
+					"navigationStyle": "custom",
+					// #endif
+					"navigationBarTitleText": "消息"
+				}
+			}]
 		}
 	],
 	"globalStyle": {

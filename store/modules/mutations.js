@@ -44,6 +44,11 @@ const mutations = {
 	  console.log(info,'setheader')
 	  state.my.MyList.header=info
   },
+  //我的 认证详情
+  setAuthentication(state, info){
+	  console.log(info,'setAuthentication')
+	  state.my.MyList.Authentication=info
+  },
   setSeekCapitalTitleIndex (state, info) { // 找投资的title
     console.log(info, 'setHomeListTitleIndex');
     state.home.seekCapital.titleIndex = info;

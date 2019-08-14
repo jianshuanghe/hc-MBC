@@ -7,10 +7,10 @@
 			<view>审核已通过</view>
 		</view>
 		<view class="inspect-List-success-conter">
-			<view>王亚蒙</view>
+			<view>{{List.userName}}</view>
 			<view>职位:运营</view>
 			<view>邮箱:123@.com</view>
-			<view>机构名称:慧聪集团</view>
+			<view>机构名称:{{List.compName}}</view>
 			<view>
 				<image :src="Image6"></image>
 			</view>
@@ -39,16 +39,18 @@
 			return {
 				Image6: Image6,
 				Image4: Image4,
+
 			};
 		},
-		components: {
-
+		computed: {
 		},
-		computed: {},
-		created() {},
+		created() {
+			console.log('在组件中并不能使用页面生命周期函数');
+			
+			
+		},
 		mounted() {},
 		methods: {
-			
 		}
 	};
 </script>

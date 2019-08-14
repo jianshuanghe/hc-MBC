@@ -11,15 +11,21 @@
 				<span>融资轮次：{{item.levelCode}}</span>
 			</view>
 		</view>
+		<view class="meirenkanwo" v-if="CollectionList.rows!==undefined &&CollectionList.rows.length==0">
+			<image :src="kong" mode=""></image>
+			您还没有项目！
+		</view>
 	</view>
 </template>
 
 <script>
 	import yong from '@/static/mbcImg/my/yong.png'
+	import kong from '@/static/mbcImg/my/kong.png'
 	import { mapMutations, mapGetters } from 'vuex';
 	export default {
 		data() {
 			return {
+				kong:kong,
 				yong:yong,
 				CollectionList:[],
 				page:1
@@ -46,7 +52,7 @@
 						title: '加载中'
 					});
 					uni.request({
-						url: this.api2 + '/follow/proList?userId=760&page=' + this.page, //接口地址。
+						url: this.api2 + '/follow/proList?userId=' +landRegistLG.user.id +'&page=' + this.page, //接口地址。
 						// data: this.endParams(params),
 						method: 'GET',
 						header: {
@@ -134,5 +140,18 @@
 	.Listprojectfist view:nth-of-type(3) span:nth-of-type(2){
 		font-size: 24upx;
 		color: #5D5D5D;
+	}
+	.meirenkanwo{
+		width: 284upx;
+		height: 280upx;
+		display: block;
+		margin: 120upx auto auto auto;
+		font-size: 28upx;
+		text-align: center;
+		color: #9B9B9B;
+	}
+	.meirenkanwo image{
+		width: 100%;
+		height: 85%;
 	}
 </style>

@@ -1,11 +1,30 @@
 <template>
-	<view class="history2My">
+	<view class="history2My" @tap="gotomyproject">
 		<span>146</span>
 		<span>鎴戠殑椤圭洰</span>
 	</view>
 </template>
 
 <script>
+	export default {
+		data() {
+			return {
+			};
+		},
+		computed: {
+		},
+		created() {
+			
+		},
+		methods: {
+			gotomyproject(e) {   
+				console.log(e+'去往我的项目')
+			    uni.navigateTo({
+			        url: '/modules/pageMy/myList/myLisprojectt/myproject',
+			    });
+			}
+		}
+	};
 </script>
 
 <style>
