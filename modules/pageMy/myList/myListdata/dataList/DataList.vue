@@ -8,13 +8,7 @@
 			<view>
 				<image :src="Listdata.headImg" v-if="!logo" class="ziti"></image>
 				<div class="Img-Upload">
-					<imageUploadOne 
-					class="img"
-						v-model="imageData" 
-						:server-url="serverUrl" 
-						limit= 1
-						@delete="deleteImage" 
-						@add="addImage">
+					<imageUploadOne class="img" v-model="imageData" :server-url="serverUrl" limit=1 @delete="deleteImage" @add="addImage">
 					</imageUploadOne>
 				</div>
 			</view>
@@ -22,46 +16,55 @@
 		<view class="dataname">
 			<view>
 				<view>名字</view>
-				<view><input v-model="name" placeholder="请填写"/></view>
-				<view><image :src="right"></image></view>
+				<view><input v-model="name" placeholder="请填写" /></view>
+				<view>
+					<image :src="right"></image>
+				</view>
 			</view>
 		</view>
 		<view class="dataNumber">
 			<view>
 				<view>手机号</view>
 				<view>{{Listdata.userPhone}}</view>
-				<view><image :src="right"></image></view>
+				<view>
+					<image :src="right"></image>
+				</view>
 			</view>
 		</view>
 		<view class="dataMailbox">
 			<view>
 				<view>邮箱</view>
-				<view><input v-model="mail" placeholder="请填写"/></view>
-				<view><image :src="right"></image></view>
+				<view><input v-model="mail" placeholder="请填写" /></view>
+				<view>
+					<image :src="right"></image>
+				</view>
 			</view>
 		</view>
 		<view class="datatijiao">
 			<view @tap="subminsdata">提交</view>
 		</view>
 	</view>
-	
+
 </template>
 
 <script>
 	import right from '@/static/mbcImg/my/right.png'
 	import green from '@/static/mbcImg/my/green.png'
 	import imageUploadOne from '@/components/imageUpload/imageUploadOne.vue'
-	import { mapMutations,mapGetters } from 'vuex';
+	import {
+		mapMutations,
+		mapGetters
+	} from 'vuex';
 	export default {
 		data() {
 			return {
 				logo: '',
-				right:right,
-				green:green,
-				name:'',
-				mail:'',
+				right: right,
+				green: green,
+				name: '',
+				mail: '',
 				Listdata: [],
-				imageData : [],
+				imageData: [],
 				serverUrl: 'https://img01.iambuyer.com/imgup/upLoad/fileUpload'
 			};
 		},
@@ -80,41 +83,42 @@
 			}
 		},
 		created() {
-			
+
 			this.Listdata = this.GET_MY.MyList.header;
-			this.name=this.Listdata.userName
-			this.mail=this.Listdata.userEmail
+			this.name = this.Listdata.userName
+			this.mail = this.Listdata.userEmail
 			console.log(this.Listdata, 'this.Listdata');
 		},
 		mounted() {},
 		methods: {
-			deleteImage: function(e){
+			deleteImage: function(e) {
 				console.log(e, '删除图片')
 				this.logo = ''; // 清空数据
 			},
-			addImage: function(e){
+			addImage: function(e) {
 				console.log(e, '添加图片')
-				if(e.allImages) { // 上传成功
-				console.log(e)
-					this.logo = (e.allImages[0]);
+				if (e.allImages) { // 上传成功
+					// console.log(e.allImages[0].imgName)
+					this.logo = (e.allImages[0].imgName);
 				}
 			},
-			subminsdata(){
+			subminsdata() {
 				console.log(this.name)
 				if (uni.getStorageSync('landRegist')) {
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 					console.log(landRegistLG.user.id);
 					let params = {
-						userId:landRegistLG.user.id,
-						headImg:this.logo,
-						userName:this.name,
-						email:this.mail
+						userId: landRegistLG.user.id,
+						headImg: this.logo,
+						userName: this.name,
+						email: this.mail
 					}; // 请求总数居时 参数为空
+					console.log(landRegistLG.user.id,this.logo,this.name,this.mail)
 					uni.showLoading({ // 展示loading
 						title: '加载中'
 					});
 					uni.request({
-						url: this.api2 + '/user/'+landRegistLG.user.id ,//接口地址。
+						url: this.api2 + '/user/' + landRegistLG.user.id, //接口地址。
 						data: this.endParams(params),
 						method: 'POST',
 						header: {
@@ -123,6 +127,9 @@
 						success: (response) => {
 							uni.hideLoading();
 							console.log(response.data);
+							uni.navigateTo({
+								url: 'pageMy/page_my',
+							});
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -141,24 +148,27 @@
 </script>
 
 <style>
-	.ziti{
+	.ziti {
 		position: absolute;
 		right: 0upx;
 		width: 300upx;
 		height: 30upx;
 		font-size: 30upx;
 	}
-	.DataList{
+
+	.DataList {
 		width: 100%;
 		height: 100%;
 	}
-	.dataHeadportrait{
+
+	.dataHeadportrait {
 		width: 100%;
 		height: 120upx;
 		background: #FFFFFF;
 		/* margin-top: 20upx; */
 	}
-	.dataHeadportrait view:nth-of-type(1){
+
+	.dataHeadportrait view:nth-of-type(1) {
 		width: 90%;
 		height: 100%;
 		margin: 0 auto;
@@ -168,25 +178,29 @@
 		line-height: 120upx;
 		position: relative;
 	}
-	.dataHeadportrait view:nth-of-type(1) image{
+
+	.dataHeadportrait view:nth-of-type(1) image {
 		width: 18upx;
 		height: 18upx;
 		position: absolute;
 		right: 0upx;
 		top: 52upx;
 	}
-	.dataHeadportrait view:nth-of-type(2){
+
+	.dataHeadportrait view:nth-of-type(2) {
 		width: 80upx;
 		height: 80upx;
 		position: absolute;
-		top:22upx;
+		top: 22upx;
 		right: 86upx;
 	}
-	.dataHeadportrait view:nth-of-type(2) image{
+
+	.dataHeadportrait view:nth-of-type(2) image {
 		width: 100%;
 		height: 100%;
 	}
-	.dataname{
+
+	.dataname {
 		width: 100%;
 		height: 120upx;
 		background: #FFFFFF;
@@ -194,7 +208,8 @@
 		/* position: relative; */
 		/* margin-top: 20upx; */
 	}
-	.dataname view:nth-of-type(1){
+
+	.dataname view:nth-of-type(1) {
 		width: 90%;
 		height: 100%;
 		margin: 0 auto;
@@ -203,11 +218,13 @@
 		line-height: 120upx;
 		display: flex;
 	}
-	.dataname view:nth-of-type(1) view:nth-of-type(1){
+
+	.dataname view:nth-of-type(1) view:nth-of-type(1) {
 		font-size: 28upx;
 		color: #2E2E30;
 	}
-	.dataname view:nth-of-type(1) view:nth-of-type(2){
+
+	.dataname view:nth-of-type(1) view:nth-of-type(2) {
 		width: 300upx;
 		height: 100%;
 		font-size: 28upx;
@@ -215,19 +232,23 @@
 		margin-right: 30upx;
 		color: #3C3D3F;
 	}
-	.dataname view:nth-of-type(1) view:nth-of-type(2) input{
+
+	.dataname view:nth-of-type(1) view:nth-of-type(2) input {
 		margin-top: 40upx;
 	}
-	.dataname view:nth-of-type(1) view:nth-of-type(3){
+
+	.dataname view:nth-of-type(1) view:nth-of-type(3) {
 		width: 25upx;
 		height: 18upx;
 		padding-top: 30upx;
 	}
-	.dataname view:nth-of-type(1) view:nth-of-type(3) image{
+
+	.dataname view:nth-of-type(1) view:nth-of-type(3) image {
 		width: 100%;
 		height: 100%;
 	}
-	.dataNumber{
+
+	.dataNumber {
 		width: 100%;
 		height: 120upx;
 		background: #FFFFFF;
@@ -235,7 +256,8 @@
 		/* position: relative; */
 		/* margin-top: 20upx; */
 	}
-	.dataNumber view:nth-of-type(1){
+
+	.dataNumber view:nth-of-type(1) {
 		width: 90%;
 		height: 100%;
 		margin: 0 auto;
@@ -244,11 +266,13 @@
 		line-height: 120upx;
 		display: flex;
 	}
-	.dataNumber view:nth-of-type(1) view:nth-of-type(1){
+
+	.dataNumber view:nth-of-type(1) view:nth-of-type(1) {
 		font-size: 28upx;
 		color: #2E2E30;
 	}
-	.dataNumber view:nth-of-type(1) view:nth-of-type(2){
+
+	.dataNumber view:nth-of-type(1) view:nth-of-type(2) {
 		width: 200upx;
 		height: 100%;
 		font-size: 28upx;
@@ -257,21 +281,25 @@
 		margin-right: 30upx;
 		color: #3C3D3F;
 	}
-	.dataNumber view:nth-of-type(1) view:nth-of-type(3){
+
+	.dataNumber view:nth-of-type(1) view:nth-of-type(3) {
 		width: 25upx;
 		height: 18upx;
 		padding-top: 30upx;
 	}
-	.dataNumber view:nth-of-type(1) view:nth-of-type(3) image{
+
+	.dataNumber view:nth-of-type(1) view:nth-of-type(3) image {
 		width: 100%;
 		height: 100%;
 	}
-	.dataMailbox{
+
+	.dataMailbox {
 		width: 100%;
 		height: 120upx;
 		background: #FFFFFF;
 	}
-	.dataMailbox view:nth-of-type(1){
+
+	.dataMailbox view:nth-of-type(1) {
 		width: 90%;
 		height: 100%;
 		margin: 0 auto;
@@ -280,11 +308,13 @@
 		line-height: 120upx;
 		display: flex;
 	}
-	.dataMailbox view:nth-of-type(1) view:nth-of-type(1){
+
+	.dataMailbox view:nth-of-type(1) view:nth-of-type(1) {
 		font-size: 28upx;
 		color: #2E2E30;
 	}
-	.dataMailbox view:nth-of-type(1) view:nth-of-type(2){
+
+	.dataMailbox view:nth-of-type(1) view:nth-of-type(2) {
 		width: 400upx;
 		height: 100%;
 		font-size: 28upx;
@@ -293,30 +323,35 @@
 		margin-right: 30upx;
 		color: #D2D2D2;
 	}
-	.dataMailbox view:nth-of-type(1) view:nth-of-type(2) input{
+
+	.dataMailbox view:nth-of-type(1) view:nth-of-type(2) input {
 		margin-top: 40upx;
 	}
-	.dataMailbox view:nth-of-type(1) view:nth-of-type(3){
+
+	.dataMailbox view:nth-of-type(1) view:nth-of-type(3) {
 		width: 25upx;
 		height: 18upx;
 		padding-top: 30upx;
 	}
-	.dataMailbox view:nth-of-type(1) view:nth-of-type(3) image{
+
+	.dataMailbox view:nth-of-type(1) view:nth-of-type(3) image {
 		width: 100%;
 		height: 100%;
 	}
-	.datatijiao{
+
+	.datatijiao {
 		width: 100%;
 		height: 120upx;
 		background: #FFFFFF;
 		position: absolute;
 		bottom: 0;
 	}
-	.datatijiao view:nth-of-type(1){
+
+	.datatijiao view:nth-of-type(1) {
 		width: 90%;
 		height: 80%;
 		background: #02C2A2;
-		margin: 15upx auto 10upx auto ;
+		margin: 15upx auto 10upx auto;
 		text-align: center;
 		line-height: 96upx;
 		font-size: 32upx;

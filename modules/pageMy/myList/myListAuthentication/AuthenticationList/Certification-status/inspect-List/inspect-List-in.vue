@@ -7,12 +7,12 @@
 			<view>正在全力审核，请耐心等待...</view>
 		</view>
 		<view class="inspect-List-in-conter">
-			<view>王亚蒙</view>
-			<view>职位:运营</view>
-			<view>邮箱:123@.com</view>
-			<view>机构名称:慧聪集团</view>
+			<view>{{Listdata.userName}}</view>
+			<view>职位:{{Listdata.userPosition}}</view>
+			<view>邮箱:{{Listdata.userEmail}}</view>
+			<view>机构名称:{{Listdata.compName}}</view>
 			<view>
-				<image :src="Image2" mode=""></image>
+				<image :src="Listdata.headImg" mode=""></image>
 			</view>
 		</view>
 		<view class="inspect-List-in-fotter">
@@ -32,19 +32,30 @@
 <script>
 	import Image2 from '@/static/mbcImg/my/Image2.png'
 	import Image3 from '@/static/mbcImg/my/Image3.png'
+	import { mapMutations,mapGetters } from 'vuex';
 	export default {
 		data() {
 			return {
-				Image2: Image2,
-				Image3: Image3,
+				Listdata: [],
+				Image2:Image2,
+				Image3:Image3
 			};
 		},
-		components: {
-
+		computed: {
+			...mapGetters(['GET_MY'])
 		},
-		computed: {},
-		created() {},
-		mounted() {},
+		watch: {
+			GET_MY: {
+				handler(a, b) {
+					console.log(a, b, 'header----list');
+				},
+				deep: true
+			}
+		},
+		created() {
+			this.Listdata = this.GET_MY.MyList.header;
+			console.log(this.Listdata, '454446454564645656465');
+		},
 		methods: {
 			
 		}

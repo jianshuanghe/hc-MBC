@@ -10,19 +10,30 @@
 </template>
 
 <script>
+	import { mapMutations,mapGetters } from 'vuex';
 	import chuang from '@/static/mbcImg/my/chuang.png'
 	export default {
 		data() {
 			return {
+				Listdata: [],
 				chuang:chuang
 			};
 		},
-		components: {
-			
+		computed: {
+			...mapGetters(['GET_MY'])
 		},
-		computed: {},
-		created() {},
-		mounted() {},
+		watch: {
+			GET_MY: {
+				handler(a, b) {
+					console.log(a, b, 'header----list');
+				},
+				deep: true
+			}
+		},
+		created() {
+			this.Listdata = this.GET_MY.MyList.header;
+			console.log(this.Listdata, 'this.Listdata');
+		},
 		methods: {
 			gotoinspectListin(e){
 				console.log(e+'审核中')

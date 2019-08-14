@@ -114,8 +114,7 @@
 				console.log(e, '添加图片')
 				if(e.allImages) { // 上传成功
 				console.log(e);
-					this.logo = (e.allImages[0]);
-					console.log(this.logo)
+					this.logo = (e.allImages[0].imgName);
 				}
 			},
 			gotoSubmissionseccess(e) {

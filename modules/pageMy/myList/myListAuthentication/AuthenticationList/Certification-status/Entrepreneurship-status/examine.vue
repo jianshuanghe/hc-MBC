@@ -3,11 +3,11 @@
 		<!-- 创业者 认证成功 -->
 		<Success v-if="this.num==2"></Success>
 		<!-- 创业者 审核中 -->
-		<!-- <progress1 v-if="this.num===5"></progress1> -->
+		<progress1 v-if="this.num==0"></progress1>
 		<!-- 创业者 审核失败 -->
 		<failure v-if="this.num==1"></failure>
 		<!-- 创业者 未认证 -->
-		<Uncertified v-if="this.num==0"></Uncertified>
+		<Uncertified v-if="this.num==-1"></Uncertified>
 	</view>
 </template>
 
@@ -63,6 +63,7 @@
 							this.state=response.data
 							// console.log(this.state.content.authState)
 							this.num=response.data.content.authState
+							this.$store.commit('setAuthentication', this.num);
 							console.log(this.num)
 						},
 						fail: (error) => {

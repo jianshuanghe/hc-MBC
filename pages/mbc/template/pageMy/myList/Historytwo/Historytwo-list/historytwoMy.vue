@@ -1,24 +1,36 @@
 <template>
 	<view class="history2My" @tap="gotomyproject">
-		<span>146</span>
+		<span>{{Listdata.projCount}}</span>
 		<span>æˆ‘çš„é¡¹ç›®</span>
 	</view>
 </template>
 
 <script>
+	import { mapMutations,mapGetters } from 'vuex';
 	export default {
 		data() {
 			return {
+				Listdata: []
 			};
 		},
 		computed: {
+			...mapGetters(['GET_MY'])
+		},
+		watch: {
+			GET_MY: {
+				handler(a, b) {
+					// console.log(a, b, 'header----list');
+				},
+				deep: true
+			}
 		},
 		created() {
-			
+			this.Listdata = this.GET_MY.MyList.header;
+			console.log(this.Listdata, 'this.Listdata');
 		},
 		methods: {
 			gotomyproject(e) {   
-				console.log(e+'È¥ÍùÎÒµÄÏîÄ¿')
+				console.log(e+'È¥ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½Ä¿')
 			    uni.navigateTo({
 			        url: '/modules/pageMy/myList/myLisprojectt/myproject',
 			    });
