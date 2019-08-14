@@ -1,11 +1,12 @@
 <template>
 	<view class="myHistory">
 		<!-- 未认证 -->
-		<Historyone v-if="this.Mylist.userType==0"></Historyone>
+		<Historyone v-if="this.Listdata.authState==-1"></Historyone>
 		<!-- 创业者 -->
-		<Historytwo v-if="this.Mylist.userType==-1"></Historytwo>
+		<Historytwo v-if="this.Listdata.authState==0"></Historytwo>
 		<!-- 投资人 -->
-		<HistoryThree v-if="this.Mylist.userType==1"></HistoryThree>
+		<HistoryThree v-if="this.Listdata.authState==1"></HistoryThree>
+		<HistoryThree v-if="this.Listdata.authState==2"></HistoryThree>
 	</view>
 </template>
 
@@ -13,11 +14,12 @@
 	import Historyone from './Historyone/Historyone.vue'
 	import Historytwo from './Historytwo/Historytwo.vue'
 	import HistoryThree from './HistoryThree/HistoryThree.vue'
+	import { mapMutations,mapGetters } from 'vuex';
 	export default {
-		props:['Mylist'],
+		
 		data() {
 			return {
-	
+				Listdata:[]
 			};
 		},
 		components: {
@@ -26,12 +28,21 @@
 			HistoryThree
 			
 		},
-		computed: {},
-		created() {
-			console.log('在组件中并不能使用页面生命周期函数');
+		computed: {
+			...mapGetters(['GET_MY'])
 		},
-		mounted() {},
-		methods: {}
+		watch: {
+			GET_MY: {
+				handler(a, b) {
+					console.log(a, b, 'header----list');
+				},
+				deep: true
+			}
+		},
+		created() {
+			this.Listdata = this.GET_MY.MyList.header;
+			console.log(this.Listdata, '454446454564645656465');
+		},
 	};
 </script>
 

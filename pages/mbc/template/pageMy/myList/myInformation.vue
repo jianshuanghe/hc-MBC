@@ -4,9 +4,10 @@
 			<view>
 				<view>{{Mylist.userName}}</view>
 				<view>
-					<image :src="Uncertified" v-if="this.Mylist.userType==-1"></image>
-					<image :src="Entrepreneurs" v-if="this.Mylist.userType==0"></image>
-					<image :src="Investor" v-if="this.Mylist.userType===1"></image>
+					<image :src="Uncertified" v-if="this.Mylist.authState==-1"></image>
+					<image :src="Entrepreneurs" v-if="this.Mylist.authState==0"></image>
+					<image :src="Investor" v-if="this.Mylist.authState===1"></image>
+					<image :src="Investor" v-if="this.Mylist.authState===2"></image>
 				</view>
 			</view>
 			<view>
@@ -87,7 +88,7 @@
 
 	.Informationname view:nth-of-type(1) view:nth-of-type(1) {
 		font-size: 40upx;
-		font-weight: 700;
+		/* font-weight: 700; */
 		/* width: 200upx; */
 	}
 

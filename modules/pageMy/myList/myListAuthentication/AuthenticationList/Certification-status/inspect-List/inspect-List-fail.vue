@@ -8,12 +8,15 @@
 		</view>
 		<view class="inspect-List-fail-conter">
 			<view>{{Listdata.userName}}</view>
-			<view>职位:运营</view>
-			<view>邮箱:123@.com</view>
+			<view>职位:{{Listdata.userPosition}}</view>
+			<view>邮箱:{{Listdata.userEmail}}</view>
 			<view>机构名称:{{Listdata.compName}}</view>
 			<view>
-				<image :src="Image7"></image>
+				<image :src="Listdata.headImg"></image>
 			</view>
+		</view>
+		<view class="fail-yuanying">
+			失败原因:{{Listdata.authContent}}
 		</view>
 		<view class="inspect-List-fail-fotter">
 			<view>
@@ -21,7 +24,7 @@
 			</view>
 			<view>
 				<view>审核失败</view>
-				<view>2019.05.23 10:23:34</view>
+				<view>{{Listdata.createTime}}</view>
 				<view>审核中</view>
 				<view>2019.05.23 10:23:34</view>
 				<view>发起认证</view>
@@ -38,9 +41,9 @@
 	export default {
 		data() {
 			return {
-				Image7: Image7,
-				Image4: Image4,
-				Listdata:[]
+				Listdata: [],
+				Image7:Image7,
+				Image4:Image4
 			};
 		},
 		computed: {
@@ -49,15 +52,17 @@
 		watch: {
 			GET_MY: {
 				handler(a, b) {
-					console.log(a, b);
+					console.log(a, b, 'header----list');
 				},
 				deep: true
 			}
 		},
 		created() {
-			this.Listdata = this.GET_MY.MyList.Authentication;
-			console.log(this.Listdata, '审核失败');
+			this.Listdata = this.GET_MY.MyList.header;
 		},
+		methods: {
+			
+		}
 	};
 </script>
 
@@ -142,7 +147,7 @@
 		width: 100%;
 		height: 660upx;
 		background: #FFFFFF;
-		margin-top: 30upx;
+		
 		display: flex;
 	}
 
@@ -214,5 +219,15 @@
 		padding-left: 0;
 		font-size: 20upx;
 		color: #9B9B9B;
+	}
+	.fail-yuanying{
+		width: 100%;
+		height: 50upx;
+		font-size: 28upx;
+		color: #FF6C84;
+		margin-top: 30upx;
+		background: #FFFFFF;
+		padding-left:50upx ;
+		padding-top: 40upx;
 	}
 </style>

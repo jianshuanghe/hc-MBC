@@ -7,12 +7,12 @@
 			<view>审核已通过</view>
 		</view>
 		<view class="inspect-List-success-conter">
-			<view>{{List.userName}}</view>
-			<view>职位:运营</view>
-			<view>邮箱:123@.com</view>
+			<view>{{Listdata.userName}}</view>
+			<view>职位:{{Listdata.userPosition}}</view>
+			<view>邮箱:{{Listdata.userEmail}}</view>
 			<view>机构名称:{{List.compName}}</view>
 			<view>
-				<image :src="Image6"></image>
+				<image :src="Listdata.headImg"></image>
 			</view>
 		</view>
 		<view class="inspect-List-success-fotter">
@@ -21,7 +21,7 @@
 			</view>
 			<view>
 				<view>审核通过</view>
-				<view>2019.05.23 10:23:34</view>
+				<view>{{Listdata.createTime}}</view>
 				<view>审核中</view>
 				<view>2019.05.23 10:23:34</view>
 				<view>发起认证</view>
@@ -34,23 +34,32 @@
 <script>
 	import Image6 from '@/static/mbcImg/my/Image 6.png'
 	import Image4 from '@/static/mbcImg/my/Image4.png'
+	import { mapMutations,mapGetters } from 'vuex';
 	export default {
 		data() {
 			return {
-				Image6: Image6,
-				Image4: Image4,
-
+				Listdata: [],
+				Image6:Image6,
+				Image4:Image4
 			};
 		},
 		computed: {
+			...mapGetters(['GET_MY'])
+		},
+		watch: {
+			GET_MY: {
+				handler(a, b) {
+					console.log(a, b, 'header----list');
+				},
+				deep: true
+			}
 		},
 		created() {
-			console.log('在组件中并不能使用页面生命周期函数');
-			
-			
+			this.Listdata = this.GET_MY.MyList.header;
+			console.log(this.Listdata, '454446454564645656465');
 		},
-		mounted() {},
 		methods: {
+			
 		}
 	};
 </script>

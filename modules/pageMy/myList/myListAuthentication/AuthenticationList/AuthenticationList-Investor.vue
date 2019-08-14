@@ -29,17 +29,17 @@
 		},
 		methods: {
 			gotoInvestorCertification(e){
-				if(this.Listdata.userType==1){
+				if(this.Listdata.userType==-1){
 					console.log('去' + e + '投资人认证');
 					uni.navigateTo({
 						url: '/modules/pageMy/myList/myListAuthentication/AuthenticationList/InvestorCertification/InvestorCertification',
 					});
-				}else if(this.Listdata.userType==0){
+				}else if(this.Listdata.userType==1){
 					console.log('去' + e + '投资人认证');
 					uni.navigateTo({
 						url: '/modules/pageMy/myList/myListAuthentication/AuthenticationList/Certification-status/Certification-status',
 					});
-				}else if(this.Listdata.userType==1){
+				}else if(this.Listdata.userType==0){
 					console.log('您已认证创业者 无法认证投资人')
 					uni.showToast({
 						title: '您已认证创业者，无法认证投资人',
