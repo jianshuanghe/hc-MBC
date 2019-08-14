@@ -36,8 +36,10 @@
 	        },
 			goToServiceDetails () {
 				console.log('去服务详情页面，bp打磨，速溶服务等');
-				 uni.navigateTo({
-					url: '/modules/pageHome/homeModules/lookServices/serviceDetails/serviceDetails'
+				let url = '/modules/pageHome/homeModules/lookServices/serviceDetails/quickMelt/serviceDetails';
+				url = '/modules/pageHome/homeModules/lookServices/serviceDetails/Bp/serviceDetails';
+				uni.navigateTo({
+					url: url
 				});
 			}
 	    }

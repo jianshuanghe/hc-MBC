@@ -190,6 +190,9 @@ export default {
 						e.search.pageNum = this.pageNums(response.data.total) // 总页数
 						console.log(response.data.total, e.search.pageNum);
 						uni.hideLoading(); // 隐藏 loading
+						if (e.search.pageNum === 1) {
+							this.loadingText = '已经没有数据了！';
+						}
 						this.$store.commit('setFinance', e); // 更新setFinance
 					},
 					fail: (error) => {
@@ -261,6 +264,9 @@ export default {
 						e.search.pageNum = this.pageNums(response.data.total) // 总页数
 						console.log(response.data.total, e.search.pageNum);
 						uni.hideLoading(); // 隐藏 loading
+						if (e.search.pageNum === 1) {
+							this.loadingText = '已经没有数据了！';
+						}
 						this.$store.commit('setInvest', e); // 更新setInvest
 					},
 					fail: (error) => {

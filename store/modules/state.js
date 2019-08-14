@@ -107,6 +107,39 @@ const state = {
 		},
 	}
   },
+  find: { // 发现
+	tabItems: 1, // 发现顶部tab切换  
+	meltTt: { // 融头条
+		loadingText: '加载更多...',
+		search: { // 搜索
+			pageNum: 0, // 总页数
+			searchCondition: {  // 分页属性
+				page: '1'
+			}
+		},
+		listData: '' // 列表数据
+	},
+	active: { // 活动
+		loadingText: '加载更多...',
+		search: { // 搜索
+			pageNum: 0, // 总页数
+			searchCondition: {  // 分页属性
+				page: '1'
+			}
+		},
+		listData: '' // 列表数据
+	},
+	information: { // 资讯
+		loadingText: '加载更多...',
+		search: { // 搜索
+			pageNum: 0, // 总页数
+			searchCondition: {  // 分页属性
+				page: '1'
+			}
+		},
+		listData: '' // 列表数据
+	}
+  },
   my: {
 	MyList:{
 		header:[],

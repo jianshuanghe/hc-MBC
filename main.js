@@ -5,6 +5,7 @@ import {api1, api2, api3} from './static/mbcJs/api';
 import {endParams} from './static/mbcJs/endParams';
 import {isWeiXin} from './static/mbcJs/browserType';
 import {pageNums} from './static/mbcJs/pageNums';
+import {dateTime} from './static/mbcJs/dateTime';
 
 Vue.config.productionTip = false
 
@@ -19,6 +20,8 @@ Vue.prototype.endParams = endParams
 Vue.prototype.isWeiXin = isWeiXin
 
 Vue.prototype.pageNums = pageNums
+
+Vue.prototype.dateTime = dateTime
 
 Vue.prototype.APPID = 'wxfe5497e8a3f7578a'
 Vue.prototype.SECRET = 'e7de9721ba154902733fa00ce2aa6641'

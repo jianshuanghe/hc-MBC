@@ -1,31 +1,32 @@
-
 <template>
-	<view class="listInvest">
+	<div class="meltTt-content">
 		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
 		@scroll="scroll">
-			<view v-for="(items,index) in invest.listData" :key="index" >
-				<investItems :msgData="items"></investItems>
+			<view class="scrollContent">
+				<!-- 列表 -->
+				<view class="list" v-for="(items,index) in meltTt.listData" :key="index">
+					<items :msgData="items"></items>
+				</view>
 			</view>
 			<view class="loading-more">
 			    <text class="loading-more-text">{{loadingText}}</text>
 			</view>
 		</scroll-view>
-	</view>
+	</div>
 </template>
 
 <script>
-	import investItems from "./inverstorItems/invest-Items.vue";
+	import items from "./items.vue";
 	import { mapMutations, mapGetters } from 'vuex';
 	export default {
-	    data () {
+		data() {
 			return {
-				titleIndex: 1,
 				scrollTop: 0,
 				old: {
 					scrollTop: 0
 				},
 				loadingText: '加载更多...',
-				invest: { // 投资人
+				meltTt: { // 投资人
 					loadingText: '加载更多...',
 					search: { // 搜索
 						pageNum: 0, // 总页数
@@ -35,12 +36,6 @@
 					},
 					listData: '' // 列表数据
 				},
-				investorSearch: { // 筛选结果 --- 投资人参数
-					sortType: 'ID', // 排序 ID 综合 INFO_COUNT 最热 CREATE_TIME 最新
-					area: '', //  省份codelist
-					leves: '', //  轮数idlist
-					fields: '' // 领域 idlist
-				},
 				searchCondition: {  // 分页属性
 				  page: '1',
 				  name: ''
@@ -48,49 +43,48 @@
 				pageNum: 0, // 数据总页数
 				pageList: [] // 后台返回数据
 			};
-	    },
+		},
 		components: {
-			investItems
+			items
 		},
 		computed: {
-          ...mapGetters(['SEEKCAPITALTITLE'])
-        },
+			...mapGetters(['GET_FIND'])
+		},
 		watch: {
-          SEEKCAPITALTITLE: {
-          	handler (a, b) {
-          		console.log(b, '切换的title11');
-          		this.titleIndex = a; // 切换的title
-          		this.goTop(); // 页面触底之后调取loadMore方法，为了让用户再次调用此方法，需要自動将scroll向上滚动一些位置，这样下次滑动才会触发loadMore方法，详细需要看API
-          	},
-          	deep: true
-          }
-        },
+		  GET_FIND: {
+		    handler (a, b) {
+		      this.meltTt = a.meltTt; // 侦听融头条
+		    },
+		    deep: true
+		  }
+		},
 		created() {
 			console.log('在组件中并不能使用页面生命周期函数');
-			this.getInvestList(this.invest);
+			this.getList(this.meltTt);
 		},
-	    methods: {
+		mounted() {
+		},
+		methods: {
 			...mapMutations({
-				setSeekInvest: 'setSeekInvest'
+				setMeltTt: 'setMeltTt' // 融头条参数
 			}),
 			upper: function(e) {
 				console.log(e)
 			},
 			loadMore: function() {
 				console.log('触发加载更多。。。');
-				let pageNum = this.invest.search.pageNum;
-				let page = Number(this.invest.search.searchCondition.page);
+				let pageNum = this.meltTt.search.pageNum;
+				let page = Number(this.meltTt.search.searchCondition.page);
 				console.log(page, '当前页数1');
 				console.log(pageNum, '总页数1');
-				console.log(this.invest, '头责任的加载更多，原始数据');
+				console.log(this.meltTt, '头责任的加载更多，原始数据');
 				if (page < pageNum) { // 当前页数小于总页数时上啦加载数据
 					setTimeout(() => {
-						this.getInvestMoreList(this.invest);
+						this.getMoreList(this.meltTt);
 					}, 500)
 				} else {
 					this.loadingText = '已经没有数据了';
-					this.invest.loadingText = this.loadingText;
-					this.$store.commit('setSeekInvest', this.invest); // 更新setFinance
+					this.meltTt.loadingText = this.loadingText;
 					uni.showToast({
 						title: '已经没有数据了！',
 						icon: 'none',
@@ -118,19 +112,21 @@
 					this.scrollTop = Number(this.scrollTop - 50)
 				});
 			},
-			getInvestList(e){
-				console.log(e, '数显数据函数的参数');
+			getList(e){
 				if (uni.getStorageSync('landRegist')) {
 				    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 				    console.log(landRegistLG.user.id);
-					let params = {}; // 请求总数居时 参数为空
+					let params = {
+						activityTitel:"",
+						activityState:"1"
+					}; // 请求总数居时 参数为空
 					uni.showLoading({ // 展示loading
 						title: '加载中'
 					});
-					let P = this.investorSearch; // 投资人参数
 					uni.request({
-						url: this.api2 + '/inve/list?type=0' + '&sortType=' + P.sortType + '&area=' + P.area + '&leves=' + P.leves + '&fields=' + P.fields + '&page=' + this.searchCondition.page, //接口地址。
+						url: this.api2 + '/activity/list?page=' + this.searchCondition.page, //接口地址。
 						data: this.endParams(params),
+						method: 'POST',
 						header: {
 							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
 						},
@@ -144,7 +140,7 @@
 								e.loadingText = '已经没有数据了!';
 							}
 							uni.hideLoading(); // 隐藏 loading
-							this.$store.commit('setSeekInvest', e); // 更新setInvest
+							this.$store.commit('setMeltTt', e); // 更新setMeltTt
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -158,20 +154,23 @@
 					});
 				}
 			},
-			getInvestMoreList(e){
+			getMoreList(e){
 				console.log(e, '数显数据函数的参数More');
 				e.search.searchCondition.page = String(parseInt(e.search.searchCondition.page) + 1);
 				if (uni.getStorageSync('landRegist')) {
 				    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 				    console.log(landRegistLG.user.id);
-					let params = {}; // 请求总数居时 参数为空
+					let params = {
+						activityTitel:"",
+						activityState:"1"
+					}; // 请求总数居时 参数为空
 					uni.showLoading({ // 展示loading
 						title: '加载中'
 					});
-					let P = this.investorSearch; // 投资人参数
 					uni.request({
-						url: this.api2 + '/inve/list?type=0' + '&sortType=' + P.sortType + '&area=' + P.area + '&leves=' + P.leves + '&fields=' + P.fields + '&page=' + e.search.searchCondition.page, //接口地址。
+						url: this.api2 + '/activity/list?page=' + e.search.searchCondition.page, //接口地址。
 						data: this.endParams(params),
+						method: 'POST',
 						header: {
 							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
 						},
@@ -179,7 +178,7 @@
 							console.log(response.data);
 							e.listData = e.listData.concat(response.data.rows);
 							uni.hideLoading(); // 隐藏 loading
-							this.$store.commit('setSeekInvest', e); // 更新setInvest
+							this.$store.commit('setMeltTt', e); // 更新setMeltTt
 							this.goScrollTop(); // 页面触底之后调取loadMore方法，为了让用户再次调用此方法，需要自動将scroll向上滚动一些位置，这样下次滑动才会触发loadMore方法，详细需要看API
 						},
 						fail: (error) => {
@@ -194,27 +193,36 @@
 					});
 				}
 			}
-	    }
+		}
 	};
 </script>
 
 <style>
-	.scroll-Y {
-		height: 1162upx;
+	.meltTt-content{
+		position: relative;
+		width: 750upx;
+		background: #fff;
+		padding-top: 20upx;
 	}
-	
+	.scroll-Y {
+		height: 1040upx;
+		padding-bottom: 100upx;
+	}
+
 	.scroll-view_H {
 		white-space: nowrap;
 		width: 100%;
 	}
-	
+	.uni-scroll-view{
+		height: 1040upx;
+	}
 	.scroll-view-item {
-		height: 1162upx;
+		height: 1040upx;
 		line-height: 300upx;
 		text-align: center;
 		font-size: 36upx;
 	}
-	
+
 	.scroll-view-item_H {
 		display: inline-block;
 		width: 100%;

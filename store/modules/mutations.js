@@ -39,6 +39,23 @@ const mutations = {
     console.log(info, 'setInvest');
     state.home.HomeList.invest = info;
   },
+  // 发现模块
+  setFindTabItems (state, info) { // 头责任列表
+    console.log(info, 'setFindTabItems');
+    state.find.tabItems = info;
+  },
+   setMeltTt (state, info) { // 融头条
+    console.log(info, 'setMeltTt');
+    state.find.meltTt = info;
+  },
+   setActive (state, info) { // 活动
+    console.log(info, 'setActive');
+    state.find.active = info;
+  },
+   setInformation (state, info) { // 资讯
+    console.log(info, 'setInformation');
+    state.find.information = info;
+  },
   // 我的=》用户信息
   setheader(state, info){
 	  console.log(info,'setheader')
