@@ -98,7 +98,11 @@
 				} else if (this.clickItemsTitle === 2) { // 跟新投资项目参数
 					this.investInsSearch.sortType = this.clickItemsCode;
 					this.$store.commit('setInvestInsSearch', this.investInsSearch); // 更新setInvestInsSearch
-				}
+					this.$store.commit('setScreenShow', false); // 更新setScreenShow
+				};
+				setTimeout(() => {
+				  this.$store.commit('setScreenShow', false); // 更新setScreenShow
+				}, 300);
 			}
 	    }
 	};

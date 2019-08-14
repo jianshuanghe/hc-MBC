@@ -3,10 +3,10 @@
 			<view class="scrollContent">
 				<!-- 列表 -->
 				<view >
-					<investor v-if="GET_HOME.seekCapital.titleIndex === 1"></investor>
+					<investor v-if="SEEKCAPITALTITLE === 1"></investor>
 				</view>
 				<view >
-					<investInstitution v-if="GET_HOME.seekCapital.titleIndex === 2"></investInstitution>
+					<investInstitution v-if="SEEKCAPITALTITLE === 2"></investInstitution>
 				</view>
 			</view>
 	</view>
@@ -19,33 +19,25 @@
 	export default {
 		data() {
 			return {
-				scrollTop: 0,
-				old: {
-					scrollTop: 0
-				},
-				loadingText: '加载更多...',
-				seekCapital:{
-					titleIndex: 1, // 切换的title
-					invest: { // 投资人
-						loadingText: '加载更多...',
-						search: { // 搜索
-							pageNum: 0, // 总页数
-							searchCondition: {  // 分页属性
-								page: '1'
-							}
-						},
-						listData: '' // 列表数据
+				invest: { // 投资人
+					loadingText: '加载更多...',
+					search: { // 搜索
+						pageNum: 0, // 总页数
+						searchCondition: {  // 分页属性
+							page: '1'
+						}
 					},
-					investInstitution: { // 投资机构
-						loadingText: '加载更多...',
-						search: { // 搜索
-							pageNum: 0, // 总页数
-							searchCondition: {  // 分页属性
-								page: '1'
-							}
-						},
-						listData: '' // 列表数据
-					}
+					listData: '' // 列表数据
+				},
+				investInstitution: { // 投资机构
+					loadingText: '加载更多...',
+					search: { // 搜索
+						pageNum: 0, // 总页数
+						searchCondition: {  // 分页属性
+							page: '1'
+						}
+					},
+					listData: '' // 列表数据
 				},
 				investorSearch: { // 筛选结果 --- 投资人参数
 					sortType: 'ID', // 排序 ID 综合 INFO_COUNT 最热 CREATE_TIME 最新
@@ -58,14 +50,7 @@
 					area: '', //  省份codelist
 					leves: '', //  轮数idlist
 					fields: '' // 领域 idlist
-				},
-				paramsList: {}, // 切换title，数显数据函数的参数
-				searchCondition: {  // 分页属性
-	              page: '1',
-	              name: ''
-	            },
-	            pageNum: 0, // 数据总页数
-	            pageList: [] // 后台返回数据
+				}
 			};
 		},
 		components: {
@@ -73,24 +58,19 @@
 			investInstitution
 		},
 		computed: {
-			...mapGetters(['GET_HOME', 'INVESTORSEARCH', 'INVERSTINSSEARCH', 'SEEKCAPITALTITLE'])
+			...mapGetters(['SEEKCAPITALTITLE'])
 		},
 		watch: {
-			GET_HOME: {
-				handler (a, b) {
-					this.seekCapital = a.seekCapital; // 获取vux中的数据
-				},
-				deep: true
-			},
 			SEEKCAPITALTITLE: {
 				handler (a, b) {
-					console.log(b, '切换的title11');
-					this.seekCapital.titleIndex = b; // 切换的title
-					if (this.seekCapital.titleIndex === 1) {
-						this.$store.commit('setSeekInvestInstitution', this.seekCapital.investInstitution); // 初始化投资机构 参数
+					console.log(a, 'title所造index');
+					if (a === 1) {
+						console.log('切换到投资人， 修改投资机构');
+						this.$store.commit('setSeekInvestInstitution', this.investInstitution); // 初始化投资机构 参数
 						this.$store.commit('setInvestInsSearch', this.investInsSearch); // 初始化投资机构 参数
 					} else {
-						this.$store.commit('setSeekInvest', this.seekCapital.invest); // 初始化投资人 参数
+						console.log('切换到投资机构， 修改投资人');
+						this.$store.commit('setSeekInvest', this.invest); // 初始化投资人 参数
 						this.$store.commit('setInvestorSearch', this.investorSearch); // 初始化投资机构 参数
 					}
 				},
