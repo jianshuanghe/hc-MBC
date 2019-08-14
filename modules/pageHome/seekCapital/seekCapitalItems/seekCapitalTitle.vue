@@ -15,7 +15,6 @@
 			</view>
 			<view class="clear"></view>
 		</view>
-		<view class="line"></view>
 	</view>
 </template>
 

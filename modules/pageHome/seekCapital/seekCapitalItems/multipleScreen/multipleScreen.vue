@@ -1,5 +1,6 @@
 <template>
 	<view class="multipleScreen-content">
+		<view class="line"></view>
 		<!-- top -->
 		<view class="multipleScreen">
 			<view class="multipleScreen-box">
@@ -303,7 +304,7 @@
 	.multipleScreen-content{
 		position: fixed;
 		width: 100%;
-		margin-top: 90upx;
+		margin-top: 88upx;
 		background: #fff;
 		z-index: 101;
 		width: 100%;

@@ -4,10 +4,10 @@
 			<view>
 				<view>{{Mylist.userName}}</view>
 				<view>
-					<image :src="Uncertified" v-if="this.Mylist.authState==-1"></image>
-					<image :src="Entrepreneurs" v-if="this.Mylist.authState==0"></image>
-					<image :src="Investor" v-if="this.Mylist.authState===1"></image>
-					<image :src="Investor" v-if="this.Mylist.authState===2"></image>
+					<image :src="Uncertified" v-if="this.Mylist.authState === -1"></image>
+					<image :src="Entrepreneurs" v-if="this.Mylist.authState === 0"></image>
+					<image :src="Investor" v-if="this.Mylist.authState === 1"></image>
+					<image :src="Investor" v-if="this.Mylist.authState === 2"></image>
 				</view>
 			</view>
 			<view>
@@ -16,8 +16,7 @@
 			</view>
 		</view>
 		<view class="Informationportrait">
-			<image :src="Mylist.headImg" v-if="this.Mylist.headImg!=''"></image>
-			<image :src="images" v-if="this.Mylist.headImg==''"></image>
+			<image :src="Mylist.headImg || images" ></image>
 		</view>
 	</view>
 </template>

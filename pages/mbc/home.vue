@@ -7,19 +7,19 @@
 				<pageHome></pageHome>
 			</view>
 			<!-- 发现 -->
-			<view :class="GET_HOME.tabItems === 2 ? 'show' : 'hide'">
+			<view v-if="GET_HOME.tabItems === 2">
 				<pageFind></pageFind>
 			</view>
 			<!-- 消息 -->
-			<view :class="GET_HOME.tabItems === 3 ? 'show' : 'hide'">
+			<view v-if="GET_HOME.tabItems === 3">
 				<pageNews></pageNews>
 			</view>
 			<!-- 我的 -->
-			<view :class="GET_HOME.tabItems === 4 ? 'show' : 'hide'">
+			<view v-if="GET_HOME.tabItems === 4">
 				<pageMy></pageMy>
 			</view>
 			<!-- 发布 -->
-			<view :class="GET_HOME.tabItems === 5 ? 'show' : 'hide'">
+			<view v-if="GET_HOME.tabItems === 5">
 				<pagePublish></pagePublish>
 			</view>
 		</view>
