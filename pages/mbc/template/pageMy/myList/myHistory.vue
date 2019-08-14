@@ -1,9 +1,9 @@
 <template>
 	<view class="myHistory">
 		<!-- 未认证 -->
-		<Historyone v-if="this.Mylist.userType==-1"></Historyone>
+		<Historyone v-if="this.Mylist.userType==0"></Historyone>
 		<!-- 创业者 -->
-		<Historytwo v-if="this.Mylist.userType==0"></Historytwo>
+		<Historytwo v-if="this.Mylist.userType==-1"></Historytwo>
 		<!-- 投资人 -->
 		<HistoryThree v-if="this.Mylist.userType==1"></HistoryThree>
 	</view>

@@ -7,10 +7,10 @@
 			<view>审核失败</view>
 		</view>
 		<view class="inspect-List-fail-conter">
-			<view>王亚蒙</view>
+			<view>{{Listdata.userName}}</view>
 			<view>职位:运营</view>
 			<view>邮箱:123@.com</view>
-			<view>机构名称:慧聪集团</view>
+			<view>机构名称:{{Listdata.compName}}</view>
 			<view>
 				<image :src="Image7"></image>
 			</view>
@@ -34,22 +34,30 @@
 <script>
 	import Image7 from '@/static/mbcImg/my/Image 7.png'
 	import Image4 from '@/static/mbcImg/my/Image4.png'
+	import { mapMutations,mapGetters } from 'vuex';
 	export default {
 		data() {
 			return {
 				Image7: Image7,
 				Image4: Image4,
+				Listdata:[]
 			};
 		},
-		components: {
-
+		computed: {
+			...mapGetters(['GET_MY'])
 		},
-		computed: {},
-		created() {},
-		mounted() {},
-		methods: {
-			
-		}
+		watch: {
+			GET_MY: {
+				handler(a, b) {
+					console.log(a, b);
+				},
+				deep: true
+			}
+		},
+		created() {
+			this.Listdata = this.GET_MY.MyList.Authentication;
+			console.log(this.Listdata, '审核失败');
+		},
 	};
 </script>
 

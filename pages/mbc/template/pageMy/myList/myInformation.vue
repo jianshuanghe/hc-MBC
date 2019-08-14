@@ -73,7 +73,7 @@
 	}
 
 	.Informationname {
-		width: 320upx;
+		width: 420upx;
 		height: 100upx;
 		/* background: red; */
 		padding-top: 92upx;
@@ -88,7 +88,7 @@
 	.Informationname view:nth-of-type(1) view:nth-of-type(1) {
 		font-size: 40upx;
 		font-weight: 700;
-		width: 200upx;
+		/* width: 200upx; */
 	}
 
 	.Informationname view:nth-of-type(1) view:nth-of-type(2) {
@@ -96,7 +96,7 @@
 		height: 50upx;
 		border-radius: 20upx;
 		padding-top: 10upx;
-		padding-right: 20upx;
+		padding-left: 20upx;
 	}
 
 	.Informationname view:nth-of-type(1) view:nth-of-type(2) image {
@@ -120,7 +120,7 @@
 		height: 120upx;
 		/* background: #000000; */
 		padding-top: 12.1%;
-		padding-left: 30%;
+		padding-left: 12%;
 		border-radius: 50%;
 	}
 

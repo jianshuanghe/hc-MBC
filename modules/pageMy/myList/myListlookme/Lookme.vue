@@ -12,14 +12,19 @@
 				</view>
 			</view>
 			<view>
-				{{item.createTime}}
+				{{item.createTime|formatDate}}
 			</view>
+		</view>
+		<view class="meirenkanwo" v-if="CollectionList!==undefined &&CollectionList.length==0">
+			<image :src="kong" mode=""></image>
+			还没有人看过您！
 		</view>
 	</view>
 </template>
 
 <script>
 	import yong from '@/static/mbcImg/my/yong.png'
+	import kong from '@/static/mbcImg/my/kong.png'
 	import {
 		mapMutations,
 		mapGetters
@@ -28,20 +33,35 @@
 		data() {
 			return {
 				yong: yong,
+				kong:kong,
 				CollectionList: [],
 				page: 1,
 			};
 		},
 		computed: {
-			...mapGetters(['GET_MY']),
-			ipaddrArray:function() {
-				return this.picArr.split(';')
-			}
+			...mapGetters(['GET_MY'])
 		},
 		created() {
 			console.log('在组件中并不能使用页面生命周期函数');
 			this.getConcang();
 	
+		},
+		filters: {
+			formatDate: function(value) {
+				let date = new Date(value);
+				let y = date.getFullYear();
+				let MM = date.getMonth() + 1;
+				MM = MM < 10 ? ('0' + MM) : MM;
+				let d = date.getDate();
+				d = d < 10 ? ('0' + d) : d;
+				let h = date.getHours();
+				h = h < 10 ? ('0' + h) : h;
+				let m = date.getMinutes();
+				m = m < 10 ? ('0' + m) : m;
+				let s = date.getSeconds();
+				s = s < 10 ? ('0' + s) : s;
+				return y + '-' + MM + '-' + d ;
+			}
 		},
 		mounted() {},
 		methods: {
@@ -89,6 +109,7 @@
 		width: 100%;
 		min-height: 100%;
 		background: #FFFFFF;
+		padding: 2upx;
 	}
 	
 	.Lookmefist {
@@ -158,5 +179,18 @@
 		color: #9B9B9B;
 		position: absolute;
 		right: 0;
+	}
+	.meirenkanwo{
+		width: 284upx;
+		height: 280upx;
+		display: block;
+		margin: 120upx auto auto auto;
+		font-size: 28upx;
+		text-align: center;
+		color: #9B9B9B;
+	}
+	.meirenkanwo image{
+		width: 100%;
+		height: 85%;
 	}
 </style>

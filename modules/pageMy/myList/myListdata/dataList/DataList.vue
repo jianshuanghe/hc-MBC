@@ -95,6 +95,7 @@
 			addImage: function(e){
 				console.log(e, '添加图片')
 				if(e.allImages) { // 上传成功
+				console.log(e)
 					this.logo = (e.allImages[0]);
 				}
 			},
@@ -103,21 +104,18 @@
 				if (uni.getStorageSync('landRegist')) {
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 					console.log(landRegistLG.user.id);
-					// let params = {
-					// 	userId:760,
-					// 	headImg:this.logo,
-					// 	userName:this.name,
-					// 	email:this.mail
-					// }; // 请求总数居时 参数为空
+					let params = {
+						userId:landRegistLG.user.id,
+						headImg:this.logo,
+						userName:this.name,
+						email:this.mail
+					}; // 请求总数居时 参数为空
 					uni.showLoading({ // 展示loading
 						title: '加载中'
 					});
 					uni.request({
-						url: this.api2 + '/user/760' ,data:{
-							userId:760,
-							userName:this.name
-						}, //接口地址。
-						// data: this.endParams(params),
+						url: this.api2 + '/user/'+landRegistLG.user.id ,//接口地址。
+						data: this.endParams(params),
 						method: 'POST',
 						header: {
 							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中

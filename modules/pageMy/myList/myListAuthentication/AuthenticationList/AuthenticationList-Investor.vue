@@ -5,26 +5,46 @@
 </template>
 
 <script>
+		import { mapMutations,mapGetters } from 'vuex';
 	export default {
 		data() {
 			return {
-				status:1
+				Listdata: []
 			};
 		},
-		computed: {},
-		created() {},
-		mounted() {},
+		computed: {
+			...mapGetters(['GET_MY'])
+		},
+		watch: {
+			GET_MY: {
+				handler(a, b) {
+					console.log(a, b);
+				},
+				deep: true
+			}
+		},
+		created() {
+			this.Listdata = this.GET_MY.MyList.header;
+			console.log(this.Listdata, '投资选择');
+		},
 		methods: {
 			gotoInvestorCertification(e){
-				if(this.status===1){
+				if(this.Listdata.userType==1){
 					console.log('去' + e + '投资人认证');
 					uni.navigateTo({
 						url: '/modules/pageMy/myList/myListAuthentication/AuthenticationList/InvestorCertification/InvestorCertification',
 					});
-				}else if(this.status===2){
+				}else if(this.Listdata.userType==0){
 					console.log('去' + e + '投资人认证');
 					uni.navigateTo({
 						url: '/modules/pageMy/myList/myListAuthentication/AuthenticationList/Certification-status/Certification-status',
+					});
+				}else if(this.Listdata.userType==1){
+					console.log('您已认证创业者 无法认证投资人')
+					uni.showToast({
+						title: '您已认证创业者，无法认证投资人',
+						icon: 'none',
+						duration: 1000
 					});
 				}
 			}

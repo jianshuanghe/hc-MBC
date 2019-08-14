@@ -55,7 +55,7 @@
 						title: '加载中'
 					});
 					uni.request({
-						url: this.api2 + '/user/760', //接口地址。
+						url: this.api2 + '/user/'+landRegistLG.user.id, //接口地址。
 						// data: this.endParams(params),
 						method: 'GET',
 						header: {

@@ -18,11 +18,16 @@
 				中国·{{item.pCodeStr}}
 			</view>
 		</view>
+		<view class="meirenkanwo" v-if="CollectionList.rows!==undefined &&CollectionList.rows.length==0">
+			<image :src="kong" mode=""></image>
+			您还没有收藏投资人！
+		</view>
 	</view>
 </template>
 
 <script>
 	import yong from '@/static/mbcImg/my/yong.png'
+	import kong from '@/static/mbcImg/my/kong.png'
 	import {
 		mapMutations,
 		mapGetters
@@ -31,6 +36,7 @@
 		data() {
 			return {
 				yong: yong,
+				kong:kong,
 				CollectionList: [],
 				page: 1,
 				picArr: []
@@ -61,7 +67,7 @@
 						title: '加载中'
 					});
 					uni.request({
-						url: this.api2 + '/follow/userList?userId=760&page=' + this.page, //接口地址。
+						url: this.api2 + '/follow/userList?userId='+landRegistLG.user.id+'&page=' + this.page, //接口地址。
 						// data: this.endParams(params),
 						method: 'GET',
 						header: {
@@ -192,5 +198,18 @@
 		color: #9B9B9B;
 		position: absolute;
 		right: 0;
+	}
+	.meirenkanwo{
+		width: 284upx;
+		height: 280upx;
+		display: block;
+		margin: 120upx auto auto auto;
+		font-size: 28upx;
+		text-align: center;
+		color: #9B9B9B;
+	}
+	.meirenkanwo image{
+		width: 100%;
+		height: 85%;
 	}
 </style>

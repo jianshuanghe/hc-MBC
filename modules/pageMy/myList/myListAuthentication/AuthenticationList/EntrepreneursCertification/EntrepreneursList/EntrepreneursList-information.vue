@@ -113,7 +113,9 @@
 			addImage: function(e){
 				console.log(e, '添加图片')
 				if(e.allImages) { // 上传成功
+				console.log(e);
 					this.logo = (e.allImages[0]);
+					console.log(this.logo)
 				}
 			},
 			gotoSubmissionseccess(e) {
@@ -180,7 +182,6 @@
 						console.log(landRegistLG.user.id);
 						let params = {
 							userId:landRegistLG.user.id,
-							headImg:this.logo,
 							userName:this.name,
 							email:this.mailbox,
 							position:this.position,
