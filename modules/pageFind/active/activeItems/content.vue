@@ -1,57 +1,57 @@
 <template>
-	<div class="content-content">
-		<div class="activeDetails">
-			<div class="AD-img">
+	<view class="content-content">
+		<view class="activeDetails">
+			<view class="AD-img">
 				<image :src="banner1"></image>
-			</div>
-			<div class="AD-content">
-				<div class="AD-title">{{msgData.activity.activityAbstract}}</div>
-				<div class="AD-items-list">
-					<div class="AD-items">
+			</view>
+			<view class="AD-content">
+				<view class="AD-title">{{msgData.activity.activityAbstract}}</view>
+				<view class="AD-items-list">
+					<view class="AD-items">
 						活动时间
 						<text class="AD-text">{{msgData.activity.activityStartTime | dateTime}} - {{msgData.activity.activityEndTime | dateTime}}</text>
-					</div>
-					<div class="line"></div>
-				</div>
-				<div class="AD-items-list">
-					<div class="AD-items">
+					</view>
+					<view class="line"></view>
+				</view>
+				<view class="AD-items-list">
+					<view class="AD-items">
 						活动地点
 						<text class="AD-text">{{msgData.activity.activityAddress}}</text>
-					</div>
-					<div class="line"></div>
-				</div>
-				<div class="AD-items-list">
-					<div class="AD-items">
+					</view>
+					<view class="line"></view>
+				</view>
+				<view class="AD-items-list">
+					<view class="AD-items">
 						咨询热线
 						<text class="AD-text">{{msgData.activity.activityTelphone}}</text>
-					</div>
-					<div class="line"></div>
-				</div>
-				<div class="AD-items-img">
-					<div class="AD-items-img-list left">
+					</view>
+					<view class="line"></view>
+				</view>
+				<view class="AD-items-img">
+					<view class="AD-items-img-list left">
 						<image class="img-Ad left" :class="'marg'+ index" :src="items"  v-for="(items,index) in msgData.sginImg" :key="index"></image>
 						<image class="img-Ad left" :class="'marg1'" :src="items"  v-for="(items,index) in msgData.sginImg" :key="index"></image>
 						<image class="img-Ad left" :class="'marg2'" :src="items"  v-for="(items,index) in msgData.sginImg" :key="index"></image>
 						<image class="img-Ad left" :class="'marg3'" :src="items"  v-for="(items,index) in msgData.sginImg" :key="index"></image>
 						<image class="img-Ad left" :class="'marg4'" :src="items"  v-for="(items,index) in msgData.sginImg" :key="index"></image>
-					</div>
-					<div class="AD-items-text right">
+					</view>
+					<view class="AD-items-text right">
 						{{msgData.sginSum}} <text class="AD-text">人已报名</text>
-					</div>
-					<div class="clear"></div>
-					<div class="line"></div>
-				</div>
+					</view>
+					<view class="clear"></view>
+					<view class="line"></view>
+				</view>
 				<!-- 活动详情 -->
-				<div class="AD-details-title">活动详情</div>
-				<div class="AD-details-text">
+				<view class="AD-details-title">活动详情</view>
+				<view class="AD-details-text">
 					{{msgData.activityContent}}
-				</div>
-				<div class="AD-details-img">
+				</view>
+				<view class="AD-details-img">
 					<image :src="banner1"></image>
-				</div>
-			</div>
-		</div>
-	</div>
+				</view>
+			</view>
+		</view>
+	</view>
 </template>
 
 <script>

@@ -141,8 +141,11 @@
 		watch: {},
 		created() {
 			this.investorSearch = this.INVESTORSEARCH;
+			console.log(this.investorSearch, 'this.investorSearch');
 			this.investInsSearch = this.INVERSTINSSEARCH;
+			console.log(this.investInsSearch, 'this.investInsSearch');
 			this.clickItemsTitle = this.SEEKCAPITALTITLE;
+			console.log(this.clickItemsTitle, 'this.clickItemsTitle');
 		},
 		mounted(){
 			console.log(this.FIELDDATA, 'AREADAT地区数据')

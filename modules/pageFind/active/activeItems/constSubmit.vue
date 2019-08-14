@@ -1,16 +1,16 @@
 <template>
-	<div class="constSubmit-content">
-		<div class="constSubmit">
-			<div class="left const-box">
-				<div class="img-box">
+	<view class="constSubmit-content">
+		<view class="constSubmit">
+			<view class="left const-box">
+				<view class="img-box">
 					<image class="img" :src="tel"></image>
-				</div>
-				<div class="text">咨询客服</div>
-			</div>
-			<div class="left submit-box">立即报名</div>
-			<div class="clear"></div>
-		</div>
-	</div>
+				</view>
+				<view class="text">咨询客服</view>
+			</view>
+			<view class="left submit-box">立即报名</view>
+			<view class="clear"></view>
+		</view>
+	</view>
 </template>
 
 <script>

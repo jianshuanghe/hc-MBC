@@ -24,25 +24,7 @@
 	export default {
 	    data () {
 			return {
-				clickItemsIndex: 1,
-				fieldsDataList:'',
-				levesDataList:'',
-				areaDataList:'',
-				AREADATAS: [],
-				FIELDDATAS: [],
-				LEVELDATAS: [],
-				investorSearch: { // 筛选结果 --- 投资人参数
-					sortType: 'ID', // 排序 ID 综合 INFO_COUNT 最热 CREATE_TIME 最新
-					area: '', //  省份codelist
-					leves: '', //  轮数idlist
-					fields: '' // 领域 idlist
-				},
-				investInsSearch: { // 筛选结果 --- 投资项目参数
-					sortType: 'ID', // 排序 ID 综合 INFO_COUNT 最热 CREATE_TIME 最新
-					area: '', //  省份codelist
-					leves: '', //  轮数idlist
-					fields: '' // 领域 idlist
-				},
+				clickItemsIndex: 1
 			};
 	    },
 		computed: {

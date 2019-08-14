@@ -1,7 +1,7 @@
 <template>
-	<div class="activeDetails-content">
+	<view class="activeDetails-content">
 		<contentCC :msgData="dataList"></contentCC>
-	</div>
+	</view>
 </template>
 
 <script>

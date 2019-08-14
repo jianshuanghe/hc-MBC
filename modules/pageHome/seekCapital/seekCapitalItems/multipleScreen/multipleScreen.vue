@@ -4,7 +4,7 @@
 		<view class="multipleScreen">
 			<view class="multipleScreen-box">
 				<view :class="clickIndex === 1 ? 'left multiple tabInddex' : 'left multiple'" @tap='clickMultipleScreen(1)'>
-					综合
+					{{fileText}}
 					<image class="img-multiple" :src='arrow'></image>
 				</view>
 				<view class="right screen" @tap='clickMultipleScreen(2)'>
@@ -36,6 +36,9 @@
 	export default {
 	    data () {
 			return {
+				investorSearch: {},
+				investInsSearch: {},
+				fileText: '综合',
 				areaData: { // 地区
 					area: [], // 全国省市区
 					province: [], // 全国省
@@ -58,25 +61,47 @@
 			multipleBox
 		},
 		computed: {
-			...mapGetters(['MULTIPLESCREEN'])
+			...mapGetters(['MULTIPLESCREEN', 'SEEKCAPITALTITLE', 'INVESTORSEARCH', 'INVERSTINSSEARCH'])
 		},
 		watch: {
-		  MULTIPLESCREEN: {
-		    handler (a, b) {
-				if(a.screenShow === false) {
-					this.arrow = this.downArrow;
-					if (this.clickIndex === 1) {
-						this.clickIndex = 3;
+			SEEKCAPITALTITLE: {
+				handler (a, b) {
+					this.getArea();
+					this.getField();
+					this.getLevel();
+				},
+				deep: true
+			},
+			MULTIPLESCREEN: {
+				handler (a, b) {
+					if(a.screenShow === false) {
+						this.arrow = this.downArrow;
+						if (this.clickIndex === 1) {
+							this.clickIndex = 3;
+						}
+					} else if (a.multipleShow === false) {
+						this.screen = this.screenUp;
+						if (this.clickIndex === 2) {
+							this.clickIndex = 3;
+						}
 					}
-				} else if (a.multipleShow === false) {
-					this.screen = this.screenUp;
-					if (this.clickIndex === 2) {
-						this.clickIndex = 3;
-					}
-				}
-		    },
-		    deep: true
-		  }
+				},
+				deep: true
+			},
+			INVESTORSEARCH: {
+				handler (a, b) {
+					console.log(a, '获取VUX投资人的参数');
+					this.showFileText(a);
+				},
+				deep: true
+			},
+			INVERSTINSSEARCH: {
+				handler (a, b) {
+					console.log(a, '获取VUX投资项目参数')
+					this.showFileText(a);
+				},
+				deep: true
+			}
 		},
 		created() {
 			this.getArea();
@@ -93,10 +118,37 @@
 				setFieldData: 'setFieldData', // 公共组件领域
 				setLevelData: 'setLevelData', // 公共组件融资阶段
 			}),
+			showFileText (a) {
+				if (this.SEEKCAPITALTITLE === 1) { // 跟新投资人参数
+					let text = this.fileText; // 过滤器显示文字
+					if (a.sortType === 'ID') {
+						text = '综合';
+					} else if (a.sortType === 'CREATE_TIME') {
+						text = '最新';
+					} else if (a.sortType === 'INFO_COUNT') {
+						text = '最热';
+					}
+					setTimeout(() => {
+						this.fileText = text;
+					}, 300);
+				} else if (this.SEEKCAPITALTITLE === 2) { // 跟新投资项目参数
+					let text = this.fileText; // 过滤器显示文字
+					if (a.sortType === 'ID') {
+						text = '综合';
+					} else if (a.sortType === 'CREATE_TIME') {
+						text = '最新';
+					} else if (a.sortType === 'INFO_COUNT') {
+						text = '最热';
+					}
+					setTimeout(() => {
+						this.fileText = text;
+					}, 300);
+				};
+			},
 			clickMultipleScreen (e) {
 				if(e === 1) {
 					this.screen = this.screenUp;
-					console.log('触发展示综合按钮');
+					console.log(e,'触发展示综合按钮1');
 					if(this.clickIndex === 1) { // 重复点击
 						this.clickIndex = 3;
 						this.arrow = this.downArrow;
@@ -109,17 +161,11 @@
 					}
 				} else if (e === 2) {
 					this.arrow = this.downArrow; // 收起
-					console.log('触发展示筛选按钮');
-					if(this.clickIndex === 2) { // 重复点击
-						this.clickIndex = 3;
-						this.screen = this.screenUp;
-						this.$store.commit('setMultipleShow', false); // 更新setMultipleShow
-					} else {
-						this.clickIndex = e;
-						this.screen = this.screenDown;
-						this.$store.commit('setMultipleShow', true); // 更新setMultipleShow
-						this.$store.commit('setScreenShow', false); // 更新setScreenShow
-					}
+					console.log(e, '触发展示筛选按钮2');
+					this.clickIndex = e;
+					this.screen = this.screenDown;
+					this.$store.commit('setMultipleShow', true); // 更新setMultipleShow
+					this.$store.commit('setScreenShow', false); // 更新setScreenShow
 				}
 				
 			},

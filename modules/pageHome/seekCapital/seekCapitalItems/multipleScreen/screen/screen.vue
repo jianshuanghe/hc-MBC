@@ -33,6 +33,32 @@
 						code: 'INFO_COUNT'
 					}
 				],
+				invest: { // 投资人
+					loadingText: '加载更多...',
+					search: { // 搜索
+						pageNum: 0, // 总页数
+						searchCondition: {  // 分页属性
+							page: '1'
+						}
+					},
+					listData: '' // 列表数据
+				},
+				investInstitution: { // 投资机构
+					loadingText: '加载更多...',
+					search: { // 搜索
+						pageNum: 0, // 总页数
+						searchCondition: {  // 分页属性
+							page: '1'
+						}
+					},
+					listData: '' // 列表数据
+				},
+				investorSearch: { // 筛选结果 --- 投资人参数
+					sortType: 'ID', // 排序 ID 综合 INFO_COUNT 最热 CREATE_TIME 最新
+					area: '', //  省份codelist
+					leves: '', //  轮数idlist
+					fields: '' // 领域 idlist
+				},
 				investorSearch: { // 筛选结果 --- 投资人参数
 					sortType: 'ID', // 排序 ID 综合 INFO_COUNT 最热 CREATE_TIME 最新
 					area: '', //  省份codelist
@@ -73,11 +99,6 @@
 					this.clickItemsTitle = a; // 切换的title
 					this.$store.commit('setScreenShow', false); // 更新setScreenShow
 					this.$store.commit('setMultipleShow', false); // 更新setMultipleShow
-					if (a === 1) {
-						this.clickItemsCode = this.investorSearch.sortType;
-					} else if (a === 2) {
-						this.clickItemsCode = this.investInsSearch.sortType;
-					}
 				},
 				deep: true
 			}
@@ -86,19 +107,24 @@
 		},
 	    methods: {
 			...mapMutations({
+				setSeekInvest: 'setSeekInvest', // 投资人分页
+				setSeekInvestInstitution: 'setSeekInvestInstitution', // 投资项目参数
 				setInvestorSearch: 'setInvestorSearch', // 投资人参数
 				setInvestInsSearch: 'setInvestInsSearch' // 投资项目参数
 			}),
 			clickScreen (e) {
-				console.log(e, '触发点击综合选项items.code');
+				console.log(e, this.SEEKCAPITALTITLE, '触发点击综合选项items.code');
 				this.clickItemsCode = e;
-				if (this.clickItemsTitle === 1) { // 跟新投资人参数
+				this.$store.commit('setSeekInvest', this.invest); // 更新setInvest
+				this.$store.commit('setSeekInvestInstitution', this.investInstitution); // 更新setSeekInvestInstitution
+				if (this.SEEKCAPITALTITLE === 1) { // 跟新投资人参数
+					console.log('投资人参数');
 					this.investorSearch.sortType = this.clickItemsCode;
 					this.$store.commit('setInvestorSearch', this.investorSearch); // 更新setInvestorSearch
-				} else if (this.clickItemsTitle === 2) { // 跟新投资项目参数
+				} else if (this.SEEKCAPITALTITLE === 2) { // 跟新投资项目参数
+					console.log('投资项目参数');
 					this.investInsSearch.sortType = this.clickItemsCode;
 					this.$store.commit('setInvestInsSearch', this.investInsSearch); // 更新setInvestInsSearch
-					this.$store.commit('setScreenShow', false); // 更新setScreenShow
 				};
 				setTimeout(() => {
 				  this.$store.commit('setScreenShow', false); // 更新setScreenShow

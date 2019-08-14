@@ -53,17 +53,31 @@
 			investItems
 		},
 		computed: {
-          ...mapGetters(['SEEKCAPITALTITLE'])
+          ...mapGetters(['GET_HOME', 'SEEKCAPITALTITLE', 'INVESTORSEARCH'])
         },
 		watch: {
-          SEEKCAPITALTITLE: {
-          	handler (a, b) {
-          		console.log(b, '切换的title11');
-          		this.titleIndex = a; // 切换的title
-          		this.goTop(); // 页面触底之后调取loadMore方法，为了让用户再次调用此方法，需要自動将scroll向上滚动一些位置，这样下次滑动才会触发loadMore方法，详细需要看API
-          	},
-          	deep: true
-          }
+			GET_HOME: {
+			  handler (a, b) {
+			    this.invest = a.seekCapital.invest; // 获取vuex中的投资人数据
+			  },
+			  deep: true
+			},
+			SEEKCAPITALTITLE: {
+				handler (a, b) {
+					console.log(b, '切换的title11');
+					this.titleIndex = a; // 切换的title
+					this.goTop(); // 页面触底之后调取loadMore方法，为了让用户再次调用此方法，需要自動将scroll向上滚动一些位置，这样下次滑动才会触发loadMore方法，详细需要看API
+				},
+				deep: true
+			},
+			INVESTORSEARCH: {
+				handler (a, b) {
+					console.log(a, '获取VUX投资人的参数')
+					this.investorSearch = a; // 接口投资人参数
+					this.getInvestList(this.invest);
+				},
+				deep: true
+			}
         },
 		created() {
 			console.log('在组件中并不能使用页面生命周期函数');
