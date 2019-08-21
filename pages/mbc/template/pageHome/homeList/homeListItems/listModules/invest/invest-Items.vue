@@ -4,8 +4,7 @@
       <view class="II-top">
         <view class="left II-user-img">
           <view class="II-img">
-            <image :src='msgData.headImg' v-if="msgData.headImg"></image>
-			<image :src='iiImg' v-if="!msgData.headImg"></image>
+            <image :src='msgData.headImg || this.dImg'></image>
           </view>
         </view>
         <view class="left II-suer-insr">
@@ -41,11 +40,9 @@
 </template>
 
 <script>
-	import iiImg from '@/static/mbcImg/home/banner1.png';
 	export default {
 	    data () {
 			return {
-				iiImg: iiImg
 			};
 	    },
 		props: {

@@ -25,18 +25,14 @@
 </template>
 
 <script>
-	import love from '@/static/mbcImg/home/seekCapital/like.png';
-	import loved from '@/static/mbcImg/home/seekCapital/liked.png';
-	import text from '@/static/mbcImg/home/seekCapital/text.png';
-	import texted from '@/static/mbcImg/home/seekCapital/texted.png';
 	
 	export default {
 	    data () {
 			return {
-				love: love,
-				loved: loved,
-				text: text,
-				texted: texted,
+				love: this.Static + 'mbcImg/home/seekCapital/like.png',
+				loved: this.Static + 'mbcImg/home/seekCapital/liked.png',
+				text: this.Static + 'mbcImg/home/seekCapital/text.png',
+				texted: this.Static + 'mbcImg/home/seekCapital/texted.png',
 				items: { // 用户缓存用户行为的子项
 					id: '', // id
 					doc: false, // 留言
@@ -51,10 +47,6 @@
 			msgData: {
 				type: Object
 			}
-		},
-		created() {
-			console.log(this.msgData, '子组件获取的数据');
-			this.getClickRecord();
 		},
 		mounted() {
 			console.log(this.msgData, '子组件获取的数据2');

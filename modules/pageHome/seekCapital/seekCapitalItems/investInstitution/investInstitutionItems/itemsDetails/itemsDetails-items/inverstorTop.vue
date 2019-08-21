@@ -17,11 +17,10 @@
 </template>
 
 <script>
-	import authen from '@/static/mbcImg/home/seekCapital/authen.png';
 	export default {
 	    data () {
 			return {
-				authen: authen
+				authen: this.Static + 'mbcImg/home/seekCapital/authen.png'
 			};
 	    },
 		props: {

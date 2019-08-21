@@ -46,7 +46,6 @@
 
 <script>
 	import wInput from './../../../../../../components/watch-login/watch-input1.vue';
-	import xing from '@/static/mbcImg/common/xing.png';
 	export default {
 	    components: {
 	      wInput
@@ -55,7 +54,7 @@
 	      return {
 				text: '',
 				logo: '', // 项目logo
-				xing: xing
+				xing: this.Static + 'mbcImg/common/xing.png'
 		  };
 	    },
 	    created () {

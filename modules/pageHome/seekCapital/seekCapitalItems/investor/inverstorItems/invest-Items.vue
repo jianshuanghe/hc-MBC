@@ -41,11 +41,10 @@
 </template>
 
 <script>
-	import iiImg from '@/static/mbcImg/home/banner1.png';
 	export default {
 	    data () {
 			return {
-				iiImg: iiImg
+				iiImg: this.dImg
 			};
 	    },
 		props: {

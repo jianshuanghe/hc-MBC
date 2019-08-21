@@ -18,12 +18,11 @@
 </template>
 
 <script>
-	import tt from '@/static/mbcImg/home/tt.png';
 	import uniNoticeBar from "@/components/uni-notice-bar/uni-notice-bar.vue"
 	export default {
 	    data () {
 	      return {
-	        tt: tt,
+	        tt: this.Static + 'mbcImg/home/tt.png',
 			msg : [
 				'uni-app行业峰会频频亮相，开发者反响热烈',
 				'DCloud完成B2轮融资，uni-app震撼发布',

@@ -28,7 +28,7 @@
 	export default {
 	    data () {
 			return {
-				iiImg: iiImg,
+				iiImg: this.dImg,
 				msgData:{
 					"activityAbstract":"这是活动的照耀",
 					"activityAddress":"北京昌平",

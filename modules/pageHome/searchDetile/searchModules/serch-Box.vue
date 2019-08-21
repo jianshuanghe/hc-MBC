@@ -33,15 +33,13 @@
 </template>
 
 <script>
-	import search from '@/static/mbcImg/common/search.png';
-	import searchClose from '@/static/mbcImg/common/searchClose.png';
 	import { mapMutations, mapGetters } from 'vuex';
 	export default {
 	    data () {
 	      return {
 	        value: '商机名称',
-	        search: search, 
-			searchClose: searchClose,
+	        search: this.Static + 'mbcImg/common/search.png', 
+			searchClose: this.Static + 'mbcImg/common/searchClose.png',
 			results: '',
             searchText: '',
 			searchHistoryData: [],

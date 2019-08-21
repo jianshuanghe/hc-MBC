@@ -115,8 +115,6 @@
 <script>
 	import wInput from './../../../../../../components/watch-login/watch-input1.vue';
 	import imageUploadOne from '@/components/imageUpload/imageUploadOne.vue'
-	import xing from '@/static/mbcImg/common/xing.png';
-	import rightArrow from '@/static/mbcImg/publish/rightArrow.png';
 	export default {
 	    components: {
 	      wInput,
@@ -126,8 +124,8 @@
 	      return {
 				text: '',
 				logo: '', // 项目logo
-				xing: xing,
-				rightArrow:rightArrow,
+				xing:  this.Static + 'mbcImg/common/xing.png',
+				rightArrow: this.Static + 'mbcImg/publish/rightArrow.png',
 				index: 0, // 默认选择第一个
 				array: ['中国', '美国', '巴西', '日本'],
 				pickerValue: "", // 选中的值

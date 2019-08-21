@@ -17,11 +17,10 @@
 </template>
 
 <script>
-	import pc from '@/static/mbcImg/publish/pc.png';
 	export default {
 	    data () {
 	      return {
-			pc: pc
+			pc: this.Static + 'mbcImg/publish/pc.png'
 	      };
 	    },
 	    methods: {

@@ -20,17 +20,13 @@
 </template>
 
 <script>
-	import love from '@/static/mbcImg/home/seekCapital/like.png';
-	import loved from '@/static/mbcImg/home/seekCapital/liked.png';
-	import text from '@/static/mbcImg/home/seekCapital/text.png';
-	import texted from '@/static/mbcImg/home/seekCapital/texted.png';
 	import { mapMutations, mapGetters } from 'vuex';
 	
 	export default {
 	    data () {
 			return {
-				love: love,
-				loved: loved,
+				love: this.Static + 'mbcImg/home/seekCapital/like.png',
+				loved: this.Static + 'mbcImg/home/seekCapital/liked.png',
 				entrust:{
 					entrustShow: false, // 默认不显示
 					type: 0, // 0代表服务申请， 1项目委托

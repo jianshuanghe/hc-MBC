@@ -30,11 +30,10 @@
 </template>
 
 <script>
-	import iiImg from '@/static/mbcImg/home/banner1.png';
 	export default {
 	    data () {
 			return {
-				iiImg: iiImg,
+				iiImg: this.dImg,
 				msgData:{
 					"city":"北京",
 					"compLogo":"https://img04.iambuyer.com/imgup/upload/images/2019/05/29/78rDzOrYFe0YmZLQY6cKzSFAVXzc4ENs4d5PcJGxfaYD7F2aeAhcjjc2FB9OxLhcjjc2Bk6jjidi.png",

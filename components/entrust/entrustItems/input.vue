@@ -56,13 +56,11 @@
 </template>
 
 <script>
-	import iiImg from '@/static/mbcImg/home/banner1.png';
 	import wInput from '@/components/watch-login/watch-input1.vue';
 	import { mapMutations, mapGetters } from 'vuex';
 	export default {
 	    data () {
 			return {
-				iiImg: iiImg,
 				entrust:{
 					entrustShow: false, // 默认不显示
 					type: 0, // 0代表服务申请， 1项目委托

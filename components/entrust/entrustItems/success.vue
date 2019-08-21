@@ -3,7 +3,7 @@
 		<div class="entrust-box">
 			<div class="success-box">
 				<div class="img">
-					<image class="img-box" :src="iiImg"></image>
+					<image class="img-box" :src="success || this.dImg"></image>
 				</div>
 				<div class="En-title">申请提交成功</div>
 				<div class="En-ins">您提交的信息正在处理，请耐心等待</div>
@@ -44,15 +44,14 @@
 </template>
 
 <script>
-	import iiImg from '@/static/mbcImg/home/banner1.png';
 	import yuan from '@/static/mbcImg/home/seekCapital/yuan.png';
 	import { mapMutations, mapGetters } from 'vuex';
 	import date from '@/static/mbcJs/dateTime.js';
 	export default {
 	    data () {
 			return {
-				iiImg: iiImg,
-				yuan: yuan,
+				success: this.Static + 'mbcImg/home/entrust/success.png',
+				yuan: this.Static + 'mbcImg/home/seekCapital/yuan.png',
 				entrust: {}
 			};
 	    },

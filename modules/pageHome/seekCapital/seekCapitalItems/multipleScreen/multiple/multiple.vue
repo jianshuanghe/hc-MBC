@@ -89,33 +89,29 @@
 </template>
 
 <script>
-	import close from '@/static/mbcImg/home/seekCapital/close.png';
-	import rightArrow from '@/static/mbcImg/home/seekCapital/rightArrow.png';
-	import downArrow from '@/static/mbcImg/home/seekCapital/downArrow.png';
-	import checkedItems from '@/static/mbcImg/home/seekCapital/checkedItems.png';
 	import { mapMutations, mapGetters } from 'vuex';
 	export default {
 	    data () {
 			return {
-				close: close,
-				arrow: rightArrow,
-				downArrow: downArrow,
-				rightArrow: rightArrow,
+				close: this.Static + 'mbcImg/home/seekCapital/close.png',
+				arrow: this.Static + 'mbcImg/home/seekCapital/rightArrow.png',
+				downArrow: this.Static + 'mbcImg/home/seekCapital/downArrow.png',
+				rightArrow: this.Static + 'mbcImg/home/seekCapital/rightArrow.png',
 				isAll: [
 					{
-						arrow: rightArrow,
+						arrow: this.Static + 'mbcImg/home/seekCapital/rightArrow.png',
 						allShow: false
 					},
 					{
-						arrow: rightArrow,
+						arrow: this.Static + 'mbcImg/home/seekCapital/rightArrow.png',
 						allShow: false
 					},
 					{
-						arrow: rightArrow,
+						arrow: this.Static + 'mbcImg/home/seekCapital/rightArrow.png',
 						allShow: false
 					}
 				],
-				checkedItems: checkedItems,
+				checkedItems: this.Static + 'mbcImg/home/seekCapital/checkedItems.png',
 				labelName:'',
 				fieldsDataList:'',
 				levesDataList:'',

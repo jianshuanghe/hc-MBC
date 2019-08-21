@@ -38,13 +38,10 @@
 </template>
 
 <script>
-	import iiImg from '@/static/mbcImg/home/banner1.png';
-	import yuan from '@/static/mbcImg/home/seekCapital/yuan.png';
 	export default {
 	    data () {
 			return {
-				iiImg: iiImg,
-				yuan: yuan
+				yuan: this.Static + 'mbcImg/home/seekCapital/yuan.png'
 			};
 	    },
 		props: {

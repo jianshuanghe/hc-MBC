@@ -15,11 +15,10 @@
 </template>
 
 <script>
-	import banner4 from '@/static/mbcImg/home/banner1.png';
 	export default {
 		data() {
 	        return {
-				banner4: banner4
+				banner4: this.dImg
 	        }
 	    },
 		props: {

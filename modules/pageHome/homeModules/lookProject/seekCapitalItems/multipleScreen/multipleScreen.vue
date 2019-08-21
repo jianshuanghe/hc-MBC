@@ -27,10 +27,6 @@
 </template>
 
 <script>
-	import screenUp from '@/static/mbcImg/home/seekCapital/screenUp.png';
-	import screenDown from '@/static/mbcImg/home/seekCapital/screenDown.png';
-	import downArrow from '@/static/mbcImg/home/seekCapital/down-arrow.png';
-	import upArrow from '@/static/mbcImg/home/seekCapital/up-arrow.png';
 	import screenBox from "./screen/screen.vue";
 	import multipleBox from "./multiple/multiple.vue";
 	import { mapMutations, mapGetters } from 'vuex';
@@ -48,12 +44,12 @@
 				arr0: [], // 定义样式
 				arr1: [], // 定义样式
 				arr2: [], // 定义样式
-				screenUp: screenUp,
-				screenDown: screenDown,
-				screen: screenUp,
-				upArrow: upArrow, // 展示时图标--展开
-				downArrow: downArrow, // 展示时图标---收起
-				arrow: downArrow, // 默认图标
+				screenUp: this.Static + 'mbcImg/home/seekCapital/screenUp.png',
+				screenDown: this.Static + 'mbcImg/home/seekCapital/screenDown.png',
+				screen: this.Static + 'mbcImg/home/seekCapital/screenUp.png',
+				upArrow: this.Static + 'mbcImg/home/seekCapital/up-arrow.png', // 展示时图标--展开
+				downArrow: this.Static + 'mbcImg/home/seekCapital/down-arrow.png', // 展示时图标---收起
+				arrow: this.Static + 'mbcImg/home/seekCapital/down-arrow.png', // 默认图标
 				clickIndex: 3 // 判断用户点击类型
 			};
 	    },

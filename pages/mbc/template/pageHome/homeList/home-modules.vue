@@ -39,17 +39,13 @@
 </template>
 
 <script>
-	import modules1 from '@/static/mbcImg/home/modules1.png';
-	import modules2 from '@/static/mbcImg/home/modules2.png';
-	import modules3 from '@/static/mbcImg/home/modules3.png';
-	import modules4 from '@/static/mbcImg/home/modules4.png';
 	export default {
 	    data () {
 			return {
-				modules1: modules1,
-				modules2: modules2,
-				modules3: modules3,
-				modules4: modules4
+				modules1: this.Static + 'mbcImg/home/modules1.png',
+				modules2: this.Static + 'mbcImg/home/modules2.png',
+				modules3: this.Static + 'mbcImg/home/modules3.png',
+				modules4: this.Static + 'mbcImg/home/modules4.png'
 			};
 	    },
 	    methods: {

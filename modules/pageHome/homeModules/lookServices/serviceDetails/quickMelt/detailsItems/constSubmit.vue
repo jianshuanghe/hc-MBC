@@ -16,13 +16,12 @@
 </template>
 
 <script>
-	import tel from '@/static/mbcImg/home/lookServices/tel.png';
 	import { mapMutations, mapGetters } from 'vuex';
 	
 	export default {
 	    data () {
 			return {
-				tel: tel,
+				tel: this.Static + 'mbcImg/home/lookServices/tel.png',
 				entrust:{
 					entrustShow: false, // 默认不显示
 					type: 0, // 0代表服务申请， 1项目委托

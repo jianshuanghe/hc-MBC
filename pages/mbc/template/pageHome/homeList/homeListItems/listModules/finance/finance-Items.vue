@@ -108,29 +108,19 @@
 </template>
 
 <script>
-	import address from '@/static/mbcImg/home/address.png';
-	import finded from '@/static/mbcImg/home/finded.png';
-	import find from '@/static/mbcImg/home/find.png';
-	import doc from '@/static/mbcImg/home/doc.png';
-	import doced from '@/static/mbcImg/home/doced.png';
-	import like from '@/static/mbcImg/home/like.png';
-	import liked from '@/static/mbcImg/home/liked.png';
-	import love from '@/static/mbcImg/home/love.png';
-	import loved from '@/static/mbcImg/home/loved.png';
-	import fiImg from '@/static/mbcImg/home/banner1.png';
 	export default {
 	    data () {
 			return {
-				fiImg: fiImg,
-				address: address, // 地址
-				find: find, // 查看
-				finded: finded, // 查看
-				doc: doc, // 留言
-				doced: doced, // 留言
-				like: like, // 喜欢
-				liked: liked, // 喜欢
-				love: love, // 收藏
-				loved: loved, // 收藏
+				fiImg: this.Static + 'mbcImg/home/banner1.png',
+				address: this.Static + 'mbcImg/home/address.png', // 地址
+				find: this.Static + 'mbcImg/home/find.png', // 查看
+				finded: this.Static + 'mbcImg/home/finded.png', // 查看
+				doc: this.Static + 'mbcImg/home/doc.png', // 留言
+				doced: this.Static + 'mbcImg/home/doced.png', // 留言
+				like: this.Static + 'mbcImg/home/like.png', // 喜欢
+				liked: this.Static + 'mbcImg/home/liked.png', // 喜欢
+				love: this.Static + 'mbcImg/home/love.png', // 收藏
+				loved: this.Static + 'mbcImg/home/loved.png', // 收藏
 				items: { // 用户缓存用户行为的子项
 					id: '', // id
 					doc: false, // 留言
