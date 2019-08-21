@@ -488,7 +488,7 @@
 		height: 80upx;
 		position: absolute;
 		right: 58upx;
-		top: 0upx;
+		top: -45upx;
 		font-size: 226upx;
 	}
 	.imageUpload{

@@ -283,6 +283,24 @@
 					}
 				},
 				{
+					"path": "myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-team-bianji",
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "团队成员"
+					}
+				},
+				{
+					"path": "myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-history",
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "团队成员"
+					}
+				},
+				{
 					"path": "myList/myListAuthentication/Authentication",
 					"style": {
 						// #ifdef H5
