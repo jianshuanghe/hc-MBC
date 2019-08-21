@@ -66,16 +66,14 @@
 </template>
 
 <script>
-	import xin from '@/static/mbcImg/my/Image 1.png'
-	import right from '@/static/mbcImg/my/right1.png'
 	import imageUploadOne from '@/components/imageUpload/imageUploadOne.vue'
 	import { mapMutations, mapGetters } from 'vuex';
 	export default {
 		data() {
 			return {
 				logo: '',
-				xin: xin,
-				right: right,
+				xin: this.Static + 'mbcImg/my/xin.png',
+				right: this.Static + 'mbcImg/my/right.png',
 				index: 0, // 默认选择第一个
 				array: ['是', '否'],
 				compName: '',

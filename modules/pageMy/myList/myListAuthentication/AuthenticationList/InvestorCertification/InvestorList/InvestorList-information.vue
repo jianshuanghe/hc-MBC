@@ -123,15 +123,13 @@
 </template>
 
 <script>
-	import right from '@/static/mbcImg/my/right1.png'
-	import xin from '@/static/mbcImg/my/Image 1.png'
 	import imageUploadOne from '@/components/imageUpload/imageUploadOne.vue'
 	export default {
 		data() {
 			return {
 				logo: '',
-				xin: xin,
-				right: right,
+				xin: this.Static + 'mbcImg/my/Image 1.png',
+				right: this.Static + 'mbcImg/my/right.png',
 				imageData: [],
 				serverUrl: 'https://img01.iambuyer.com/imgup/upLoad/fileUpload',
 				index: 0, // 默认选择第一个

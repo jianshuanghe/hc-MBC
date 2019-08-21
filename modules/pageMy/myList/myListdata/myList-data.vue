@@ -6,14 +6,12 @@
 </template>
 
 <script>
-	import right from '@/static/mbcImg/my/right.png'
-	import green from '@/static/mbcImg/my/green.png'
 	import DataList from './dataList/DataList'
 	export default {
 		data() {
 			return {
-				right:right,
-				green:green
+				right:this.Static + 'mbcImg/my/right.png',
+				green:this.Static + 'mbcImg/my/green.png',
 			};
 		},
 		components: {

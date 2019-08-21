@@ -20,11 +20,9 @@
 </template>
 
 <script>
-	import green from '@/static/mbcImg/my/green.png'
 	export default {
 		data() {
 			return {
-				green:green,
 				arr:[],
 				scrollTop: 0,
 				old: {
@@ -102,6 +100,7 @@
 				});
 			},
 			xiangqing(e){
+				console.log(123123132123131331313131131)
 				if (uni.getStorageSync('landRegist')) {
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 					console.log(landRegistLG.user.id);

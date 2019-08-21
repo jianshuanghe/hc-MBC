@@ -123,8 +123,6 @@
 </template>
 
 <script>
-	import green from '@/static/mbcImg/my/green.png'
-	import pdf from '@/static/mbcImg/my/pdf.png'
 	import {
 		mapMutations,
 		mapGetters
@@ -132,7 +130,6 @@
 	export default {
 		data() {
 			return {
-				green: green,
 				num: 0,
 				hiden: true,
 				linkname: '',
@@ -141,7 +138,7 @@
 				arr:[],
 				Labelarr:[],
 				id: '',
-				pdf:pdf
+				pdf:this.Static + 'mbcImg/my/pdf.png',
 				
 			};
 		},

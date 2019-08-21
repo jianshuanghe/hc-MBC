@@ -22,22 +22,16 @@
 </template>
 
 <script>
-	import Uncertified from '@/static/mbcImg/my/Uncertified.png'
-	import Entrepreneurs from '@/static/mbcImg/my/Entrepreneurs.png'
-	import Investor from '@/static/mbcImg/my/Investor.png'
-	import right from '@/static/mbcImg/my/right.png'
-	import green from '@/static/mbcImg/my/green.png'
-	import images from '@/static/mbcImg/my/images.png'
 	export default {
 		props:['Mylist'],
 		data() {
 			return {
-				Investor: Investor,
-				Uncertified: Uncertified,
-				Entrepreneurs: Entrepreneurs,
-				images:images,
-				right: right,
-				green: green,
+				Investor: this.Static + 'mbcImg/my/Investor.png',
+				Uncertified: this.Static + 'mbcImg/my/Uncertified.png',
+				Entrepreneurs: this.Static + 'mbcImg/my/Entrepreneurs.png',
+				images:this.Static + 'mbcImg/my/images.png',
+				right: this.Static + 'mbcImg/my/right.png',
+				green: this.Static + 'mbcImg/my/green.png',
 				hide:false
 			};
 		},

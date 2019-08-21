@@ -74,9 +74,6 @@
 </template>
 
 <script>
-	import xin from '@/static/mbcImg/my/Image 1.png'
-	import right from '@/static/mbcImg/my/right1.png'
-	import Ima1 from '@/static/mbcImg/my/Ima1.png'
 	import imageUploadOne from '@/components/imageUpload/imageUploadOne.vue'
 	import {
 		mapMutations,
@@ -85,10 +82,10 @@
 	export default {
 		data() {
 			return {
-				Ima1: Ima1,
+				Ima1: this.Static + 'mbcImg/my/Ima1.png',
 				logo: '',
-				xin: xin,
-				right: right,
+				xin: this.Static + 'mbcImg/my/xin.png',
+				right: this.Static + 'mbcImg/my/right.png',
 				imageData: [],
 				serverUrl: 'https://img01.iambuyer.com/imgup/upLoad/fileUpload',
 				time: [],

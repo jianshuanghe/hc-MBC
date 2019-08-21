@@ -26,7 +26,6 @@
 		data() {
 			return {
 				List: [],
-
 			};
 		},
 		components: {

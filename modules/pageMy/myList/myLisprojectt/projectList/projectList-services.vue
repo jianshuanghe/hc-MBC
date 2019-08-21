@@ -43,15 +43,12 @@
 </template>
 
 <script>
-	import bpzhen from '@/static/mbcImg/my/bpzhen.png'
-	import bpdamo from '@/static/mbcImg/my/bpdamo.png'
-	import yong from '@/static/mbcImg/my/yong.png'
 	export default {
 		data() {
 			return {
-				bpzhen:bpzhen,
-				bpdamo:bpdamo,
-				yong:yong
+				bpzhen:this.Static + 'mbcImg/my/bpzhen.png',
+				bpdamo:this.Static + 'mbcImg/my/bpdamo.png',
+				yong:this.Static + 'mbcImg/my/yong.png',
 			};
 		},
 		

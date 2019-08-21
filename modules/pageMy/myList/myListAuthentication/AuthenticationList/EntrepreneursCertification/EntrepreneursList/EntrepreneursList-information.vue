@@ -89,8 +89,8 @@
 				company:'',
 				position:'',
 				logo: '',
-				xin:xin,
-				right:right,
+				xin:this.Static + 'mbcImg/my/Image 1.png',
+				right:this.Static + 'mbcImg/my/right.png',
 				imageData : [],
 				serverUrl: 'https://img01.iambuyer.com/imgup/upLoad/fileUpload'
 			};

@@ -23,8 +23,6 @@
 </template>
 
 <script>
-	import yong from '@/static/mbcImg/my/yong.png'
-	import kong from '@/static/mbcImg/my/kong.png'
 	import {
 		mapMutations,
 		mapGetters
@@ -32,8 +30,8 @@
 	export default {
 		data() {
 			return {
-				yong: yong,
-				kong:kong,
+				yong: this.Static + 'mbcImg/my/yong.png',
+				kong:this.Static + 'mbcImg/my/kong.png',
 				CollectionList: [],
 				page: 1,
 			};

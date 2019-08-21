@@ -56,8 +56,6 @@
 </template>
 
 <script>
-	import xin from '@/static/mbcImg/my/Image 1.png'
-	import right from '@/static/mbcImg/my/right1.png'
 	import imageUploadOne from '@/components/imageUpload/imageUploadOne.vue'
 	import {
 		mapMutations,
@@ -66,8 +64,8 @@
 	export default {
 		data() {
 			return {
-				right:right,
-				xin:xin,
+				right:this.Static + 'mbcImg/my/right.png',
+				xin:this.Static + 'mbcImg/my/xin.png',
 				id:'',
 				projUserName:'',
 				projUserPosition:'',

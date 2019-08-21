@@ -1,15 +1,16 @@
 <template>
 	<view class="Investor-list" @tap="gotoInvestorCertification">
-		<image src="/static/mbcImg/my/touzizhe.png"></image>
+		<image :src="tou"></image>
 	</view>
 </template>
 
 <script>
-		import { mapMutations,mapGetters } from 'vuex';
+	import { mapMutations,mapGetters } from 'vuex';
 	export default {
 		data() {
 			return {
-				Listdata: []
+				Listdata: [],
+				tou:this.Static + 'mbcImg/my/touzizhe.png',
 			};
 		},
 		computed: {

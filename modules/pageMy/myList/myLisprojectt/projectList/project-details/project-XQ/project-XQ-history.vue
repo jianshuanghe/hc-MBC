@@ -60,8 +60,6 @@
 </template>
 
 <script>
-	import xin from '@/static/mbcImg/my/Image 1.png'
-	import right from '@/static/mbcImg/my/right1.png'
 	import {
 		mapMutations,
 		mapGetters
@@ -72,8 +70,8 @@
 				format: true
 			})
 			return {
-				xin: xin,
-				right: right,
+				xin: this.Static + 'mbcImg/my/xin.png',
+				right: this.Static + 'mbcImg/my/right.png',
 				index: 0, // 默认选择第一个
 				array2: [],
 				pickerValue2: "", // 选中的值
