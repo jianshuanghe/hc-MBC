@@ -13,12 +13,11 @@
 </template>
 
 <script>
-	import search from '@/static/mbcImg/common/search.png';
     export default {
         data () {
           return {
             value: '商机名称',
-            search: search
+            search: this.Static + 'mbcImg/common/search.png'
           };
         },
         methods: {

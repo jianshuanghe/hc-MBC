@@ -18,7 +18,7 @@
 				</div>
 			</div>
 			<div class="left hm-items">
-				<div class="hm-item" @tap='goToMeltTt'>
+				<div class="hm-item" @tap='goToMeltTt(2)'>
 					<div class="hm-img-itms">
 						<image :src='modules2'></image>
 					</div>
@@ -26,7 +26,7 @@
 				</div>
 			</div>
 			<div class="left hm-items">
-				<div class="hm-item" @tap='goToActivity'>
+				<div class="hm-item" @tap='goToActivity(2)'>
 					<div class="hm-img-itms">
 						<image :src='modules1'></image>
 					</div>
@@ -39,17 +39,13 @@
 </template>
 
 <script>
-	import modules1 from '@/static/mbcImg/home/modules1.png';
-	import modules2 from '@/static/mbcImg/home/modules2.png';
-	import modules3 from '@/static/mbcImg/home/modules3.png';
-	import modules4 from '@/static/mbcImg/home/modules4.png';
 	export default {
 	    data () {
 			return {
-				modules1: modules1,
-				modules2: modules2,
-				modules3: modules3,
-				modules4: modules4
+				modules1: this.Static + 'mbcImg/home/modules1.png',
+				modules2: this.Static + 'mbcImg/home/modules2.png',
+				modules3: this.Static + 'mbcImg/home/modules3.png',
+				modules4: this.Static + 'mbcImg/home/modules4.png'
 			};
 	    },
 	    methods: {
@@ -65,17 +61,21 @@
 					url: '/modules/pageHome/homeModules/lookProject/lookProject'
 				});
 			},
-			goToMeltTt () {
+			goToMeltTt (e) {
 				console.log('to融头条');
-				uni.navigateTo({
-					url: '/modules/pageHome/homeModules/meltTt/meltTt'
-				});
+				console.log(e, '点击触发发现');
+				this.clickItems = e;
+				this.$store.commit('setHome', this.clickItems);
+				this.$store.commit('setFindTabItems', 1); // 更新setFindTabItems
+				uni.setStorageSync('clickItems', e);
 			},
-			goToActivity () {
+			goToActivity (e) {
 				console.log('to活动');
-				uni.navigateTo({
-					url: '/modules/pageHome/homeModules/activity/activity'
-				});
+				console.log(e, '点击触发发现');
+				this.clickItems = e;
+				this.$store.commit('setHome', this.clickItems);
+				this.$store.commit('setFindTabItems', 2); // 更新setFindTabItems
+				uni.setStorageSync('clickItems', e);
 			},
 			goToSeek () {
 				console.log('点击触发寻找资本');

@@ -13,12 +13,11 @@
 </template>
 
 <script>
-	import check from '@/static/mbcImg/home/seekCapital/check.png';
 	import { mapMutations, mapGetters } from 'vuex';
 	export default {
 	    data () {
 			return {
-				check: check,
+				check: this.Static + 'mbcImg/home/seekCapital/check.png',
 				dataList: [
 					{
 						text: '综合',

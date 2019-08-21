@@ -112,7 +112,6 @@
 
 <script>
 	import wInput from './../../../../../components/watch-login/watch-input.vue';
-    import logo from '@/static/mbcImg//landRegistration/logo.png';
 
     export default {
         name: 'landRegistration',
@@ -122,7 +121,7 @@
         data () {
           return {
             browserType: '', // 判断浏览器
-            logo: logo,
+            logo: this.Static + 'mbcImg/landRegistration/logo.png',
             loadingShow: false, // loading
             isOvertime: false,
             phoneLand: { // 账号登录

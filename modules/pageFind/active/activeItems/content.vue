@@ -55,12 +55,10 @@
 </template>
 
 <script>
-	import banner1 from '@/static/mbcImg/home/banner1.png';
 	import date from '@/static/mbcJs/dateTime.js';
 	export default {
 	    data () {
 			return {
-				banner1: banner1,
 				dataList: [] // 后台返回数据
 			};
 	    },
@@ -110,9 +108,10 @@
 	}
 	.AD-content{
 		position: relative;
-		width: 750upx;
+		/* width: 750upx; */
 		padding: 30upx;
 		background: #fff;
+		margin-bottom: 200upx;
 	}
 	.AD-title{
 		position: relative;

@@ -40,14 +40,12 @@
 </template>
 
 <script>
-	import putIn from '@/static/mbcImg/home/putIn.png';
-	import seek from '@/static/mbcImg/home/seek.png';
 	import { mapMutations } from 'vuex';
 	export default {
 	    data () {
 			return {
-				putIn: putIn,
-				seek: seek,
+				putIn: this.Static + 'mbcImg/home/putIn.png',
+				seek: this.Static + 'mbcImg/home/seek.png',
 				clickItems: 1, // 用户初次进来默认用户为首页
 			};
 	    },

@@ -7,6 +7,8 @@
 			//    'y.m' 返回年月2018.08
 			//    'y-m' 返回年月2018-08
 			//    不传参数，默认返回 2018-08-13 10：38: 10
+			//     'y' 返回年 2019
+			//     'm' 返回月 4
 
 export default {
 	dateTime (type, str) {
@@ -36,6 +38,10 @@ export default {
 			return y + '.' + m
 		} else if (type === 'y-m') {
 			return y + '-' + m
+		} else if (type === 'y') {
+			return y
+		} else if (type === 'm') {
+			return m
 		} else {
 			return y + '-' + m + '-' + d+' '+h+':'+minute+':'+second;
 		};

@@ -1,11 +1,10 @@
 <template>
   <view class="investItems-content">
-    <view class="II-content">
+    <view class="II-content" @tap="goToItemsDetails(msgData.id)">
       <view class="II-top">
         <view class="left II-user-img">
           <view class="II-img">
-            <image :src='msgData.headImg' v-if="msgData.headImg"></image>
-			<image :src='iiImg' v-if="!msgData.headImg"></image>
+            <image :src='msgData.compLogo'></image>
           </view>
         </view>
         <view class="left II-suer-insr">
@@ -15,7 +14,7 @@
             </view>
             <view class="mbc">
 				<view class="II-mod" >
-				  <view class="mod-items left" v-for="(items,index) in msgData.field" :key="index">{{items}}</view>
+				  <view class="mod-items left" v-for="(items,index) in msgData.fields" :key="index">{{items}}</view>
 				  <view class="clear"></view>
 				</view>
             </view>
@@ -23,7 +22,7 @@
         </view>
       </view>
       <view class="II-bot">
-		  <view class="left mbc-text">{{msgData.comp || '无'}}</view>
+		  <view class="left mbc-text">{{msgData.compName || '无'}}</view>
       </view>
     </view>
     <view class="line"></view>
@@ -31,11 +30,10 @@
 </template>
 
 <script>
-	import iiImg from '@/static/mbcImg/home/banner1.png';
 	export default {
 	    data () {
 			return {
-				iiImg: iiImg
+				iiImg: this.dImg
 			};
 	    },
 		props: {
@@ -44,17 +42,11 @@
 			}
 		},
 	    methods: {
-			goToFinanceDetail (e){
-				console.log('去' + e + '详情页面');
+			goToItemsDetails (e){
+				console.log('to投资机构详情页面');
 				uni.navigateTo({
-					url: '/modules/pageHome/homeList/homeList'
+					url: '/modules/pageHome/seekCapital/seekCapitalItems/investInstitution/investInstitutionItems/itemsDetails/itemsDetails?id=' + e
 				});
-			},
-			goToPutIn () {
-				console.log('点击触发发布项目');
-			},
-			goToSeek () {
-				console.log('点击触发寻找资本');
 			}
 	    }
 	};
@@ -63,6 +55,7 @@
 <style>
 	.investItems-content{
 		position: relative;
+		width: 690upx;
 		margin-top: 26upx;
 		background: #fff;
 		margin: auto;
@@ -92,11 +85,10 @@
 		position: relative;
 		width: 80upx;
 		height: 80upx;
-		border-radius: 50%;
 	}
 	.II-suer-insr{
 		position: relative;
-		width: 440upx;
+		width: 476upx;
 	}
 	.II-insr{
 		position: relative;

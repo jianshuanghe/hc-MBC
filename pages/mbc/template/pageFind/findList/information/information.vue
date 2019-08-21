@@ -202,7 +202,6 @@
 		position: fixed;
 		width: 750upx;
 		background: #fff;
-		padding-top: 20upx;
 	}
 	.scroll-Y {
 		height: 1040upx;

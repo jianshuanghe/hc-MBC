@@ -29,13 +29,11 @@
 </template>
 
 <script>
-	import items1 from '@/static/mbcImg/home/lookServices/items1s.png';
-	import icon1 from '@/static/mbcImg/home/lookServices/icon1.png';
 	export default {
 	    data () {
 			return {
-				items1: items1,
-				icon1: icon1,
+				items1: this.Static + 'mbcImg/home/lookServices/items1.png',
+				icon1: this.Static + 'mbcImg/home/lookServices/icon1.png',
 				dataList: [] // 后台返回数据
 			};
 	    },

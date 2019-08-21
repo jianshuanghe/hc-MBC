@@ -32,7 +32,6 @@
 		},
 		
 		created() {
-			
 			this.getHeader();
 		},
 		methods: {

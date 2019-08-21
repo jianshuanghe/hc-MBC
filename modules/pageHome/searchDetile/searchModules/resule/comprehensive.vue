@@ -1,13 +1,13 @@
 <template>
 	<view class="comprehensive-content">
 		<!-- 项目 -->
-		<project></project>
+		<project v-if="GET_HOME.HomeSearch.project.listData.length > 0"></project>
 		<!-- 投资人 -->
-		<investor></investor>
+		<investor v-if="GET_HOME.HomeSearch.investor.listData.length > 0"></investor>
 		<!-- 投资机构 -->
-		<investment></investment>
+		<investment v-if="GET_HOME.HomeSearch.investen.listData.length > 0"></investment>
 		<!-- 资讯 -->
-		<information></information>
+		<information v-if="GET_HOME.HomeSearch.active.listData.length > 0" ></information>
 	</view>
 </template>
 
@@ -16,9 +16,11 @@
 	import investor from "./investor.vue";
 	import investment from "./investment.vue";
 	import information from "./information.vue";
+	import { mapGetters } from 'vuex';
 	export default {
 		data() {
-			return {};
+			return {
+			};
 		},
 		components: {
 			project,
@@ -27,6 +29,14 @@
 			information
 		},
 		computed: {
+		  ...mapGetters(['GET_HOME'])
+		},
+		watch: {
+			GET_HOME: {
+				handler (a, b) {
+				},
+				deep: true
+			}
 		},
 		created() {
 			console.log('在组件中并不能使用页面生命周期函数');

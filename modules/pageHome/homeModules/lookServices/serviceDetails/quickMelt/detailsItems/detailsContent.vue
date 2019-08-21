@@ -48,35 +48,24 @@
 </template>
 
 <script>
-	// 速融服务
-	import items2 from '@/static/mbcImg/home/lookServices/items2.png';
-	import items3 from '@/static/mbcImg/home/lookServices/items3.png';
-	import items4 from '@/static/mbcImg/home/lookServices/items4.png';
-	import items5 from '@/static/mbcImg/home/lookServices/items5-1.png';
-	import items51 from '@/static/mbcImg/home/lookServices/items5-2.png';
-	import items6 from '@/static/mbcImg/home/lookServices/items6.png';
-	// BP打磨
-	import items2S from '@/static/mbcImg/home/lookServices/2items2.png';
-	import items3S from '@/static/mbcImg/home/lookServices/2items3.png';
-	import items4S from '@/static/mbcImg/home/lookServices/2items4.png';
-	import items5S from '@/static/mbcImg/home/lookServices/2items5.png';
-	import items6S from '@/static/mbcImg/home/lookServices/2items6.png';
 	
 	
 	export default {
 	    data () {
 			return {
-				img1: items2, // 后台返回数据
-				img2: items3, // 后台返回数据
-				img3: items4, // 后台返回数据
-				img4: items5, // 后台返回数据
-				img41: items51 ,// 后台返回数据
-				img5: items6 ,// 后台返回数据
-				img1S: items2S, // 后台返回数据
-				img2S: items3S, // 后台返回数据
-				img3S: items4S, // 后台返回数据
-				img4S: items5S, // 后台返回数据
-				img5S: items6S // 后台返回数据
+				// 速融服务
+				img1: this.Static + 'mbcImg/home/lookServices/items2.png', // 后台返回数据
+				img2: this.Static + 'mbcImg/home/lookServices/items3.png', // 后台返回数据
+				img3: this.Static + 'mbcImg/home/lookServices/items4.png', // 后台返回数据
+				img4: this.Static + 'mbcImg/home/lookServices/items5-1.png', // 后台返回数据
+				img41: this.Static + 'mbcImg/home/lookServices/items5-2.png',// 后台返回数据
+				img5: this.Static + 'mbcImg/home/lookServices/items6.png' ,// 后台返回数据
+				// BP打磨
+				img1S: this.Static + 'mbcImg/home/lookServices/2items2.png', // 后台返回数据
+				img2S: this.Static + 'mbcImg/home/lookServices/2items3.png', // 后台返回数据
+				img3S: this.Static + 'mbcImg/home/lookServices/2items4.png', // 后台返回数据
+				img4S: this.Static + 'mbcImg/home/lookServices/2items5.png', // 后台返回数据
+				img5S: this.Static + 'mbcImg/home/lookServices/2items6.png' // 后台返回数据
 			};
 	    },
 		components: {

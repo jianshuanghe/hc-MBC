@@ -94,7 +94,7 @@
 	.seekCapitalList-content{
 		position: fixed;
 		width: 750upx;
-		padding: 0 15px;
+		/* padding: 0 15px; */
 		background: #fff;
 		height: 1162upx;
 		padding-bottom: 100upx;

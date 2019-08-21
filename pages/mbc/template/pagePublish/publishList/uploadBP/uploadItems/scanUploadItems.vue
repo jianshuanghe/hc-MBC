@@ -20,13 +20,11 @@
 </template>
 
 <script>
-	import scanLogo from '@/static/mbcImg/publish/scanLogo.png';
-	import rightArrow from '@/static/mbcImg/publish/rightArrow.png';
 	export default {
 	    data () {
 	      return {
-			scanLogo: scanLogo,
-	        rightArrow: rightArrow,
+			scanLogo: this.Static + 'mbcImg/publish/scanLogo.png',
+	        rightArrow: this.Static + 'mbcImg/publish/rightArrow.png',
 	      };
 	    },
 	    methods: {

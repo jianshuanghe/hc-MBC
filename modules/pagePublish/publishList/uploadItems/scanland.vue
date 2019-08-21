@@ -23,13 +23,11 @@
 </template>
 
 <script>
-	import scanTapOne from '@/static/mbcImg/publish/scanTapOne.png';
-	import scanTapTwo from '@/static/mbcImg/publish/scanTapTwo.png';
 	export default {
 	    data () {
 	      return {
-			scanTapOne: scanTapOne,
-	        scanTapTwo: scanTapTwo,
+			scanTapOne: this.Static + 'mbcImg/publish/scanTapOne.png',
+	        scanTapTwo: this.Static + 'mbcImg/publish/scanTapTwo.png',
 	      };
 	    },
 	    methods: {

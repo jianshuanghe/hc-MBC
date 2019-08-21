@@ -36,22 +36,15 @@
 </template>
 
 <script>
-	// BP打磨
-	import items2S from '@/static/mbcImg/home/lookServices/2items2.png';
-	import items3S from '@/static/mbcImg/home/lookServices/2items3.png';
-	import items4S from '@/static/mbcImg/home/lookServices/2items4.png';
-	import items5S from '@/static/mbcImg/home/lookServices/2items5.png';
-	import items6S from '@/static/mbcImg/home/lookServices/2items6.png';
-	
 	
 	export default {
 	    data () {
 			return {
-				img1S: items2S, // 后台返回数据
-				img2S: items3S, // 后台返回数据
-				img3S: items4S, // 后台返回数据
-				img4S: items5S, // 后台返回数据
-				img5S: items6S // 后台返回数据
+				img1S: this.Static + 'mbcImg/home/lookServices/2items2.png', // 后台返回数据
+				img2S: this.Static + 'mbcImg/home/lookServices/2items3.png', // 后台返回数据
+				img3S: this.Static + 'mbcImg/home/lookServices/2items4.png', // 后台返回数据
+				img4S: this.Static + 'mbcImg/home/lookServices/2items5.png', // 后台返回数据
+				img5S: this.Static + 'mbcImg/home/lookServices/2items6.png' // 后台返回数据
 			};
 	    },
 		components: {

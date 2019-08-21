@@ -1,6 +1,6 @@
 <template>
   <view class="investItems-content">
-    <view class="II-content">
+    <view class="II-content" @tap="goToItemsDetails(msgData.userId)">
       <view class="II-top">
         <view class="left II-user-img">
           <view class="II-img">
@@ -11,7 +11,7 @@
         <view class="left II-suer-insr">
           <view class="II-insr">
             <view class="user">
-              投资人
+              {{msgData.userName}}
             </view>
             <view class="mbc">
               <view class="left mbc-text">{{msgData.comp || '无'}}</view>
@@ -41,11 +41,10 @@
 </template>
 
 <script>
-	import iiImg from '@/static/mbcImg/home/banner1.png';
 	export default {
 	    data () {
 			return {
-				iiImg: iiImg
+				iiImg: this.dImg
 			};
 	    },
 		props: {
@@ -54,17 +53,11 @@
 			}
 		},
 	    methods: {
-			goToFinanceDetail (e){
-				console.log('去' + e + '详情页面');
+			goToItemsDetails (e){
+				console.log(e, 'to投资人详情页面');
 				uni.navigateTo({
-					url: '/modules/pageHome/homeList/homeList'
+					url: '/modules/pageHome/seekCapital/seekCapitalItems/investor/inverstorItems/itemsDetails/itemsDetails?userId=' + e
 				});
-			},
-			goToPutIn () {
-				console.log('点击触发发布项目');
-			},
-			goToSeek () {
-				console.log('点击触发寻找资本');
 			}
 	    }
 	};
@@ -76,6 +69,7 @@
 		width: 690upx;
 		margin-top: 26upx;
 		background: #fff;
+		margin: auto;
 	}
 	.II-content{
 		position: relative;

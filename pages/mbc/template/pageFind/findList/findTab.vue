@@ -39,6 +39,14 @@
 		computed: {
 			...mapGetters(['GET_FIND'])
 		},
+		watch: {
+			GET_FIND: {
+				handler (a, b) {
+					this.clickItemsIndex = a.tabItems; // 切换的tab
+				},
+				deep: true
+			}
+		},
 		created() {
 			console.log('在组件中并不能使用页面生命周期函数');
 		},

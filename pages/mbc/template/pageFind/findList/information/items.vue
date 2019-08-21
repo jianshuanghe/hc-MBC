@@ -8,7 +8,7 @@
 			<view class="infor-text-bot">
 				<view class="left text-bot-infor-left">
 					<text class="text">{{msgData.activitySource === '0' ? '原创' : '链接'}}</text>
-					{{msgData.activityStartTime | dateTime}}
+					{{msgData.releaseTime | dateTime}}
 				</view>
 				<view class="clear"></view>
 			</view>
@@ -25,12 +25,10 @@
 </template>
 
 <script>
-	import iiImg from '@/static/mbcImg/home/banner1.png';
 	import date from '@/static/mbcJs/dateTime.js';
 	export default {
 	    data () {
 			return {
-				iiImg: iiImg,
 			};
 	    },
 		props: {

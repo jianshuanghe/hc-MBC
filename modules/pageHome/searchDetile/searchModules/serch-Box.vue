@@ -1,7 +1,7 @@
 <template>
-	<div class="serchBox-content">
-		<div class="serchBox">
-			<div class="left sB-box">
+	<view class="serchBox-content">
+		<view class="serchBox">
+			<view class="left sB-box">
 				<view class="search_box">
 					<view class="search-NI-img left">
 						<image :src='search'></image>
@@ -18,44 +18,105 @@
 						@focus="onFocus"
 						@input="onFocus"/>
 					</view>
-					<div class="searchClose left">
+					<view class="searchClose left">
 						<image :src='searchClose' @tap="clickClear"></image>
-					</div>
+					</view>
 					<view class="clear"></view>
 				</view>
-			</div>
-			<div class="right cal-box">
-				<div class="cl-text" @tap='onCancel'>取消</div>
-			</div>
-			<div class="clear"></div>
-		</div>
-	</div>
+			</view>
+			<view class="right cal-box">
+				<view class="cl-text" @tap='onCancel'>取消</view>
+			</view>
+			<view class="clear"></view>
+		</view>
+	</view>
 </template>
 
 <script>
-	import search from '@/static/mbcImg/common/search.png';
-	import searchClose from '@/static/mbcImg/common/searchClose.png';
+	import { mapMutations, mapGetters } from 'vuex';
 	export default {
 	    data () {
 	      return {
 	        value: '商机名称',
-	        search: search,
-			searchClose: searchClose,
+	        search: this.Static + 'mbcImg/common/search.png', 
+			searchClose: this.Static + 'mbcImg/common/searchClose.png',
 			results: '',
             searchText: '',
-            loadingShow: false, // loading
-            businessData: [], // vuex中后台返回的数据
-            searchCondition: {  // 分页属性
-              page: '1',
-              name: ''
+			searchHistoryData: [],
+            project: { // 项目
+				listNum: 0, // 总数居
+            	loadingText: '查看更多',
+            	search: { // 搜索
+            		pageNum: 0, // 总页数
+            		searchCondition: {  // 分页属性
+            			page: '1'
+            		}
+            	},
+            	listData: '' // 列表数据
             },
-            pageNum: 0, // 数据总页数
-            pageList: [], // 后台返回数据
-            allLoaded: false,  // 是否可以上拉属性，false可以上拉，true为禁止上拉，就是不让往上划加载数据了
-            scrollMode: 'auto'  // 移动端弹性滚动效果，touch为弹性滚动，auto是非弹性滚动
+			investor: { // 投资人
+				listNum: 0, // 总数居
+				loadingText: '查看更多',
+				search: { // 搜索
+					pageNum: 0, // 总页数
+					searchCondition: {  // 分页属性
+						page: '1'
+					}
+				},
+				listData: '' // 列表数据
+			},
+			investen: { // 投资机构
+				listNum: 0, // 总数居
+				loadingText: '查看更多',
+				search: { // 搜索
+					pageNum: 0, // 总页数
+					searchCondition: {  // 分页属性
+						page: '1'
+					}
+				},
+				listData: '' // 列表数据
+			},
+			active: { // 资讯
+				listNum: 0, // 总数居
+				loadingText: '查看更多',
+				search: { // 搜索
+					pageNum: 0, // 总页数
+					searchCondition: {  // 分页属性
+						page: '1'
+					}
+				},
+				listData: '' // 列表数据
+			}
 	      };
 	    },
+		computed: {
+		  ...mapGetters(['GET_HOME'])
+		},
+		watch: {
+			GET_HOME: {
+			  handler (a, b) {
+				this.searchText = a.HomeSearch.searchText;
+				console.log(this.searchText);
+			  },
+			  deep: true
+			}
+		},
+		created() {
+			if (uni.getStorageSync('searchHistoryData')) {
+				this.searchHistoryData = JSON.parse(uni.getStorageSync('searchHistoryData'));
+			}
+		},
 	    methods: {
+			...mapMutations({
+				setSearchText: 'setSearchText', // 搜索内容
+				setIsSearch: 'setIsSearch', // 判断用户是否在搜索状态
+				setSearchItemsIndex: 'setSearchItemsIndex', // 收索所在位置
+				setSeachProject: 'setSeachProject',
+				setSeachInvestor: 'setSeachInvestor',
+				setSeachInvesten: 'setSeachInvesten',
+				setSeachActive: 'setSeachActive',
+				setSearchHistoryData: 'setSearchHistoryData' // 搜索的历史数据
+			}),
 			onFocus () {
 				console.log('on focus');
 			},
@@ -67,16 +128,204 @@
 						duration: 1000
 					});
 				} else {
-					uni.showToast({
-						title: this.searchText,
-						icon: 'none',
-						duration: 1000
-					});
+					this.getMultiple(); // 用户搜索获取接口数据
+					console.log(this.searchText, '--------------------搜索内容----------------');
+					this.$store.commit('setSearchText', this.searchText); // 搜索内容
+					this.$store.commit('setIsSearch', true); // 用户处于搜索状态
+					this.setHistoryData();
 				};
+			},
+			setHistoryData () {
+				console.log('搜索的历史记录');
+				if (uni.getStorageSync('searchHistoryData')) {
+					this.searchHistoryData = JSON.parse(uni.getStorageSync('searchHistoryData'));
+					this.searchHistoryData.push(this.searchText);
+					this.$store.commit('setSearchHistoryData', Array.from(new Set(this.searchHistoryData)));
+					uni.setStorageSync('searchHistoryData', JSON.stringify(Array.from(new Set(this.searchHistoryData))));// 搜索历史数据
+				} else {
+					this.searchHistoryData.push(this.searchText);
+					this.$store.commit('setSearchHistoryData', Array.from(new Set(this.searchHistoryData)));
+					uni.setStorageSync('searchHistoryData', JSON.stringify(Array.from(new Set(this.searchHistoryData))));// 搜索历史数据
+				}
+			},
+			getMultiple () {
+				console.log('搜索综合数据接口');
+				this.getProjectList(this.project);
+				this.getInvstorList(this.investor);
+				this.getInvstenList(this.investen);
+				this.getActive(this.active);
+			},
+			getProjectList(e) {
+				console.log('搜索项目数据接口');
+				if (uni.getStorageSync('landRegist')) {
+				    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+				    console.log(landRegistLG.user.id);
+					let params = {
+						projName: this.searchText
+					}; 
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/index/select/proj?page=' + e.search.searchCondition.page, //接口地址。
+						data: this.endParams(params),
+						method: 'POST',
+						header: {
+							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
+						},
+						success: (response) => {
+							console.log(response.data);
+							e.listData = response.data.rows; // 第一页返回的数据
+							e.listNum = response.data.total; // 总数居
+							e.search.pageNum = this.pageNums(response.data.total) // 总页数
+							console.log(response.data.total, e.search.pageNum);
+							if (e.search.pageNum === 1) { // 总页数为1时，显示没有数据了
+								e.loadingText = '已经没有数据了!';
+							}
+							uni.hideLoading(); // 隐藏 loading
+							this.$store.commit('setSeachProject', e); // 更新setSeachProject
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
+			getInvstorList(e) {
+				console.log(e,'搜索投资人数据接口');
+				if (uni.getStorageSync('landRegist')) {
+				    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+				    console.log(landRegistLG.user.id);
+					let params = {
+						userName: this.searchText
+					}; 
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/index/select/user?page=' + e.search.searchCondition.page, //接口地址。
+						data: this.endParams(params),
+						method: 'POST',
+						header: {
+							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
+						},
+						success: (response) => {
+							console.log(response.data);
+							e.listData = response.data.rows; // 第一页返回的数据
+							e.listNum = response.data.total; // 总数居
+							e.search.pageNum = this.pageNums(response.data.total) // 总页数
+							console.log(response.data.total, e.search.pageNum);
+							if (e.search.pageNum === 1) { // 总页数为1时，显示没有数据了
+								e.loadingText = '已经没有数据了!';
+							}
+							uni.hideLoading(); // 隐藏 loading
+							this.$store.commit('setSeachInvestor', e); // 更新setSeachInvestor
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
+			getInvstenList (e) {
+				console.log(e, '搜索投资机构数据接口');
+				if (uni.getStorageSync('landRegist')) {
+				    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+				    console.log(landRegistLG.user.id);
+					let params = {
+						compName: this.searchText
+					}; 
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/index/select/capitalComp?page=' + e.search.searchCondition.page, //接口地址。
+						data: this.endParams(params),
+						method: 'POST',
+						header: {
+							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
+						},
+						success: (response) => {
+							console.log(response.data);
+							e.listData = response.data.rows; // 第一页返回的数据
+							e.listNum = response.data.total; // 总数居
+							e.search.pageNum = this.pageNums(response.data.total) // 总页数
+							console.log(response.data.total, e.search.pageNum);
+							if (e.search.pageNum === 1) { // 总页数为1时，显示没有数据了
+								e.loadingText = '已经没有数据了!';
+							}
+							uni.hideLoading(); // 隐藏 loading
+							this.$store.commit('setSeachInvesten', e); // 更新setSeachInvesten
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
+			getActive (e) {
+				console.log(e, '搜索资讯数据接口');
+				if (uni.getStorageSync('landRegist')) {
+				    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+				    console.log(landRegistLG.user.id);
+					let params = {
+						activityTitel: this.searchText
+					}; 
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/index/select/activity?page=' + e.search.searchCondition.page, //接口地址。
+						data: this.endParams(params),
+						method: 'POST',
+						header: {
+							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
+						},
+						success: (response) => {
+							console.log(response.data);
+							e.listData = response.data.rows; // 第一页返回的数据
+							e.listNum = response.data.total; // 总数居
+							e.search.pageNum = this.pageNums(response.data.total) // 总页数
+							console.log(response.data.total, e.search.pageNum);
+							if (e.search.pageNum === 1) { // 总页数为1时，显示没有数据了
+								e.loadingText = '已经没有数据了!';
+							}
+							uni.hideLoading(); // 隐藏 loading
+							this.$store.commit('setSeachActive', e); // 更新setSeachActive
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
 			},
 			clickClear () {
 				console.log('清空');
-				this.searchText = '';
+				this.clearData();
 				this.searchCondition = {  // 分页属性
 					page: '1',
 					name: '',
@@ -84,12 +333,66 @@
 			},
 			onCancel () {
 				console.log('on cancel');
-				this.searchText = '';
+				this.clearData();
 				uni.navigateBack({
 					delta: 1,
 					animationType: 'pop-out',
 					animationDuration: 200
 				});
+			},
+			clearData () { // 清空数据
+				this.searchText = '';
+				this.$store.commit('setSearchText', this.searchText); // 搜索内容
+				this.$store.commit('setSearchItemsIndex', 1); // 更新setSearchItemsIndex
+				this.$store.commit('setIsSearch', false); // 用户不处于搜索状态
+				let project = { // 项目
+					listNum: 0, // 总数居
+					loadingText: '查看更多',
+					search: { // 搜索
+						pageNum: 0, // 总页数
+						searchCondition: {  // 分页属性
+							page: '1'
+						}
+					},
+					listData: '' // 列表数据
+				};
+				let investor = { // 投资人
+					listNum: 0, // 总数居
+					loadingText: '查看更多',
+					search: { // 搜索
+						pageNum: 0, // 总页数
+						searchCondition: {  // 分页属性
+							page: '1'
+						}
+					},
+					listData: '' // 列表数据
+				};
+				let investen = { // 投资机构
+					listNum: 0, // 总数居
+					loadingText: '查看更多',
+					search: { // 搜索
+						pageNum: 0, // 总页数
+						searchCondition: {  // 分页属性
+							page: '1'
+						}
+					},
+					listData: '' // 列表数据
+				};
+				let active = { // 资讯
+					listNum: 0, // 总数居
+					loadingText: '查看更多',
+					search: { // 搜索
+						pageNum: 0, // 总页数
+						searchCondition: {  // 分页属性
+							page: '1'
+						}
+					},
+					listData: '' // 列表数据
+				};
+				this.$store.commit('setSeachProject', project); // 更新setSeachProject
+				this.$store.commit('setSeachInvestor', investor); // 更新setSeachInvestor
+				this.$store.commit('setSeachInvesten', investen); // 更新setSeachInvesten
+				this.$store.commit('setSeachActive', active); // 更新setSeachActive
 			}
 	    }
 	};

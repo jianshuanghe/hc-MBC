@@ -3,6 +3,7 @@
 	<view class="listFinance">
 		<view v-for="(items,index) in listData" :key="index" >
 			<financeItems :msgData="items"></financeItems>
+			<view class="line" v-if="listData.length - 1 > index"></view>
 		</view>
 	</view>
 </template>
@@ -14,6 +15,7 @@
 	    data () {
 			return {
 				listData: [] // 数据列表
+				
 			};
 	    },
 		components: {

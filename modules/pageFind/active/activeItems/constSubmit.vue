@@ -14,12 +14,11 @@
 </template>
 
 <script>
-	import tel from '@/static/mbcImg/home/lookServices/tel.png';
 	
 	export default {
 	    data () {
 			return {
-				tel: tel
+				tel: this.Static + 'mbcImg/home/lookServices/tel.png'
 			};
 	    },
 		components: {

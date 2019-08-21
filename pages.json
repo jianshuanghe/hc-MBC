@@ -70,6 +70,50 @@
 					}
 				},
 				{
+					"path": "homeList/FinancProject/FinancProject",
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "项目详情",
+						"app-plus": {
+						}
+					}
+				},
+				{
+					"path": "homeList/entrust/entrust",
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "委托联系项目",
+						"app-plus": {
+						}
+					}
+				},
+				{
+					"path": "seekCapital/seekCapitalItems/investor/inverstorItems/itemsDetails/itemsDetails",
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "投资人详情",
+						"app-plus": {
+						}
+					}
+				},
+				{
+					"path": "seekCapital/seekCapitalItems/investInstitution/investInstitutionItems/itemsDetails/itemsDetails",
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "投资机构详情",
+						"app-plus": {
+						}
+					}
+				},
+				{
 					"path": "homeModules/lookServices/lookServices",
 					"style": {
 						// #ifdef H5
@@ -109,28 +153,6 @@
 							"navigationStyle":"custom",
 						// #endif
 						"navigationBarTitleText": "找项目",
-						"app-plus": {
-						}
-					}
-				},
-				{
-					"path": "homeModules/activity/activity",
-					"style": {
-						// #ifdef H5
-							"navigationStyle":"custom",
-						// #endif
-						"navigationBarTitleText": "活动",
-						"app-plus": {
-						}
-					}
-				},
-				{
-					"path": "homeModules/meltTt/meltTt",
-					"style": {
-						// #ifdef H5
-							"navigationStyle":"custom",
-						// #endif
-						"navigationBarTitleText": "融头条",
 						"app-plus": {
 						}
 					}
@@ -438,6 +460,12 @@
 			]
 		}
 	],
+    "preloadRule": { // 预加载
+        "modules/pageHome/searchDetile/searchDetile": {
+            "network": "all",
+            "packages": ["__APP__"]
+        }
+    },
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "陌拜资本",

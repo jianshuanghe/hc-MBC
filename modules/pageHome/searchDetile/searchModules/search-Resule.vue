@@ -1,24 +1,24 @@
 <template>
 	<view class="rearchResule">
-		<view class='searchBox' v-if="false">
+		<view class='searchBox'  v-if="isSearch">
 			<!-- 搜索结果顶部tab -->
 			<resuleTab></resuleTab>
 			<!-- 搜索结果数据展示 -->
 			<view class="resuleBox">
 				<!-- 综合 -->
-				<comprehensive v-if='true'></comprehensive>
+				<comprehensive :class="clickItemsIndex === 1 ? 'show' : 'hide'"></comprehensive>
 				<!-- 项目 -->
-				<project  v-if='false'></project>
+				<project  :class="clickItemsIndex === 2 ? 'show' : 'hide'"></project>
 				<!-- 投资人 -->
-				<investor v-if='false'></investor>
+				<investor :class="clickItemsIndex === 3 ? 'show' : 'hide'"></investor>
 				<!-- 投资机构 -->
-				<investment v-if='false'></investment>
+				<investment :class="clickItemsIndex === 4 ? 'show' : 'hide'"></investment>
 				<!-- 资讯 -->
-				<information v-if='false'></information>
+				<information :class="clickItemsIndex === 5 ? 'show' : 'hide'"></information>
 			</view>
 		</view>
 		<!-- 搜索历史 -->
-		<view class="searchHistoryBox">
+		<view class="searchHistoryBox" v-else>
 			<searchHistory></searchHistory>
 		</view>
 	</view>
@@ -32,9 +32,13 @@
 	import investment from "./resule/investment.vue";
 	import information from "./resule/information.vue";
 	import searchHistory from "./search-History.vue";
+	import { mapMutations, mapGetters } from 'vuex';
 	export default {
 		data() {
-			return {};
+			return {
+				isSearch: false,
+				clickItemsIndex: 1 ,// 默认展示综合
+			};
 		},
 		components: {
 			resuleTab,
@@ -46,6 +50,16 @@
 			searchHistory
 		},
 		computed: {
+		  ...mapGetters(['GET_HOME'])
+		},
+		watch: {
+			GET_HOME: {
+			  handler (a, b) {
+				  this.isSearch = a.HomeSearch.isSearch;
+				  this.clickItemsIndex = a.HomeSearch.clickItemsIndex;
+			  },
+			  deep: true
+			}
 		},
 		created() {
 			console.log('在组件中并不能使用页面生命周期函数');
@@ -53,6 +67,14 @@
 		mounted() {
 		},
 		methods: {
+			...mapMutations({
+				setIsSearch: 'setIsSearch', // 判断用户是否在搜索状态
+				setSeachProject: 'setSeachProject',
+				setSeachInvestor: 'setSeachInvestor',
+				setSeachInvesten: 'setSeachInvesten',
+				setSeachActive: 'setSeachActive',
+				setSearchHistoryData: 'setSearchHistoryData' // 搜索的历史数据
+			}),
 		}
 	};
 </script>

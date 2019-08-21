@@ -46,14 +46,19 @@
 	              name: ''
 	            },
 	            pageNum: 0, // 数据总页数
-	            pageList: [] // 后台返回数据
+	            pageList: [] ,// 后台返回数据
+				items: { // 记录用户收藏功能 ----投资机构
+					id: 0, // id
+					love: false // 收藏
+				},
+				clickRecordsInMArr: [] // 记录用户收藏行为 ----投资机构
 	    	};
 	    },
 	    components: {
 	    	investInstitutionItems
 	    },
 	    computed: {
-	      ...mapGetters(['SEEKCAPITALTITLE'])
+	      ...mapGetters(['SEEKCAPITALTITLE', 'INVERSTINSSEARCH', 'INVERSTINSSEARCHTYPE', 'AREADATA', 'FIELDDATA', 'LEVELDATA'])
 	    },
 	    watch: {
 	      SEEKCAPITALTITLE: {
@@ -63,19 +68,59 @@
 	      		this.goTop(); // 页面触底之后调取loadMore方法，为了让用户再次调用此方法，需要自動将scroll向上滚动一些位置，这样下次滑动才会触发loadMore方法，详细需要看API
 	      	},
 	      	deep: true
-	      }
+	      },
+		  INVERSTINSSEARCH :  {
+				handler (a, b) {
+					console.log(a, '获取VUX投资人的参数')
+					this.investInsSearch = a; // 接口投资人参数
+					this.getInvestMentList(this.investInstitution);
+				},
+				deep: true
+			},
+		  INVERSTINSSEARCHTYPE: {
+		  	handler (a, b) {
+		  		this.resetFile();
+		  	},
+		  	deep: true
+		  }
 	    },
 	    created() {
 	    	console.log('在组件中并不能使用页面生命周期函数');
 	    	this.getInvestMentList(this.investInstitution);
+			this.getClickRecordsArr(); // 获取缓冲的用户行为数据
 	    },
 	    mounted() {
 	    	
 	    },
 	    methods: {
 	    	...mapMutations({
-	    		setSeekInvestInstitution: 'setSeekInvestInstitution'
-	    	}),
+	    		setSeekInvestInstitution: 'setSeekInvestInstitution',setAreaData: 'setAreaData', // 公共组件省市区
+				setFieldData: 'setFieldData', // 公共组件领域
+				setLevelData: 'setLevelData', // 公共组件融资阶段
+			}),
+			getClickRecordsArr () { // 获取缓冲的用户行为数据
+				// 投资机构
+				if (uni.getStorageSync('clickRecordsInMArr')) {
+				  this.clickRecordsInMArr = JSON.parse(uni.getStorageSync('clickRecordsInMArr')); // 获取缓存中的用户点击行为数组记录
+				}
+			},
+			resetFile () { // 重置右侧筛选数据，当左侧综合变化时，需要触发此项
+				let AREADATA = this.AREADATA;
+				let FIELDDATA = this.FIELDDATA;
+				let LEVELDATA = this.LEVELDATA;
+				AREADATA.province.map((items, index) => {
+					items.checked = false;
+				});
+				FIELDDATA.map((items, index) => {
+					items.checked = false;
+				});
+				LEVELDATA.map((items, index) => {
+					items.checked = false;
+				});
+				this.$store.commit('setAreaData', AREADATA); // 更新setAreaData
+				this.$store.commit('setFieldData', FIELDDATA); // 更新setFieldData
+				this.$store.commit('setLevelData', LEVELDATA); // 更新setLevelData
+			},
 	    	upper: function(e) {
 	    		console.log(e)
 	    	},
@@ -142,6 +187,47 @@
 	    				success: (response) => {
 	    					console.log(response.data);
 	    					e.listData = response.data.rows; // 第一页返回的数据
+							let pageList = [...response.data.rows];
+							if (this.clickRecordsInMArr.length < this.pageList.length) { // 缓存中的数据小于缓存的
+								console.log('缓存中的数据小于缓存的');
+								for (let i = 0; i < this.pageList.length; i++) { // 用户行为数据
+									console.log(this.pageList[i]);
+										let items = { // 用户缓存用户行为的子项
+											id: 0, // id
+											love: false // 收藏
+										};
+									items.id = this.pageList[i].id; // 赋值id
+									this.clickRecordsInMArr.push(items);
+									console.log(this.clickRecordsInMArr, '用户行为数据');
+								}
+								uni.setStorageSync('clickRecordsInMArr', JSON.stringify(this.clickRecordsInMArr));// 缓存用户点击行为数组记录
+							} else if (this.clickRecordsInMArr.length >= this.pageList.length) { // 缓存中的数据大于等于接口每次返回的数据
+								console.log('缓存中的数据大于等于接口每次返回的数据');
+								this.clickRecordsInMArr.map((item, index) => {
+									console.log(item.id, '打印缓存中的id');
+									pageList.map((item1, index) => {
+										if (item1) {
+											console.log(item1.id, '打印接口中的id');
+											if (item1.id === item.id) { // 二次校验，如果缓存中的存在该id，则不需要再次缓存，之缓存不存在的
+												pageList.splice(index, 1); // 将接口返回的数据去重
+											}
+										};
+									});
+									console.log(pageList, '去重后的数据');
+								});
+								if (pageList.length > 0) {
+									console.log('去重后剩余数据');
+									pageList.map((item, index) => {
+										let items = { // 用户缓存用户行为的子项
+											id: 0, // id
+											love: false // 收藏
+										};
+										items.id = item.id; // 赋值id
+										this.clickRecordsInMArr.push(items);
+										uni.setStorageSync('clickRecordsInMArr', JSON.stringify(this.clickRecordsInMArr));// 缓存用户点击行为数组记录
+									});
+								}
+							}
 	    					e.search.pageNum = this.pageNums(response.data.total) // 总页数
 	    					console.log(response.data.total, e.search.pageNum);
 							if (e.search.pageNum === 1) { // 总页数为1时，显示没有数据了
@@ -183,6 +269,32 @@
 	    				success: (response) => {
 	    					console.log(response.data);
 	    					e.listData = e.listData.concat(response.data.rows);
+							let pageList = [...response.data.rows];
+							console.log('缓存中的数据大于等于接口每次返回的数据');
+							this.clickRecordsInMArr.map((item, index) => {
+								console.log(item.id, '打印缓存中的id');
+								pageList.map((item1, index) => {
+									if (item1) {
+										console.log(item1.instId, '打印接口中的id');
+										if (item1.id === item.id) { // 二次校验，如果缓存中的存在该id，则不需要再次缓存，之缓存不存在的
+											pageList.splice(index, 1); // 将接口返回的数据去重
+										}
+									};
+								});
+								console.log(pageList, '去重后的数据');
+							  });
+							  if (pageList.length > 0) {
+								console.log(pageList, '去重后剩余数据');
+								pageList.map((item, index) => {
+									let items = { // 用户缓存用户行为的子项
+										id: 0, // id
+										love: false // 收藏
+									};
+									items.id = item.id; // 赋值id
+									this.clickRecordsInMArr.push(items);
+									uni.setStorageSync('clickRecordsInMArr', JSON.stringify(this.clickRecordsInMArr));// 缓存用户点击行为数组记录
+								});
+							}
 	    					uni.hideLoading(); // 隐藏 loading
 	    					this.$store.commit('setSeekInvestInstitution', e); // 更新setInvest
 	    					this.goScrollTop(); // 页面触底之后调取loadMore方法，为了让用户再次调用此方法，需要自動将scroll向上滚动一些位置，这样下次滑动才会触发loadMore方法，详细需要看API
