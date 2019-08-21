@@ -1,22 +1,20 @@
 <template>
 	<view class="aboutService">
-		<view>我们关注的领域</view>
+		<view>我们的服务</view>
 		<view></view>
 		<view class="aboutService-img">
-			<view><image :src="keji"></image></view>
 			<view><image :src="dasuju"></image></view>
+			<view><image :src="keji"></image></view>
 		</view>
 	</view>
 </template>
 
 <script>
-	import keji from '@/static/mbcImg/my/keji.png'
-	import dasuju from '@/static/mbcImg/my/dausju.png'
 	export default {
 		data() {
 			return {
-				keji:keji,
-				dasuju:dasuju
+				keji:this.Static + 'mbcImg/my/jiasu.png',
+				dasuju:this.Static + 'mbcImg/my/rongzi.png',
 			};
 		},
 		computed: {

@@ -1,6 +1,6 @@
 <template>
 	<view class="Entrepreneurs-list" @tap="gotoEntrepreneursCertification">
-		<image src="/static/mbcImg/my/chuangyezhe.png"></image>
+		<image :src="chuang"></image>
 	</view>
 </template>
 
@@ -9,7 +9,8 @@
 	export default {
 		data() {
 			return {
-				Listdata: []
+				Listdata: [],
+				chuang:this.Static + 'mbcImg/my/chuangyezhe.png',
 			};
 		},
 		computed: {

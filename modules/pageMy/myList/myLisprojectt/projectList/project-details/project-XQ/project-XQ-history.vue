@@ -1,5 +1,5 @@
 <template>
-	<view class="datas-List-time">
+	<view class="project-XQ-history">
 		<view class="datas-List-vitae-yes">
 			<view class="datas-List-vitae-yes-box">
 				<view>
@@ -32,6 +32,23 @@
 				</view>
 			</view>
 		</view>
+		<view class="Investor-name">
+			<view class="Investor-name-box">
+				<view>
+					<image :src="xin"></image>
+				</view>
+				<view>融资金额</view>
+				<view><input type="text" placeholder="请输入" placeholder-style="color:#D2D2D2" v-model="projUserName"/></view>
+				<view>万元</view>
+			</view>
+		</view>
+		<view class="projectXQteam-one">
+			<view>简介</view>
+			<view>
+				<textarea placeholder="请详细描述一下您想要的服务" maxlength="150" @input="descInput" v-model="desc" placeholder-style="color:#D2D2D2" />
+				<span class="numberV">{{remnane}}/150</span>
+			</view>
+		</view>
 		<view class="datas-List-case-bao" @tap="gotodatasListcase">
 			<view>
 				<view>
@@ -60,7 +77,10 @@
 				pickerValue2: "", // 选中的值
 				date: currentDate,
 				index:0,
-				id:''
+				id:'',
+				logo: '',
+				txtVal: 1,
+				remnane:0
 			};
 		},
 		computed: {
@@ -81,6 +101,10 @@
 			...mapMutations({
 				setTime: 'setTime'
 			}),
+			descInput(){
+				var txtVal = this.desc.length;
+				this.remnane = 1 + txtVal;
+			},
 			gotodatasListcase(){
 				console.log(this.date,this.pickerValue2)
 				if(this.date === ''){
@@ -183,16 +207,15 @@
 </script>
 
 <style>
-	.datas-List-time {
+	.project-XQ-history{
 		width: 100%;
 	}
-
 	.datas-List-vitae-yes {
 		width: 100%;
 		height: 122upx;
 		background: #FFFFFF;
 	}
-
+	
 	.datas-List-vitae-yes-box {
 		width: 90%;
 		height: 100%;
@@ -201,18 +224,18 @@
 		display: flex;
 		position: relative;
 	}
-
+	
 	.datas-List-vitae-yes-box view:nth-of-type(1) {
 		width: 20upx;
 		height: 20upx;
 		padding-top: 26upx;
 	}
-
+	
 	.datas-List-vitae-yes-box view:nth-of-type(1) image {
 		width: 100%;
 		height: 100%;
 	}
-
+	
 	.datas-List-vitae-yes-box view:nth-of-type(2) {
 		width: 142upx;
 		height: 32upx;
@@ -221,18 +244,18 @@
 		padding-top: 30upx;
 		padding-left: 10upx;
 	}
-
+	
 	.datas-List-vitae-yes-box view:nth-of-type(3) {
 		width: 100upx;
 		height: 35upx;
 		position: absolute;
 		right: 40upx;
 		top: 40upx;
-
+	
 		color: #D2D2D2;
 		text-align: right;
 	}
-
+	
 	.datas-List-vitae-yes-box view:nth-of-type(4) {
 		position: absolute;
 		right: 0;
@@ -240,12 +263,12 @@
 		width: 25upx;
 		height: 18upx;
 	}
-
+	
 	.datas-List-vitae-yes-box view:nth-of-type(4) image {
 		width: 100%;
 		height: 100%;
 	}
-
+	
 	.ziti {
 		position: absolute;
 		right: 0upx;
@@ -254,7 +277,61 @@
 		top: -30upx;
 		font-size: 30upx !important;
 	}
-
+	.Investor-name {
+		width: 100%;
+		height: 122upx;
+		background: #FFFFFF;
+	}
+	
+	.Investor-name-box {
+		width: 90%;
+		height: 100%;
+		border-bottom: 2upx solid #F5F5F5;
+		margin: 0 auto;
+		display: flex;
+		position: relative;
+	}
+	
+	.Investor-name-box view:nth-of-type(1) {
+		width: 20upx;
+		height: 20upx;
+		padding-top: 26upx;
+	}
+	
+	.Investor-name-box view:nth-of-type(1) image {
+		width: 100%;
+		height: 100%;
+	}
+	
+	.Investor-name-box view:nth-of-type(2) {
+		width: 142upx;
+		height: 32upx;
+		font-size: 30upx;
+		color: #2E2E30;
+		padding-top: 30upx;
+		padding-left: 10upx;
+	}
+	
+	.Investor-name-box view:nth-of-type(3) {
+		width: 200upx;
+		height: 35upx;
+		position: absolute;
+		right: 80upx;
+		top: 45upx;
+		font-size: 30upx;
+		color: #D2D2D2;
+		text-align: right;
+	}
+	.Investor-name-box view:nth-of-type(4) {
+		width: 80upx;
+		height: 40upx;
+		position: absolute;
+		right: 0upx;
+		top: 40upx;
+		font-size: 30upx;
+		color: #2E2E30;
+		text-align: right;
+	}
 	.datas-List-case-bao {
 		width: 100%;
 		height: 122upx;
@@ -262,7 +339,7 @@
 		bottom: 0;
 		position: absolute;
 	}
-
+	
 	.datas-List-case-bao view:nth-of-type(1) view {
 		width: 690upx;
 		height: 90upx;
@@ -274,8 +351,40 @@
 		font-size: 28upx;
 		color: #FFFFFF;
 	}
-
+	
 	.datas-List-case-bao view:nth-of-type(1) {
 		margin: 0 auto;
+	}
+	.projectXQteam-one{
+		width: 100%;
+		height: 388upx;
+		background: #FFFFFF;
+		margin-top: 20upx;
+	}
+	.projectXQteam-one view:nth-of-type(1){
+		padding-left: 55upx;
+		padding-top: 52upx;
+		font-size: 14px;
+		color: #2E2E30;
+	}
+	.projectXQteam-one view:nth-of-type(2){
+		width: 90%;
+		height: 280upx;
+		margin: 0 auto;
+		position: relative;
+	}
+	.projectXQteam-one view:nth-of-type(2) textarea{
+		padding: 20upx;
+		width: 100%;
+		height: 100%;
+		background: #FFFFFF;
+		color: #D2D2D2;
+	}
+	.numberV{
+		font-size: 28upx;
+		color: #D2D2D2;
+		position: absolute;
+		bottom: 0;
+		right: 40upx;
 	}
 </style>

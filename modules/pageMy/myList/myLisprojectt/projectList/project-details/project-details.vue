@@ -54,9 +54,12 @@
 			</view>
 		</view>
 		<view class="jianxi"></view>
-		<view class="project-details-data">
+		<view class="history">
 			<view>融资历史</view>
-			<view @tap="gotodatasListme" class="button-an">
+			<view class="history-cheng">
+				
+			</view>
+			<view @tap="gotodatahistory" class="button-an">
 				填写融资历史
 			</view>
 		</view>
@@ -64,12 +67,12 @@
 		<view class="team">
 			<view>团队成员</view>
 			<view class="team-cheng" v-for="(ite,index) in arr.projUsers" :key="index">
-				<view><image :src="green" mode=""></image></view>
+				<view><image :src="ite.projUserImg" mode=""></image></view>
 				<view>
 					<span>{{ite.projUserName}}</span><span>{{ite.projUserPosition}}</span>
 					<span>{{ite.projUserContent}}</span>
 				</view>
-				<view>编辑</view>
+				<view @tap="teambianji(ite.id)">编辑</view>
 			</view>
 			<view @tap="gotodatasteam" class="button-an">
 				填写团队成员
@@ -120,8 +123,6 @@
 </template>
 
 <script>
-	import green from '@/static/mbcImg/my/green.png'
-	import pdf from '@/static/mbcImg/my/pdf.png'
 	import {
 		mapMutations,
 		mapGetters
@@ -129,7 +130,6 @@
 	export default {
 		data() {
 			return {
-				green: green,
 				num: 0,
 				hiden: true,
 				linkname: '',
@@ -138,7 +138,7 @@
 				arr:[],
 				Labelarr:[],
 				id: '',
-				pdf:pdf
+				pdf:this.Static + 'mbcImg/my/pdf.png',
 				
 			};
 		},
@@ -191,13 +191,27 @@
 				this.hiden = true
 			},
 			projectXQgsname(){
+				console.log('公司信息')
 				uni.navigateTo({
 					url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-gsname?id='+this.id
 				})
 			},
 			gotodatasteam(){
+				console.log('团队成员')
 				uni.navigateTo({
 					url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-team?id='+this.id
+				})
+			},
+			gotodatahistory(){
+				console.log('融资历史')
+				uni.navigateTo({
+					url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-history'
+				})
+			},
+			teambianji(e){
+				console.log(e)
+				uni.navigateTo({
+					url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-team-bianji?id='+e
 				})
 			},
 			child() { //阻止事件冒泡
@@ -747,6 +761,31 @@
 		margin-right: 0;
 		font-weight: 700;
 	}
+	
+	.history{
+		width: 100%;
+		min-height: 300upx;
+		background: #FFFFFF;
+		padding-bottom: 20upx;
+	}
+	.history view:nth-of-type(1){
+		font-size: 34upx;
+		color: #2E2E30;
+		padding-top: 40upx;
+		padding-left: 30upx;
+		font-weight: 700;
+	}
+	.history-cheng{
+		width: 90%;
+		height: 176upx;
+		border-bottom: 2upx solid #E2E2E2;
+		margin: 0 auto;
+		display: flex;
+		background: red;
+	}
+	
+	
+	
 	.zhe {
 		display: none;
 	}

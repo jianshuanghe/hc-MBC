@@ -53,9 +53,6 @@
 </template>
 
 <script>
-	import green from '@/static/mbcImg/my/green.png'
-	import Ima1 from '@/static/mbcImg/my/Ima1.png'
-	import images from '@/static/mbcImg/my/images.png'
 	import {
 		mapMutations,
 		mapGetters
@@ -67,9 +64,9 @@
 				Listdata: [],
 				Listcase: [],
 				footer: [],
-				green: green,
-				Ima1: Ima1,
-				images: images,
+				green: this.Static + 'mbcImg/my/green.png',
+				Ima1: this.Static + 'mbcImg/my/Ima1.png',
+				images: this.Static + 'mbcImg/my/images.png',
 				id: []
 			};
 		},

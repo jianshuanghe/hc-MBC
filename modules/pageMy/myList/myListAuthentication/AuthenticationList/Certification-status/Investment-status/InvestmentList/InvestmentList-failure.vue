@@ -13,11 +13,10 @@
 </template>
 
 <script>
-	import tou from '@/static/mbcImg/my/tou.png'
 	export default {
 		data() {
 			return {
-				tou:tou
+				tou:this.Static + 'mbcImg/my/tou.png',
 			};
 		},
 		components: {

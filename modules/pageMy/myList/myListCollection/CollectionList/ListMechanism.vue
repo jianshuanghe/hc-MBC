@@ -24,11 +24,10 @@
 		mapMutations,
 		mapGetters
 	} from 'vuex';
-	import kong from '@/static/mbcImg/my/kong.png'
 	export default {
 		data() {
 			return {
-				kong:kong,
+				kong:this.Static + 'mbcImg/my/kong.png',
 				List: [],
 				page: 1,
 				picArr:[],

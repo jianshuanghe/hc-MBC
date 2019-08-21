@@ -8,13 +8,12 @@
 </template>
 
 <script>
-	import green from '@/static/mbcImg/my/green.png'
 	import project from './projectList/projectList'
 	import services from './projectList/projectList-services'
 	export default {
 		data() {
 			return {
-				green:green
+				
 			};
 		},
 		components: {

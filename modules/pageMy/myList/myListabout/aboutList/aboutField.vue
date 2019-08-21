@@ -18,21 +18,15 @@
 </template>
 
 <script>
-	import keji from '@/static/mbcImg/my/keji.png'
-	import dasuju from '@/static/mbcImg/my/dausju.png'
-	import fuwu from '@/static/mbcImg/my/fuwu.png'
-	import iot from '@/static/mbcImg/my/iot.png'
-	import yiliao from '@/static/mbcImg/my/yiliao.png'
-	import xiaofei from '@/static/mbcImg/my/xiaofei.png'
 	export default {
 		data() {
 			return {
-				keji:keji,
-				dasuju:dasuju,
-				fuwu:fuwu,
-				iot:iot,
-				yiliao:yiliao,
-				xiaofei:xiaofei
+				keji:this.Static + 'mbcImg/my/keji.png',
+				dasuju:this.Static + 'mbcImg/my/dausju.png',
+				fuwu:this.Static + 'mbcImg/my/fuwu.png',
+				iot:this.Static + 'mbcImg/my/iot.png',
+				yiliao:this.Static + 'mbcImg/my/yiliao.png',
+				xiaofei:this.Static + 'mbcImg/my/xiaofei.png',
 			};
 		},
 		computed: {

@@ -17,8 +17,6 @@
 </template>
 
 <script>
-	import yong from '@/static/mbcImg/my/yong.png'
-	import kong from '@/static/mbcImg/my/kong.png'
 	import {
 		mapMutations,
 		mapGetters
@@ -26,8 +24,7 @@
 	export default {
 		data() {
 			return {
-				yong: yong,
-				kong: kong,
+				kong:this.Static + 'mbcImg/my/kong.png',
 				CollectionList: [],
 				page: 1,
 			};

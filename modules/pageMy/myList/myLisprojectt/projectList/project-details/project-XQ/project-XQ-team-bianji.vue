@@ -5,7 +5,7 @@
 				<view><image :src="xin"></image></view>
 				<view>上传照片</view>
 				<view>
-					<view class="ziti" v-if="!logo">点击上传</view>
+					<image class="ziti" :src="arr.projUserImg" v-if="!logo">点击上传</image>
 					<div class="Img-Upload">
 						<imageUploadOne 
 						class="img"
@@ -32,7 +32,7 @@
 		<view class="Investor-name">
 			<view class="Investor-name-box">
 				<view>
-					<image :src="xin"></image>
+					<image></image>
 				</view>
 				<view>职务</view>
 				<view><input type="text" placeholder="请输入" placeholder-style="color:#D2D2D2" v-model="projUserPosition"/></view>
@@ -45,8 +45,11 @@
 				<span class="numberV">{{remnane}}/150</span>
 			</view>
 		</view>
-		<view class="Investor-Submission">
-			<view @tap="Submission">
+		<view class="del" @tap="del">
+			删除
+		</view>
+		<view class="Investor-Submission" @tap="update">
+			<view>
 				<view>
 					提交
 				</view>
@@ -71,11 +74,12 @@
 				projUserPosition:'',
 				desc:'',
 				logo: '',
-				logo2:'',
 				imageData : [],
 				serverUrl: 'https://img01.iambuyer.com/imgup/upLoad/fileUpload',
 				txtVal: 1,
-				remnane:0
+				remnane:0,
+				arr:[],
+				List:[]
 			};
 		},
 		components: {
@@ -89,12 +93,10 @@
 			console.log(this.id)
 		},
 		created() {
-			
+			this.List=this.GET_MY.MyList.Company;
+			this.Submission();
 		},
 		methods: {
-			...mapMutations({
-				setCompany: 'setCompany'
-			}),
 			descInput(){
 				var txtVal = this.desc.length;
 				this.remnane = 1 + txtVal;
@@ -108,37 +110,14 @@
 				if(e.allImages) { // 上传成功
 				console.log(e);
 					this.logo = (e.allImages[0].imgName);
-					this.logo2=(e.allImages[0].imgUrl)
 				}
 			},
-			Submission(){
-				if(this.logo==''){
-					uni.showToast({
-						title: '照片不能为空,请重填',
-						icon: 'none',
-						duration: 1000
-					});
-					return false;
-				}else if(this.projUserName==''){
-					uni.showToast({
-						title: '姓名不能为空,请重填',
-						icon: 'none',
-						duration: 1000
-					});
-					return false;
-				}else if(this.projUserPosition==''){
-					uni.showToast({
-						title: '姓名不能为空,请重填',
-						icon: 'none',
-						duration: 1000
-					});
-					return false;
-				}
+			update(){
 				if (uni.getStorageSync('landRegist')) {
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 					console.log(landRegistLG.user.id);
 					let params = {
-						projId:Number(this.id),
+						id:Number(this.id),
 						projUserName:this.projUserName,
 						projUserPosition:this.projUserPosition,
 						projUserContent:this.desc,
@@ -147,9 +126,9 @@
 					uni.showLoading({ // 展示loading
 						title: '加载中'
 					});
-					console.log(params)
+					// console.log(params)
 					uni.request({
-						url: this.api2 + '/proj/user/addProjUser', //接口地址。
+						url: this.api2 + '/proj/user/updateProjUser', //接口地址。
 						data: this.endParams(params),
 						method: 'POST',
 						header: {
@@ -158,22 +137,14 @@
 						success: (response) => {
 							uni.hideLoading();
 							console.log(response.data);
+							// this.$store.commit('setCompany', this.List);
 							// let setLvliData = this.GET_MY.MyList.Company.projUsers;
-							// let par = {
-							// 	id:response.data.content,
-							// 	projId:Number(this.id),
-							// 	projUserName:this.projUserName,
-							// 	projUserPosition:this.projUserPosition,
-							// 	projUserContent:this.desc,
-							// 	projUserImg:this.logo2
-							// };
-							// setLvliData.unshift(par);
+							// console.log(params, '--------------params---------------')
+							// setLvliData.unshift(params);
 							// this.$store.commit('setCompany', setLvliData);
-							// uni.navigateBack({
-							// 	
-							// })
+							// uni.navigateBack({})
 							uni.navigateTo({
-								url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-details?id='+this.id
+								url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-details?id='+this.arr.projId
 							})
 						},
 						fail: (error) => {
@@ -187,7 +158,90 @@
 						}
 					});
 				}
-			}
+			},
+			Submission(){
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					// let params = {
+					// 	projId:Number(this.id),
+					// 	projUserName:this.projUserName,
+					// 	projUserPosition:this.projUserPosition,
+					// 	projUserContent:this.desc,
+					// 	projUserImg:this.logo
+					// }; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					// console.log(params)
+					uni.request({
+						url: this.api2 + '/proj/user/getProjUser?projUserId='+this.id, //接口地址。
+						// data: this.endParams(params),
+						method: 'GET',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							uni.hideLoading();
+							console.log(response.data);
+							this.arr=response.data.content
+							this.projUserName=this.arr.projUserName
+							this.projUserPosition=this.arr.projUserPosition
+							this.desc=this.arr.projUserContent
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
+			del(){
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					let params = {
+						projId:Number(this.id),
+					}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					// console.log(params)
+					uni.request({
+						url: this.api2 + '/proj/user/delProjUser?projUserIds='+this.id, //接口地址。
+						// data: this.endParams(params),
+						method: 'GET',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							uni.hideLoading();
+							console.log(response.data);
+							// let setLvliData = this.GET_MY.MyList.Company.projUsers;
+							// setLvliData.splice(this.id, 1);
+							// this.$store.commit('setCompany', setLvliData);
+							// uni.navigateBack({})
+							uni.navigateTo({
+								url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-details?id='+this.arr.projId
+							})
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
 		},
 		
 	};
@@ -272,10 +326,10 @@
 	.ziti{
 		position: absolute;
 		right: 0upx;
-		width: 300upx !important;
-		height: 30upx;
-		top: -30upx;
-		font-size: 30upx !important;
+		width: 90upx;
+		height: 90upx;
+		top: -20upx;
+		font-size: 30upx;
 	}
 	.Img-Upload{
 		width: 120upx !important;
@@ -366,5 +420,14 @@
 		position: absolute;
 		bottom: 0;
 		right: 40upx;
+	}
+	.del{
+		width: 100%;
+		height: 100upx;
+		background: #FFFFFF;
+		text-align: center;
+		color: red;
+		line-height: 100upx;
+		border-top:2upx solid  #F5F5F5;
 	}
 </style>

@@ -19,14 +19,11 @@
 </template>
 
 <script>
-	import yong from '@/static/mbcImg/my/yong.png'
-	import kong from '@/static/mbcImg/my/kong.png'
 	import { mapMutations, mapGetters } from 'vuex';
 	export default {
 		data() {
 			return {
-				kong:kong,
-				yong:yong,
+				kong:this.Static + 'mbcImg/my/kong.png',
 				CollectionList:[],
 				page:1
 			};

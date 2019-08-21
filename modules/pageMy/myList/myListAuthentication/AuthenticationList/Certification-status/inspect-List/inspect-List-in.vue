@@ -30,15 +30,13 @@
 </template>
 
 <script>
-	import Image2 from '@/static/mbcImg/my/Image2.png'
-	import Image3 from '@/static/mbcImg/my/Image3.png'
 	import { mapMutations,mapGetters } from 'vuex';
 	export default {
 		data() {
 			return {
 				Listdata: [],
-				Image2:Image2,
-				Image3:Image3
+				Image2:this.Static + 'mbcImg/my/Image2.png',
+				Image3:this.Static + 'mbcImg/my/Image3.png',
 			};
 		},
 		computed: {

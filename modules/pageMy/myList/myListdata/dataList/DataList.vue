@@ -49,7 +49,6 @@
 
 <script>
 	import right from '@/static/mbcImg/my/right.png'
-	import green from '@/static/mbcImg/my/green.png'
 	import imageUploadOne from '@/components/imageUpload/imageUploadOne.vue'
 	import {
 		mapMutations,
@@ -60,8 +59,7 @@
 			return {
 				List: [],
 				logo: '',
-				right: right,
-				green: green,
+				right: this.Static + 'mbcImg/my/right.png',
 				name: '',
 				mail: '',
 				Listdata: [],

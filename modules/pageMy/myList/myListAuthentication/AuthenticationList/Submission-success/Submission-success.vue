@@ -12,11 +12,10 @@
 </template>
 
 <script>
-	import shen from '@/static/mbcImg/my/shenghe.png'
 	export default {
 		data() {
 			return {
-				shen: shen
+				shen: this.Static + 'mbcImg/my/shenghe.png',
 			};
 		},
 		components: {

@@ -29,7 +29,6 @@
 </template>
 
 <script>
-	import xin from '@/static/mbcImg/my/Image 1.png'
 	import {
 		mapMutations,
 		mapGetters
@@ -37,7 +36,7 @@
 	export default {
 		data() {
 			return {
-				xin:xin,
+				xin:this.Static + 'mbcImg/my/xin.png',
 				name:'',
 				address:'',
 				id:'',
