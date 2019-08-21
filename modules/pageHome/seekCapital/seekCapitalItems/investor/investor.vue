@@ -53,7 +53,7 @@
 			investItems
 		},
 		computed: {
-          ...mapGetters(['GET_HOME', 'SEEKCAPITALTITLE', 'INVESTORSEARCH'])
+          ...mapGetters(['GET_HOME', 'SEEKCAPITALTITLE', 'INVESTORSEARCH', 'INVESTORSEARCHTYPE', 'AREADATA', 'FIELDDATA', 'LEVELDATA'])
         },
 		watch: {
 			GET_HOME: {
@@ -77,6 +77,12 @@
 					this.getInvestList(this.invest);
 				},
 				deep: true
+			},
+			INVESTORSEARCHTYPE: {
+				handler (a, b) {
+					this.resetFile();
+				},
+				deep: true
 			}
         },
 		created() {
@@ -85,8 +91,28 @@
 		},
 	    methods: {
 			...mapMutations({
-				setSeekInvest: 'setSeekInvest'
+				setSeekInvest: 'setSeekInvest',
+				setAreaData: 'setAreaData', // 公共组件省市区
+				setFieldData: 'setFieldData', // 公共组件领域
+				setLevelData: 'setLevelData', // 公共组件融资阶段
 			}),
+			resetFile () { // 重置右侧筛选数据，当左侧综合变化时，需要触发此项
+				let AREADATA = this.AREADATA;
+				let FIELDDATA = this.FIELDDATA;
+				let LEVELDATA = this.LEVELDATA;
+				AREADATA.province.map((items, index) => {
+					items.checked = false;
+				});
+				FIELDDATA.map((items, index) => {
+					items.checked = false;
+				});
+				LEVELDATA.map((items, index) => {
+					items.checked = false;
+				});
+				this.$store.commit('setAreaData', AREADATA); // 更新setAreaData
+				this.$store.commit('setFieldData', FIELDDATA); // 更新setFieldData
+				this.$store.commit('setLevelData', LEVELDATA); // 更新setLevelData
+			},
 			upper: function(e) {
 				console.log(e)
 			},

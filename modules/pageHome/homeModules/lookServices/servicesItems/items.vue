@@ -1,6 +1,6 @@
 <template>
 	<view class="servicesItems-content-items">
-		<view class="SICI-content" @tap="goToServiceDetails()">
+		<view class="SICI-content" @tap="goToServiceDetails(msgData.serverId)">
 			<view class="SICI-img">
 				<image :src='msgData.img  || banner4'></image>
 			</view>
@@ -8,7 +8,7 @@
 			<view class="SICI-inrc">{{msgData.serverContent}}</view>
 			<view class="SICI-money">
 				￥<text class="SICI-money-Y">{{msgData.monye}}</text>
-				 <text class="SICI-money-X">¥1280</text>
+				 <!-- <text class="SICI-money-X">¥1280</text> -->
 			</view>
 		</view>
 	</view>
@@ -34,10 +34,18 @@
 	        change(e) {
 	            this.current = e.detail.current;
 	        },
-			goToServiceDetails () {
-				console.log('去服务详情页面，bp打磨，速溶服务等');
-				let url = '/modules/pageHome/homeModules/lookServices/serviceDetails/quickMelt/serviceDetails';
-				url = '/modules/pageHome/homeModules/lookServices/serviceDetails/Bp/serviceDetails';
+			goToServiceDetails (e) {
+				console.log(e, '去服务详情页面，bp打磨，速溶服务等');
+				let url = '';
+				if ( e === 0) {
+					console.log('BP诊断');
+				} else if (e === 1) {
+					console.log('BP打磨');
+					url = '/modules/pageHome/homeModules/lookServices/serviceDetails/Bp/serviceDetails?serverId=' + e;
+				} else if (e === 2) {
+					console.log('速溶服务');
+					url = '/modules/pageHome/homeModules/lookServices/serviceDetails/quickMelt/serviceDetails?serverId=' + e;
+				}
 				uni.navigateTo({
 					url: url
 				});

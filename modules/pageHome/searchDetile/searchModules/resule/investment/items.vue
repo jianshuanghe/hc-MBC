@@ -4,8 +4,7 @@
       <view class="II-top">
         <view class="left II-user-img">
           <view class="II-img">
-            <image :src='msgData.headImg' v-if="msgData.headImg"></image>
-			<image :src='iiImg' v-if="!msgData.headImg"></image>
+            <image :src='msgData.compLogo'></image>
           </view>
         </view>
         <view class="left II-suer-insr">
@@ -15,7 +14,7 @@
             </view>
             <view class="mbc">
 				<view class="II-mod" >
-				  <view class="mod-items left" v-for="(items,index) in msgData.field" :key="index">{{items}}</view>
+				  <view class="mod-items left" v-for="(items,index) in msgData.fields" :key="index">{{items}}</view>
 				  <view class="clear"></view>
 				</view>
             </view>
@@ -23,7 +22,7 @@
         </view>
       </view>
       <view class="II-bot">
-		  <view class="left mbc-text">{{msgData.comp || '无'}}</view>
+		  <view class="left mbc-text">{{msgData.compName || '无'}}</view>
       </view>
     </view>
     <view class="line"></view>
@@ -37,28 +36,16 @@
 			return {
 				iiImg: iiImg,
 				msgData:{
-					"ccode":"",
 					"city":"北京",
-					"comp":"公司名称",
-					"compName":"",
-					"field":[
-						"环保",
+					"compLogo":"https://img04.iambuyer.com/imgup/upload/images/2019/05/29/78rDzOrYFe0YmZLQY6cKzSFAVXzc4ENs4d5PcJGxfaYD7F2aeAhcjjc2FB9OxLhcjjc2Bk6jjidi.png",
+					"compName":"徐州泓芊商贸有限公司",
+					"fields":[
 						"金融",
-						"生活服务"
+						"汽车交通"
 					],
-					"fields":"",
-					"headImg":"https://img01.iambuyer.com/imgup/upload/images/2019/05/31/NbleKsQMxfHMRukd0zYiYUZs2d6uwC0F6TJgjrazgGb7n0HpekYAa3dTUY6H9GWy.png",
-					"leves":"",
-					"mechId":"",
-					"pCode":"110000",
-					"position":"职位",
-					"userCard":"",
-					"userContent":"",
-					"userId":760,
-					"userName":"用户名",
-					"userProj":"",
-					"userType":"1",
-					"wxCode":""
+					"id":4,
+					"inves":[],
+					"pCode":"110000"
 				}
 			};
 	    },

@@ -1,34 +1,94 @@
 <template>
 	<div class="constSubmit-content">
 		<div class="constSubmit">
-			<div class="left const-box">
+			<div class="left const-box" @tap='clickTel()'>
 				<div class="img-box">
 					<image class="img" :src="tel"></image>
 				</div>
 				<div class="text">咨询客服</div>
 			</div>
-			<div class="left submit-box">立即申请</div>
+			<div :class="msgData.content === 0 ? 'left submit-box' : 'left submit-box1'" @tap='Apply()'> {{msgData.content === 0 ? '立即申请' : '已申请'}}</div>
 			<div class="clear"></div>
 		</div>
+		<!-- 全局设置申请组件 -->
+		<entrust v-if="entrust.entrustShow"></entrust>
 	</div>
 </template>
 
 <script>
 	import tel from '@/static/mbcImg/home/lookServices/tel.png';
+	import { mapMutations, mapGetters } from 'vuex';
 	
 	export default {
 	    data () {
 			return {
-				tel: tel
+				tel: tel,
+				entrust:{
+					entrustShow: false, // 默认不显示
+					type: 0, // 0代表服务申请， 1项目委托
+					success: false, // 是否申请成功
+					params: {
+						modelId: 0, // 0 代表投资人ID  1代表投资机构ID 2代表项目ID
+						projectName: '', // 委托项目
+						userId: '', // 申请人ID
+						applyeType: 0 ,// 创业者联系投资人 1创业者联系投资机构
+						phone: 0, // 电话
+						name: '', // 姓名
+						serverId: '', // 服务ID
+						time: '', // 提交成功时间
+					}
+				},
 			};
 	    },
+		props: {
+			msgData: {
+				type: Object
+			}
+		},
 		components: {
 		},
-		computed: {},
-		watch: {},
+		computed: {
+          ...mapGetters(['ENTRUSSHOW', 'ENTRUST'])
+        },
+		watch: {
+		  ENTRUSSHOW: {
+            handler (a, b) {
+              this.entrust.entrustShow = a; // 申请组件
+            },
+            deep: true
+          }
+        },
 		created() {
+			this.entrust = this.ENTRUST;
+			console.log(this.ENTRUST, 'ENTRUST')
 		},
 	    methods: {
+			...mapMutations({
+				setEnTrustShow: 'setEnTrustShow',
+				setEntrustType: 'setEntrustType',
+				setEntrustParams: 'setEntrustParams'
+			}),
+			clickTel () {
+				console.log('触发拨打电话');
+				uni.makePhoneCall({
+					phoneNumber: '010-61723026' // 拨打电话
+				});
+			},
+			Apply () {
+				console.log('触发申请');
+				if (this.msgData.content === 1) {
+					uni.showToast({
+						title: '您已经申请过了！',
+						icon: 'none',
+						duration: 1000
+					});
+				} else {
+					this.entrust.params.serverId = this.msgData.serverId;
+					this.$store.commit('setEntrustType', 0); // 更新setEntrustType
+					this.$store.commit('setEntrustParams', this.entrust.params); // 更新setEntrustParams
+					this.$store.commit('setEnTrustShow', true); // 更新setEnTrustShow
+				}
+			}
 	    }
 	};
 </script>
@@ -73,6 +133,17 @@
 		position: relative;
 		width: 60%;
 		background-image: linear-gradient(-134deg,  #57D6CF 0%, #15D49F 100%);
+		font-family: PingFangSC-Regular;
+		font-size: 32upx;
+		color: #FFFFFF;
+		letter-spacing: 0;
+		text-align: center;
+		line-height: 100upx;
+	}
+	.submit-box1{
+		position: relative;
+		width: 60%;
+		background: #E2E2E2;
 		font-family: PingFangSC-Regular;
 		font-size: 32upx;
 		color: #FFFFFF;

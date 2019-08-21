@@ -110,9 +110,10 @@
 	}
 	.AD-content{
 		position: relative;
-		width: 750upx;
+		/* width: 750upx; */
 		padding: 30upx;
 		background: #fff;
+		margin-bottom: 200upx;
 	}
 	.AD-title{
 		position: relative;

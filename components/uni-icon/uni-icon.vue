@@ -21,12 +21,7 @@
 		},
 		computed: {
 			fontSize() {
-				var size = Number(this.size);
-				if (isNaN(size)) {
-					return ''
-				}
-				size = uni.upx2px(size);
-				return `${size}px`
+				return `${this.size}px`
 			}
 		},
 		methods: {
@@ -46,8 +41,8 @@
 	}
 
 	.uni-icon {
-		font-family: uniicons !important;
-		/* font-size: 24px; */
+		font-family: uniicons;
+		font-size: 24px;
 		font-weight: normal;
 		font-style: normal;
 		line-height: 1;

@@ -1,12 +1,12 @@
 <template>
 	<view class="myHistory">
 		<!-- 未认证 -->
-		<Historyone v-if="this.Listdata.authState==-1"></Historyone>
+		<Historyone v-if="this.Listdata.authState === -1"></Historyone>
 		<!-- 创业者 -->
-		<Historytwo v-if="this.Listdata.authState==0"></Historytwo>
+		<Historytwo v-if="this.Listdata.authState === 0"></Historytwo>
 		<!-- 投资人 -->
-		<HistoryThree v-if="this.Listdata.authState==1"></HistoryThree>
-		<HistoryThree v-if="this.Listdata.authState==2"></HistoryThree>
+		<HistoryThree v-if="this.Listdata.authState === 1"></HistoryThree>
+		<HistoryThree v-if="this.Listdata.authState === 2"></HistoryThree>
 	</view>
 </template>
 
@@ -42,6 +42,7 @@
 		created() {
 			this.Listdata = this.GET_MY.MyList.header;
 			console.log(this.Listdata, '454446454564645656465');
+			this.Listdata.authState = 1;
 		},
 	};
 </script>

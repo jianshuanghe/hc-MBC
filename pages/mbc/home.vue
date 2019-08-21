@@ -3,7 +3,7 @@
 		<!-- 组件模块 -->
 		<view class="homeTemplate">
 			<!-- 首页 -->
-			<view :class="GET_HOME.tabItems === 1 ? 'show' : 'hide'">
+			<view v-if="GET_HOME.tabItems === 1">
 				<pageHome></pageHome>
 			</view>
 			<!-- 发现 -->

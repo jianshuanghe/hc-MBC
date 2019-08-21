@@ -9,6 +9,7 @@
 
 <script>
 	import items from "./servicesItems/items.vue";
+	import { mapMutations } from 'vuex';
 	export default {
 	    data () {
 			return {
@@ -22,8 +23,12 @@
 		watch: {},
 		created() {
 			this.getLookServices();
+			this.$store.commit('setEnTrustShow', false); // 更新setEnTrustShow  进入列表页面申请组件默认不显示
 		},
 	    methods: {
+			...mapMutations({
+				setEnTrustShow: 'setEnTrustShow'
+			}),
 			getLookServices(){
 				console.log('获取发现服务数据');
 				if (uni.getStorageSync('landRegist')) {

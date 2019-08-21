@@ -18,7 +18,7 @@
 				</div>
 			</div>
 			<div class="left hm-items">
-				<div class="hm-item" @tap='goToMeltTt'>
+				<div class="hm-item" @tap='goToMeltTt(2)'>
 					<div class="hm-img-itms">
 						<image :src='modules2'></image>
 					</div>
@@ -26,7 +26,7 @@
 				</div>
 			</div>
 			<div class="left hm-items">
-				<div class="hm-item" @tap='goToActivity'>
+				<div class="hm-item" @tap='goToActivity(2)'>
 					<div class="hm-img-itms">
 						<image :src='modules1'></image>
 					</div>
@@ -65,17 +65,21 @@
 					url: '/modules/pageHome/homeModules/lookProject/lookProject'
 				});
 			},
-			goToMeltTt () {
+			goToMeltTt (e) {
 				console.log('to融头条');
-				uni.navigateTo({
-					url: '/modules/pageHome/homeModules/meltTt/meltTt'
-				});
+				console.log(e, '点击触发发现');
+				this.clickItems = e;
+				this.$store.commit('setHome', this.clickItems);
+				this.$store.commit('setFindTabItems', 1); // 更新setFindTabItems
+				uni.setStorageSync('clickItems', e);
 			},
-			goToActivity () {
+			goToActivity (e) {
 				console.log('to活动');
-				uni.navigateTo({
-					url: '/modules/pageHome/homeModules/activity/activity'
-				});
+				console.log(e, '点击触发发现');
+				this.clickItems = e;
+				this.$store.commit('setHome', this.clickItems);
+				this.$store.commit('setFindTabItems', 2); // 更新setFindTabItems
+				uni.setStorageSync('clickItems', e);
 			},
 			goToSeek () {
 				console.log('点击触发寻找资本');

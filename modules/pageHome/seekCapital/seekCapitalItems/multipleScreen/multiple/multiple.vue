@@ -256,7 +256,6 @@
 					if (this.areaDataList !== '') {
 						this.investInsSearch.area = this.areaDataList.join(',');
 					};
-					this.investInsSearch.sortType = this.clickItemsCode;
 					this.$store.commit('setInvestInsSearch', this.investInsSearch); // 更新setInvestInsSearch
 				}
 				this.$store.commit('setMultipleShow', false); // 更新setMultipleShow

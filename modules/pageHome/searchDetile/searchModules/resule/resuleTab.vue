@@ -14,6 +14,7 @@
 </template>
 
 <script>
+	import { mapMutations, mapGetters } from 'vuex';
 	export default {
 		data() {
 			return {
@@ -43,16 +44,30 @@
 			};
 		},
 		components: {},
-		computed: {},
+		computed: {
+		  ...mapGetters(['GET_HOME'])
+		},
+		watch: {
+			GET_HOME: {
+				handler (a, b) {
+					this.clickItemsIndex = a.HomeSearch.clickItemsIndex;
+				},
+				deep: true
+			}
+		},
 		created() {
 			console.log('在组件中并不能使用页面生命周期函数');
 		},
 		mounted() {
 		},
 		methods: {
+			...mapMutations({
+				setSearchItemsIndex: 'setSearchItemsIndex'
+			}),
 			clikeResuleTab (e) {
 				console.log(e, '切换搜索结果tab');
 				this.clickItemsIndex = e;
+				this.$store.commit('setSearchItemsIndex', e); // 更新setSearchItemsIndex
 			}
 		}
 	};

@@ -23,9 +23,57 @@ const mutations = {
     console.log(info, 'setLevelData');
     state.levelData = info;
   },
+  setEnTrustShow (state, info) { // 控制展示申请组件
+    console.log(info, 'setEnTrustShow');
+    state.entrust.entrustShow = info;
+  },
+  setEntrustType (state, info) { // 申请类型。服务 和项目
+    console.log(info, 'setEntrustType');
+    state.entrust.type = info;
+  },
+  setEntrustSuccess (state, info) { // 申请成功与否
+    console.log(info, 'setEntrustSuccess');
+    state.entrust.success = info;
+  },
+  setEntrustParams (state, info) { // 申请参数
+    console.log(info, 'setEntrustParams');
+    state.entrust.params = info;
+  },
   setHome (state, info) {
     console.log(info, 'setHome');
     state.home.tabItems = info;
+  },
+  setSearchText  (state, info) { // 搜索内容
+    console.log(info, 'setSearchText');
+    state.home.HomeSearch.searchText  = info;
+  },
+  setSeachProject (state, info) { // 搜索的项目模块
+    console.log(info, 'setSeachProject');
+    state.home.HomeSearch.project = info;
+  },
+  setSeachInvestor (state, info) { // 搜索的投资人模块
+    console.log(info, 'setSeachInvestor');
+    state.home.HomeSearch.investor = info;
+  },
+  setSeachInvesten (state, info) { // 搜索的投资机构模块
+    console.log(info, 'setSeachInvesten');
+    state.home.HomeSearch.investen = info;
+  },
+  setSeachActive (state, info) { // 搜索的资讯模块
+    console.log(info, 'setSeachActive');
+    state.home.HomeSearch.active = info;
+  },
+  setSearchItemsIndex (state, info) { // 判断用户所处的位置，默认时综合
+    console.log(info, 'setSearchItemsIndex');
+    state.home.HomeSearch.clickItemsIndex = info;
+  },
+  setIsSearch (state, info) { // 判断用户是否处在搜索状态
+    console.log(info, 'setIsSearch');
+    state.home.HomeSearch.isSearch = info;
+  },
+  setSearchHistoryData (state, info) { // 搜索历史数据
+    console.log(info, 'setSearchHistoryData');
+    state.home.HomeSearch.searchHistoryData = info;
   },
   setHomeListTitleIndex (state, info) { // 首页列表title
     console.log(info, 'setHomeListTitleIndex');
@@ -98,9 +146,13 @@ const mutations = {
     console.log(info, 'setLookServicesDataList');
     state.home.homeModules.lookServices.dataList = info;
   },
-  setLookProjectDataList (state, info) {
+  setLookProjectDataList (state, info) { // 发现项目 接口返回数据以及刷新
     console.log(info, 'setLookProjectDataList');
-    state.home.homeModules.lookProject.dataList = info;
+    state.home.homeModules.lookProject.list = info;
+  },
+  setLookProjectDataSearch (state, info) { // 发现项目的筛选
+    console.log(info, 'setLookProjectDataSearch');
+    state.home.homeModules.lookProject.search = info;
   },
   setMeltTtDataList (state, info) {
     console.log(info, 'setMeltTtDataList');

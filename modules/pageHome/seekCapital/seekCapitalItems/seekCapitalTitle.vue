@@ -36,6 +36,10 @@
 			}
 		},
 		created() {
+			if(uni.getStorageSync('clickItems')) {
+				this.clickItemsIndex = uni.getStorageSync('clickItemsIndex'); // 取缓存中tabbar数据
+				this.clickSeekCapitalTitle(this.clickItemsIndex);
+			}
 		},
 		mounted(){
 		},
@@ -45,6 +49,7 @@
 			}),
 			clickSeekCapitalTitle (e) {
 				this.clickItemsIndex = e;
+				uni.setStorageSync('clickItemsIndex', e);
 				console.log(e, '投资人BP和投资机构');
 				this.$store.commit('setSeekCapitalTitleIndex', this.clickItemsIndex); // 更新setSeekCapitalTitleIndex
 			}

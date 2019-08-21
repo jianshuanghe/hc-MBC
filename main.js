@@ -6,8 +6,10 @@ import {endParams} from './static/mbcJs/endParams';
 import {isWeiXin} from './static/mbcJs/browserType';
 import {pageNums} from './static/mbcJs/pageNums';
 import {dateTime} from './static/mbcJs/dateTime';
+import entrust from "./components/entrust/entrust.vue";
 
 Vue.config.productionTip = false
+Vue.component('entrust', entrust)
 
 Vue.prototype.$store = store
 

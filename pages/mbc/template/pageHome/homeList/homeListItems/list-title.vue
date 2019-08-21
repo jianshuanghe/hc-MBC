@@ -9,7 +9,7 @@
 			</view>
 			<view class="news-TBox left" @tap="clickListTitle(2)">
 			  <view  :class="clickItemsIndex === 2 ? 'Tbox-items Tb-checked' : 'Tbox-items'">
-				<p class="home-right-p">活跃投资机构</p>
+				<p class="home-right-p">活跃投资人</p>
 				<view class="hengLine"  v-if="clickItemsIndex === 2"></view>
 			  </view>
 			</view>

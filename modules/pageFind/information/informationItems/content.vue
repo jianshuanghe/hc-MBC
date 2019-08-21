@@ -67,7 +67,6 @@
 	}
 	.AD-content{
 		position: relative;
-		width: 750upx;
 		padding: 30upx;
 		background: #fff;
 	}

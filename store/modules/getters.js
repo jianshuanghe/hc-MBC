@@ -6,6 +6,9 @@ const getters = {
 	LOADING: state => state.loading,
 	// 空状态
 	EMPTY: state => state.empty,
+	// 申请组件
+	ENTRUSSHOW: state => state.entrust.entrustShow,
+	ENTRUST: state => state.entrust,
 	// home 主页数据
 	GET_HOME: state => state.home,
 	//find 发现数据
@@ -28,7 +31,11 @@ const getters = {
 	MULTIPLESCREEN: state => state.home.multipleScreen,
 	// investorSearch 找投资的----投资人参数
 	INVESTORSEARCH: state => state.home.investorSearch,
+	INVESTORSEARCHTYPE: state => state.home.investorSearch.sortType,
 	// investInsSearch 找投资的----投资项目的参数
 	INVERSTINSSEARCH: state => state.home.investInsSearch,
+	INVERSTINSSEARCHTYPE: state => state.home.investInsSearch.sortType,
+	LOOKPROJECTSEARCH: state => state.home.homeModules.lookProject.search,
+	LOOKPROJECTSEARCHTYPE: state => state.home.homeModules.lookProject.search.sortType
 };
 export default getters;

@@ -1,6 +1,14 @@
 /**
  * Created by 菅双鹤 on 2019/07/25.
  */
+let UserData = {}; // 用户信息
+let landRegistLG = {}; // 读取缓存的用户信息
+if (uni.getStorageSync('UserData')) {
+	UserData = JSON.parse(uni.getStorageSync('UserData')); // 读取缓存的用户信息
+}
+if (uni.getStorageSync('landRegist')) {
+	landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+}
 const state = {
   loading: { // loading
     loadingShow: false,
@@ -17,6 +25,21 @@ const state = {
   },
   fieldData: {}, // 领域
   levelData: {}, // 融资阶段
+  entrust:{
+		entrustShow: false, // 默认不显示
+		type: 0, // 0代表服务申请， 1项目委托
+		success: false, // 是否申请成功
+		params: {
+			modelId: 0, // 0 代表投资人ID  1代表投资机构ID 2代表项目ID
+			projectName: '', // 委托项目
+			userId: landRegistLG.user.id, // 申请人ID
+			applyeType: 0 ,// 创业者联系投资人 1创业者联系投资机构
+			phone: UserData.userPhone, // 电话
+			name: UserData.userName, // 姓名
+			serverId: '', // 服务ID
+			time: '', // 提交成功时间
+		}
+  },
   home: { // 主页
 	tabItems: 1,
 	HomeList:{
@@ -45,10 +68,50 @@ const state = {
 	HomeSearch: { // 主页搜索
 		searchText: '', // 搜索内容
 		isSearch: false, // 判断用户时候处于搜索状态
-		searchItemsNum: 0, // 搜索到数据的条数
-		pageNum: 0, // 总页数
-		searchCondition: {  // 分页属性
-			page: '1'
+		clickItemsIndex: 1, // 判断用户所处的位置，默认时综合
+		project: { // 项目
+			listNum: 0, // 总数居
+			loadingText: '查看更多',
+			search: { // 搜索
+				pageNum: 0, // 总页数
+				searchCondition: {  // 分页属性
+					page: '1'
+				}
+			},
+			listData: '' // 列表数据
+		},
+		investor: { // 投资人
+			listNum: 0, // 总数居
+			loadingText: '查看更多',
+			search: { // 搜索
+				pageNum: 0, // 总页数
+				searchCondition: {  // 分页属性
+					page: '1'
+				}
+			},
+			listData: '' // 列表数据
+		},
+		investen: { // 投资机构
+			listNum: 0, // 总数居
+			loadingText: '查看更多',
+			search: { // 搜索
+				pageNum: 0, // 总页数
+				searchCondition: {  // 分页属性
+					page: '1'
+				}
+			},
+			listData: '' // 列表数据
+		},
+		active: { // 资讯
+			listNum: 0, // 总数居
+			loadingText: '查看更多',
+			search: { // 搜索
+				pageNum: 0, // 总页数
+				searchCondition: {  // 分页属性
+					page: '1'
+				}
+			},
+			listData: '' // 列表数据
 		},
 		searchData: [], // search数据
 		searchHistoryData: [] // 搜索历史数据
@@ -97,7 +160,22 @@ const state = {
 			dataList: [] // 列表数据
 		},
 		lookProject: { // 项目
-			dataList: [] // 列表数据
+			list: { // 找项目
+				loadingText: '加载更多...',
+				search: { // 搜索
+					pageNum: 0, // 总页数
+					searchCondition: {  // 分页属性
+						page: '1'
+					}
+				},
+				listData: '' // 列表数据
+			},
+			search: { // 筛选结果 
+				order: '1', //0 时间排序 1 综合排序 2热度
+				area: '', //  省份codelist
+				leves: '', //  轮数idlist
+				fields: '' // 领域 idlist
+			},
 		},
 		meltTt: { // 融头条
 			dataList: [] // 列表数据

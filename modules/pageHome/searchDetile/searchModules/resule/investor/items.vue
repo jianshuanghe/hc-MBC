@@ -4,14 +4,13 @@
       <view class="II-top">
         <view class="left II-user-img">
           <view class="II-img">
-            <image :src='msgData.headImg' v-if="msgData.headImg"></image>
-			<image :src='iiImg' v-if="!msgData.headImg"></image>
+            <image :src='msgData.headImg'></image>
           </view>
         </view>
         <view class="left II-suer-insr">
           <view class="II-insr">
             <view class="user">
-              投资人
+              {{msgData.userName}}
             </view>
             <view class="mbc">
               <view class="left mbc-text">{{msgData.comp || '无'}}</view>
@@ -41,52 +40,17 @@
 </template>
 
 <script>
-	import iiImg from '@/static/mbcImg/home/banner1.png';
 	export default {
 	    data () {
 			return {
-				iiImg: iiImg,
-				msgData:{
-					"ccode":"",
-					"city":"北京",
-					"comp":"公司名称",
-					"compName":"",
-					"field":[
-						"环保",
-						"金融",
-						"生活服务"
-					],
-					"fields":"",
-					"headImg":"https://img01.iambuyer.com/imgup/upload/images/2019/05/31/NbleKsQMxfHMRukd0zYiYUZs2d6uwC0F6TJgjrazgGb7n0HpekYAa3dTUY6H9GWy.png",
-					"leves":"",
-					"mechId":"",
-					"pCode":"110000",
-					"position":"职位",
-					"userCard":"",
-					"userContent":"",
-					"userId":760,
-					"userName":"用户名",
-					"userProj":"",
-					"userType":"1",
-					"wxCode":""
-				}
 			};
 	    },
 		props: {
+			msgData: {
+				type: Object
+			}
 		},
 	    methods: {
-			goToFinanceDetail (e){
-				console.log('去' + e + '详情页面');
-				uni.navigateTo({
-					url: '/modules/pageHome/homeList/homeList'
-				});
-			},
-			goToPutIn () {
-				console.log('点击触发发布项目');
-			},
-			goToSeek () {
-				console.log('点击触发寻找资本');
-			}
 	    }
 	};
 </script>
@@ -150,7 +114,7 @@
 	.II-insr .mbc .mbc-text{
 		font-family: PingFangSC-Regular;
 		font-size: 24upx;
-		color: #5D5D5D;
+		color: #9B9B9B;
 		line-height: 48upx;
 	}
 	.IIline-Y{
