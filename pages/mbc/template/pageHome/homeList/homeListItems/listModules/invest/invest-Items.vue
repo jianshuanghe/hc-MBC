@@ -57,7 +57,7 @@
 			goToInvestDetail (e){
 				console.log('去' + e + '投资人详情页面');
 				uni.navigateTo({
-					url: '/modules/pageHome/seekCapital/seekCapitalItems/investor/inverstorItems/itemsDetails/itemsDetails?userId=' + 760
+					url: '/modules/pageHome/seekCapital/seekCapitalItems/investor/inverstorItems/itemsDetails/itemsDetails?userId=' + e
 				});
 			},
 			goToPutIn () {

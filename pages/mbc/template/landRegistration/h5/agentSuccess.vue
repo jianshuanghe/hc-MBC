@@ -1,64 +1,64 @@
 <template>
-    <div class="agentSuccess-conetnt">
-      <div class="agentSuccess">
-        <div class="top-AS">
-          <div class="success-AS">
+    <view class="agentSuccess-conetnt">
+      <view class="agentSuccess">
+        <view class="top-AS">
+          <view class="success-AS">
             <img :src="success" alt="" class="">
-          </div>
+          </view>
           <p class="title-AS">授权成功</p>
           <p class="text-AS">恭喜您已授权代理商</p>
-        </div>
-        <div class="cont-AS">
-          <div class="agent-items">
-            <div class="AI-left left">
+        </view>
+        <view class="cont-AS">
+          <view class="agent-items">
+            <view class="AI-left left">
               <p class="">代理商名称:</p>
-            </div>
-            <div class="AI-right left">
+            </view>
+            <view class="AI-right left">
               <p class="">我是代理商</p>
-            </div>
-            <div class="clear"></div>
-            <div class="line"></div>
-          </div>
-          <div class="agent-items">
-            <div class="AI-left left">
+            </view>
+            <view class="clear"></view>
+            <view class="line"></view>
+          </view>
+          <view class="agent-items">
+            <view class="AI-left left">
               <p class="">工作人员:</p>
-            </div>
-            <div class="AI-right left">
+            </view>
+            <view class="AI-right left">
               <p class="">我是工作人员</p>
-            </div>
-            <div class="clear"></div>
-            <div class="line"></div>
-          </div>
-          <div class="agent-items">
-            <div class="AI-left left">
+            </view>
+            <view class="clear"></view>
+            <view class="line"></view>
+          </view>
+          <view class="agent-items">
+            <view class="AI-left left">
               <p class="">联系电话:</p>
-            </div>
-            <div class="AI-right left">
+            </view>
+            <view class="AI-right left">
               <p class="">134 1224 3698</p>
-            </div>
-            <div class="clear"></div>
-            <div class="line"></div>
-          </div>
-        </div>
-        <div class="btn-AS">
-          <div class="btn-left-AS left">
+            </view>
+            <view class="clear"></view>
+            <view class="line"></view>
+          </view>
+        </view>
+        <view class="btn-AS">
+          <view class="btn-left-AS left">
             <p class="">加入会员</p>
-          </div>
-          <div class="btn-right-AS right">
+          </view>
+          <view class="btn-right-AS right">
             <p class="">推广投放</p>
-          </div>
-          <div class="clear"></div>
-        </div>
-        <div class="goToMB">
+          </view>
+          <view class="clear"></view>
+        </view>
+        <view class="goToMB">
           <p class="">进入我的陌拜商机</p>
-        </div>
-      </div>
-      <div class="bottom-AS">
-        <div class="imgLogo">
+        </view>
+      </view>
+      <view class="bottom-AS">
+        <view class="imgLogo">
           <img :src="chanYeDai" alt="" class="">
-        </div>
-      </div>
-    </div>
+        </view>
+      </view>
+    </view>
 </template>
 
 <script>

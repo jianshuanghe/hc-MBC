@@ -31,7 +31,7 @@
 	export default {
 		data() {
 			return {
-				dataList: [],
+				dataList: {},
 				project:{
 					id: 0
 				}
@@ -68,7 +68,7 @@
 						title: '加载中'
 					});
 					uni.request({
-						url: this.api2 + '/proj/' + e, //接口地址。
+						url: this.api2 + '/proj/' + e + '?userId=' + landRegistLG.user.id, //接口地址。
 						data: this.endParams(params),
 						header: {
 							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中

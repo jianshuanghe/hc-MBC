@@ -25,7 +25,7 @@
 	export default {
 		data() {
 			return {
-				dataList: [],
+				dataList: {},
 				data: {
 					userId: 0, // 投资人id
 					serverId: 1000, // 服务ID

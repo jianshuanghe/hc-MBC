@@ -3,11 +3,24 @@
  */
 let UserData = {}; // 用户信息
 let landRegistLG = {}; // 读取缓存的用户信息
+let params = {
+	modelId: 0, // 0 代表投资人ID  1代表投资机构ID 2代表项目ID
+	projectName: '', // 委托项目
+	userId:'', // 申请人ID
+	applyeType: 0 ,// 创业者联系投资人 1创业者联系投资机构
+	phone: '', // 电话
+	name: '', // 姓名
+	serverId: '', // 服务ID
+	time: '', // 提交成功时间
+};
 if (uni.getStorageSync('UserData')) {
 	UserData = JSON.parse(uni.getStorageSync('UserData')); // 读取缓存的用户信息
+	params.phone = UserData.userPhone;
+	params.name = UserData.userName;
 }
 if (uni.getStorageSync('landRegist')) {
 	landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+	params.userId = landRegistLG.user.id;
 }
 const state = {
   loading: { // loading
@@ -29,16 +42,7 @@ const state = {
 		entrustShow: false, // 默认不显示
 		type: 0, // 0代表服务申请， 1项目委托
 		success: false, // 是否申请成功
-		params: {
-			modelId: 0, // 0 代表投资人ID  1代表投资机构ID 2代表项目ID
-			projectName: '', // 委托项目
-			userId: landRegistLG.user.id, // 申请人ID
-			applyeType: 0 ,// 创业者联系投资人 1创业者联系投资机构
-			phone: UserData.userPhone, // 电话
-			name: UserData.userName, // 姓名
-			serverId: '', // 服务ID
-			time: '', // 提交成功时间
-		}
+		params: params
   },
   home: { // 主页
 	tabItems: 1,

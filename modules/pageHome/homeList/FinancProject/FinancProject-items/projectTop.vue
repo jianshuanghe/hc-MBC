@@ -24,13 +24,9 @@
 </template>
 
 <script>
-	import iiImg from '@/static/mbcImg/home/banner1.png';
-	import yuan from '@/static/mbcImg/home/seekCapital/yuan.png';
 	export default {
 	    data () {
 			return {
-				iiImg: iiImg,
-				yuan: yuan
 			};
 	    },
 		props: {
@@ -38,19 +34,10 @@
 				type: Object
 			}
 		},
+		created() {
+			console.log(this.msgData, '子组件获取的数据this.msgData');
+		},
 	    methods: {
-			goToFinanceDetail (e){
-				console.log('去' + e + '详情页面');
-				uni.navigateTo({
-					url: '/modules/pageHome/homeList/homeList'
-				});
-			},
-			goToPutIn () {
-				console.log('点击触发发布项目');
-			},
-			goToSeek () {
-				console.log('点击触发寻找资本');
-			}
 	    }
 	};
 </script>

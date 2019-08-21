@@ -71,7 +71,7 @@
 		    deep: true
 		  }
 		},
-		created() {
+		mounted() {
 			this.entrust = this.ENTRUST;
 			console.log(this.ENTRUST, 'ENTRUST');
 			console.log(this.msgData, 'dasdasda');

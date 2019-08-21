@@ -25,12 +25,10 @@
 </template>
 
 <script>
-	import iiImg from '@/static/mbcImg/home/banner1.png';
 	import date from '@/static/mbcJs/dateTime.js';
 	export default {
 	    data () {
 			return {
-				iiImg: iiImg,
 			};
 	    },
 		props: {

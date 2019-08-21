@@ -28,15 +28,13 @@
 </template>
 
 <script>
-    import logo from '@/static/mbcImg//landRegistration/logo.png';
-
     export default {
         name: '',
         components: {
         },
         data () {
           return {
-            logo: logo,
+            logo: this.Static + 'mbcImg/landRegistration/logo.png',
 			phoneIsGet: true // 判断用户是否再平台注册过，默认是注册过，如果没有注册需要获取用户手机号
           };
         },

@@ -56,6 +56,10 @@
 			console.log(this.msgData, '子组件获取的数据');
 			this.getClickRecord();
 		},
+		mounted() {
+			console.log(this.msgData, '子组件获取的数据2');
+			this.getClickRecord();
+		},
 	    methods: {
 			getClickRecord () {
 				console.log('获取缓存中的用户点击行为数组记录');

@@ -1,41 +1,41 @@
 <template>
-  <div class="landRegistration-content">
-    <div class="landRegistration">
-      <div class="phone-passWord-LR">
+  <view class="landRegistration-content">
+    <view class="landRegistration">
+      <view class="phone-passWord-LR">
         <!--手机号登录-->
-        <div class="phonw-LR">
-          <div class="top-PWLR">
+        <view class="phonw-LR">
+          <view class="top-PWLR">
             <img :src="logo" alt="" class="">
-          </div>
-          <div class="LR-cont">
-            <div class="inputPhone-PLR">
+          </view>
+          <view class="LR-cont">
+            <view class="inputPhone-PLR">
               <x-input name="mobile" placeholder="请输入手机号码" keyboard="number" :show-clear='false'  v-model="phoneLand.phone"></x-input>
-              <div class="line"></div>
-            </div>
-            <div class="inputYan-PLR">
-              <div class="yan-left-PLR left">
+              <view class="line"></view>
+            </view>
+            <view class="inputYan-PLR">
+              <view class="yan-left-PLR left">
                 <x-input name="mobile" placeholder="请输入验证码" keyboard="number" :show-clear='false'  v-model="phoneLand.code"></x-input>
-              </div>
-              <div class="ma-right-PLR left">
+              </view>
+              <view class="ma-right-PLR left">
                 <!--<p class="">获取验证码</p>-->
-                <div v-bind:class="{ yazm: isOvertime , 're-yazm': !isOvertime }" slot="right" type="primary" action-type="button" mini @click="sendMessage">{{word}}</div>
-              </div>
-              <div class="clear"></div>
-              <div class="line"></div>
-            </div>
-          </div>
-        </div>
-        <div class="landBtn">
-          <div class="" >
+                <view v-bind:class="{ yazm: isOvertime , 're-yazm': !isOvertime }" slot="right" type="primary" action-type="button" mini @click="sendMessage">{{word}}</view>
+              </view>
+              <view class="clear"></view>
+              <view class="line"></view>
+            </view>
+          </view>
+        </view>
+        <view class="landBtn">
+          <view class="" >
             <!--登录-->
-            <div class="land-btn-box" @click="bindPhone">
+            <view class="land-btn-box" @click="bindPhone">
               <p class="">绑定</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
 </template>
 
 <script>
