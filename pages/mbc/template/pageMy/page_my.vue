@@ -18,12 +18,15 @@
 	import myAuthentication from './myList/myAuthentication.vue'
 	import myabout from './myList/myabout.vue'
 	import mySetup from './myList/mySetup.vue'
-	import { mapMutations, mapGetters } from 'vuex';
+	import {
+		mapMutations,
+		mapGetters
+	} from 'vuex';
 	export default {
 		data() {
 			return {
-				List:[],
-				
+				List: [],
+
 			};
 		},
 		components: {
@@ -37,16 +40,19 @@
 			...mapGetters(['GET_MY'])
 		},
 		created() {
-			console.log('在组件中并不能使用页面生命周期函数');
 			this.getHeader();
-			
 		},
-		mounted() {},
+		// mounted:function(){
+		// 	this.shuaxin()
+		// },
 		methods: {
 			...mapMutations({
 				setheader: 'setheader'
 			}),
-			getHeader(){
+			shuaxin() {
+				window.location.reload()
+			},
+			getHeader() {
 				if (uni.getStorageSync('landRegist')) {
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 					console.log(landRegistLG.user.id);
@@ -55,7 +61,7 @@
 						title: '加载中'
 					});
 					uni.request({
-						url: this.api2 + '/user/'+landRegistLG.user.id, //接口地址。
+						url: this.api2 + '/user/' + landRegistLG.user.id, //接口地址。
 						// data: this.endParams(params),
 						method: 'GET',
 						header: {
@@ -64,7 +70,7 @@
 						success: (response) => {
 							uni.hideLoading();
 							console.log(response.data);
-							this.List=response.data.content
+							this.List = response.data.content
 							console.log(this.List)
 							this.$store.commit('setheader', this.List); // 更新setFinance
 						},
@@ -79,7 +85,8 @@
 						}
 					});
 				}
-			}
+			},
+
 		}
 	};
 </script>

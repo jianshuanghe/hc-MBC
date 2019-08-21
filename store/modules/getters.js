@@ -36,6 +36,8 @@ const getters = {
 	INVERSTINSSEARCH: state => state.home.investInsSearch,
 	INVERSTINSSEARCHTYPE: state => state.home.investInsSearch.sortType,
 	LOOKPROJECTSEARCH: state => state.home.homeModules.lookProject.search,
-	LOOKPROJECTSEARCHTYPE: state => state.home.homeModules.lookProject.search.sortType
+	LOOKPROJECTSEARCHTYPE: state => state.home.homeModules.lookProject.search.sortType,
+	// 我的 履历编辑
+	LVLI: state => state.my.MyList.Lvli,
 };
 export default getters;

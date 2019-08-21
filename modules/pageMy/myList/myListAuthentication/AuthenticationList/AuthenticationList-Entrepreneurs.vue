@@ -29,20 +29,26 @@
 		},
 		methods: {
 			gotoEntrepreneursCertification(e){
-				if(this.Listdata.userType==-1){
+				if(this.Listdata.authState==-1){
 					console.log('去' + e + '创业者认证');
 					this.status++
 					uni.navigateTo({
-						
 						url: '/modules/pageMy/myList/myListAuthentication/AuthenticationList/EntrepreneursCertification/EntrepreneursCertification',
 					});
-				}else if(this.Listdata.userType==0){
+				}else if(this.Listdata.authState==0){
 					console.log('去' + e + '创业者认证消息');
 					console.log(this.Listdata.userType)
 					uni.navigateTo({
 						url: '/modules/pageMy/myList/myListAuthentication/AuthenticationList/Certification-status/Certification-status',
 					});
-				}else if(this.Listdata.userType==1){
+				}else if(this.Listdata.authState==1){
+					uni.showToast({
+						title: '您已认证投资人，无法认证创业者',
+						icon: 'none',
+						duration: 1000
+					});
+					console.log('您已经认证投资人 无法认证创业者')
+				}else if(this.Listdata.authState==2){
 					uni.showToast({
 						title: '您已认证投资人，无法认证创业者',
 						icon: 'none',

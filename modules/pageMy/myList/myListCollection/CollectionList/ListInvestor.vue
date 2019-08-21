@@ -39,13 +39,14 @@
 				kong:kong,
 				CollectionList: [],
 				page: 1,
-				picArr: []
+				picArr: [],
+				num:''
 			};
 		},
 		computed: {
 			...mapGetters(['GET_MY']),
 			ipaddrArray:function() {
-				return this.picArr.split(';')
+				return this.num.split(';')
 			}
 		},
 		created() {
@@ -77,8 +78,10 @@
 							uni.hideLoading();
 							console.log(response.data);
 							this.CollectionList = response.data;
-							this.picArr = response.data.rows[0].fields
-							console.log(this.picArr)
+							for(var i=0;i<response.data.rows.length;i++){
+								this.picArr[i] = response.data.rows[i].fields
+								this.num=this.picArr.join(';')
+							}
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading

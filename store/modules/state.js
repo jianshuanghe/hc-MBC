@@ -222,7 +222,10 @@ const state = {
 	MyList:{
 		header:[],
 		Collection:[],
-		Authentication:[]
+		Authentication:[],
+		Lvli:[],
+		Time:[],
+		Company:[]
 	}  
   }
 };

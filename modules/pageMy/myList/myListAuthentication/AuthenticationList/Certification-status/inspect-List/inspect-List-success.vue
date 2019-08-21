@@ -12,7 +12,7 @@
 			<view>邮箱:{{Listdata.userEmail}}</view>
 			<view>机构名称:{{List.compName}}</view>
 			<view>
-				<image :src="Listdata.headImg"></image>
+				<image :src="Listdata.img"></image>
 			</view>
 		</view>
 		<view class="inspect-List-success-fotter">
@@ -55,8 +55,8 @@
 			}
 		},
 		created() {
-			this.Listdata = this.GET_MY.MyList.header;
-			console.log(this.Listdata, '454446454564645656465');
+			this.Listdata = this.GET_MY.MyList.Authentication;
+			console.log(this.Listdata, '4544464564645656465');
 		},
 		methods: {
 			

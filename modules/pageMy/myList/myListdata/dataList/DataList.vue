@@ -58,6 +58,7 @@
 	export default {
 		data() {
 			return {
+				List: [],
 				logo: '',
 				right: right,
 				green: green,
@@ -89,7 +90,7 @@
 			this.mail = this.Listdata.userEmail
 			console.log(this.Listdata, 'this.Listdata');
 		},
-		mounted() {},
+
 		methods: {
 			deleteImage: function(e) {
 				console.log(e, '删除图片')
@@ -113,7 +114,7 @@
 						userName: this.name,
 						email: this.mail
 					}; // 请求总数居时 参数为空
-					console.log(landRegistLG.user.id,this.logo,this.name,this.mail)
+					console.log(landRegistLG.user.id, this.logo, this.name, this.mail)
 					uni.showLoading({ // 展示loading
 						title: '加载中'
 					});
@@ -127,9 +128,21 @@
 						success: (response) => {
 							uni.hideLoading();
 							console.log(response.data);
-							uni.navigateTo({
-								url: 'pageMy/page_my',
-							});
+							// this.List = response.data.content
+							// console.log(this.List)
+							// this.$store.commit('setheader');
+							// uni.navigateTo({
+							// 	'url':'/pages/mbc/home'
+							// })
+							var pages = getCurrentPages(); //当前页面栈
+							if (pages.length > 1) {
+								var beforePage = pages[pages.length - 1];
+								 console.log(beforePage)//获取上一个页面实例对象
+								beforePage.changeData(); //触发父页面中的方法
+							}
+							wx.navigateBack({
+								delta: 1,
+							})
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading

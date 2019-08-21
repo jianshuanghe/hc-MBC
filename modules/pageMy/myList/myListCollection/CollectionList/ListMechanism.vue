@@ -7,7 +7,7 @@
 			<view>
 				<view>{{items.title}}</view>
 				<view class="ListMechanismtrees">
-					<span v-for=" items in ipaddrArray" :key="items">{{items}}</span>
+					<span  v-for=" items in ipaddrArray" :key="items">{{items}}</span>
 				</view>
 				<view class="ListMechanismtwo">最近投资：{{items.inves}}</view>
 			</view>
@@ -32,15 +32,17 @@
 				List: [],
 				page: 1,
 				picArr:[],
+				num:''
 			};
 		},
 		computed: {
 			...mapGetters(['GET_MY']),
+			
 			ipaddrArray: function() {
-				return this.picArr.split(';')
-			}
-
-
+				return this.num.split(';')
+				// this.picArr[i].join(';')
+				// console.log(this.picArr)
+			},
 		},
 		created() {
 			console.log('在组件中并不能使用页面生命周期函数');
@@ -72,8 +74,11 @@
 							this.List = response.data;
 							console.log(this.List)
 							uni.hideLoading();
-							this.picArr = response.data.rows[0].fields
-							console.log(this.picArr)
+							for(var i=0;i<response.data.rows.length;i++){
+								this.picArr[i] = response.data.rows[i].fields
+								this.num=this.picArr.join(';')
+							}
+							console.log(this.num)
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
