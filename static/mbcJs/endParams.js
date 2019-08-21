@@ -8,7 +8,7 @@ function endParams(str) {
 	if (uni.getStorageSync('landRegist')) {
 		let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 		let paramStr = JSON.stringify(str);
-		let base64Str = Base64.encode(paramStr, "UTF-8");
+		let base64Str = Base64.encode(paramStr);
 		console.log(base64Str, '加密之后的数据Base64');
 		console.log(Base64.decode(base64Str), '解密之后的数据Base64');
 		let signStr = md5(base64Str + landRegistLG.randomKey);

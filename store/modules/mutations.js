@@ -66,6 +66,25 @@ const mutations = {
 	  console.log(info,'setAuthentication')
 	  state.my.MyList.Authentication=info
   },
+  //我的 用户更新个人资料
+  setCollection(state, info){
+	  console.log(info,'setCollection')
+	  state.my.MyList.Collection=info
+  },
+  //我的 用户投资履历
+  setLvli(state, info){
+	  console.log(info,'setLvli')
+	  state.my.MyList.Lvli=info
+  },  
+  //我的 公司信息
+  setCompany(state, info){
+	  console.log(info,'setCompany')
+	  state.my.MyList.Company=info
+  }, 
+  setTime(state, info){
+	  console.log(info,'setTime')
+	  state.my.MyList.Time=info
+  },
   setSeekCapitalTitleIndex (state, info) { // 找投资的title
     console.log(info, 'setHomeListTitleIndex');
     state.home.seekCapital.titleIndex = info;

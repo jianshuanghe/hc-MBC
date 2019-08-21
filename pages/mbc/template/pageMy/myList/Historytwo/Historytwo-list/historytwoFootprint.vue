@@ -24,7 +24,7 @@
 				deep: true
 			}
 		},
-		created() {
+		mounted(){
 			this.Listdata = this.GET_MY.MyList.header;
 			console.log(this.Listdata, 'this.Listdata');
 		},

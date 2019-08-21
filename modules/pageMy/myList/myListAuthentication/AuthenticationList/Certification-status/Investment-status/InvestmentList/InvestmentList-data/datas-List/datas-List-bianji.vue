@@ -41,7 +41,7 @@
 				</view>
 				<view>机构logo</view>
 				<view>
-					<view class="ziti" v-if="!logo">点击上传</view>
+					<image class="ziti1" :src="List.compLogo" v-if="!logo">点击上传</image>
 					<div class="Img-Upload">
 						<imageUploadOne class="img" v-model="imageData" :server-url="serverUrl" limit=1 @delete="deleteImage" @add="addImage">
 						</imageUploadOne>
@@ -54,6 +54,9 @@
 		</view>
 		<view class="datas-List-vitae-Tips">
 			请上传清晰可见，容易识别的照片，支持JPG、PNG格式
+		</view>
+		<view class="del" @tap="del">
+			删除
 		</view>
 		<view class="datas-List-vitae-bao">
 			<view>
@@ -69,7 +72,10 @@
 	import xin from '@/static/mbcImg/my/Image 1.png'
 	import right from '@/static/mbcImg/my/right1.png'
 	import imageUploadOne from '@/components/imageUpload/imageUploadOne.vue'
-	import { mapMutations, mapGetters } from 'vuex';
+	import {
+		mapMutations,
+		mapGetters
+	} from 'vuex';
 	export default {
 		data() {
 			return {
@@ -81,10 +87,11 @@
 				compName: '',
 				position: '',
 				pickerValue: "", // 选中的值
-				pick:'',
+				pick: '',
 				imageData: [],
 				serverUrl: 'https://img01.iambuyer.com/imgup/upLoad/fileUpload',
-				Listdata:[]
+				Listdata: [],
+				List:[],
 			};
 		},
 		components: {
@@ -93,43 +100,27 @@
 		computed: {
 			...mapGetters(['GET_MY'])
 		},
-		created() {
+		created(options) {
 			this.Listdata = this.GET_MY.MyList.Lvli;
-			console.log(this.Listdata)
 		},
-		mounted() {},
+		onLoad: function(options) {
+			this.id=options.id
+			console.log(this.id)
+		},
+		mounted() {
+			this.yemian();
+		},
 		methods: {
 			...mapMutations({
 				setLvli: 'setLvli'
 			}),
-			lvli() {
-				if(this.compName===''){
-					uni.showToast({
-						title: '公司名不能为空,请重填',
-						icon: 'none',
-						duration: 1000
-					});
-					return false;
-				}else if(this.position === ''){
-					uni.showToast({
-						title: '职位不能为空,请重填',
-						icon: 'none',
-						duration: 1000
-					});
-					return false;
-				}else if(this.pickerValue === ''){
-					uni.showToast({
-						title: '在职情况不能为空,请重填',
-						icon: 'none',
-						duration: 1000
-					});
-					return false;
-				}
-				if(this.pick=='1'){
+			lvli(){
+				if(this.List.isIncu=='1'){
 					if (uni.getStorageSync('landRegist')) {
 						let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 						console.log(landRegistLG.user.id);
 						let params = {
+							id:this.id,
 							userId: landRegistLG.user.id,
 							compName: this.compName,
 							position: this.position,
@@ -142,7 +133,7 @@
 						console.log(params)
 						console.log(this.pick)
 						uni.request({
-							url: this.api2 + '/user/expe/add', //接口地址。
+							url: this.api2 + '/user/expe/update', //接口地址。
 							data: this.endParams(params),
 							method: 'POST',
 							header: {
@@ -150,12 +141,13 @@
 							},
 							success: (response) => {
 								uni.hideLoading();
-								console.log(response.data,'----------------------');
+								console.log(response.data);
 								let setLvliData = this.GET_MY.MyList.Lvli;
-								params.id = response.data.content;
-								console.log(params, '--------------params---------------')
-								setLvliData.unshift(params);
-								this.$store.commit('setLvli', setLvliData);
+								// setLvliData.unshift(params);
+								// this.$store.commit('setLvli', setLvliData);
+								// uni.navigateTo({
+								// 	'url':'../../AuthenticationList/Certification-status/Investment-status/InvestmentList/InvestmentList-data/InvestmentList-data'
+								// })
 								uni.navigateTo({
 									'url':'../../InvestmentList-data/InvestmentList-data'
 								})
@@ -176,6 +168,7 @@
 						let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 						console.log(landRegistLG.user.id);
 						let params = {
+							id:this.id,
 							userId: landRegistLG.user.id,
 							compName: this.compName,
 							position: this.position,
@@ -188,7 +181,7 @@
 						console.log(params)
 						console.log(this.pick)
 						uni.request({
-							url: this.api2 + '/user/expe/add', //接口地址。
+							url: this.api2 + '/user/expe/update', //接口地址。
 							data: this.endParams(params),
 							method: 'POST',
 							header: {
@@ -197,10 +190,12 @@
 							success: (response) => {
 								uni.hideLoading();
 								console.log(response.data);
-								let setLvliData = this.GET_MY.MyList.Lvli;
-								setLvliData.unshift(params);
-								this.$store.commit('setLvli', setLvliData);
-								uni.navigateBack({})
+								this.Listdata=params
+								console.log(this.Listdata)
+								// this.$store.commit('setLvli',this.Listdata);
+								uni.navigateTo({
+									'url':'../../InvestmentList-data/InvestmentList-data'
+								})
 							},
 							fail: (error) => {
 								uni.hideLoading(); // 隐藏 loading
@@ -214,15 +209,92 @@
 						});
 					}
 				}
-					
-					
+			},
+			yemian(){
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					// let params = {}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/user/expe/info?id='+ this.id, //接口地址。
+						// data: this.endParams(params),
+						method: 'GET',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							uni.hideLoading();
+							console.log(response.data);
+							this.List=response.data.content
+							// this.$store.commit('setCollection', this.List);
+							console.log(this.List,'asdasd')
+							this.compName=this.List.compName
+							this.position=this.List.position
+							if(this.List.isIncu==1){
+								this.pickerValue="是"
+							}
+							if(this.List.isIncu==0){
+								this.pickerValue="否"
+							}
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
+			del(){
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					// let params = {}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/user/expe/del?ids='+ this.id, //接口地址。
+						// data: this.endParams(params),
+						method: 'GET',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							uni.hideLoading();
+							console.log(response.data);
+							let setLvliData = this.GET_MY.MyList.Lvli;
+							// setLvliData.shift();
+							this.$store.commit('setLvli', setLvliData);
+							uni.navigateTo({
+								'url':'../../InvestmentList-data/InvestmentList-data'
+							})
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
 			},
 			bindPickerChange: function(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value);
 				this.array.map((items, index) => {
 					if (index == e.target.value) {
 						this.pickerValue = items;
-						this.pick=e.target.value
+						this.pick = e.target.value
 						console.log(this.pick)
 					}
 				})
@@ -300,8 +372,15 @@
 	.ziti {
 		position: absolute;
 		right: 0upx;
-		width: 300upx !important;
-		height: 30upx;
+		width: 100upx !important;
+		height: 80upx;
+		top: -30upx;
+		font-size: 30upx !important;
+	}.ziti1 {
+		position: absolute;
+		right: 0upx;
+		width: 100upx !important;
+		height: 90upx;
 		top: -30upx;
 		font-size: 30upx !important;
 	}
@@ -452,7 +531,14 @@
 		bottom: 0;
 		position: absolute;
 	}
-
+	.del{
+		width: 100%;
+		height: 100upx;
+		background: #FFFFFF;
+		text-align: center;
+		color: red;line-height: 100upx;
+		margin-top: 40upx;
+	}
 	.datas-List-vitae-bao view:nth-of-type(1) view {
 		width: 690upx;
 		height: 90upx;

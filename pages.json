@@ -265,6 +265,24 @@
 					}
 				},
 				{
+					"path": "myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-gsname",
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "公司信息"
+					}
+				},
+				{
+					"path": "myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-team",
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "团队成员"
+					}
+				},
+				{
 					"path": "myList/myListAuthentication/Authentication",
 					"style": {
 						// #ifdef H5
@@ -346,6 +364,15 @@
 					}
 				},
 				{
+					"path": "myList/myListAuthentication/AuthenticationList/Certification-status/Investment-status/InvestmentList/InvestmentList-data/datas-List/datas-List-time",
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "编辑更多资料"
+					}
+				},
+				{
 					"path": "myList/myListAuthentication/AuthenticationList/Certification-status/Investment-status/InvestmentList/InvestmentList-data/datas-List/datas-List-me",
 					"style": {
 						// #ifdef H5
@@ -356,6 +383,15 @@
 				},
 				{
 					"path": "myList/myListAuthentication/AuthenticationList/Certification-status/Investment-status/InvestmentList/InvestmentList-data/datas-List/datas-List-vitae",
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "任职履历"
+					}
+				},
+				{
+					"path": "myList/myListAuthentication/AuthenticationList/Certification-status/Investment-status/InvestmentList/InvestmentList-data/datas-List/datas-List-bianji",
 					"style": {
 						// #ifdef H5
 							"navigationStyle":"custom",

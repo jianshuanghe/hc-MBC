@@ -12,11 +12,11 @@
 			<view>邮箱:{{Listdata.userEmail}}</view>
 			<view>机构名称:{{Listdata.compName}}</view>
 			<view>
-				<image :src="Listdata.headImg"></image>
+				<image :src="Listdata.img"></image>
 			</view>
 		</view>
-		<view class="fail-yuanying">
-			失败原因:{{Listdata.authContent}}
+		<view class="fail-yuanying" v-for="(item,index) in num" :key="index">
+			失败原因:{{item}}
 		</view>
 		<view class="inspect-List-fail-fotter">
 			<view>
@@ -24,7 +24,7 @@
 			</view>
 			<view>
 				<view>审核失败</view>
-				<view>{{Listdata.createTime}}</view>
+				<view v-for="(item,index) in time" :key="index">{{item|formatDate}}</view>
 				<view>审核中</view>
 				<view>2019.05.23 10:23:34</view>
 				<view>发起认证</view>
@@ -43,11 +43,30 @@
 			return {
 				Listdata: [],
 				Image7:Image7,
-				Image4:Image4
+				Image4:Image4,
+				num:[],
+				time:[]
 			};
 		},
 		computed: {
 			...mapGetters(['GET_MY'])
+		},
+		filters: {
+			formatDate: function(value) {
+				let date = new Date(value);
+				let y = date.getFullYear();
+				let MM = date.getMonth() + 1;
+				MM = MM < 10 ? ('0' + MM) : MM;
+				let d = date.getDate();
+				d = d < 10 ? ('0' + d) : d;
+				let h = date.getHours();
+				h = h < 10 ? ('0' + h) : h;
+				let m = date.getMinutes();
+				m = m < 10 ? ('0' + m) : m;
+				let s = date.getSeconds();
+				s = s < 10 ? ('0' + s) : s;
+				return y + '.' + MM + '.' + d + '.' + h + '.' + m + '.' + s;
+			}
 		},
 		watch: {
 			GET_MY: {
@@ -58,7 +77,12 @@
 			}
 		},
 		created() {
-			this.Listdata = this.GET_MY.MyList.header;
+			this.Listdata = this.GET_MY.MyList.Authentication;
+			for(var i=0;i<this.Listdata.userAuthInfos.length;i++){
+				this.num[i]=this.Listdata.userAuthInfos[i].authContent
+				this.time[i]=this.Listdata.userAuthInfos[i].createTime
+				console.log(this.time[i])
+			}
 		},
 		methods: {
 			

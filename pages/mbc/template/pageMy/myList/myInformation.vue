@@ -4,10 +4,10 @@
 			<view>
 				<view>{{Mylist.userName}}</view>
 				<view>
-					<image :src="Uncertified" v-if="this.Mylist.authState==-1"></image>
-					<image :src="Entrepreneurs" v-if="this.Mylist.authState==0"></image>
-					<image :src="Investor" v-if="this.Mylist.authState===1"></image>
-					<image :src="Investor" v-if="this.Mylist.authState===2"></image>
+					<image :src="Uncertified" v-if="this.Mylist.userType==-1"></image>
+					<image :src="Entrepreneurs" v-if="this.Mylist.userType==0"></image>
+					<image :src="Investor" v-if="this.Mylist.userType===1"></image>
+					<image :src="Investor" v-if="this.Mylist.userType===2"></image>
 				</view>
 			</view>
 			<view>
@@ -48,6 +48,11 @@
 		},
 		mounted() {
 
+		},
+		watch:{
+			Mylist:{
+				
+			}
 		},
 		methods: {
 			gotomyListdata(e) {

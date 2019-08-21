@@ -30,5 +30,7 @@ const getters = {
 	INVESTORSEARCH: state => state.home.investorSearch,
 	// investInsSearch 找投资的----投资项目的参数
 	INVERSTINSSEARCH: state => state.home.investInsSearch,
+	// 我的 履历编辑
+	LVLI: state => state.my.MyList.Lvli,
 };
 export default getters;

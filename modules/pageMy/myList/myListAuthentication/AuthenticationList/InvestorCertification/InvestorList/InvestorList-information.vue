@@ -2,87 +2,111 @@
 	<view class="InvestorList-information">
 		<view class="Investor-name">
 			<view class="Investor-name-box">
-				<view><image :src="xin"></image></view>
+				<view>
+					<image :src="xin"></image>
+				</view>
 				<view>真实姓名</view>
-				<view><input type="text" placeholder="请输入" placeholder-style="color:#D2D2D2"/></view>
+				<view><input type="text" placeholder="请输入" placeholder-style="color:#D2D2D2" /></view>
 			</view>
 		</view>
 		<view class="Investor-wx">
 			<view class="Investor-wx-box">
-				<view><image :src="xin"></image></view>
+				<view>
+					<image :src="xin"></image>
+				</view>
 				<view>微信号</view>
-				<view><input type="text" placeholder="请输入" placeholder-style="color:#D2D2D2"/></view>
+				<view><input type="text" placeholder="请输入" placeholder-style="color:#D2D2D2" /></view>
 			</view>
 		</view>
 		<view class="Investor-mailbox">
 			<view class="Investor-mailbox-box">
-				<view><image :src="xin"></image></view>
+				<view>
+					<image :src="xin"></image>
+				</view>
 				<view>邮箱</view>
-				<view><input type="text" placeholder="请输入" placeholder-style="color:#D2D2D2"/></view>
+				<view><input type="text" placeholder="请输入" placeholder-style="color:#D2D2D2" /></view>
 			</view>
 		</view>
 		<view class="Investor-City">
 			<view class="Investor-City-box">
-				<view><image :src="xin"></image></view>
+				<view>
+					<image :src="xin"></image>
+				</view>
 				<view>常住城市</view>
 				<view>
-					<picker @change="bindPickerChange" :value="index" :range="array">
+					<picker @change="bindPickerChange" :value="index" :range="array" mode = "multiSelector">
 						<view class="ziti">{{pickerValue? pickerValue : '请选择'}}</view>
 					</picker>
 				</view>
-				<view><image :src="right"></image></view>
+				<view>
+					<image :src="right"></image>
+				</view>
 			</view>
 		</view>
 		<view class="Investor-identity">
 			<view class="Investor-identity-box">
-				<view><image :src="xin"></image></view>
+				<view>
+					<image :src="xin"></image>
+				</view>
 				<view>投资人身份</view>
 				<view>
 					<picker @change="bindPickerChange1" :value="index1" :range="array1">
 						<view class="ziti">{{pickerValue1? pickerValue1 : '请选择'}}</view>
 					</picker>
 				</view>
-				<view><image :src="right"></image></view>
+				<view>
+					<image :src="right"></image>
+				</view>
 			</view>
 		</view>
 		<view class="Investor-field">
 			<view class="Investor-field-box">
-				<view><image :src="xin"></image></view>
+				<view>
+					<image :src="xin"></image>
+				</view>
 				<view>关注领域</view>
-				<view>请选择</view>
-				<view><image :src="right"></image></view>
+				<view>
+					<picker @change="Finanarry" :value="index" :range="arry" range-key='name'>
+						<view class="ziti">{{pickerarry? pickerarry : '请选择'}}</view>
+					</picker>
+				</view>
+				<view>
+					<image :src="right"></image>
+				</view>
 			</view>
 		</view>
 		<view class="Investor-Rotation">
 			<view class="Investor-Rotation-box">
-				<view><image :src="xin"></image></view>
+				<view>
+					<image :src="xin"></image>
+				</view>
 				<view>关注轮次</view>
 				<view>
-					<picker @change="Finan" :value="index" :range="arr">
+					<picker @change="Finan" :value="index" :range="arr" range-key='name'>
 						<view class="ziti">{{picker? picker : '请选择'}}</view>
 					</picker>
 				</view>
-				<view><image :src="right"></image></view>
+				<view>
+					<image :src="right"></image>
+				</view>
 			</view>
 		</view>
 		<view class="Investor-card">
 			<view class="Investor-card-box">
-				<view><image :src="xin"></image></view>
+				<view>
+					<image :src="xin"></image>
+				</view>
 				<view>名片原件</view>
 				<view>
 					<view class="ziti" v-if="!logo">点击上传</view>
 					<div class="Img-Upload">
-						<imageUploadOne 
-						class="img"
-							v-model="imageData" 
-							:server-url="serverUrl" 
-							limit= 1
-							@delete="deleteImage" 
-							@add="addImage">
+						<imageUploadOne class="img" v-model="imageData" :server-url="serverUrl" limit=1 @delete="deleteImage" @add="addImage">
 						</imageUploadOne>
 					</div>
 				</view>
-				<view><image :src="right"></image></view>
+				<view>
+					<image :src="right"></image>
+				</view>
 			</view>
 		</view>
 		<view class="Investor-Tips">
@@ -106,62 +130,80 @@
 		data() {
 			return {
 				logo: '',
-				xin:xin,
-				right:right,
-				imageData : [],
+				xin: xin,
+				right: right,
+				imageData: [],
 				serverUrl: 'https://img01.iambuyer.com/imgup/upLoad/fileUpload',
 				index: 0, // 默认选择第一个
-				array: ['中国', '美国', '巴西', '日本'],
+				array: [['北京','上海','天津'],['昌平','陆家嘴','北城区']],
 				pickerValue: "", // 选中的值
 				index1: 0, // 默认选择第一个
 				array1: ['个人投资人', '机构投资人'],
 				pickerValue1: "", // 选中的值
-				arr:[],
-				picker: "", // 选中的值
+				arr: [],
+				picker: "", 
+				arry: [],
+				pickerarry: "", // 选中的值
+				id1:'',
+				id2:'',
 			};
 		},
 		components: {
 			imageUploadOne
 		},
-		computed: {
-		},
+		computed: {},
 		created() {
+			//融资列表
 			this.Financingrounds()
+			//融资领域
+			this.Financinfield()
+			//城市
+			this.Financincity()
 		},
-		mounted() {
-		},
+		mounted() {},
 		methods: {
-			deleteImage: function(e){
+			deleteImage: function(e) {
 				console.log(e, '删除图片')
 				this.logo = ''; // 清空数据
 			},
-			addImage: function(e){
+			addImage: function(e) {
 				console.log(e, '添加图片')
-				if(e.allImages) { // 上传成功
+				if (e.allImages) { // 上传成功
 					this.logo = (e.allImages[0]);
 				}
 			},
 			bindPickerChange: function(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value);
 				this.array.map((items, index) => {
-					if(index === e.target.value) {
+					if (String(index) === String(e.target.value)) {
 						this.pickerValue = items;
 					}
 				})
 			},
 			bindPickerChange1: function(e) {
 				this.array1.map((items, index) => {
-					if(index === e.target.value) {
+					if (String(index) === String(e.target.value)) {
 						this.pickerValue1 = items;
 					}
 				})
 			},
 			Finan: function(e) {
-				
-					if(index === e.target.value) {
-						this.picker = items;
+				console.log(e)
+				this.arr.map((items, index) => {
+					if (String(index) === String(e.target.value)) {
+						this.picker = items.name;
+						this.id2=items.id
+						console.log(this.picker, this.id2)
 					}
-	
+				})
+			},Finanarry: function(e) {
+				this.arry.map((items, index) => {
+					if (String(index) === String(e.target.value)) {
+						this.pickerarry = items.name;
+						this.id1=items.id
+						console.log(this.pickerarry, this.id1)
+					}
+				})
 			},
 			gotoSubmissionseccess(e) {
 				console.log('去' + e + '提交成功');
@@ -169,7 +211,47 @@
 					url: '/modules/pageMy/myList/myListAuthentication/AuthenticationList/Submission-success/Submission-success',
 				});
 			},
-			Financingrounds(){//融资轮次列表
+			Financincity(){//省市区
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					// let params = {}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/field/cityJson', //接口地址。
+						// data: this.endParams(params),
+						method: 'GET',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							uni.hideLoading();
+							console.log(response.data);
+							// this.arr = response.data.content
+							// console.log(this.arr.name)
+							// for (var i = 0; i <= response.data.length; i++) {
+							// 	let objcity = {
+							// 		name: response.data.content[i].name,
+							// 		id: response.data.content[i].id
+							// 	}
+							// 	this.arr[i] = objarr
+							// }
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
+			Financingrounds() { //融资轮次列表
 				if (uni.getStorageSync('landRegist')) {
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 					console.log(landRegistLG.user.id);
@@ -186,14 +268,59 @@
 						},
 						success: (response) => {
 							uni.hideLoading();
-							console.log(response.data.content);
-							this.arr=response.data.content
+							// console.log(response.data.content);
+							this.arr = response.data.content
 							// console.log(this.arr.name)
-							for(var i=0;i<=response.data.content.length;i++){
-								this.arr=response.data.content[i].name
-								console.log(this.arr)
-								return this.arr
-							}
+							// for (var i = 0; i <= response.data.content.length; i++) {
+							// 	let objarr = {
+							// 		name: response.data.content[i].name,
+							// 		id: response.data.content[i].id
+							// 	}
+							// 	this.arr[i] = objarr
+							// }
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
+			Financinfield(){//融资领域
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					// let params = {}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/field/fieldList', //接口地址。
+						// data: this.endParams(params),
+						method: 'GET',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							uni.hideLoading();
+							// console.log(response.data.content);
+							this.arry=response.data.content
+							// console.log(this.arr.name)
+							// for (var i = 0; i <= response.data.content.length; i++) {
+							// 	// this.arry[i] = response.data.content[i].name
+							// 	// console.log(this.arry[i])
+							// 	let obj = {
+							// 		name: response.data.content[i].name,
+							// 		id: response.data.content[i].id
+							// 	}
+							// 	this.arry[i] = obj
+								// console.log(this.arry)
+							// }
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -212,19 +339,22 @@
 </script>
 
 <style>
-	.InvestorList-information{
+	.InvestorList-information {
 		width: 100%;
 		height: 100%;
 	}
+
 	input {
 		color: #D2D2D2;
 	}
-	.Investor-name{
-		width:100%;
+
+	.Investor-name {
+		width: 100%;
 		height: 122upx;
 		background: #FFFFFF;
 	}
-	.Investor-name-box{
+
+	.Investor-name-box {
 		width: 90%;
 		height: 100%;
 		border-bottom: 2upx solid #F5F5F5;
@@ -232,16 +362,19 @@
 		display: flex;
 		position: relative;
 	}
-	.Investor-name-box view:nth-of-type(1){
+
+	.Investor-name-box view:nth-of-type(1) {
 		width: 20upx;
 		height: 20upx;
 		padding-top: 26upx;
 	}
-	.Investor-name-box view:nth-of-type(1) image{
+
+	.Investor-name-box view:nth-of-type(1) image {
 		width: 100%;
 		height: 100%;
 	}
-	.Investor-name-box view:nth-of-type(2){
+
+	.Investor-name-box view:nth-of-type(2) {
 		width: 142upx;
 		height: 32upx;
 		font-size: 30upx;
@@ -249,7 +382,8 @@
 		padding-top: 30upx;
 		padding-left: 10upx;
 	}
-	.Investor-name-box view:nth-of-type(3){
+
+	.Investor-name-box view:nth-of-type(3) {
 		width: 200upx;
 		height: 35upx;
 		position: absolute;
@@ -259,12 +393,14 @@
 		color: #D2D2D2;
 		text-align: right;
 	}
-	.Investor-wx{
-		width:100%;
+
+	.Investor-wx {
+		width: 100%;
 		height: 122upx;
 		background: #FFFFFF;
 	}
-	.Investor-wx-box{
+
+	.Investor-wx-box {
 		width: 90%;
 		height: 100%;
 		border-bottom: 2upx solid #F5F5F5;
@@ -272,16 +408,19 @@
 		display: flex;
 		position: relative;
 	}
-	.Investor-wx-box view:nth-of-type(1){
+
+	.Investor-wx-box view:nth-of-type(1) {
 		width: 20upx;
 		height: 20upx;
 		padding-top: 26upx;
 	}
-	.Investor-wx-box view:nth-of-type(1) image{
+
+	.Investor-wx-box view:nth-of-type(1) image {
 		width: 100%;
 		height: 100%;
 	}
-	.Investor-wx-box view:nth-of-type(2){
+
+	.Investor-wx-box view:nth-of-type(2) {
 		width: 142upx;
 		height: 32upx;
 		font-size: 30upx;
@@ -289,7 +428,8 @@
 		padding-top: 30upx;
 		padding-left: 10upx;
 	}
-	.Investor-wx-box view:nth-of-type(3){
+
+	.Investor-wx-box view:nth-of-type(3) {
 		width: 200upx;
 		height: 35upx;
 		position: absolute;
@@ -299,12 +439,14 @@
 		color: #D2D2D2;
 		text-align: right;
 	}
-	.Investor-mailbox{
-		width:100%;
+
+	.Investor-mailbox {
+		width: 100%;
 		height: 122upx;
 		background: #FFFFFF;
 	}
-	.Investor-mailbox-box{
+
+	.Investor-mailbox-box {
 		width: 90%;
 		height: 100%;
 		border-bottom: 2upx solid #F5F5F5;
@@ -312,16 +454,19 @@
 		display: flex;
 		position: relative;
 	}
-	.Investor-mailbox-box view:nth-of-type(1){
+
+	.Investor-mailbox-box view:nth-of-type(1) {
 		width: 20upx;
 		height: 20upx;
 		padding-top: 26upx;
 	}
-	.Investor-mailbox-box view:nth-of-type(1) image{
+
+	.Investor-mailbox-box view:nth-of-type(1) image {
 		width: 100%;
 		height: 100%;
 	}
-	.Investor-mailbox-box view:nth-of-type(2){
+
+	.Investor-mailbox-box view:nth-of-type(2) {
 		width: 142upx;
 		height: 32upx;
 		font-size: 30upx;
@@ -329,7 +474,8 @@
 		padding-top: 30upx;
 		padding-left: 10upx;
 	}
-	.Investor-mailbox-box view:nth-of-type(3){
+
+	.Investor-mailbox-box view:nth-of-type(3) {
 		width: 200upx;
 		height: 35upx;
 		position: absolute;
@@ -339,7 +485,8 @@
 		color: #D2D2D2;
 		text-align: right;
 	}
-	.ziti{
+
+	.ziti {
 		position: absolute;
 		right: 0upx;
 		width: 300upx !important;
@@ -347,12 +494,14 @@
 		top: -30upx;
 		font-size: 30upx !important;
 	}
-	.Investor-City{
-		width:100%;
+
+	.Investor-City {
+		width: 100%;
 		height: 122upx;
 		background: #FFFFFF;
 	}
-	.Investor-City-box{
+
+	.Investor-City-box {
 		width: 90%;
 		height: 100%;
 		border-bottom: 2upx solid #F5F5F5;
@@ -360,16 +509,19 @@
 		display: flex;
 		position: relative;
 	}
-	.Investor-City-box view:nth-of-type(1){
+
+	.Investor-City-box view:nth-of-type(1) {
 		width: 20upx;
 		height: 20upx;
 		padding-top: 26upx;
 	}
-	.Investor-City-box view:nth-of-type(1) image{
+
+	.Investor-City-box view:nth-of-type(1) image {
 		width: 100%;
 		height: 100%;
 	}
-	.Investor-City-box view:nth-of-type(2){
+
+	.Investor-City-box view:nth-of-type(2) {
 		width: 142upx;
 		height: 32upx;
 		font-size: 30upx;
@@ -377,32 +529,38 @@
 		padding-top: 30upx;
 		padding-left: 10upx;
 	}
-	.Investor-City-box view:nth-of-type(3){
+
+	.Investor-City-box view:nth-of-type(3) {
 		width: 100upx;
 		height: 35upx;
 		position: absolute;
 		right: 40upx;
 		top: 40upx;
-		
+
 		color: #D2D2D2;
 		text-align: right;
 	}
-	.Investor-City-box view:nth-of-type(4){
+
+	.Investor-City-box view:nth-of-type(4) {
 		position: absolute;
 		right: 0;
 		top: 40upx;
 		width: 25upx;
 		height: 18upx;
-	}.Investor-City-box view:nth-of-type(4) image{
+	}
+
+	.Investor-City-box view:nth-of-type(4) image {
 		width: 100%;
 		height: 100%;
 	}
-	.Investor-identity{
-		width:100%;
+
+	.Investor-identity {
+		width: 100%;
 		height: 122upx;
 		background: #FFFFFF;
 	}
-	.Investor-identity-box{
+
+	.Investor-identity-box {
 		width: 90%;
 		height: 100%;
 		border-bottom: 2upx solid #F5F5F5;
@@ -410,16 +568,19 @@
 		display: flex;
 		position: relative;
 	}
-	.Investor-identity-box view:nth-of-type(1){
+
+	.Investor-identity-box view:nth-of-type(1) {
 		width: 20upx;
 		height: 20upx;
 		padding-top: 26upx;
 	}
-	.Investor-identity-box view:nth-of-type(1) image{
+
+	.Investor-identity-box view:nth-of-type(1) image {
 		width: 100%;
 		height: 100%;
 	}
-	.Investor-identity-box view:nth-of-type(2){
+
+	.Investor-identity-box view:nth-of-type(2) {
 		width: 152upx;
 		height: 32upx;
 		font-size: 30upx;
@@ -427,7 +588,8 @@
 		padding-top: 30upx;
 		padding-left: 10upx;
 	}
-	.Investor-identity-box view:nth-of-type(3){
+
+	.Investor-identity-box view:nth-of-type(3) {
 		width: 200upx;
 		height: 35upx;
 		position: absolute;
@@ -437,23 +599,28 @@
 		color: #D2D2D2;
 		text-align: right;
 	}
-	.Investor-identity-box view:nth-of-type(4){
+
+	.Investor-identity-box view:nth-of-type(4) {
 		position: absolute;
 		right: 0;
 		top: 40upx;
 		width: 25upx;
 		height: 18upx;
-	}.Investor-identity-box view:nth-of-type(4) image{
+	}
+
+	.Investor-identity-box view:nth-of-type(4) image {
 		width: 100%;
 		height: 100%;
 	}
-	.Investor-field{
-		width:100%;
+
+	.Investor-field {
+		width: 100%;
 		height: 122upx;
 		background: #FFFFFF;
 		margin-top: 20upx;
 	}
-	.Investor-field-box{
+
+	.Investor-field-box {
 		width: 90%;
 		height: 100%;
 		border-bottom: 2upx solid #F5F5F5;
@@ -461,16 +628,19 @@
 		display: flex;
 		position: relative;
 	}
-	.Investor-field-box view:nth-of-type(1){
+
+	.Investor-field-box view:nth-of-type(1) {
 		width: 20upx;
 		height: 20upx;
 		padding-top: 26upx;
 	}
-	.Investor-field-box view:nth-of-type(1) image{
+
+	.Investor-field-box view:nth-of-type(1) image {
 		width: 100%;
 		height: 100%;
 	}
-	.Investor-field-box view:nth-of-type(2){
+
+	.Investor-field-box view:nth-of-type(2) {
 		width: 152upx;
 		height: 32upx;
 		font-size: 30upx;
@@ -478,7 +648,8 @@
 		padding-top: 30upx;
 		padding-left: 10upx;
 	}
-	.Investor-field-box view:nth-of-type(3){
+
+	.Investor-field-box view:nth-of-type(3) {
 		width: 200upx;
 		height: 35upx;
 		position: absolute;
@@ -488,22 +659,27 @@
 		color: #D2D2D2;
 		text-align: right;
 	}
-	.Investor-field-box view:nth-of-type(4){
+
+	.Investor-field-box view:nth-of-type(4) {
 		position: absolute;
 		right: 0;
 		top: 40upx;
 		width: 25upx;
 		height: 18upx;
-	}.Investor-field-box view:nth-of-type(4) image{
+	}
+
+	.Investor-field-box view:nth-of-type(4) image {
 		width: 100%;
 		height: 100%;
 	}
-	.Investor-Rotation{
-		width:100%;
+
+	.Investor-Rotation {
+		width: 100%;
 		height: 122upx;
 		background: #FFFFFF;
 	}
-	.Investor-Rotation-box{
+
+	.Investor-Rotation-box {
 		width: 90%;
 		height: 100%;
 		border-bottom: 2upx solid #F5F5F5;
@@ -511,16 +687,19 @@
 		display: flex;
 		position: relative;
 	}
-	.Investor-Rotation-box view:nth-of-type(1){
+
+	.Investor-Rotation-box view:nth-of-type(1) {
 		width: 20upx;
 		height: 20upx;
 		padding-top: 26upx;
 	}
-	.Investor-Rotation-box view:nth-of-type(1) image{
+
+	.Investor-Rotation-box view:nth-of-type(1) image {
 		width: 100%;
 		height: 100%;
 	}
-	.Investor-Rotation-box view:nth-of-type(2){
+
+	.Investor-Rotation-box view:nth-of-type(2) {
 		width: 152upx;
 		height: 32upx;
 		font-size: 30upx;
@@ -528,7 +707,8 @@
 		padding-top: 30upx;
 		padding-left: 10upx;
 	}
-	.Investor-Rotation-box view:nth-of-type(3){
+
+	.Investor-Rotation-box view:nth-of-type(3) {
 		width: 200upx;
 		height: 35upx;
 		position: absolute;
@@ -538,17 +718,21 @@
 		color: #D2D2D2;
 		text-align: right;
 	}
-	.Investor-Rotation-box view:nth-of-type(4){
+
+	.Investor-Rotation-box view:nth-of-type(4) {
 		position: absolute;
 		right: 0;
 		top: 40upx;
 		width: 25upx;
 		height: 18upx;
-	}.Investor-Rotation-box view:nth-of-type(4) image{
+	}
+
+	.Investor-Rotation-box view:nth-of-type(4) image {
 		width: 100%;
 		height: 100%;
 	}
-	.Img-Upload{
+
+	.Img-Upload {
 		width: 120upx !important;
 		height: 80upx;
 		position: absolute;
@@ -556,16 +740,19 @@
 		top: -45upx;
 		font-size: 226upx;
 	}
-	.imageUpload{
+
+	.imageUpload {
 		width: 200upx !important;
 	}
-	.Investor-card{
-		width:100%;
+
+	.Investor-card {
+		width: 100%;
 		height: 122upx;
 		background: #FFFFFF;
 		margin-top: 20upx;
 	}
-	.Investor-card-box{
+
+	.Investor-card-box {
 		width: 90%;
 		height: 100%;
 		border-bottom: 2upx solid #F5F5F5;
@@ -573,16 +760,19 @@
 		display: flex;
 		position: relative;
 	}
-	.Investor-card-box view:nth-of-type(1){
+
+	.Investor-card-box view:nth-of-type(1) {
 		width: 20upx;
 		height: 20upx;
 		padding-top: 26upx;
 	}
-	.Investor-card-box view:nth-of-type(1) image{
+
+	.Investor-card-box view:nth-of-type(1) image {
 		width: 100%;
 		height: 100%;
 	}
-	.Investor-card-box view:nth-of-type(2){
+
+	.Investor-card-box view:nth-of-type(2) {
 		width: 152upx;
 		height: 32upx;
 		font-size: 30upx;
@@ -590,7 +780,8 @@
 		padding-top: 30upx;
 		padding-left: 10upx;
 	}
-	.Investor-card-box view:nth-of-type(3){
+
+	.Investor-card-box view:nth-of-type(3) {
 		width: 200upx;
 		height: 35upx;
 		position: absolute;
@@ -600,16 +791,20 @@
 		color: #D2D2D2;
 		text-align: right;
 	}
-	.Investor-card-box view:nth-of-type(4){
+
+	.Investor-card-box view:nth-of-type(4) {
 		position: absolute;
 		right: 0;
 		top: 40upx;
 		width: 25upx;
 		height: 18upx;
-	}.Investor-card-box view:nth-of-type(4) image{
+	}
+
+	.Investor-card-box view:nth-of-type(4) image {
 		width: 100%;
 		height: 100%;
 	}
+
 	.Investor-Tips {
 		width: 90%;
 		height: 25upx;
@@ -617,6 +812,7 @@
 		font-size: 24upx;
 		color: #9B9B9B;
 	}
+
 	.Investor-Submission {
 		width: 100%;
 		height: 122upx;
@@ -624,7 +820,7 @@
 		bottom: 0;
 		position: absolute;
 	}
-	
+
 	.Investor-Submission view:nth-of-type(1) view {
 		width: 690upx;
 		height: 90upx;
@@ -636,7 +832,8 @@
 		font-size: 28upx;
 		color: #FFFFFF;
 	}
-	.Investor-Submission view:nth-of-type(1){
+
+	.Investor-Submission view:nth-of-type(1) {
 		margin: 0 auto;
 	}
 </style>

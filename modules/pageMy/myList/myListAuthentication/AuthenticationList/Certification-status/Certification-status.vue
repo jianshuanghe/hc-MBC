@@ -1,7 +1,7 @@
 <template>
 	<view class="Certification-status">
 		<!-- 创业者 -->
-		<Entrepreneurship></Entrepreneurship>
+		<Entrepreneurship v-if="Listdata.authState==0"></Entrepreneurship>
 		<!-- 投资者 -->
 		<Investment></Investment>
 	</view>
@@ -10,22 +10,32 @@
 <script>
 	import Entrepreneurship from './Entrepreneurship-status/examine'
 	import Investment from './Investment-status/Investment-status'
+	import { mapMutations,mapGetters } from 'vuex';
 	export default {
-		data() {
-			return {
-
-			};
-		},
 		components: {
 			Entrepreneurship,
 			Investment
 		},
-		computed: {},
-		created() {},
-		mounted() {},
-		methods: {
-			
-		}
+		data() {
+			return {
+				Listdata: []
+			};
+		},
+		computed: {
+			...mapGetters(['GET_MY'])
+		},
+		watch: {
+			GET_MY: {
+				handler(a, b) {
+					console.log(a, b);
+				},
+				deep: true
+			}
+		},
+		created() {
+			this.Listdata = this.GET_MY.MyList.header;
+			console.log(this.Listdata, '你好');
+		},
 	};
 </script>
 

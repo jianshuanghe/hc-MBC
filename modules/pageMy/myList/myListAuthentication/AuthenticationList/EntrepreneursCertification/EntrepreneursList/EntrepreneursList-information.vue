@@ -118,6 +118,9 @@
 				}
 			},
 			gotoSubmissionseccess(e) {
+				uni.navigateTo({
+					'url':'../../AuthenticationList/Submission-success/Submission-success'
+				})
 				console.log('去' + e + '提交成功');
 				if(this.name===''){
 					uni.showToast({
@@ -202,6 +205,7 @@
 							success: (response) => {
 								uni.hideLoading();
 								console.log(response.data);
+									
 							},
 							fail: (error) => {
 								uni.hideLoading(); // 隐藏 loading
@@ -484,7 +488,7 @@
 		height: 80upx;
 		position: absolute;
 		right: 58upx;
-		top: -45upx;
+		top: 0upx;
 		font-size: 226upx;
 	}
 	.imageUpload{
