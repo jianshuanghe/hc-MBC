@@ -3,7 +3,7 @@
 		<view class="personalProfile">
 			<view class="pP-title">
 				投资偏好
-				<text class="pP-text-right">纠错</text>
+				<text class="pP-text-right"  @tap="goToOpinion()">纠错</text>
 			</view>
 			<view class="IC-content">
 				<view class="IC-box">
@@ -45,6 +45,12 @@
 			}
 		},
 	    methods: {
+			goToOpinion (e){
+				console.log('to意见反馈');
+				uni.navigateTo({
+					url: '/modules/pageMy/myList/myListSetup/Setup/Opinion/Opinion'
+				});
+			}
 	    }
 	};
 </script>

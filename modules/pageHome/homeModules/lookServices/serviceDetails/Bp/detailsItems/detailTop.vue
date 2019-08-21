@@ -32,7 +32,7 @@
 	export default {
 	    data () {
 			return {
-				items1: this.Static + 'mbcImg/home/lookServices/items1.png',
+				items1: this.Static + 'mbcImg/home/lookServices/items1s.png',
 				icon1: this.Static + 'mbcImg/home/lookServices/icon1.png',
 				dataList: [] // 后台返回数据
 			};

@@ -3,7 +3,7 @@
 		<view class="personalProfile">
 			<view class="pP-title">
 				个人简介
-				<text class="pP-text-right">纠错</text>
+				<text class="pP-text-right"  @tap="goToOpinion()">纠错</text>
 			</view>
 			<view class="pP-content">{{msgData.user.userContent}}</view>
 		</view>
@@ -22,6 +22,12 @@
 			}
 		},
 	    methods: {
+			goToOpinion (e){
+				console.log('to意见反馈');
+				uni.navigateTo({
+					url: '/modules/pageMy/myList/myListSetup/Setup/Opinion/Opinion'
+				});
+			}
 	    }
 	}
 </script>

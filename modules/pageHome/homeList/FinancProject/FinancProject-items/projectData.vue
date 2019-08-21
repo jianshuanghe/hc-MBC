@@ -3,7 +3,7 @@
 		<div class="personalProfile">
 			<div class="pP-title">
 				项目数据
-				<text class="pP-text-right">纠错</text>
+				<text class="pP-text-right"  @tap="goToOpinion()">纠错</text>
 			</div>
 			<div class="IC-content">
 				<div class="IC-box">
@@ -68,19 +68,13 @@
 			}
 		},
 	    methods: {
-			goToFinanceDetail (e){
-				console.log('去' + e + '详情页面');
+			goToOpinion (e){
+				console.log('to意见反馈');
 				uni.navigateTo({
-					url: '/modules/pageHome/homeList/homeList'
+					url: '/modules/pageMy/myList/myListSetup/Setup/Opinion/Opinion'
 				});
-			},
-			goToPutIn () {
-				console.log('点击触发发布项目');
-			},
-			goToSeek () {
-				console.log('点击触发寻找资本');
 			}
-	    }
+		}
 	};
 </script>
 
