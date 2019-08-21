@@ -61,7 +61,7 @@
 	.resuleTab-content{
 		position: fixed;
 		width: 750upx;
-		margin-top: 112upx;
+		margin-top: 110upx;
 		background: #FFFFFF;
 		z-index: 101;
 	}

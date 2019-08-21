@@ -341,4 +341,8 @@ p{
 .uni-system-preview-image .uni-swiper{
 	height: 1334upx !important;
 }
+radio-group label, checkbox-group label {
+padding-right: 0rpx;
+}
+
 	

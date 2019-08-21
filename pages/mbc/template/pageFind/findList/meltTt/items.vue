@@ -1,11 +1,11 @@
 <template>
-	<div class="active-content-items">
-		<div class="active-box">
-			<div class="title-active">{{msgData.activityAbstract || '无'}}</div>
-			<div class="time-active">{{msgData.activityEndTime | dateTime}}</div>
-		</div>
+	<view class="active-content-items">
+		<view class="active-box">
+			<view class="title-active">{{msgData.activityAbstract || '无'}}</view>
+			<view class="time-active">{{msgData.activityEndTime | dateTime}}</view>
+		</view>
 		<view class="line"></view>
-	</div>
+	</view>
 </template>
 
 <script>

@@ -1,14 +1,14 @@
 <template>
-	<div class="findList-content">
-		<div class="findList">
+	<view class="findList-content">
+		<view class="findList">
 			<!-- 融头条 -->
 			<meltTt v-if='GET_FIND.tabItems === 1'></meltTt>
 			<!-- 活动列表 -->
 			<active v-if="GET_FIND.tabItems === 2"></active>
 			<!-- 资讯列表 -->
 			<information v-if="GET_FIND.tabItems === 3"></information>
-		</div>
-	</div>
+		</view>
+	</view>
 </template>
 
 <script>
@@ -42,6 +42,6 @@
 	.findList-content{
 		position: relative;
 		width: 750upx;
-		top: 174upx;
+		top: 168upx;
 	}
 </style>

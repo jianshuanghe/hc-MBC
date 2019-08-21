@@ -1,8 +1,8 @@
 <template>
-	<div class="activeDetails-content">
+	<view class="activeDetails-content">
 		<contentCC :msgData="dataList"></contentCC>
 		<constSubmit></constSubmit>
-	</div>
+	</view>
 </template>
 
 <script>

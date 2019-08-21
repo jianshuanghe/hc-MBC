@@ -199,7 +199,7 @@
 
 <style>
 	.meltTt-content{
-		position: relative;
+		position: fixed;
 		width: 750upx;
 		background: #fff;
 		padding-top: 20upx;

@@ -7,19 +7,19 @@
 				<pageHome></pageHome>
 			</view>
 			<!-- 发现 -->
-			<view :class="GET_HOME.tabItems === 2 ? 'show' : 'hide'">
+			<view v-if="GET_HOME.tabItems === 2">
 				<pageFind></pageFind>
 			</view>
 			<!-- 消息 -->
-			<view :class="GET_HOME.tabItems === 3 ? 'show' : 'hide'">
+			<view v-if="GET_HOME.tabItems === 3">
 				<pageNews></pageNews>
 			</view>
 			<!-- 我的 -->
-			<view :class="GET_HOME.tabItems === 4 ? 'show' : 'hide'">
+			<view v-if="GET_HOME.tabItems === 4">
 				<pageMy></pageMy>
 			</view>
 			<!-- 发布 -->
-			<view :class="GET_HOME.tabItems === 5 ? 'show' : 'hide'">
+			<view v-if="GET_HOME.tabItems === 5">
 				<pagePublish></pagePublish>
 			</view>
 		</view>
@@ -41,12 +41,7 @@
 	export default {
 		data() {
 			return {
-				tabItems: 1,
-				areaData: { // 地区
-					area: [], // 全国省市区
-					province: [], // 全国省
-					provinceAndCity: [] // 全国省市
-				}
+				tabItems: 1
 			}
 		},
 		components: {
@@ -76,11 +71,9 @@
 				this.clickItems = uni.getStorageSync('clickItems'); // 取缓存中tabbar数据
 				this.upTitle(this.clickItems);
 			};
-			this.getArea();
 		},
 		methods: {
 			...mapMutations({
-				setAreaData: 'setAreaData' // 公共组件省市区
 			}),
 			upTitle(e) {
 				console.log('跟新主页的title');
@@ -104,59 +97,6 @@
 					uni.setNavigationBarTitle({
 						title: '发布'
 					});  
-				}
-			},
-			getArea () { // 公共组件省市区
-				let area = []; // 全国省市区
-				let province = []; // 全国省
-				let provinceAndCity = []; // 全国省市
-				if (uni.getStorageSync('landRegist')) {
-					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
-					console.log(landRegistLG.user.id);
-					let params = {}; // 请求总数居时 参数为空
-					uni.request({
-						url: this.api2 + '/field/cityJson', //接口地址。
-						data: this.endParams(params),
-						header: {
-							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
-						},
-						success: (response) => {
-							area = response.data; // 全国省市区
-							area.map((items, index) => {
-								let provinceItems = {
-									name: items.name,
-									id: items.id
-								};
-								let city = []; // 市
-								items.child.map((item, index) => {
-									let child = {
-										name: item.name,
-										id: item.id
-									}
-									city.push(child)
-								});
-								let provinceAndCityItems = {
-									name: items.name,
-									id: items.id,
-									child: city
-								};
-								province.push(provinceItems);
-								provinceAndCity.push(provinceAndCityItems);
-							});
-							this.areaData.area = area;
-							this.areaData.province = province;
-							this.areaData.provinceAndCity = provinceAndCity;
-							this.$store.commit('setAreaData', this.areaData); // 更新setAreaData
-						},
-						fail: (error) => {
-							uni.showToast({
-								title: '网络繁忙，请稍后',
-								icon: 'none',
-								duration: 1000
-							});
-							console.log(error, '网络繁忙，请稍后');
-						}
-					});
 				}
 			}
 		}

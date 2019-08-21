@@ -1,13 +1,13 @@
 <template>
-	<div class="active-content-items">
-		<div class="active-box" @tap='goToActiveDetails(msgData.id)'>
+	<view class="active-content-items">
+		<view class="active-box" @tap='goToActiveDetails(msgData.id)'>
 			<image class="img" :src="msgData.activityImg"></image>
-			<div class="title-active">{{msgData.activityAbstract || '无'}}</div>
-			<div class="time-active">{{msgData.activityStartTime | dateTime}} - {{msgData.activityEndTime | dateTime}}</div>
-			<div class="sign-active">已报名{{msgData.signSum || '0'}}人</div>
-		</div>
+			<view class="title-active">{{msgData.activityAbstract || '无'}}</view>
+			<view class="time-active">{{msgData.activityStartTime | dateTime}} - {{msgData.activityEndTime | dateTime}}</view>
+			<view class="sign-active">已报名{{msgData.signSum || '0'}}人</view>
+		</view>
 		<view class="line"></view>
-	</div>
+	</view>
 </template>
 
 <script>
