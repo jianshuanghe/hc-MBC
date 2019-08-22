@@ -53,13 +53,12 @@
 						success: (response) => {
 							console.log(response.data.code);
 							//测试---------------------------------------------------------------------------------------------------------------
-							this.isUpLoadFile.isSuccess = true;
-							this.isUpLoadFile.content = response.data.content;
-							uni.setStorageSync('isUpLoadFile', JSON.stringify(this.isUpLoadFile));// 缓存确认成功的数据
+							// this.isUpLoadFile.isSuccess = true;
+							// this.isUpLoadFile.content = response.data.content;
+							// uni.setStorageSync('isUpLoadFile', JSON.stringify(this.isUpLoadFile));// 缓存确认成功的数据
 							//测试---------------------------------------------------------------------------------------------------------------
 							if (response.data.code === 200) {
 								console.log('上传成功');
-								 uni.removeStorageSync('SacnToken'); // 确认上传成功清空token
 								this.isUpLoadFile.isSuccess = true;
 								this.isUpLoadFile.content = response.data.content;
 								uni.setStorageSync('isUpLoadFile', JSON.stringify(this.isUpLoadFile));// 缓存确认成功的数据

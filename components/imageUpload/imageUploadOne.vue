@@ -197,12 +197,16 @@
 			},
 			previewImage: function(e){
 				var imageIndex = e.currentTarget.dataset.index
-				console.log(this.imageList, '预览的img')
+				console.log(this.imageList, '预览的img');
+				let imgList = []; // 预览数组
+				this.imageList.map((itms, index) => {
+					imgList.push(itms.imgUrl);
+				})
 				uni.previewImage({
-					current: this.imageList[imageIndex],
+					current: imgList[imageIndex],
 					indicator: "number",
 					loop: "true",
-					urls:this.imageList
+					urls:imgList
 				})
 			},
 			initImageBasePos: function(){
