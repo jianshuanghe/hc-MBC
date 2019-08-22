@@ -11,26 +11,83 @@
 			</view>
 		</view>
 		<view class="SL-btn">
-			<view class="SL-btn-text">完成</view>
+			<view class="SL-btn-text" @tap="isFileUpload()">完成</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	import { mapMutations } from 'vuex';
 	export default {
 	    data () {
 	      return {
-			pc: this.Static + 'mbcImg/publish/pc.png'
+			pc: this.Static + 'mbcImg/publish/pc.png',
+			isUpLoadFile: {
+				isSuccess: false, // 默认没有确认上传
+				content:{} // 确认上传之后返回的数据
+			}
 	      };
 	    },
 	    methods: {
-	      clickSearch () {
-	        console.log('点击触发搜索组件');
-	        // this.$router.push({
-	        //   path: '/searchDetile',
-	        //   query: {}
-	        // });
-	      }
+			...mapMutations({
+				setIsUploadFileSuccess: 'setIsUploadFileSuccess',
+				setIsUploadFileContent: 'setIsUploadFileContent'
+			}),
+			isFileUpload () {
+				console.log('点击触发确完成组件');
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					let params = {}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					let SacnToken = uni.getStorageSync('SacnToken'); // 读取缓存的用户信息
+					console.log(SacnToken);
+					uni.request({
+						url: this.api2 + '/proj/isFileUpload?token=' + SacnToken, //接口地址。
+						data: this.endParams(params),
+						header: {
+							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
+						},
+						success: (response) => {
+							console.log(response.data.code);
+							//测试---------------------------------------------------------------------------------------------------------------
+							this.isUpLoadFile.isSuccess = true;
+							this.isUpLoadFile.content = response.data.content;
+							uni.setStorageSync('isUpLoadFile', JSON.stringify(this.isUpLoadFile));// 缓存确认成功的数据
+							//测试---------------------------------------------------------------------------------------------------------------
+							if (response.data.code === 200) {
+								console.log('上传成功');
+								 uni.removeStorageSync('SacnToken'); // 确认上传成功清空token
+								this.isUpLoadFile.isSuccess = true;
+								this.isUpLoadFile.content = response.data.content;
+								uni.setStorageSync('isUpLoadFile', JSON.stringify(this.isUpLoadFile));// 缓存确认成功的数据
+								this.$store.commit('setIsUploadFileSuccess', true); // 更新setIsUploadFileSuccess
+								this.$store.commit('setIsUploadFileContent', this.isUpLoadFile.content); // 更新setIsUploadFileContent
+								uni.navigateBack({delta: 1});
+							} else {
+								uni.showToast({
+									title: response.data.message,
+									icon: 'none',
+									duration: 1000
+								});
+							}
+							this.dataList = response.data.content;
+							uni.hideLoading(); // 隐藏 loading
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			}
 	    }
 	}
 </script>
@@ -46,7 +103,8 @@
 	.scan-cont{
 		position: relative;
 		width: 100%;
-		padding-top: 80px;
+		padding-top: 160upx;
+		margin-bottom: 260upx;
 	}
 	.scanLand-box{
 		position: relative;
@@ -64,6 +122,7 @@
 		letter-spacing: 0;
 		text-align: center;
 		line-height: 100upx;
+		margin-top: 40upx;
 	}
 	.SL-strc{
 		font-family: PingFangSC-Regular;
@@ -101,9 +160,9 @@
 	.SL-imgBoxTwo>image{
 		border-radius: 2px;
 		position: relative;
-		width: 208upx;
+		width: 250upx;
 		height: 208upx;
-		margin-left: 274upx;
+		margin-left: 260upx;
 	}
 	.SL-btn{
 		position: absolute;
@@ -111,7 +170,6 @@
 		margin-left: 30upx;
 		background: #02C2A2;
 		border-radius: 2px;
-		bottom: 14upx;
 	}
 	.SL-btn-text{
 		font-family: PingFangSC-Regular;

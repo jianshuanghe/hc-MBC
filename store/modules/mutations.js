@@ -104,6 +104,27 @@ const mutations = {
     console.log(info, 'setInformation');
     state.find.information = info;
   },
+  // 发布模块
+  setPublishTitleIndex (state, info) { // title切换
+    console.log(info, 'setPublishTitleIndex');
+    state.publish.titleIndex = info;
+  },
+  setScanLandSuccess (state, info) { // 判断是否扫码登录成功
+    console.log(info, 'setScanLandSuccess');
+    state.publish.scanLandSuccess = info;
+  },
+  setIsUploadFileSuccess (state, info) { //  默认没有确认上传
+    console.log(info, 'setIsUploadFileSuccess');
+    state.publish.isUpLoadFile.isSuccess = info;
+  },
+  setIsUploadFileContent (state, info) { //  确认上传之后返回的数据
+    console.log(info, 'setIsUploadFileContent');
+    state.publish.isUpLoadFile.content = info;
+  },
+  setPublishParams (state, info) { //  基本信息参数
+    console.log(info, 'setPublishParams');
+    state.publish.publishParams = info;
+  },
   // 我的=》用户信息
   setheader(state, info){
 	  console.log(info,'setheader')

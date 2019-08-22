@@ -5,13 +5,14 @@
 			<publishTitle></publishTitle>
 			<!-- content -->
 			<!-- pc登录上传 -->
-			<uploadBP v-if='false'></uploadBP>
+			<uploadBP v-if='GET_PUBLISH.titleIndex === 1'></uploadBP>
 			<!-- infor -->
-			<view class="inforContent">
+			<view class="inforContent"  v-if='GET_PUBLISH.titleIndex === 2'>
 				<!-- 基本信息 -->
-				<basicInfor></basicInfor>
+				<basicInfor ></basicInfor>
 				<!-- 公司信息 -->
 				<companyInfor></companyInfor>
+				<btn></btn>
 			</view>
 		</view>
 	</view>
@@ -21,37 +22,38 @@
 	import uploadBP from "./publishList/uploadBP/uploadBP.vue";
 	import basicInfor from "./publishList/Infor/basicInfor.vue";
 	import companyInfor from "./publishList/Infor/companyInfor.vue";
+	import btn from "./publishList/Infor/btn.vue";
+	import { mapMutations, mapGetters } from 'vuex';
 export default {
 	data() {
-		return {};
+		return {
+			areaData: {}
+		};
 	},
-	
 	components: {
 		publishTitle,
 		uploadBP,
 		basicInfor,
-		companyInfor
+		companyInfor,
+		btn
 	},
 	computed: {
-		// ...mapGetters(['GET_HOME'])
-	},
-	watch: {
-	  // GET_HOME: {
-	  //   handler (a, b) {
-	  //     this.clickItemsIndex = a.HomeList.titleIndex; // 切换的title
-		 //  console.log(this.clickItemsIndex, '切换的数据');
-	  //   },
-	  //   deep: true
-	  // }
-	},
-	computed: {
+		...mapGetters(['GET_PUBLISH'])
 	},
 	created() {
-		console.log('在组件中并不能使用页面生命周期函数');
+		if(uni.getStorageSync('isUpLoadFile')) {
+			let isUpLoadFile = JSON.parse(uni.getStorageSync('isUpLoadFile')); // 
+			this.$store.commit('setIsUploadFileSuccess', isUpLoadFile.isSuccess); // 更新setIsUploadFileSuccess
+			this.$store.commit('setIsUploadFileContent', isUpLoadFile.content); // 更新setIsUploadFileContent
+		};
 	},
 	mounted() {
 	},
 	methods: {
+		...mapMutations({
+			setIsUploadFileSuccess: 'setIsUploadFileSuccess',
+			setIsUploadFileContent: 'setIsUploadFileContent'
+		})
 	}
 };
 </script>
@@ -70,4 +72,5 @@ export default {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
+
 </style>

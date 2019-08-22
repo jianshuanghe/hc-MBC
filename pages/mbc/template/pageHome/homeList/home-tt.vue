@@ -8,7 +8,7 @@
 				<swiper vertical="true" autoplay="true" circular="true" interval="1000">
 					<swiper-item v-for="(item, index) in msg" :key="index" @tap="clickGoToWeb(item)">
 						<navigator>
-							{{item.title}}
+							<text class="text" @tap='goToMeltTt(2)'>{{item.title || '暂时没有'}}</text>
 						</navigator>
 					</swiper-item>
 				</swiper>
@@ -24,9 +24,7 @@
 	      return {
 	        tt: this.Static + 'mbcImg/home/tt.png',
 			msg : [
-				'uni-app行业峰会频频亮相，开发者反响热烈',
-				'DCloud完成B2轮融资，uni-app震撼发布',
-				'36氪热文榜推荐、CSDN公号推荐 DCloud CEO文章'
+				
 			]
 	      };
 	    },
@@ -38,6 +36,14 @@
 	      clickGoToWeb () {
 	        console.log('点击触发融头条组件');
 	      },
+		  goToMeltTt (e) {
+		  	console.log('to融头条');
+		  	console.log(e, '点击触发发现');
+		  	this.clickItems = e;
+		  	this.$store.commit('setHome', this.clickItems);
+		  	this.$store.commit('setFindTabItems', 1); // 更新setFindTabItems
+		  	uni.setStorageSync('clickItems', e);
+		  },
 		  getMsgList(){
 		  	console.log('获取融头条数据');
 		  	if (uni.getStorageSync('landRegist')) {

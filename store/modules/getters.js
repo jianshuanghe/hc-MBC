@@ -13,6 +13,8 @@ const getters = {
 	GET_HOME: state => state.home,
 	//find 发现数据
 	GET_FIND: state =>state.find,
+	// publish 发布
+	GET_PUBLISH: state =>state.publish,
 	//news 消息数据
 	GET_NEWS: state =>state.news,
 	//my 我的

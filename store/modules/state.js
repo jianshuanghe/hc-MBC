@@ -222,6 +222,26 @@ const state = {
 		listData: '' // 列表数据
 	}
   },
+  publish: { // 发布
+	titleIndex: 1, // 切换的title
+	scanLandSuccess: false, // 判断是否扫码登录成功
+	isUpLoadFile: {
+		isSuccess: false, // 默认没有确认上传
+		content:{} // 确认上传之后返回的数据
+	},
+	publishParams: {
+		userId: 0, //用户ID
+		projName: "项目名称1", //项目名称
+		projSlogan: "项目口号", //项目口号
+		fieldCode: "32", //领域Code
+		pcode: "110000", //省市
+		ccode: "110100",
+		projLogo: "y7UHY2LAQnNHKGGhcjjc2BUIwHWAqRwb3tTX5BFOfSNVAo0bA2HVU8PUgaQKLchqUHo9ra.png", //项目logo
+		compName: "公司名称111", //公司名称
+		compUrl: "www.baidu.com", //公司官网
+		encloToken: "6034c60d-7553-4679-80c7-6145890fd8fb" //token
+	}
+  },
   my: {
 	MyList:{
 		header:[],

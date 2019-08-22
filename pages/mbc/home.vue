@@ -41,7 +41,8 @@
 	export default {
 		data() {
 			return {
-				tabItems: 1
+				tabItems: 1,
+				areaPorC: {}
 			}
 		},
 		components: {
@@ -71,6 +72,7 @@
 				this.clickItems = uni.getStorageSync('clickItems'); // 取缓存中tabbar数据
 				this.upTitle(this.clickItems);
 			};
+			this.getArea();
 		},
 		methods: {
 			...mapMutations({
@@ -97,6 +99,54 @@
 					uni.setNavigationBarTitle({
 						title: '发布'
 					});  
+				}
+			},
+			getArea () { // 公共组件省市区
+				let area = []; // 全国省市区
+				let province = []; // 全国省
+				let city = []; // 全国市
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					let params = {}; // 请求总数居时 参数为空
+					uni.request({
+						url: this.api2 + '/field/cityJson', //接口地址。
+						data: this.endParams(params),
+						header: {
+							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
+						},
+						success: (response) => {
+							area = response.data; // 全国省市区
+							area.map((items, index) => {
+								let provinceItems = {
+									name: items.name,
+									value: items.id,
+								};
+								let cityItems = []; // 市
+								items.child.map((item, index) => {
+									let child = {
+										name: item.name,
+										id: item.id
+									}
+									cityItems.push(child)
+								});
+								province.push(provinceItems);
+								city.push(cityItems);
+							});
+							this.areaPorC.province = province;
+							this.areaPorC.city = city;
+							uni.setStorageSync('areaPorC', JSON.stringify(this.areaPorC));// 缓存省市二级列表数据
+							console.log(this.areaPorC, '省市区');
+						},
+						fail: (error) => {
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
 				}
 			}
 		}

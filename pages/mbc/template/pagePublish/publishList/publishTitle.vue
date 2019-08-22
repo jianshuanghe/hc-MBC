@@ -1,13 +1,13 @@
 <template>
 	<view class="publishTitle" id="publishTitle">
 		<view class="center-publishTitle">
-			<view class="news-TBox left" @tap="clickpublishTitle(1)">
+			<view class="news-TBox left" @tap="clickPublishTitle(1)">
 			  <view :class="clickItemsIndex === 1 ? 'Tbox-items Tb-checked' : 'Tbox-items'">
 				<p class="home-left-p">1、上传BP</p>
 				<view class="hengLine" v-if="clickItemsIndex === 1"></view>
 			  </view>
 			</view>
-			<view class="news-TBox left" @tap="clickpublishTitle(2)">
+			<view class="news-TBox left" @tap="clickPublishTitle(2)">
 			  <view  :class="clickItemsIndex === 2 ? 'Tbox-items Tb-checked' : 'Tbox-items'">
 				<p class="home-right-p">2、基本信息</p>
 				<view class="hengLine"  v-if="clickItemsIndex === 2"></view>
@@ -20,22 +20,66 @@
 </template>
 
 <script>
+	import { mapMutations, mapGetters } from 'vuex';
 	export default {
 	    data () {
 			return {
 				clickItemsIndex: 1
 			};
 	    },
-		computed: {
-		},
-		watch: {
-		},
 		mounted(){
 		},
+		computed: {
+			...mapGetters(['GET_PUBLISH'])
+		},
+		watch: {
+			GET_PUBLISH: {
+			  handler (a, b) {
+				this.clickItemsIndex = a.titleIndex;
+			  },
+			  deep: true
+			}
+		},
+		created() {
+			if(uni.getStorageSync('clickItemsIndexPublish')) {
+				this.clickItemsIndex = uni.getStorageSync('clickItemsIndexPublish'); // 取缓存中tabbar数据
+				this.clickPublishTitle(this.clickItemsIndex);
+			}
+		},
 	    methods: {
-			clickpublishTitle (e) {
-				this.clickItemsIndex = e;
-				console.log(e, '切换上传BP和基本信息');
+			...mapMutations({
+				setPublishTitleIndex: 'setPublishTitleIndex'
+			}),
+			clickPublishTitle (e) {
+				if (e === 2) {
+					if(uni.getStorageSync('isUpLoadFile')) {
+						let isUpLoadFile = JSON.parse(uni.getStorageSync('isUpLoadFile')); // 
+						if (isUpLoadFile.isSuccess === true) {
+							this.clickItemsIndex = e;
+							uni.setStorageSync('clickItemsIndexPublish', e);
+							console.log(e, '切换上传BP和基本信息');
+							this.$store.commit('setPublishTitleIndex', this.clickItemsIndex); // 更新setPublishTitleIndex
+						} else {
+							uni.showToast({
+								title: '请上传BP',
+								icon: 'none',
+								duration: 1000
+							});
+						}
+					} else {
+						uni.showToast({
+							title: '请上传BP',
+							icon: 'none',
+							duration: 1000
+						});
+					}
+				} else if (e === 1) {
+					this.clickItemsIndex = e;
+					uni.setStorageSync('clickItemsIndexPublish', e);
+					console.log(e, '切换上传BP和基本信息');
+					this.$store.commit('setPublishTitleIndex', this.clickItemsIndex); // 更新setPublishTitleIndex
+
+				}
 			}
 	    }
 	};

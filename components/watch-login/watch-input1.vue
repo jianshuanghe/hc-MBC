@@ -2,6 +2,7 @@
 	<view class="main-list oBorder">
 		<!-- 文本框 -->
 		<input 
+			placeholder-style='color:#D2D2D2'
 			class="main-input1" 
 			:value="value" 
 			:type="_type" 
@@ -201,4 +202,8 @@
 	.uni-input-wrapper{
 		text-align: right;
 	}
+	input::-webkit-input-placeholder{
+		color:red !important;
+		font-size:20px;
+	} 
 </style>

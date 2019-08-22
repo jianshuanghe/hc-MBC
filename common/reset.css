@@ -178,6 +178,24 @@ p{
   color: #D2D2D2;
   letter-spacing: 0;
 }
+/*修改提示文字的颜色*/
+
+input::-webkit-input-placeholder { /* WebKit browsers */ 
+  color: #D2D2D2;
+  letter-spacing: 0;
+} 
+
+input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
+  color: #D2D2D2;
+  letter-spacing: 0;
+} 
+
+input:-ms-input-placeholder { /* Internet Explorer 10+ */ 
+  color: #D2D2D2;
+  letter-spacing: 0;
+} 
+
+
 .weui-cell{
   padding: 10px 0px !important;
 }

@@ -13,7 +13,7 @@
 					<view class="right BI-items-right">
 						<view class="BI-text-right">
 							<wInput
-								v-model="text"
+								v-model="publishParams.projName"
 								placeholder="请输入"
 							></wInput>
 						</view>
@@ -32,7 +32,7 @@
 					<view class="right BI-items-right">
 						<view class="BI-text-right">
 							<wInput
-								v-model="text"
+								v-model="publishParams.projSlogan"
 								placeholder="请输入"
 							></wInput>
 						</view>
@@ -51,7 +51,7 @@
 					<view class="right BI-items-right">
 						<view class="BI-text-right">
 							<picker @change="bindPickerChange" :value="index" :range="array">
-								<view class="uni-input BI-picker">{{pickerValue? pickerValue : '请选择'}}</view>
+								<view class="uni-input BI-picker" :class="pickerValue ? 'BI-pickered' : ''">{{pickerValue? pickerValue : '请选择'}}</view>
 								<image :src="rightArrow" class="BI-rightArrow"></image>
 							</picker>
 						</view>
@@ -69,8 +69,8 @@
 					</view>
 					<view class="right BI-items-right">
 						<view class="BI-text-right">
-							<picker @change="bindPickerChange" :value="index" :range="array">
-								<view class="uni-input BI-picker">{{pickerValue? pickerValue : '请选择'}}</view>
+							<picker mode="multiSelector" @columnchange="columnChange" @cancel='cancelPC' @change='clickPC' :value="multiIndex" :range="multiArray" range-key='name'>
+								<view class="uni-input BI-picker" :class="paramsPC.ptext ? 'BI-pickered' : ''">{{paramsPC.ptext ? paramsPC.ptext + '-' + paramsPC.ctext : '请选择'}}</view>
 								<image :src="rightArrow" class="BI-rightArrow"></image>
 							</picker>
 						</view>
@@ -114,7 +114,8 @@
 
 <script>
 	import wInput from './../../../../../../components/watch-login/watch-input1.vue';
-	import imageUploadOne from '@/components/imageUpload/imageUploadOne.vue'
+	import imageUploadOne from '@/components/imageUpload/imageUploadOne.vue';
+	import { mapMutations, mapGetters } from 'vuex';
 	export default {
 	    components: {
 	      wInput,
@@ -122,6 +123,39 @@
 	    },
 	    data () {
 	      return {
+				publishParams: {
+					userId: 0, //用户ID
+					projName: "项目名称1", //项目名称
+					projSlogan: "项目口号", //项目口号
+					fieldCode: "", //领域Code
+					pcode: "", //省市
+					ccode: "",
+					projLogo: "y7UHY2LAQnNHKGGhcjjc2BUIwHWAqRwb3tTX5BFOfSNVAo0bA2HVU8PUgaQKLchqUHo9ra.png", //项目logo
+					compName: "公司名称111", //公司名称
+					compUrl: "www.baidu.com", //公司官网
+					encloToken: "6034c60d-7553-4679-80c7-6145890fd8fb" //token
+				},
+				// 省市S
+				multiArray: [
+				],
+				multiIndex: [0, 0],
+				areaPorC: {}, // 获取缓存的省市
+				province: { // 用户选择的省份
+					index: 0, // 记录用户选择省份index
+					text: '', // 页面显示字段
+					pcode: '' // 传给后台参数
+				},
+				city: { // 用户选择的城市
+					text: '', // 页面显示字段
+					ccode: '' // 传给后台参数
+				},
+				paramsPC: { // 用于接口数据省和市
+					ptext: '', // 页面显示字段
+					pcode: '' ,// 传给后台参数
+					ctext: '', // 页面显示字段
+					ccode: '' // 传给后台参数
+				},
+				// 省市E
 				text: '',
 				logo: '', // 项目logo
 				xing:  this.Static + 'mbcImg/common/xing.png',
@@ -133,11 +167,40 @@
 				serverUrl: 'https://img01.iambuyer.com/imgup/upLoad/fileUpload'
 		  };
 	    },
+		computed: {
+			...mapGetters(['GET_PUBLISH'])
+		},
+		watch: {
+			GET_PUBLISH: {
+			  handler (a, b) {
+				this.clickItemsIndex = a.titleIndex;
+			  },
+			  deep: true
+			}
+		},
 	    created () {
+			if(uni.getStorageSync('areaPorC')) {
+				this.areaPorC = JSON.parse(uni.getStorageSync('areaPorC'));
+				this.multiArray.push(this.areaPorC.province);
+				this.multiArray.push(this.areaPorC.city[0]);
+				this.province.text = this.areaPorC.province[0].name; // 省份 ----- 默认选择的省份
+				this.province.pcode = this.areaPorC.province[0].value; //code ----默认选择的省份code
+				console.log(this.areaPorC.city[0], '获取数据第一组数据-----城市');
+				this.areaPorC.city[0].map((items, index) => {
+					if (index === 0) {
+						this.city.text = items.name; // 城市 ------默认选择的城市
+						this.city.pcode = items.value; //code -----默认的城市code
+					}
+				})
+				console.log(this.multiArray, 'created');
+			}
 		},
 	    mounted () {
 	    },
 	    methods: {
+			...mapMutations({
+				setPublishParams: 'setPublishParams'
+			}),
 			bindPickerChange: function(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value);
 				this.array.map((items, index) => {
@@ -146,6 +209,54 @@
 					}
 				})
 			},
+			// 省市S
+			cancelPC () {
+				console.log('触发取消省市选择');
+			},
+			clickPC () {
+				console.log('触发确认城市');
+				this.paramsPC = { // 用于接口数据省和市
+					ptext: this.province.text, // 页面显示字段
+					pcode: this.province.pcode ,// 传给后台参数
+					ctext: this.city.text, // 页面显示字段
+					ccode: this.city.pcode // 传给后台参数
+				}
+			},
+			columnChange: function(e) {
+				console.log('修改的列为：' + e.detail.column + '，值为：' + JSON.stringify(e.detail));
+				this.multiIndex[e.detail.column] = e.detail.value
+				let column = e.detail.column; // 第几列 0, 1
+				let indexPC = e.detail.value; // 第一列滚动到的位置,1---31
+				if (column === 0) { // 用户在操作第一列
+					this.areaPorC.province.map((item, index) => {
+						if (String(index) === String(indexPC)) {
+							this.province.index = indexPC; // 记录用户选择是省份index
+							this.province.text = item.name; // 省份 ----- 用户原则的省份
+							this.province.pcode = item.value; //code ----用户选择的省份code
+						};
+					});
+					this.areaPorC.city.map((items, index) => {
+						if (String(index) === String(indexPC)) {
+							console.log(items, '与当前省份联动的城市');
+							this.multiArray[1] = items; // 赋值新数组
+							this.city.text = items[0].name; // 城市 ------默认选择的城市
+							this.city.pcode = items[0].value; //code -----默认的城市code
+						}
+					})
+				} else if (column === 1) {
+					this.areaPorC.city.map((item, index) => {
+						if (String(index) === String(this.province.index)) { // 根据记录下的省份index,去查找对应的城市数组
+							item.map((item2, index2) => {
+								if (String(index2) === String(indexPC)) {
+									this.city.text = item2.name; // 城市 ---- 用户选的城市
+									this.city.pcode = item2.value; //code ---用户选的城市code
+								}
+							})
+						}
+					})
+				};
+			},
+			// 省市E
 			deleteImage: function(e){
 				console.log(e, '删除图片')
 				this.logo = ''; // 清空数据
@@ -239,6 +350,9 @@
 		padding-right: 24upx;
 		margin-left: 0px;
 	}
+	.BI-pickered{
+		color: #2E2E30 !important;
+	}
 	.Img-Upload{
 		width: 120upx;
 		height: 80upx;
@@ -268,4 +382,5 @@
 	.uni-input-placeholder{
 		color: #D2D2D2 !important;
 	}
+	
 </style>
