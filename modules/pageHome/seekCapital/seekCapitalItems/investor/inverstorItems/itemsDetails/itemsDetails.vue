@@ -28,7 +28,6 @@
 				dataList: {},
 				data: {
 					userId: 0, // 投资人id
-					serverId: 1000, // 服务ID
 					content: 1000 // 记录用户是否申请过 1申请过，0未申请
 				}
 			};
@@ -56,7 +55,7 @@
 		onLoad(option) {
 			this.data.userId = option.userId;
 			this.getList(option.userId);
-			this.getUserApply()
+			this.getUserApply(option.userId);
 		},
 		methods: {
 			getList (e) {
@@ -76,6 +75,8 @@
 						success: (response) => {
 							console.log(response.data.content);
 							this.dataList = response.data.content;
+							this.data.projectName = this.dataList.user.userName;
+							this.data.modelId = this.dataList.user.userId;
 							uni.hideLoading(); // 隐藏 loading
 						},
 						fail: (error) => {
@@ -90,7 +91,7 @@
 					});
 				}
 			},
-			getUserApply(){
+			getUserApply(e){
 				if (uni.getStorageSync('landRegist')) {
 				    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 				    console.log(landRegistLG.user.id);
@@ -99,7 +100,7 @@
 						title: '加载中'
 					});
 					uni.request({
-						url: this.api2 + '/contact/is/apply?modelId=2&applyeType=1'+ '&userId=' + landRegistLG.user.id, //接口地址。
+						url: this.api2 + '/contact/is/apply?applyeType=0' + '&modelId=' + e+ '&userId=' + landRegistLG.user.id, //接口地址。
 						data: this.endParams(params),
 						header: {
 							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中

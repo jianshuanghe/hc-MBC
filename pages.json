@@ -147,6 +147,17 @@
 					}
 				},
 				{
+					"path": "homeModules/lookServices/serviceDetails/BPD/serviceDetails",
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "BP打磨",
+						"app-plus": {
+						}
+					}
+				},
+				{
 					"path": "homeModules/lookProject/lookProject",
 					"style": {
 						// #ifdef H5
@@ -463,7 +474,7 @@
     "preloadRule": { // 预加载
         "modules/pageHome/searchDetile/searchDetile": {
             "network": "all",
-            "packages": ["__APP__"]
+            "packages": ["modules/pageHome"]
         }
     },
 	"globalStyle": {

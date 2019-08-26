@@ -521,7 +521,7 @@ button {
 	font-size: 32upx;
 }
 .scroll-Y {
-		height: 1334upx;
+		height: 100vh;
 		padding-bottom: 100upx;
 	}
 

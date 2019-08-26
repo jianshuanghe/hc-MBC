@@ -2,15 +2,15 @@
 	<view class="publishTitle">
 		<view class="center-publishTitle">
 			<view class="news-TBox left" @tap="clickSeekCapitalTitle(1)">
-			  <view :class="clickItemsIndex === 1 ? 'Tbox-items Tb-checked' : 'Tbox-items'">
+			  <view :class="SEEKCAPITALTITLE === 1 ? 'Tbox-items Tb-checked' : 'Tbox-items'">
 				<p class="home-left-p">投资人</p>
-				<view class="hengLine" v-if="clickItemsIndex === 1"></view>
+				<view class="hengLine" v-if="SEEKCAPITALTITLE === 1"></view>
 			  </view>
 			</view>
 			<view class="news-TBox left" @tap="clickSeekCapitalTitle(2)">
-			  <view  :class="clickItemsIndex === 2 ? 'Tbox-items Tb-checked' : 'Tbox-items'">
+			  <view  :class="SEEKCAPITALTITLE === 2 ? 'Tbox-items Tb-checked' : 'Tbox-items'">
 				<p class="home-right-p">投资机构</p>
-				<view class="hengLine"  v-if="clickItemsIndex === 2"></view>
+				<view class="hengLine"  v-if="SEEKCAPITALTITLE === 2"></view>
 			  </view>
 			</view>
 			<view class="clear"></view>
@@ -31,14 +31,20 @@
 		},
 		watch: {
 			SEEKCAPITALTITLE: {
-				handler (a, b) {},
+				handler (a, b) {
+					console.log(a, b)
+				},
 				deep: true
 			}
 		},
 		created() {
-			if(uni.getStorageSync('clickItems')) {
+			if(uni.getStorageSync('clickItemsIndex')) {
+				console.log('存在')
 				this.clickItemsIndex = uni.getStorageSync('clickItemsIndex'); // 取缓存中tabbar数据
 				this.clickSeekCapitalTitle(this.clickItemsIndex);
+			} else {
+				console.log('不存在')
+				this.clickSeekCapitalTitle(1);
 			}
 		},
 		mounted(){

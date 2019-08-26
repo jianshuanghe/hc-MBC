@@ -418,8 +418,9 @@
 		width: 596upx;
 	}
 	.cal-box{
-		position: relative;
+		position: absolute;
 		width: 80upx;
+		right: 8px;
 	}
 	.cl-text{
 		position: relative;

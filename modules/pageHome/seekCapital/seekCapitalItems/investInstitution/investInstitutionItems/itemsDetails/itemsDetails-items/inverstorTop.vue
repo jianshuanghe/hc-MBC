@@ -104,7 +104,7 @@
 	}
 	.Authentication-type{
 		position: absolute;
-		top: 64upx;
+		top: 70upx;
 		background-image: linear-gradient(-134deg, #15D49F 0%, #57D6CF 100%);
 		box-shadow: 0 2px 4px 0 rgba(2,194,162,0.40);
 		border-radius: 100px 0 0 100px;

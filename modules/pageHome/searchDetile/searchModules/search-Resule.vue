@@ -83,11 +83,11 @@
 	.resuleBox{
 		position: relative;
 		width: 100%;
-		padding-top: 180upx;
+		padding-top: 174upx;
 	}
 	.searchHistoryBox{
 		position: relative;
 		width: 100%;
-		padding-top: 120upx;
+		padding-top: 114upx;
 	}
 </style>

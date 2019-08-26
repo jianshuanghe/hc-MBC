@@ -1,10 +1,10 @@
 <template>
 	<view class="items1-content">
 		<div class="items1">
-			<image class="img" :src="items1"></image>
+			<image class="img" :src="items1s2"></image>
 			<div class="items1-cont">
-				<div class="SD-title">速融服务</div>
-				<div class="SD-money">¥19800.00</div>
+				<div class="SD-title">BP诊断</div>
+				<div class="SD-money">¥800.00</div>
 				<div class="SD-ins">行业资深分析师帮你诊断BP，线上线下推送诊断报告</div>
 			</div>
 			<div class="items1-bot">
@@ -32,7 +32,7 @@
 	export default {
 	    data () {
 			return {
-				items1: this.Static + 'mbcImg/home/lookServices/items1.png',
+				items1s2: this.Static + 'mbcImg/home/lookServices/items1s2.png',
 				icons1: this.Static + 'mbcImg/home/lookServices/icons1.png',
 				icons2: this.Static + 'mbcImg/home/lookServices/icons2.png',
 				icons3: this.Static + 'mbcImg/home/lookServices/icons3.png',

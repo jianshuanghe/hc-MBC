@@ -26,7 +26,7 @@
 					<div class="En-in-title">委托联系信息</div>
 					<div class="En-in-name">
 						类别
-						<text class="right">{{entrust.params.modelId}}</text>
+						<text class="right">{{entrust.params.applyeType | applyeType}}</text>
 					</div>
 					<div class="En-in-name">
 						名称
@@ -68,6 +68,17 @@
 		  dateTime (val) {
 		    return date.dateTime('.', val);
 		  },
+		  /* 格式化applyeType */
+		  applyeType (val) {
+			  console.log(val)
+		    if (val === 0) {
+				return '投资人';
+			} else if (val === 1) {
+				return '投资机构';
+			} else if (val === 2) {
+				return '项目';
+			}
+		  }
 		},
 		created() {
 			this.entrust = this.ENTRUST;
@@ -80,8 +91,9 @@
 			clickLookMore() {
 				console.log('触发查看更多');
 				this.$store.commit('setEnTrustShow', false); // 更新setEnTrustShow
+				this.$store.commit('setEntrustSuccess', false); // 更新setEntrustSuccess
 				uni.navigateBack({
-					delta: 2,
+					delta: 1,
 					animationType: 'pop-out',
 					animationDuration: 200
 				});

@@ -39,7 +39,7 @@
 		width: 750upx;
 		padding: 0 15px;
 		background: #fff;
-		height: 1250upx;
+		height: 94vh;
 		padding-bottom: 100upx;
 		top: 84upx;
 	}

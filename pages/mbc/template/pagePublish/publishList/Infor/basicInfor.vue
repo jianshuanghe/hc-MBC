@@ -242,7 +242,7 @@
 				this.listData.areaPorC.city[0].map((items, index) => {
 					if (index === 0) {
 						this.listData.city.text = items.name; // 城市 ------默认选择的城市
-						this.listData.city.pcode = items.value; //code -----默认的城市code
+						this.listData.city.ccode = items.value; //code -----默认的城市code
 					}
 				})
 				console.log(this.listData.multiArray, 'created');
@@ -269,7 +269,10 @@
 		},
 	    methods: {
 			...mapMutations({
-				setPublishParams: 'setPublishParams'
+				setPublishParams: 'setPublishParams',
+				setPublishTitleIndex: 'setPublishTitleIndex',
+				setIsUploadFileSuccess: 'setIsUploadFileSuccess',
+				setScanLandSuccess: 'setScanLandSuccess'
 			}),
 			getField () { // 公共组件领域
 				let fieldData = [];
@@ -320,12 +323,12 @@
 				console.log('触发取消省市选择');
 			},
 			clickPC () {
-				console.log('触发确认城市');
+				console.log(this.listData.city,'触发确认城市');
 				this.listData.paramsPC = { // 用于接口数据省和市
 					ptext: this.listData.province.text, // 页面显示字段
 					pcode: this.listData.province.pcode ,// 传给后台参数
 					ctext: this.listData.city.text, // 页面显示字段
-					ccode: this.listData.city.pcode // 传给后台参数
+					ccode: this.listData.city.ccode // 传给后台参数
 				}
 			},
 			columnChange: function(e) {
@@ -346,7 +349,7 @@
 							console.log(items, '与当前省份联动的城市');
 							this.listData.multiArray[1] = items; // 赋值新数组
 							this.listData.city.text = items[0].name; // 城市 ------默认选择的城市
-							this.listData.city.pcode = items[0].value; //code -----默认的城市code
+							this.listData.city.ccode = items[0].value; //code -----默认的城市code
 						}
 					})
 				} else if (column === 1) {
@@ -355,7 +358,7 @@
 							item.map((item2, index2) => {
 								if (String(index2) === String(indexPC)) {
 									this.listData.city.text = item2.name; // 城市 ---- 用户选的城市
-									this.listData.city.pcode = item2.value; //code ---用户选的城市code
+									this.listData.city.ccode = item2.value; //code ---用户选的城市code
 								}
 							})
 						}
@@ -380,6 +383,7 @@
 				console.log('触发提交按钮');
 				this.listData.publishParams.pcode = this.listData.paramsPC.pcode;
 				this.listData.publishParams.ccode = this.listData.paramsPC.ccode;
+				console.log(this.listData.publishParams);
 				let data = this.listData.publishParams;
 				if (data.projName === '') { // 项目名称不能为空
 					 uni.showToast({
@@ -433,6 +437,7 @@
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 					console.log(landRegistLG.user.id);
 					let params = this.listData.publishParams; // 请求总数居时 参数为空
+					params.userId = landRegistLG.user.id;
 					uni.request({
 						url: this.api2 + '/proj/add', //接口地址。
 						data: this.endParams(params),
@@ -446,6 +451,8 @@
 								uni.setStorageSync('clickItemsIndexPublish', 1);
 								console.log('切换上传BP和基本信息');
 								this.$store.commit('setPublishTitleIndex', 1); // 更新setPublishTitleIndex
+								this.$store.commit('setIsUploadFileSuccess', false); // 更新setIsUploadFileSuccess
+								this.$store.commit('setScanLandSuccess', false); // 更新setScanLandSuccess
 								uni.removeStorageSync('isUpLoadFile'); // 确认上传成功清空isUpLoadFile
 								uni.removeStorageSync('SacnToken'); // 确认上传成功清空token
 								uni.removeStorageSync('publishListData'); // 确认上传成功清空publishListData

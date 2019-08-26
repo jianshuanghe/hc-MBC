@@ -240,7 +240,10 @@
 
 <style>
 	.scroll-Y {
-		height: 1162upx;
+		height: 88vh;
+		// #ifdef MP-WEIXIN || MP-TOUTIAO || MP-BAIDU || MP-ALIPAY
+			padding-bottom: 400upx;
+		// #endif
 	}
 	
 	.scroll-view_H {
@@ -249,7 +252,7 @@
 	}
 	
 	.scroll-view-item {
-		height: 1162upx;
+		height: 88vh;
 		line-height: 300upx;
 		text-align: center;
 		font-size: 36upx;

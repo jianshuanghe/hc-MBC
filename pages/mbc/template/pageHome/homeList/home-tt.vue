@@ -6,10 +6,8 @@
 					<image :src="tt"></image>
 				</view>
 				<swiper vertical="true" autoplay="true" circular="true" interval="1000">
-					<swiper-item v-for="(item, index) in msg" :key="index" @tap="clickGoToWeb(item)">
-						<navigator>
-							<text class="text" @tap='goToMeltTt(2)'>{{item.title || '暂时没有'}}</text>
-						</navigator>
+					<swiper-item v-for="(item, index) in msg" :key="index" @tap='goToMeltTt(2)'>
+						<view class="textTT" @tap='goToMeltTt(2)'>{{item.title || '暂时没有'}}</view>
 					</swiper-item>
 				</swiper>
 			</view>
@@ -104,9 +102,9 @@
 	}
 	.Tt-img>image{
 		position: relative;
-		width: 84upx;
-		height: 32upx;
-		top: 4upx;
+		width: 82upx;
+		height: 28upx;
+		top: 2upx;
 	}
 	.Tt-text-box{
 		position: relative;
@@ -118,5 +116,12 @@
 		color: #2E2E30;
 		line-height: 30upx;
 		letter-spacing: 0;
+	}
+	.textTT{
+		position: relative;
+		width: 100%;
+		font-size: 24upx;
+		color: #2E2E30;
+		line-height: 50upx;
 	}
 </style>

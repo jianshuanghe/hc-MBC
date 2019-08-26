@@ -126,7 +126,7 @@
 								items.child.map((item, index) => {
 									let child = {
 										name: item.name,
-										id: item.id
+										value: item.id
 									}
 									cityItems.push(child)
 								});

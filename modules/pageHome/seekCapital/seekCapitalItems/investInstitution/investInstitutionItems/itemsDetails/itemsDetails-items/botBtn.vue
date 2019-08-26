@@ -9,7 +9,7 @@
 			</view>
 			<view class="left submit-box">
 				<view class="TD-box left">投递BP</view>
-				<view class="WL-box left" @tap='Apply()'>投递委托联系</view>
+				<view :class="msgData.content === 0 ? 'WL-box left' : 'WL-box1 left'" @tap='Apply()'> {{msgData.content === 0 ? '投递委托联系' : '已委托'}}</view>
 				<view class="clear"></view>
 			</view>
 			<view class="clear"></view>
@@ -46,7 +46,9 @@
 					id: 0, // id
 					love: false // 收藏
 				},
-				clickRecordsInMArr: [] // 记录用户收藏行为 ----投资人
+				clickRecordsInMArr: [] ,// 记录用户收藏行为 ----投资人
+				userType: '99', // 用户类型  -1 未认证 0 创业者 1 个人投资人 2 机构投资人
+				authState: '99' // -1 未认证 0 待审核 1审核通过 2 审核失败
 			};
 	    },
 		components: {
@@ -72,6 +74,7 @@
 			console.log(this.ENTRUST, 'ENTRUST');
 			console.log(this.msgData, 'dasdasda');
 			this.getClickRecord();
+			this.getUserType();
 		},
 		methods: {
 			...mapMutations({
@@ -79,6 +82,14 @@
 				setEntrustType: 'setEntrustType',
 				setEntrustParams: 'setEntrustParams'
 			}),
+			getUserType () {
+				console.log('判断用户是否认证');
+				if (uni.getStorageSync('UserData')) {
+					let UserData = JSON.parse(uni.getStorageSync('UserData')); // 读取缓存的用户信息
+					this.authState = UserData.authState; // -1 未认证 0 待审核 1审核通过 2 审核失败
+					this.userType = UserData.userType; // 用户类型  -1 未认证 0 创业者 1 个人投资人 2 机构投资人
+				}
+			},
 			getClickRecord () {
 				console.log('获取缓存中的用户点击行为数组记录');
 				if (uni.getStorageSync('clickRecordsInMArr')) {
@@ -181,6 +192,25 @@
 			},
 			Apply () {
 				console.log('触发申请');
+				if (this.userType === 0) { // 1 个人投资人 2 机构投资人
+					if (this.authState !== 1) { // 没有认证.或者认证没通过
+						uni.showToast({
+							title: '认证创业者可见全部内容',
+							icon: 'none',
+							duration: 1000
+						});
+						return
+					} else {
+						console.log('认证创业者')
+					}
+				} else {
+					uni.showToast({
+						title: '认证创业者可见全部内容',
+						icon: 'none',
+						duration: 1000
+					});
+					return
+				}
 				if (this.msgData.content === 1) {
 					uni.showToast({
 						title: '您已经申请过了！',
@@ -188,8 +218,10 @@
 						duration: 1000
 					});
 				} else {
-					this.entrust.params.modelId = 0; // 为0 代表投资人ID  1代表投资机构ID 2代表项目ID
-					this.entrust.params.applyeType = 0; // 0 创业者联系投资人 1创业者联系投资机构
+					this.entrust.params.serverId = this.msgData.serverId;
+					this.entrust.params.modelId = this.msgData.modelId;
+					this.entrust.params.projectName = this.msgData.projectName;
+					this.entrust.params.applyeType = 1;
 					this.$store.commit('setEntrustType', 1); // 更新setEntrustType
 					this.$store.commit('setEntrustParams', this.entrust.params); // 更新setEntrustParams
 					this.$store.commit('setEnTrustShow', true); // 更新setEnTrustShow

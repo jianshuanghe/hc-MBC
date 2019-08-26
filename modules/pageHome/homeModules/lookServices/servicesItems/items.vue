@@ -2,7 +2,9 @@
 	<view class="servicesItems-content-items">
 		<view class="SICI-content" @tap="goToServiceDetails(msgData.serverId)">
 			<view class="SICI-img">
-				<image :src='msgData.img  || banner4'></image>
+				<image :src='msgData.img  || items1' v-if="msgData.serverId === 0"></image>
+				<image :src='msgData.img  || items2' v-if="msgData.serverId === 1"></image>
+				<image :src='msgData.img  || items3'  v-if="msgData.serverId === 2"></image>
 			</view>
 			<view class="SICI-title">{{msgData.name}}</view>
 			<view class="SICI-inrc">{{msgData.serverContent}}</view>
@@ -18,7 +20,9 @@
 	export default {
 		data() {
 	        return {
-				banner4: this.dImg
+				items1: this.Static + 'mbcImg/home/lookServices/items1s2.png',
+				items2: this.Static + 'mbcImg/home/lookServices/items1s.png',
+				items3: this.Static + 'mbcImg/home/lookServices/items1.png',
 	        }
 	    },
 		props: {
@@ -38,6 +42,7 @@
 				let url = '';
 				if ( e === 0) {
 					console.log('BP诊断');
+					url = '/modules/pageHome/homeModules/lookServices/serviceDetails/BPD/serviceDetails?serverId=' + e;
 				} else if (e === 1) {
 					console.log('BP打磨');
 					url = '/modules/pageHome/homeModules/lookServices/serviceDetails/Bp/serviceDetails?serverId=' + e;
