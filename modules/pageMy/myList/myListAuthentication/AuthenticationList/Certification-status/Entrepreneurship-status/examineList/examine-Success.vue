@@ -19,11 +19,10 @@
 </template>
 
 <script>
-	import chuang from '@/static/mbcImg/my/chuang.png'
 	export default {
 		data() {
 			return {
-				chuang:chuang
+				chuang:this.Static + 'mbcImg/my/chuang.png',
 			};
 		},
 		components: {

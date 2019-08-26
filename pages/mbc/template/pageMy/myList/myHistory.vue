@@ -1,12 +1,12 @@
 <template>
 	<view class="myHistory">
 		<!-- 未认证 -->
-		<Historyone v-if="List.userType==0"></Historyone>
+		<Historyone :class="{'xian':hideen}"></Historyone>
 		<!-- 创业者 -->
-		<Historytwo v-if="List.userType == -1"></Historytwo>
+		<Historytwo :class="{'chuang':chuang}"></Historytwo>
 		<!-- 投资人 -->
-		<HistoryThree v-if="List.userType==1"></HistoryThree>
-		<HistoryThree v-if="List.userType==2"></HistoryThree>
+		<HistoryThree :class="{'tou':tou}"></HistoryThree>
+		<!-- <HistoryThree :class="{'tou':tou}"></HistoryThree> -->
 	</view>
 </template>
 
@@ -22,7 +22,10 @@
 		// props:['Mylist'],
 		data() {
 			return {
-				List:[]
+				List:[],
+				hideen:true,
+				tou:true,
+				chuang:true,
 			};
 		},
 		components: {
@@ -54,7 +57,24 @@
 							uni.hideLoading();
 							console.log(response.data);
 							this.List = response.data.content
-							console.log(this.List,'asdasdasdasdasdsssssss')
+							console.log(this.List,'a')
+							if(this.List.authState==-1){
+								this.hideen=false;
+							}else if(this.List.authState==0){
+								this.hideen=false;
+							}else if(this.List.authState==1){
+								if(this.List.userType==1){
+									this.tou=false
+								}
+								if(this.List.userType==2){
+									this.tou=false
+								}
+								if(this.List.userType==0){
+									this.chuang=false
+								}
+							}else if(this.List.authState==1){
+								this.hideen=false;
+							}
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -78,6 +98,14 @@
 		height: 144upx;
 		background: #FFFFFF;
 	}
-	
+	.xian{
+		display: none;
+	}
+	.tou{
+		display: none;
+	}
+	.chuang{
+		display: none;
+	}
 	
 </style>

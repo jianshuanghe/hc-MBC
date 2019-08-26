@@ -73,14 +73,6 @@
 		computed: {
 			...mapGetters(['GET_MY'])
 		},
-		watch: {
-			GET_MY: {
-				handler(a, b) {
-					console.log(a, b, 'header----list');
-				},
-				deep: true
-			}
-		},
 		created() {
 
 			this.Listdata = this.GET_MY.MyList.header;
@@ -126,20 +118,9 @@
 						success: (response) => {
 							uni.hideLoading();
 							console.log(response.data);
-							// this.List = response.data.content
-							// console.log(this.List)
-							// this.$store.commit('setheader');
-							// uni.navigateTo({
-							// 	'url':'/pages/mbc/home'
-							// })
-							var pages = getCurrentPages(); //当前页面栈
-							if (pages.length > 1) {
-								var beforePage = pages[pages.length - 1];
-								 console.log(beforePage)//获取上一个页面实例对象
-								beforePage.changeData(); //触发父页面中的方法
-							}
+							let muabout=this.GET_MY.MyList.header
+							this.$store.commit('setheader',params)
 							wx.navigateBack({
-								delta: 1,
 							})
 						},
 						fail: (error) => {

@@ -6,7 +6,7 @@
 					<image :src="xin"></image>
 				</view>
 				<view>项目名称</view>
-				<view><input type="text" placeholder="请输入" placeholder-style="color:#D2D2D2" /></view>
+				<view><input type="text" placeholder="请输入" placeholder-style="color:#D2D2D2" v-model="projName" /></view>
 			</view>
 		</view>
 		<view class="datas-List-case-name">
@@ -15,7 +15,7 @@
 					<image></image>
 				</view>
 				<view>简介</view>
-				<view><input type="text" placeholder="请输入" placeholder-style="color:#D2D2D2" /></view>
+				<view><input type="text" placeholder="请输入" placeholder-style="color:#D2D2D2" v-model="projContent" /></view>
 			</view>
 		</view>
 		<view class="datas-List-case-logo">
@@ -84,14 +84,17 @@
 			return {
 				Ima1: this.Static + 'mbcImg/my/Ima1.png',
 				logo: '',
-				xin: this.Static + 'mbcImg/my/xin.png',
+				xin: this.Static + 'mbcImg/common/xing.png',
 				right: this.Static + 'mbcImg/my/right.png',
 				imageData: [],
 				serverUrl: 'https://img01.iambuyer.com/imgup/upLoad/fileUpload',
 				time: [],
 				projName: '',
 				projContent: '',
-				projLogo: ''
+				projLogo: '',
+				id:'',
+				shijian:'',
+				userInveLevelList: []
 
 			};
 		},
@@ -103,7 +106,18 @@
 		},
 		created() {
 			this.time = this.GET_MY.MyList.Time;
-			console.log(this.time)
+			// this.id = this.GET_MY.MyList.Time[0].id;
+			// this.shijian = this.GET_MY.MyList.Time[0].time;
+			console.log(this.time, '-----------------this.time-----------------')
+			console.log(this.time,this.id,this.shijian);
+			let paramsTime = [...this.time];
+			paramsTime.map((items, index) =>{
+				let objItems = {
+					levelCode: items.id,
+					startTime: items.time + '-01'
+				};
+				this.userInveLevelList.push(objItems);
+			})
 		},
 		methods: {
 			caseadd() {
@@ -115,13 +129,10 @@
 						projName: this.projName,
 						projContent: this.projContent,
 						projLogo: this.logo,
-						userInveLevelList: [
-							{
-								levelCode: this.time.id,
-								startTime: this.time.time
-							},
-						]
-					}; // 请求总数居时 参数为空
+						userInveLevelList: this.userInveLevelList
+					};
+					 // 请求总数居时 参数为空
+					 console.log(params)
 					uni.showLoading({ // 展示loading
 						title: '加载中'
 					});

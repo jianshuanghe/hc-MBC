@@ -1,13 +1,13 @@
 <template>
 	<view class="examine">
 		<!-- 创业者 认证成功 -->
-		<Success v-if="this.num==1"></Success>
+		<Success v-if="List.authState=='1'"></Success>
 		<!-- 创业者 审核中 -->
-		<progress1 v-if="this.num==2"></progress1>
+		<progress1 v-if="List.authState=='0'"></progress1>
 		<!-- 创业者 审核失败 -->
-		<failure v-if="this.num==0"></failure>
+		<failure v-if="List.authState=='2'"></failure>
 		<!-- 创业者 未认证 -->
-		<Uncertified v-if="this.num==-1"></Uncertified>
+		<Uncertified v-if="List.authState=='-1'"></Uncertified>
 	</view>
 </template>
 

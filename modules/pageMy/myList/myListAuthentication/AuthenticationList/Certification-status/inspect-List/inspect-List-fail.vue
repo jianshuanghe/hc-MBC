@@ -2,21 +2,21 @@
 	<view class="inspect-List-fail">
 		<view class="inspect-List-fail-header">
 			<view>
-				<image :src="Image7"></image>
+				<img :src="Image7"></img>
 			</view>
 			<view>审核失败</view>
 		</view>
 		<view class="inspect-List-fail-conter">
 			<view>{{Listdata.userName}}</view>
-			<view>职位:{{Listdata.userPosition}}</view>
+			<view v-if="Listdata.userPosition!==''">职位:{{Listdata.userPosition}}</view>
 			<view>邮箱:{{Listdata.userEmail}}</view>
-			<view>机构名称:{{Listdata.compName}}</view>
+			<view v-if="Listdata.compName!==''">机构名称:{{Listdata.compName}}</view>
 			<view>
 				<image :src="Listdata.img"></image>
 			</view>
 		</view>
-		<view class="fail-yuanying" v-for="(item,index) in num" :key="index">
-			失败原因:{{item}}
+		<view class="fail-yuanying">
+			失败原因:{{Listdata.userAuthInfos[0].authContent}}
 		</view>
 		<view class="inspect-List-fail-fotter">
 			<view>
@@ -24,7 +24,7 @@
 			</view>
 			<view>
 				<view>审核失败</view>
-				<view v-for="(item,index) in time" :key="index">{{item|formatDate}}</view>
+				<view>{{Listdata.userAuthInfos[0].createTime|formatDate}}</view>
 				<view>审核中</view>
 				<view>2019.05.23 10:23:34</view>
 				<view>发起认证</view>
@@ -76,11 +76,7 @@
 		},
 		created() {
 			this.Listdata = this.GET_MY.MyList.Authentication;
-			for(var i=0;i<this.Listdata.userAuthInfos.length;i++){
-				this.num[i]=this.Listdata.userAuthInfos[i].authContent
-				this.time[i]=this.Listdata.userAuthInfos[i].createTime
-				console.log(this.time[i])
-			}
+			console.log(this.Listdata)
 		},
 		methods: {
 			
@@ -108,7 +104,7 @@
 		padding-top: 15upx;
 	}
 
-	.inspect-List-fail-header view:nth-of-type(1) image {
+	.inspect-List-fail-header view:nth-of-type(1) img {
 		width: 100%;
 		height: 100%;
 	}

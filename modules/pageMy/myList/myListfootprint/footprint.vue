@@ -1,7 +1,7 @@
 <template>
 	<view class="footprint">
 		<!-- 本月查看几个项目 -->
-		<footprintNumber></footprintNumber>
+		<!-- <footprintNumber></footprintNumber> -->
 		<!-- 看过的项目 -->
 		<footprintworks></footprintworks>
 	</view>

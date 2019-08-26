@@ -36,7 +36,7 @@
 	export default {
 		data() {
 			return {
-				xin:this.Static + 'mbcImg/my/xin.png',
+				xin:this.Static + 'mbcImg/common/xing.png',
 				name:'',
 				address:'',
 				id:'',

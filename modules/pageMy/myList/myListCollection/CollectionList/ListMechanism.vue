@@ -132,7 +132,7 @@
 	}
 
 	.ListMechanismfist view:nth-of-type(2) view:nth-of-type(1) {
-		width: 200upx;
+		width: 300upx;
 		height: 50upx;
 		font-size: 32upx;
 		color: #2E2E30;

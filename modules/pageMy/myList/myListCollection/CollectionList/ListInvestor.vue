@@ -7,11 +7,11 @@
 			<view>
 				<view>{{item.userName}}</view>
 				<view class="ListInvestorLast">
-					<span>{{item.compName}}</span>
-					<span>{{item.posiName}}</span>
+					<span v-if="item.compName!==''">{{item.compName}}</span>
+					<span v-if="item.compName!==''">{{item.posiName}}</span>
 				</view>
-				<view class="ListInvestortrees">
-					<span v-for=" items in ipaddrArray" :key="items">{{items}}</span>
+				<view class="ListInvestortrees" v-if="ipaddrArray.length==0">
+					<span v-for=" (items,index) in ipaddrArray" :key="index">{{items}}</span>
 				</view>
 			</view>
 			<view>
@@ -160,12 +160,13 @@
 		border-right: 4upx solid #D2D2D2;
 	}
 
-	.ListInvestorLast span {
+	.ListInvestorLast span:nth-of-type(2) {
 		display: block;
 		width: 100upx;
 		height: 30upx;
 		text-align: center;
 		line-height: 30upx;
+		margin-left: 20upx;
 	}
 
 	.ListInvestortrees {

@@ -1,6 +1,6 @@
 <template>
 	<view class="historyCollection" @tap="gotoCollection">
-		<span>{{Listdata.followCount}}</span>
+		<span>{{List.followCount}}</span>
 		<span>收藏</span>
 	</view>
 </template>
@@ -10,26 +10,52 @@
 	export default {
 		data() {
 			return {
-				Listdata: []
+				List: []
 			};
 		},
 		computed: {
 			...mapGetters(['GET_MY'])
 		},
-		watch: {
-			GET_MY: {
-				handler(a, b) {
-					console.log(a, b, 'header----list');
-				},
-				deep: true
-			}
-		},
 		created() {
-			this.Listdata = this.GET_MY.MyList.header;
-			console.log(this.Listdata, 'this.Listdata');
+			this.getHeader();
 		},
-		mounted() {},
+		mounted() {
+			
+		},
 		methods: {
+			getHeader() {
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					// let params = {}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/user/' + landRegistLG.user.id, //接口地址。
+						// data: this.endParams(params),
+						method: 'GET',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							uni.hideLoading();
+							console.log(response.data);
+							this.List = response.data.content
+							console.log(this.List,'a')
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
 			gotoCollection(e) {
 				console.log(e)
 				let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
