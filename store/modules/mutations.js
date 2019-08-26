@@ -121,10 +121,6 @@ const mutations = {
     console.log(info, 'setIsUploadFileContent');
     state.publish.isUpLoadFile.content = info;
   },
-  setPublishParams (state, info) { //  基本信息参数
-    console.log(info, 'setPublishParams');
-    state.publish.publishParams = info;
-  },
   // 我的=》用户信息
   setheader(state, info){
 	  console.log(info,'setheader')

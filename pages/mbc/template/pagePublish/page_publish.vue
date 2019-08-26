@@ -10,9 +10,6 @@
 			<view class="inforContent"  v-if='GET_PUBLISH.titleIndex === 2'>
 				<!-- 基本信息 -->
 				<basicInfor ></basicInfor>
-				<!-- 公司信息 -->
-				<companyInfor></companyInfor>
-				<btn></btn>
 			</view>
 		</view>
 	</view>
@@ -21,8 +18,6 @@
 	import publishTitle from "./publishList/publishTitle.vue";
 	import uploadBP from "./publishList/uploadBP/uploadBP.vue";
 	import basicInfor from "./publishList/Infor/basicInfor.vue";
-	import companyInfor from "./publishList/Infor/companyInfor.vue";
-	import btn from "./publishList/Infor/btn.vue";
 	import { mapMutations, mapGetters } from 'vuex';
 export default {
 	data() {
@@ -33,9 +28,7 @@ export default {
 	components: {
 		publishTitle,
 		uploadBP,
-		basicInfor,
-		companyInfor,
-		btn
+		basicInfor
 	},
 	computed: {
 		...mapGetters(['GET_PUBLISH'])
@@ -46,6 +39,9 @@ export default {
 			this.$store.commit('setIsUploadFileSuccess', isUpLoadFile.isSuccess); // 更新setIsUploadFileSuccess
 			this.$store.commit('setIsUploadFileContent', isUpLoadFile.content); // 更新setIsUploadFileContent
 		};
+		if(uni.getStorageSync('SacnToken')) {
+			this.isTokenConnect();
+		}
 	},
 	mounted() {
 	},
@@ -53,7 +49,33 @@ export default {
 		...mapMutations({
 			setIsUploadFileSuccess: 'setIsUploadFileSuccess',
 			setIsUploadFileContent: 'setIsUploadFileContent'
-		})
+		}),
+		isTokenConnect () {
+			console.log('校验token是否有效')
+			if (uni.getStorageSync('landRegist')) {
+				let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+				console.log(landRegistLG.user.id);
+				let params = {}; // 请求总数居时 参数为空
+				uni.request({
+					url: this.api2 + '/pc/isTokenConnect?token=' + uni.getStorageSync('SacnToken'), //接口地址。
+					data: this.endParams(params),
+					header: {
+						Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
+					},
+					success: (response) => {
+						console.log(response.data.content); // 领域
+					},
+					fail: (error) => {
+						uni.showToast({
+							title: '网络繁忙，请稍后',
+							icon: 'none',
+							duration: 1000
+						});
+						console.log(error, '网络繁忙，请稍后');
+					}
+				});
+			}
+		}
 	}
 };
 </script>
