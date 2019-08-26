@@ -30,7 +30,7 @@
 			gotoAuthentication(e){
 				console.log('去' + e + '我的认证');
 				uni.navigateBack({
-					delta: 2
+					delta: 3
 				});
 			}
 		}

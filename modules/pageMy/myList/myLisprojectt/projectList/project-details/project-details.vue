@@ -12,16 +12,16 @@
 						<span>{{arr.fieldCode}}</span>
 						<span>{{arr.pcode}}</span>
 					</view>
-					<view class="bianji">编辑</view>
+					<view class="bianji" @tap="gotomy">编辑</view>
 				</view>
 			</view>
 			<view class="project-details-header-two" v-if="this.Labelarr.length!==0">
-				<span v-for="(items,index) in Labelarr" :key="index">{{items.labelName}}</span>
+				<span v-for="(items,index) in arr.projLabels" :key="index">{{items.labelName}}</span>
 				<view>编辑</view>
 			</view>
 			<view class="project-details-header-twos" v-if="this.Labelarr.length==0">
 				<span>暂未添加标签</span>
-				<view>编辑</view>
+				<view class="gotoedit">编辑</view>
 			</view>
 		</view>
 		<view class="project-details-BP">
@@ -39,25 +39,63 @@
 				</view>
 			</view>
 		</view>
+		
+		
+		
+		
 		<view class="jianxi"></view>
 		<view class="project-details-data">
-			<view>项目简介</view>
-			<view @tap="gotodatasListme">
-				填写项目简介
+			<view class="project-details-data-bianji">项目简介</view>
+			<view class="project-details-data-imges">
+				<view class="project-details-data-imges-one" v-for="(imang,index) in arr.projImgs" :key="index"><image :src="imang.imgName"></image></view>
+				<!-- <view class="project-details-data-imges-one"><image :src="keji" mode=""></image></view>
+				<view class="project-details-data-imges-one"><image :src="keji" mode=""></image></view> -->
 			</view>
+			<view class="project-details-data-two">
+				<view>项目介绍</view>
+				<view>{{arr.projContent}}</view>
+			</view>
+			<view class="project-details-data-two">
+				<view>市场需求</view>
+				<view>{{arr.conentMarket}}</view>
+			</view>
+			<view class="project-details-data-thre">
+				<view>用户画像</view>
+				<view>{{arr.conentPortrait}}</view>
+			</view>
+			<view class="project-details-data-bian" @tap="gotobrief">编辑</view>
+			<!-- <view @tap="gotodatasListme" class="project-details-data-brief">
+				填写项目简介
+			</view> -->
 		</view>
+		
+		
+		
+		
+		
 		<view class="jianxi"></view>
-		<view class="project-details-data">
+		<view class="demand">
 			<view>融资需求</view>
-			<view @tap="gotodatasListme">
+			<view class="demand-two">{{arr.finanLevelCode}}&nbsp;&nbsp;&nbsp;&nbsp;{{arr.finanMoney}}万人民币</view>
+			<view @tap="gotodatasdemand" class="demand-an" v-if="arr.finanLevelCode&arr.finanMoney =='' ">
 				填写融资需求
 			</view>
+			<view class="demand-bian" @tap="gotodatasdemand(arr.id)" v-if="arr.finanLevelCode||arr.finanMoney !=='' ">编辑</view>
 		</view>
 		<view class="jianxi"></view>
 		<view class="history">
 			<view>融资历史</view>
-			<view class="history-cheng">
-				
+			<view class="history-cheng" v-for="(inss ,index) in arr.projCapis" :key="index">
+				<view>
+					<span>{{inss.capiStartime|DAta}}月</span>
+					<span>{{inss.capiStartime|forma}}</span>
+				</view>
+				<view>
+					<span>金额：{{inss.capiMoney}}万</span>
+					<span>在融轮次：{{inss.levelCode}}</span>
+					<span>{{inss.capiInveCompName}}</span>
+				</view>
+				<view @tap="historybianji(inss.id)">编辑</view>
 			</view>
 			<view @tap="gotodatahistory" class="button-an">
 				填写融资历史
@@ -67,7 +105,9 @@
 		<view class="team">
 			<view>团队成员</view>
 			<view class="team-cheng" v-for="(ite,index) in arr.projUsers" :key="index">
-				<view><image :src="ite.projUserImg" mode=""></image></view>
+				<view>
+					<image :src="ite.projUserImg" mode=""></image>
+				</view>
 				<view>
 					<span>{{ite.projUserName}}</span><span>{{ite.projUserPosition}}</span>
 					<span>{{ite.projUserContent}}</span>
@@ -81,13 +121,13 @@
 		<view class="jianxi"></view>
 		<view class="project-details-company">
 			<view>公司信息</view>
-			<view class="project-details-company-two">公司全称</view>
-			<view class="project-details-company-thre">{{arr.compName}}</view>
+			<view class="project-details-company-two" v-if="arr.compName !==''">公司全称</view>
+			<view class="project-details-company-thre" v-if="arr.compName !==''">{{arr.compName}}</view>
 			<view class="project-details-company-one" v-if="arr.compAddr !==''">
 				<view>公司地址</view>
 				<view>{{arr.compAddr}}</view>
 			</view>
-			<view class="gongsi" @tap="projectXQgsname">编辑</view>
+			<view class="gongsi" @tap="projectXQgsname" v-if="arr.compName||arr.compAddr !=='' ">编辑</view>
 			<view @tap="projectXQgsname" class="button-an" v-if="arr.compName&arr.compAddr =='' ">
 				填写公司信息
 			</view>
@@ -135,11 +175,12 @@
 				linkname: '',
 				linkaddress: '',
 				list: [],
-				arr:[],
-				Labelarr:[],
+				arr: [],
+				Labelarr: [],
 				id: '',
-				pdf:this.Static + 'mbcImg/my/pdf.png',
-				
+				pdf: this.Static + 'mbcImg/my/pdf.png',
+				keji:this.Static + 'mbcImg/my/keji.png',
+
 			};
 		},
 		filters: {
@@ -157,8 +198,39 @@
 				let s = date.getSeconds();
 				s = s < 10 ? ('0' + s) : s;
 				return y + '.' + MM + '.' + d + '.' + h + '.' + m;
+			},
+			forma: function(value) {
+				let date = new Date(value);
+				let y = date.getFullYear();
+				let MM = date.getMonth() + 1;
+				MM = MM < 10 ? ('0' + MM) : MM;
+				let d = date.getDate();
+				d = d < 10 ? ('0' + d) : d;
+				let h = date.getHours();
+				h = h < 10 ? ('0' + h) : h;
+				let m = date.getMinutes();
+				m = m < 10 ? ('0' + m) : m;
+				let s = date.getSeconds();
+				s = s < 10 ? ('0' + s) : s;
+				return y ;
+			},
+			DAta: function(value) {
+				let date = new Date(value);
+				let y = date.getFullYear();
+				let MM = date.getMonth() + 1;
+				MM = MM < 10 ? ('0' + MM) : MM;
+				let d = date.getDate();
+				d = d < 10 ? ('0' + d) : d;
+				let h = date.getHours();
+				h = h < 10 ? ('0' + h) : h;
+				let m = date.getMinutes();
+				m = m < 10 ? ('0' + m) : m;
+				let s = date.getSeconds();
+				s = s < 10 ? ('0' + s) : s;
+				return MM ;
 			}
 		},
+
 		watch: {
 			GET_MY: {
 				handler(a, b) {
@@ -167,7 +239,7 @@
 				},
 				deep: true
 			},
-		
+
 		},
 		computed: {},
 		created() {
@@ -190,33 +262,65 @@
 			cancel() {
 				this.hiden = true
 			},
-			projectXQgsname(){
+			projectXQgsname() {
 				console.log('公司信息')
 				uni.navigateTo({
-					url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-gsname?id='+this.id
+					url: '/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-gsname?id=' + this.id
 				})
 			},
-			gotodatasteam(){
+			gotodatasteam() {
 				console.log('团队成员')
 				uni.navigateTo({
-					url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-team?id='+this.id
+					url: '/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-team?id=' + this.id
 				})
 			},
-			gotodatahistory(){
+			gotodatahistory() {
 				console.log('融资历史')
 				uni.navigateTo({
-					url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-history'
+					url: '/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-history?id=' + this
+						.id
 				})
 			},
-			teambianji(e){
-				console.log(e)
+			teambianji(e) {
+				console.log(e+'团队成员编辑')
 				uni.navigateTo({
-					url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-team-bianji?id='+e
+					url: '/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-team-bianji?id=' +
+						e
+				})
+			},
+			historybianji(e) {
+				console.log(e+'融资历史编辑')
+				uni.navigateTo({
+					url: '/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-history-bianji?id=' +
+						e
+				})
+			},
+			gotodatasdemand(e){
+				console.log(e+'融资需求')
+				uni.navigateTo({
+					url: '/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-demand?id='+e
+				})
+			},
+			gotobrief(e){
+				console.log(e+'融资需求')
+				uni.navigateTo({
+					url: '/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-brief?id='+this.id
+				})
+			},
+			gotomy(e){
+				console.log(e+'基本信息')
+				uni.navigateTo({
+					url: '/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-my?id='+this.id
+				})
+			},gotomy(e){
+				console.log(e+'基本信息')
+				uni.navigateTo({
+					url: '/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-edit?id='+this.id
 				})
 			},
 			child() { //阻止事件冒泡
 			},
-			shujuxiang() {//项目列表
+			shujuxiang() { //项目列表
 				if (uni.getStorageSync('landRegist')) {
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 					console.log(landRegistLG.user.id);
@@ -234,7 +338,7 @@
 						success: (response) => {
 							uni.hideLoading();
 							console.log(response.data);
-							this.arr=response.data.content
+							this.arr = response.data.content
 							this.$store.commit('setCompany', this.arr);
 							console.log(this.arr)
 						},
@@ -250,7 +354,7 @@
 					});
 				}
 			},
-			Label(){//标签
+			Label() { //标签
 				if (uni.getStorageSync('landRegist')) {
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 					console.log(landRegistLG.user.id);
@@ -268,7 +372,7 @@
 						success: (response) => {
 							uni.hideLoading();
 							console.log(response.data);
-							this.Labelarr=response.data
+							this.Labelarr = response.data.content
 							console.log(this.Labelarr)
 						},
 						fail: (error) => {
@@ -321,7 +425,6 @@
 		background: #FFFFFF;
 		padding: 2upx;
 	}
-
 	.project-details-header {
 		width: 90%;
 		height: 304upx;
@@ -339,6 +442,7 @@
 		border-bottom: 2upx solid #F5F5F5;
 		padding: 2upx;
 		display: flex;
+		position: relative;
 	}
 
 	.project-details-header-one view:nth-of-type(1) {
@@ -374,9 +478,9 @@
 		font-size: 24upx;
 		color: #9B9B9B;
 		width: 100%;
-		overflow:hidden; //超出的文本隐藏
-		text-overflow:ellipsis; //溢出用省略号显示
-		white-space:nowrap; //溢出不换行
+		overflow: hidden; //超出的文本隐藏
+		text-overflow: ellipsis; //溢出用省略号显示
+		white-space: nowrap; //溢出不换行
 	}
 
 	.project-details-header-one view:nth-of-type(2) view:nth-of-type(1) {
@@ -553,19 +657,86 @@
 
 	.project-details-data {
 		width: 100%;
-		height: 300upx;
+		min-height: 300upx;
+		padding-bottom: 40upx;
 		background: #FFFFFF;
+		position: relative;
 	}
 
-	.project-details-data view:nth-of-type(1) {
+	.project-details-data-bianji {
 		font-size: 34upx;
 		color: #2E2E30;
 		padding-top: 40upx;
 		padding-left: 30upx;
 		font-weight: 700;
 	}
-
-	.project-details-data view:nth-of-type(2) {
+	.project-details-data-imges{
+		width: 90%;
+		height: 200upx;
+		margin: 0 auto;
+		margin-top: 40upx;
+		display: flex;
+		justify-content: space-between;
+		border-bottom: 2upx solid #E2E2E2;
+	}
+	.project-details-data-imges-one image{
+		width: 200upx;
+		height: 150upx;
+	}
+	.project-details-data-two{
+		width: 90%;
+		min-height: 150upx;
+		margin: 0 auto;
+		padding-bottom: 20upx;
+		border-bottom: 2upx solid #E2E2E2;
+	}
+	.project-details-data-thre{
+		width: 90%;
+		min-height: 150upx;
+		margin: 0 auto;
+		padding-bottom: 20upx;
+	}
+	.project-details-data-thre view:nth-of-type(1){
+		width: 100%;
+		height: 30upx;
+		font-size: 28upx;
+		color: #2E2E30;
+		padding-top: 20upx;
+		font-weight: 700;
+	}
+	.project-details-data-thre view:nth-of-type(2){
+		width: 100%;
+		min-height: 30upx;
+		font-size: 28upx;
+		color: #5D5D5D;
+		line-height: 34upx;
+		padding-top: 20upx;
+	}
+	.project-details-data-two view:nth-of-type(1){
+		width: 100%;
+		height: 30upx;
+		font-size: 28upx;
+		color: #2E2E30;
+		padding-top: 20upx;
+		font-weight: 700;
+	}
+	.project-details-data-two view:nth-of-type(2){
+		width: 100%;
+		min-height: 30upx;
+		font-size: 28upx;
+		color: #5D5D5D;
+		line-height: 34upx;
+		padding-top: 20upx;
+	}
+	.project-details-data-bian{
+		font-size: 26upx;
+		color: #02C2A2;
+		position: absolute;
+		right: 40upx;
+		top: 52upx;
+		font-weight: 700;
+	}
+	.project-details-data-brief {
 		margin: 40upx auto 0 auto;
 		width: 300upx;
 		height: 80upx;
@@ -576,7 +747,47 @@
 		font-size: 28upx;
 		color: #02C2A2;
 	}
-
+	.demand {
+		width: 100%;
+		min-height: 200upx;
+		background: #FFFFFF;
+		position: relative;
+		padding-bottom: 40upx;
+	}
+	
+	.demand view:nth-of-type(1) {
+		font-size: 34upx;
+		color: #2E2E30;
+		padding-top: 40upx;
+		padding-left: 30upx;
+		font-weight: 700;
+	}
+	
+	.demand-two {
+		font-size: 28upx;
+		color: #5D5D5D;
+		padding-top: 20upx;
+		padding-left: 40upx;
+	}
+	.demand-bian{
+		font-size: 26upx;
+		color: #02C2A2;
+		position: absolute;
+		right: 40upx;
+		top: 52upx;
+		font-weight: 700;
+	}
+	.demand-an{
+		margin: 40upx auto 0 auto;
+		width: 300upx;
+		height: 80upx;
+		border: 2upx solid #02C2A2;
+		/* margin: 0 auto; */
+		line-height: 80upx;
+		text-align: center;
+		font-size: 28upx;
+		color: #02C2A2;
+	}
 	.project-details-company {
 		width: 100%;
 		min-height: 300upx;
@@ -605,6 +816,7 @@
 		padding-top: 0upx;
 		padding-left: 35upx;
 	}
+
 	.project-details-company-one {
 		width: 90%;
 		border-top: 2upx solid #E2E2E2;
@@ -660,7 +872,8 @@
 		padding-left: 30upx;
 		font-weight: 700;
 	}
-	.button-an{
+
+	.button-an {
 		margin: 40upx auto 0 auto;
 		width: 300upx;
 		height: 80upx;
@@ -671,6 +884,7 @@
 		font-size: 28upx;
 		color: #02C2A2;
 	}
+
 	.add {
 		width: 90%;
 		margin: 0 auto;
@@ -690,38 +904,44 @@
 		display: block;
 		margin-top: 20upx;
 	}
-	.team{
+
+	.team {
 		width: 100%;
 		min-height: 300upx;
 		background: #FFFFFF;
 		padding-bottom: 20upx;
 	}
-	.team view:nth-of-type(1){
+
+	.team view:nth-of-type(1) {
 		font-size: 34upx;
 		color: #2E2E30;
 		padding-top: 40upx;
 		padding-left: 30upx;
 		font-weight: 700;
 	}
-	.team-cheng{
+
+	.team-cheng {
 		width: 90%;
 		height: 176upx;
 		border-bottom: 2upx solid #E2E2E2;
 		margin: 0 auto;
 		display: flex;
 	}
-	.team-cheng view:nth-of-type(1){
+
+	.team-cheng view:nth-of-type(1) {
 		width: 88upx;
 		height: 88upx;
 		border-radius: 50%;
 		margin-left: 0;
 	}
-	.team-cheng view:nth-of-type(1) image{
+
+	.team-cheng view:nth-of-type(1) image {
 		width: 100%;
 		height: 100%;
 		border-radius: 50%;
 	}
-	.team-cheng view:nth-of-type(2){
+
+	.team-cheng view:nth-of-type(2) {
 		width: 450upx;
 		height: 88upx;
 		margin-top: 40upx;
@@ -732,10 +952,13 @@
 		text-overflow: ellipsis; //溢出用省略号显示
 		white-space: nowrap; //溢出不换行
 	}
-	.team-cheng view:nth-of-type(2) span:nth-of-type(1){
+
+	.team-cheng view:nth-of-type(2) span:nth-of-type(1) {
 		font-size: 32upx;
 		color: #2E2E30;
-	}.team-cheng view:nth-of-type(2) span:nth-of-type(2){
+	}
+
+	.team-cheng view:nth-of-type(2) span:nth-of-type(2) {
 		font-size: 24upx;
 		color: #9B9B9B;
 		border-left: 2upx solid #9B9B9B;
@@ -746,13 +969,15 @@
 		line-height: 7upx;
 		margin-top: 15upx;
 	}
-	.team-cheng view:nth-of-type(2) span:nth-of-type(3){
+
+	.team-cheng view:nth-of-type(2) span:nth-of-type(3) {
 		font-size: 12px;
 		color: #5D5D5D;
 		position: absolute;
-		top:50upx;
+		top: 50upx;
 	}
-	.team-cheng view:nth-of-type(3){
+
+	.team-cheng view:nth-of-type(3) {
 		width: 80upx;
 		text-align: right;
 		font-size: 26upx;
@@ -761,35 +986,97 @@
 		margin-right: 0;
 		font-weight: 700;
 	}
-	
-	.history{
+
+	.history {
 		width: 100%;
 		min-height: 300upx;
 		background: #FFFFFF;
 		padding-bottom: 20upx;
 	}
-	.history view:nth-of-type(1){
+
+	.history view:nth-of-type(1) {
 		font-size: 34upx;
 		color: #2E2E30;
 		padding-top: 40upx;
 		padding-left: 30upx;
 		font-weight: 700;
 	}
-	.history-cheng{
+
+	.history-cheng {
 		width: 90%;
 		height: 176upx;
 		border-bottom: 2upx solid #E2E2E2;
 		margin: 0 auto;
 		display: flex;
-		background: red;
 	}
-	
-	
-	
+
+	.history-cheng view:nth-of-type(1) {
+		width: 70upx;
+		height: 70upx;
+		background: #F5F5F5;
+		border-radius: 8upx;
+		margin-top: 20upx;
+		position: relative;
+		text-align: center;
+	}
+
+	.history-cheng view:nth-of-type(1) span:nth-of-type(1) {
+		font-size: 38upx;
+		color: #2E2E30;
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 50%;
+	}
+
+	.history-cheng view:nth-of-type(1) span:nth-of-type(2) {
+		font-size: 38upx;
+		color: #9B9B9B;
+		position: absolute;
+		top: 50upx;
+		left: 0;
+		width: 100%;
+		height: 50%;
+	}
+
+	.history-cheng view:nth-of-type(2) {
+		width: 70%;
+		height: 100%;
+		margin-left: 20upx;
+	}
+
+	.history-cheng view:nth-of-type(2) span {
+		display: block;
+		font-size: 26upx;
+		color: #5D5D5D;
+	}
+
+	.history-cheng view:nth-of-type(2) span:nth-of-type(1) {
+		margin-top: 10upx;
+	}
+
+	.history-cheng view:nth-of-type(2) span:nth-of-type(3) {
+		font-size: 26upx;
+		color: #FAB100;
+	}
+
+	.history-cheng view:nth-of-type(3) {
+		width: 80upx;
+		text-align: right;
+		font-size: 26upx;
+		color: #02C2A2;
+		margin-top: 0;
+		margin-right: 0;
+		font-weight: 700;
+	}
+
+
 	.zhe {
 		display: none;
 	}
-	
+
 	.Mask {
 		position: fixed;
 		top: 0;

@@ -78,7 +78,7 @@
 		data() {
 			return {
 				logo: '',
-				xin: this.Static + 'mbcImg/my/xin.png',
+				xin: this.Static + 'mbcImg/common/xing.png',
 				right: this.Static + 'mbcImg/my/right.png',
 				index: 0, // 默认选择第一个
 				array: ['是', '否'],

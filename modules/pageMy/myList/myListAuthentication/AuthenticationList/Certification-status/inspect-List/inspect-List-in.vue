@@ -21,7 +21,7 @@
 			</view>
 			<view>
 				<view>审核中</view>
-				<view>2019.05.23 10:23:34</view>
+				<view>{{Listdata.userAuthInfos[0].createTime|formatDate}}</view>
 				<view>发起认证</view>
 				<view>2019.05.23 10:23:34</view>
 			</view>
@@ -41,6 +41,23 @@
 		},
 		computed: {
 			...mapGetters(['GET_MY'])
+		},
+		filters: {
+			formatDate: function(value) {
+				let date = new Date(value);
+				let y = date.getFullYear();
+				let MM = date.getMonth() + 1;
+				MM = MM < 10 ? ('0' + MM) : MM;
+				let d = date.getDate();
+				d = d < 10 ? ('0' + d) : d;
+				let h = date.getHours();
+				h = h < 10 ? ('0' + h) : h;
+				let m = date.getMinutes();
+				m = m < 10 ? ('0' + m) : m;
+				let s = date.getSeconds();
+				s = s < 10 ? ('0' + s) : s;
+				return y +'.'+ MM +'.'+ d +'.'+ h +'.'+ m +'.'+ s ;
+			},
 		},
 		watch: {
 			GET_MY: {

@@ -31,19 +31,19 @@
 		</view>
 		<view class="data-footer">
 			<view>投资案例</view>
-			<view class="touzianli" v-for="(item,index) in Listdata" :key="index">
+			<view class="touzianli" v-for="(item,index) in Listcase" :key="index">
 				<view>
-					<image :src="item.compLogo" v-if="item.compLogo!==''"></image>
-					<image :src="images" v-if="item.compLogo==''"></image>
+					<image :src="item.projLogo" v-if="item.projLogo!==''"></image>
+					<image :src="images" v-if="item.projLogo==''"></image>
 				</view>
 				<view class="lunshu">
-					<span>{{item.compName}}</span>
-					<span>简介啊实打实大师大所大所大所大所大所多啊实打实大师大所大所大所大所大所多啊实打实大师大所大所大所大所大所多</span>
-					<span class="lunshu-shu">
-						<image :src="Ima1"></image><span>2019.3.2</span> <span>C轮</span>
+					<span>{{item.projName}}</span>
+					<span>{{item.projContent}}</span>
+					<span class="lunshu-shu" v-for="(itea,index) in item.userInveLevelList" :key="index">
+						<image :src="Ima1"></image><span>{{itea.startTime|formatDate}}</span> <span>{{itea.levelCodeStr}}</span>
 					</span>
 				</view>
-				<view class="data-footer-three">编辑</view>
+				<view class="data-footer-three" @tap="gotocasebianji(item.id)">编辑</view>
 			</view>
 			<view @tap="gotodatasListcase" class="data-footer-one">
 				填写投资案例
@@ -85,7 +85,24 @@
 				},
 				deep: true
 			},
-
+		},
+		filters: {
+			formatDate: function(value) {
+				let date = new Date(value);
+				let y = date.getFullYear();
+				let MM = date.getMonth() + 1;
+				MM = MM < 10 ? ('0' + MM) : MM;
+				let d = date.getDate();
+				d = d < 10 ? ('0' + d) : d;
+				let h = date.getHours();
+				h = h < 10 ? ('0' + h) : h;
+				let m = date.getMinutes();
+				m = m < 10 ? ('0' + m) : m;
+				let s = date.getSeconds();
+				s = s < 10 ? ('0' + s) : s;
+				return y + '.' + MM + '.' + d;
+			},
+			
 		},
 		created() {
 			//个人信息
@@ -152,10 +169,9 @@
 							uni.hideLoading();
 							console.log(response.data);
 							this.Listdata = response.data.content.userExpes
-							// console.log(this.Listdata, '333')
+							this.Listcase = response.data.content.userInves
+							console.log(this.Listcase, '333')
 							this.$store.commit('setLvli', this.Listdata);
-							this.Listcase = response.data.content
-							// console.log(this.Listcase)
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -191,6 +207,12 @@
 				console.log(e + '投资案例')
 				uni.navigateTo({
 					url: '../../../Investment-status/InvestmentList/InvestmentList-data/datas-List/datas-List-case',
+				});
+			},
+			gotocasebianji(e){
+				console.log(e + '任职履历编辑')
+				uni.navigateTo({
+					url: '../../../Investment-status/InvestmentList/InvestmentList-data/datas-List/datas-List-case?id='+e,
 				});
 			}
 		}
@@ -369,11 +391,13 @@
 		position: absolute;
 		left: 0;
 		margin-top: -40upx;
+		border-radius: 50%;
 	}
 
 	.touzianli view:nth-of-type(1) image {
 		width: 100%;
 		height: 100%;
+		border-radius: 50%;
 	}
 
 	.lunshu {

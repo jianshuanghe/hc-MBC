@@ -68,7 +68,7 @@
 		data() {
 			return {
 				right:this.Static + 'mbcImg/my/right.png',
-				xin:this.Static + 'mbcImg/my/xin.png',
+				xin:this.Static + 'mbcImg/common/xing.png',
 				id:'',
 				projUserName:'',
 				projUserPosition:'',

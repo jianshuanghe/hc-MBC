@@ -293,18 +293,27 @@
 	}
 	
 	.dragging{
-		transform: scale(1.2)
+		transform: scale(0)
 	}
 	
 	.imageUploadList{
+		width: 900upx;
+		height: 148upx;
 		display: flex;
-		flex-wrap: wrap;
+		/* flex-wrap: wrap; */
 	}
-	
-	.imageItem, .imageUpload{
-		width: 160upx;
-		height: 160upx;
-		margin: 10upx;
+	.imageUploadList view:nth-of-type(1){
+		margin-left: 0;
+	}
+	.imageItem{
+		width: 148upx;
+		width: 148upx;
+		margin-left: 115upx;
+	} 
+	.imageUpload{
+		width: 148upx;
+		width: 148upx;
+		margin-left: 20upx;
 	}
 	
 	.imageDel{
@@ -322,9 +331,10 @@
 	}
 	
 	.imageItem image, .moveImage{
-		width: 160upx;
-		height: 160upx;
+		width: 148upx;
+		height: 148upx;
 		border-radius: 8upx;
+		margin-top: -10upx;
 	}
 	
 	.imageUpload{

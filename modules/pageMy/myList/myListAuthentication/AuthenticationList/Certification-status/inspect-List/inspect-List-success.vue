@@ -1,8 +1,8 @@
 <template>
 	<view class="inspect-List-success">
 		<view class="inspect-List-success-header">
-			<view>
-				<image :src="Image6"></image>
+			<view class="image-opcity">
+				<img :src="success" mode=""></img>
 			</view>
 			<view>审核已通过</view>
 		</view>
@@ -10,7 +10,7 @@
 			<view>{{Listdata.userName}}</view>
 			<view>职位:{{Listdata.userPosition}}</view>
 			<view>邮箱:{{Listdata.userEmail}}</view>
-			<view>机构名称:{{List.compName}}</view>
+			<view>机构名称:{{Listdata.compName}}</view>
 			<view>
 				<image :src="Listdata.img"></image>
 			</view>
@@ -21,7 +21,7 @@
 			</view>
 			<view>
 				<view>审核通过</view>
-				<view>{{Listdata.createTime}}</view>
+				<view>{{Listdata.userAuthInfos[0].createTime}}</view>
 				<view>审核中</view>
 				<view>2019.05.23 10:23:34</view>
 				<view>发起认证</view>
@@ -37,7 +37,7 @@
 		data() {
 			return {
 				Listdata: [],
-				Image6:this.Static + 'mbcImg/my/Image6.png',
+				success:this.Static+'mbcImg/my/Image 6.png',
 				Image4:this.Static + 'mbcImg/my/Image4.png',
 			};
 		},
@@ -75,16 +75,18 @@
 		display: flex;
 	}
 
-	.inspect-List-success-header view:nth-of-type(1) {
+	.image-opcity {
 		width: 34upx;
 		height: 34upx;
 		padding-left: 32upx;
 		padding-top: 15upx;
+		opacity: 1 !important;
 	}
 
-	.inspect-List-success-header view:nth-of-type(1) image {
+	.image-opcity img:nth-of-type(1) {
 		width: 100%;
 		height: 100%;
+		opacity: 1 !important;
 	}
 
 	.inspect-List-success-header view:nth-of-type(2) {

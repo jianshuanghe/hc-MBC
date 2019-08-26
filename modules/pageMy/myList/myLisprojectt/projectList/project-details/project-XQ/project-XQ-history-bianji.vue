@@ -1,14 +1,14 @@
 <template>
-	<view class="project-XQ-history">
+	<view class="project-XQ-history-bianji">
 		<view class="datas-List-vitae-yes">
 			<view class="datas-List-vitae-yes-box">
 				<view>
-					<image :src="xin"></image>
+					<image></image>
 				</view>
 				<view>融资时间</view>
 				<view>
 					<picker @change="bindDateChange" mode="date" :value="date" :start="startDate" fields="month" :end="endDate">
-						<view class="ziti">{{date}}</view>
+						<view class="ziti">{{date|formatDate}}</view>
 					</picker>
 				</view>
 				<view>
@@ -19,7 +19,7 @@
 		<view class="datas-List-vitae-yes">
 			<view class="datas-List-vitae-yes-box">
 				<view>
-					<image :src="xin"></image>
+					<image></image>
 				</view>
 				<view>融资轮次</view>
 				<view>
@@ -49,6 +49,9 @@
 				<span class="numberV">{{remnane}}/150</span>
 			</view>
 		</view>
+		<view class="del" @tap="del">
+			删除
+		</view>
 		<view class="datas-List-case-bao" @tap="gotodatasListcase">
 			<view>
 				<view>
@@ -75,7 +78,7 @@
 				index: 0, // 默认选择第一个
 				array2: [],
 				pickerValue2: "", // 选中的值
-				date: currentDate,
+				date: '',
 				index:0,
 				id:'',
 				lunid:'',
@@ -83,7 +86,8 @@
 				txtVal: 1,
 				remnane:0,
 				desc:'',
-				money:''
+				money:'',
+				peorid:''
 			};
 		},
 		computed: {
@@ -103,6 +107,23 @@
 			console.log(this.id)
 		},
 		mounted() {},
+		filters: {
+			formatDate: function(value) {
+				let date = new Date(value);
+				let y = date.getFullYear();
+				let MM = date.getMonth() + 1;
+				MM = MM < 10 ? ('0' + MM) : MM;
+				let d = date.getDate();
+				d = d < 10 ? ('0' + d) : d;
+				let h = date.getHours();
+				h = h < 10 ? ('0' + h) : h;
+				let m = date.getMinutes();
+				m = m < 10 ? ('0' + m) : m;
+				let s = date.getSeconds();
+				s = s < 10 ? ('0' + s) : s;
+				return y + '-' + MM ;
+			},
+		},
 		methods: {
 			...mapMutations({
 				setTime: 'setTime'
@@ -112,35 +133,20 @@
 				this.remnane = 1 + txtVal;
 			},
 			gotodatasListcase(){
-				if(this.date === ''){
-					uni.showToast({
-						title: '请填写投资时间',
-						icon: 'none',
-						duration: 1000
-					});
-					return false;
-				}else if(this.pickerValue2 === ''){
-					uni.showToast({
-						title: '请填写投资轮次',
-						icon: 'none',
-						duration: 1000
-					});
-					return false;
-				}
-				if(!/^[0-9]+$/.test(this.money)){
-					uni.showToast({
-						title: '融资金额必须为数字',
-						icon: 'none',
-						duration: 1000
-					});
-					return false;
-				}
+				// if(!/^[0-9]+$/.test(this.money)){
+				// 	uni.showToast({
+				// 		title: '融资金额必须为数字',
+				// 		icon: 'none',
+				// 		duration: 1000
+				// 	});
+				// 	return false;
+				// }
 				if (uni.getStorageSync('landRegist')) {
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 					console.log(landRegistLG.user.id);
 					let params = {
-						projId:this.id,
-						capiStartime:this.date+'-01',
+						id:this.id,
+						capiStartime:(this.date),
 						levelCode:this.lunid,
 						capiMoney:this.money,
 						capiInveCompName:this.desc
@@ -151,7 +157,7 @@
 						title: '加载中'
 					});
 					uni.request({
-						url: this.api2 + '/proj/capi/addProjCapi', //接口地址。
+						url: this.api2 + '/proj/capi/updateProjCapi', //接口地址。
 						data: this.endParams(params),
 						method: 'POST',
 						header: {
@@ -161,7 +167,7 @@
 							uni.hideLoading();
 							console.log(response.data);
 							uni.navigateTo({
-								url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-details?id='+this.id
+								url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-details?id='+this.peorid
 							})
 						},
 						fail: (error) => {
@@ -181,7 +187,7 @@
 				let year = date.getFullYear();
 				let month = date.getMonth() + 1;
 				let day = date.getDate();
-
+	
 				if (type === 'start') {
 					year = year - 60;
 				} else if (type === 'end') {
@@ -195,6 +201,91 @@
 				// console.log(e)
 				this.date = e.target.value
 				console.log(this.date)
+			},
+			xiang(){
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					// let params = {}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/proj/capi/getProjCapi?projCapiId='+this.id, //接口地址。
+						// data: this.endParams(params),
+						method: 'GET',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							uni.hideLoading();
+							console.log(response.data.content);
+							this.money=response.data.content.capiMoney
+							this.desc=response.data.content.capiInveCompName
+							this.date=response.data.content.capiStartime
+							this.peorid=response.data.content.projId
+							let FainId = response.data.content.levelCode;
+							console.log(FainId, '融资id');
+							console.log(this.array2, '融资数组');
+							this.array2.map((items, index) => {
+								if (String(FainId) === String(items.id)) {
+									this.pickerValue2 = items.name;
+									this.lunid = items.id
+								}
+							})
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
+			del(){
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					// let params = {
+					// 	projId:Number(this.id),
+					// }; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					// console.log(params)
+					uni.request({
+						url: this.api2 + '/proj/capi/delProjCapi?projCapiIds='+this.id, //接口地址。
+						// data: this.endParams(params),
+						method: 'GET',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							uni.hideLoading();
+							console.log(response.data);
+							// let setLvliData = this.GET_MY.MyList.Company.projUsers;
+							// setLvliData.splice(this.id, 1);
+							// this.$store.commit('setCompany', setLvliData);
+							// uni.navigateBack({})
+							uni.navigateTo({
+								url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-details?id='+this.peorid
+							})
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
 			},
 			Financingrounds() { //融资轮次列表
 				if (uni.getStorageSync('landRegist')) {
@@ -214,7 +305,8 @@
 						success: (response) => {
 							uni.hideLoading();
 							console.log(response.data.content);
-							this.array2 = response.data.content
+							this.array2 = response.data.content;
+							this.xiang();
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -243,7 +335,7 @@
 </script>
 
 <style>
-	.project-XQ-history{
+	.project-XQ-history-bianji{
 		width: 100%;
 	}
 	.datas-List-vitae-yes {
@@ -422,5 +514,14 @@
 		position: absolute;
 		bottom: 0;
 		right: 40upx;
+	}
+	.del{
+		width: 100%;
+		height: 100upx;
+		background: #FFFFFF;
+		text-align: center;
+		color: red;
+		line-height: 100upx;
+		border-top:2upx solid  #F5F5F5;
 	}
 </style>

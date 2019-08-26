@@ -1,13 +1,13 @@
 <template>
 	<view class="Investment-status">
 		<!-- 投资人 认证成功 -->
-		<Success v-if="num==0"></Success>
+		<Success v-if="List.authState=='0'"></Success>
 		<!-- 投资人 审核中 -->
-		<progress1 v-if="num==1"></progress1>
+		<progress1 v-if="List.authState=='0'"></progress1>
 		<!-- 投资人 审核失败 -->
-		<failure v-if="num==2"></failure>
+		<failure v-if="List.authState=='2'"></failure>
 		<!-- 投资人 未审核 -->
-		<Uncertified v-if="num==-1"></Uncertified>
+		<Uncertified v-if="List.authState=='-1'"></Uncertified>
 	</view>
 </template>
 
@@ -20,7 +20,8 @@
 	export default {
 		data() {
 			return {
-				num:''
+				num:'',
+				List:[]
 			};
 		},
 		components: {

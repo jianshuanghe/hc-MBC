@@ -76,8 +76,6 @@
 </template>
 
 <script>
-	import right from '@/static/mbcImg/my/right1.png'
-	import xin from '@/static/mbcImg/my/Image 1.png'
 	import imageUploadOne from '@/components/imageUpload/imageUploadOne.vue'
 	export default {
 		data() {
@@ -89,7 +87,7 @@
 				company:'',
 				position:'',
 				logo: '',
-				xin:this.Static + 'mbcImg/my/Image 1.png',
+				xin:this.Static + 'mbcImg/common/xing.png',
 				right:this.Static + 'mbcImg/my/right.png',
 				imageData : [],
 				serverUrl: 'https://img01.iambuyer.com/imgup/upLoad/fileUpload'
@@ -118,9 +116,7 @@
 				}
 			},
 			gotoSubmissionseccess(e) {
-				uni.navigateTo({
-					'url':'../../AuthenticationList/Submission-success/Submission-success'
-				})
+				
 				console.log('去' + e + '提交成功');
 				if(this.name===''){
 					uni.showToast({
@@ -205,7 +201,9 @@
 							success: (response) => {
 								uni.hideLoading();
 								console.log(response.data);
-									
+								uni.navigateTo({
+									'url':'../../AuthenticationList/Submission-success/Submission-success'
+								})
 							},
 							fail: (error) => {
 								uni.hideLoading(); // 隐藏 loading

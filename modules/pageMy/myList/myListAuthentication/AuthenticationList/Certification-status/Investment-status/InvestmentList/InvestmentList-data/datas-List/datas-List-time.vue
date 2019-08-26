@@ -53,7 +53,7 @@
 				format: true
 			})
 			return {
-				xin: this.Static + 'mbcImg/my/xin.png',
+				xin: this.Static + 'mbcImg/common/xing.png',
 				right: this.Static + 'mbcImg/my/right.png',
 				index: 0, // 默认选择第一个
 				array2: [],
@@ -149,13 +149,7 @@
 						success: (response) => {
 							uni.hideLoading();
 							console.log(response.data.content);
-							for (var i = 0; i <= response.data.content.length; i++) {
-								let obj = {
-									name: response.data.content[i].name,
-									id: response.data.content[i].id
-								}
-								this.array2[i] = obj
-							}
+							this.array2=response.data.content
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
