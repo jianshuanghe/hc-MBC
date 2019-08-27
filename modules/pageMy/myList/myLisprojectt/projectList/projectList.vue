@@ -15,6 +15,10 @@
 				</view>
 			</view>
 		</view>
+		<view class="meirenkanwo" v-if="active.listData!==undefined &&active.listData.length==0">
+			<image :src="kong" mode=""></image>
+			您还没有收藏文章！
+		</view>
 		</scroll-view>
 	</view>
 </template>
@@ -23,6 +27,7 @@
 	export default {
 		data() {
 			return {
+				kong:this.Static + 'mbcImg/my/kong.png',
 				arr:[],
 				scrollTop: 0,
 				old: {
@@ -105,7 +110,7 @@
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 					console.log(landRegistLG.user.id);
 					let params = {
-						userId:landRegistLG.user.id
+						userId:760
 					}; // 请求总数居时 参数为空
 					uni.showLoading({ // 展示loading
 						title: '加载中'
@@ -258,5 +263,21 @@
 		bottom: 0;
 		right: 0;
 		margin: auto;
+	}
+	.meirenkanwo {
+		width: 100%;
+		height: 350upx;
+		display: block;
+		margin: 80upx auto auto auto;
+		font-size: 28upx;
+		text-align: center; 
+		color: #9B9B9B;
+	}
+	
+	.meirenkanwo image {
+		width: 48%;
+		height: 65%;
+		display: block;
+		margin: 0 auto;
 	}
 </style>

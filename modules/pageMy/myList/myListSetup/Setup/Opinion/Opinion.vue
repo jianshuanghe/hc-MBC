@@ -49,6 +49,9 @@
 						success: (response) => {
 							uni.hideLoading();
 							console.log(response.data);
+							uni.navigateBack({
+								
+							})
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading

@@ -79,7 +79,7 @@
 		mounted() {},
 		methods: {
 			...mapMutations({
-				setTime: 'setTime'
+				setTimes: 'setTimes'
 			}),
 			gotodatasListcase(){
 				console.log(this.date,this.pickerValue2)
@@ -100,13 +100,13 @@
 				}
 				let pamadd={
 					levelCode:this.id,
-					startTime:this.date+'-01',
+					startTime:this.date,
 					levelCodeStr:this.pickerValue2,
 				}
 				console.log(pamadd)
-				let setLvliData = this.GET_MY.MyList.Time;
+				let setLvliData = this.GET_MY.MyList.Times;
 				setLvliData.unshift(pamadd);
-				this.$store.commit('setTime', setLvliData);
+				this.$store.commit('setTimes', setLvliData);
 				uni.navigateBack({
 				})
 			},

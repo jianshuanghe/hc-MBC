@@ -1,17 +1,27 @@
 <template>
 	<view class="DataList">
-		<view class="dataHeadportrait">
-			<view>
-				头像
-				<image :src="right"></image>
+		<view class="BI-items">
+			<view class="left BI-items-left">
+				<view class="mustFill">
+					<image></image>
+				</view>
+				<view class="BI-text-left">头像</view>
 			</view>
-			<view>
-				<image :src="Listdata.headImg" v-if="!logo" class="ziti"></image>
-				<div class="Img-Upload">
-					<imageUploadOne class="img" v-model="imageData" :server-url="serverUrl" limit=1 @delete="deleteImage" @add="addImage">
-					</imageUploadOne>
-				</div>
+			<view class="right BI-items-right">
+				<view class="BI-text-right">
+					<image class="ziti" v-if="!logo" :src="Listdata.headImg">点击上传</image>
+					<view class="Img-logo">
+						<!-- 图片上传 -->
+						<view class="Img-Upload">
+							<imageUploadOne 
+								v-model="imageData" :server-url="serverUrl" limit=1 @delete="deleteImage" @add="addImage">
+							</imageUploadOne>
+						</view>
+					</view>
+					<image :src="right" class="BI-rightArrow"></image>
+				</view>
 			</view>
+			<view class="clear"></view>
 		</view>
 		<view class="dataname">
 			<view>
@@ -64,7 +74,8 @@
 				mail: '',
 				Listdata: [],
 				imageData: [],
-				serverUrl: 'https://img01.iambuyer.com/imgup/upLoad/fileUpload'
+				serverUrl: 'https://img01.iambuyer.com/imgup/upLoad/fileUpload',
+				logo2:''
 			};
 		},
 		components: {
@@ -91,6 +102,7 @@
 				if (e.allImages) { // 上传成功
 					// console.log(e.allImages[0].imgName)
 					this.logo = (e.allImages[0].imgName);
+					this.logo2=(e.allImages[0].imgUrl)
 				}
 			},
 			subminsdata() {
@@ -118,8 +130,10 @@
 						success: (response) => {
 							uni.hideLoading();
 							console.log(response.data);
-							let muabout=this.GET_MY.MyList.header
-							this.$store.commit('setheader',params)
+							// let muabout=this.GET_MY.MyList.header
+							// muabout=params
+							params.headImg=this.logo2
+							this.$store.commit('setMation',params)
 							wx.navigateBack({
 							})
 						},
@@ -140,11 +154,104 @@
 </script>
 
 <style>
+	.BI-items{
+		position: relative;
+		width: 100%;
+		height: 120upx;
+		background: #FFFFFF;
+	}
+	.BI-items-left{
+		position: relative;
+		width: 36%;
+	}
+	.BI-text-left{
+		position: relative;
+		font-family: PingFang-SC-Medium;
+		font-size: 28upx;
+		color: #2E2E30;
+		letter-spacing: 0;
+		padding: 0px;
+		margin-top: 44upx;
+		margin-bottom: 44upx;
+		line-height: 36upx;
+		margin-left: 40upx
+	}
+	.BI-items-right{
+		position: relative;
+		width: 64%;
+	}
+	.BI-text-right{
+		position: relative;
+		width: 100%;
+		margin-top: 44upx;
+		margin-bottom: 44upx
+	}
+	.BI-picker{
+		position: relative;
+		font-family: PingFang-SC-Medium;
+		font-size: 28upx;
+		color: #D2D2D2;
+		overflow: hidden;
+		text-overflow: clip;
+		white-space: pre;
+		word-break: keep-all;
+		letter-spacing: 0;
+		padding: 0px;
+		margin-top: 44upx;
+		margin-bottom: 44upx;
+		line-height: 36upx;
+		margin-left: 24upx;
+		text-align: right;
+		-webkit-box-flex: 1;
+		-webkit-flex: 1;
+		-ms-flex: 1;
+		flex: 1;
+		text-align: right;
+		padding-right: 24upx;
+		margin-left: 0px;
+	}
+	.BI-pickered{
+		color: #2E2E30 !important;
+	}
+	.Img-Upload{
+		width: 120upx;
+		height: 80upx;
+		position: absolute;
+		right: 80upx;
+		top: -20upx;
+	}
+	.BI-picker-Img{
+		width: 80upx;
+		height: 80upx;
+		position: absolute;
+		right: 28upx;
+		top: -20upx;
+	}
+	.mustFill{
+		position: absolute;
+		left: 0;
+	}
+	.mustFill>image{
+		position: relative;
+		width: 14upx;
+		height: 14upx;
+	}
+	.uni-input-wrapper{
+		text-align: right;
+	}
+	.BI-rightArrow{
+		position: absolute;
+		width: 25upx;
+		height: 18upx;
+		right: 40upx;
+		top: 6upx;
+	}
 	.ziti {
 		position: absolute;
-		right: 0upx;
-		width: 300upx;
-		height: 30upx;
+		right: 80upx;
+		width: 80upx;
+		height: 80upx;
+		top: -30upx;
 		font-size: 30upx;
 	}
 
@@ -196,9 +303,6 @@
 		width: 100%;
 		height: 120upx;
 		background: #FFFFFF;
-		/* display: flex; */
-		/* position: relative; */
-		/* margin-top: 20upx; */
 	}
 
 	.dataname view:nth-of-type(1) {
@@ -206,6 +310,7 @@
 		height: 100%;
 		margin: 0 auto;
 		border-bottom: 2upx solid #F5F5F5;
+		border-top: 2upx solid #F5F5F5;
 		position: relative;
 		line-height: 120upx;
 		display: flex;

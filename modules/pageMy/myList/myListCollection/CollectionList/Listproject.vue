@@ -124,7 +124,7 @@
 	}
 	.Listprojectfist view:nth-of-type(3){
 		position: absolute;
-		width: 200upx;
+		width: 250upx;
 		height:80upx ;
 		padding-top: 40upx;
 		text-align: right;

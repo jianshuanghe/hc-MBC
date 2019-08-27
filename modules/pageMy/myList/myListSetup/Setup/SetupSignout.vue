@@ -13,7 +13,7 @@
 		height: 120upx;
 		background: #FFFFFF;
 		position: absolute;
-		margin-top: 40upx;
+		margin-top: 20upx;
 		/* padding-top: 40upx; */
 	}
 	.SetupSignout view:nth-of-type(1){

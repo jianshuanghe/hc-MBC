@@ -1,7 +1,7 @@
 <template>
 	<view class="Investment-status">
 		<!-- 投资人 认证成功 -->
-		<Success v-if="List.authState=='0'"></Success>
+		<Success v-if="List.authState=='1'"></Success>
 		<!-- 投资人 审核中 -->
 		<progress1 v-if="List.authState=='0'"></progress1>
 		<!-- 投资人 审核失败 -->

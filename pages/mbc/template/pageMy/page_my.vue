@@ -46,7 +46,8 @@
 		// },
 		methods: {
 			...mapMutations({
-				setheader: 'setheader'
+				setheader: 'setheader',
+				setMation:'setMation'
 			}),
 			shuaxin() {
 				window.location.reload()
@@ -71,7 +72,9 @@
 							console.log(response.data);
 							this.List = response.data.content
 							console.log(this.List)
-							this.$store.commit('setheader', this.List); // 更新setFinance
+							this.$store.commit('setheader', this.List); // 更新vuex
+							this.$store.commit('setMation', this.List); // 更新vuex
+							
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading

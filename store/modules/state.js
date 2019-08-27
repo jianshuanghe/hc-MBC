@@ -246,7 +246,10 @@ const state = {
 		Authentication:[],
 		Lvli:[],
 		Time:[],
-		Company:[]
+		Company:[],
+		Times:[],
+		Case:[],
+		Mation:[]
 	}  
   }
 };
