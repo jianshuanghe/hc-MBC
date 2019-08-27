@@ -6,6 +6,8 @@
 		<multipleScreen></multipleScreen>
 		<!-- list -->
 		<seekCapitalList></seekCapitalList>
+		<!-- publish -->
+		<publishProject></publishProject>
 	</view>
 </template>
 
@@ -13,6 +15,7 @@
 	import seekCapitalTitle from "./seekCapitalItems/seekCapitalTitle.vue";
 	import seekCapitalList from "./seekCapitalItems/seekCapitalList.vue";
 	import multipleScreen from "./seekCapitalItems/multipleScreen/multipleScreen.vue";
+	import publishProject from "./seekCapitalItems/publishProject.vue";
 	export default {
 		data() {
 			return {};
@@ -21,7 +24,8 @@
 		components: {
 			seekCapitalTitle,
 			seekCapitalList,
-			multipleScreen
+			multipleScreen,
+			publishProject
 		},
 		computed: {
 			// ...mapGetters(['GET_HOME'])

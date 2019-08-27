@@ -1,19 +1,23 @@
 
 <template>
-	<view class="listInvest">
-		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
-		@scroll="scroll">
-			<view v-for="(items,index) in investInstitution.listData" :key="index" >
-				<investInstitutionItems :msgData="items"></investInstitutionItems>
-			</view>
-			<view class="loading-more">
-			    <text class="loading-more-text">{{loadingText}}</text>
-			</view>
-		</scroll-view>
+	<view class="s"  v-if="investInstitution.listData.length > 0">
+		<view class="listInvest">
+			<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
+			@scroll="scroll">
+				<view v-for="(items,index) in investInstitution.listData" :key="index" >
+					<investInstitutionItems :msgData="items"></investInstitutionItems>
+				</view>
+				<view class="loading-more">
+					<text class="loading-more-text">{{loadingText}}</text>
+				</view>
+			</scroll-view>
+		</view>
 	</view>
+	<empty v-else>抱歉，没有找到相关内容~</empty>
 </template>
 
 <script>
+	import empty from "@/components/empty/empty.vue";
 	import investInstitutionItems from "./investInstitutionItems/investInstitution-items.vue";
 	import { mapMutations, mapGetters } from 'vuex';
 	export default {
@@ -55,7 +59,8 @@
 	    	};
 	    },
 	    components: {
-	    	investInstitutionItems
+	    	investInstitutionItems,
+			empty
 	    },
 	    computed: {
 	      ...mapGetters(['SEEKCAPITALTITLE', 'INVERSTINSSEARCH', 'INVERSTINSSEARCHTYPE', 'AREADATA', 'FIELDDATA', 'LEVELDATA'])

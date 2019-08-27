@@ -168,7 +168,11 @@
 			},
 			getArea () { // 公共组件省市区
 				let area = []; // 全国省市区
-				let province = []; // 全国省
+				let province = [{
+									name: '全部',
+									value: '0001',
+									checked: false
+								}]; // 全国省
 				let provinceAndCity = []; // 全国省市
 				if (uni.getStorageSync('landRegist')) {
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
@@ -221,7 +225,11 @@
 				}
 			},
 			getField () { // 公共组件领域
-				let fieldData = [];
+				let fieldData = [{
+									name: '全部',
+									value: '0001',
+									checked: false
+								}];
 				if (uni.getStorageSync('landRegist')) {
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 					console.log(landRegistLG.user.id);
@@ -257,7 +265,11 @@
 				}
 			},
 			getLevel () { // 公共组件融资阶段
-			let levelData = [];
+			let levelData = [{
+									name: '全部',
+									value: '0001',
+									checked: false
+								}];
 				if (uni.getStorageSync('landRegist')) {
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 					console.log(landRegistLG.user.id);

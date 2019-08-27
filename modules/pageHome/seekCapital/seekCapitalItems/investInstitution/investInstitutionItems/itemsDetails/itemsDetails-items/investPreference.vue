@@ -20,7 +20,7 @@
 							<view class="lun" v-for="(item,index) in items.inveLevel" :key="index">
 								<image :src="yuan"></image>
 								{{item.starTime | dateTime}}
-								<text class="lun-text">{{item.levelCode}}</text>
+								<text class="lun-text">{{item.levelCodeStr}}</text>
 								<view class="itm-line-y" v-if='items.inveLevel.length > 1 && items.inveLevel.length - 1 > index'></view>
 							</view>
 						</view>

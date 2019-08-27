@@ -31,12 +31,7 @@
 			this.getMsgList();
 		},
 	    methods: {
-	      clickGoToWeb () {
-	        console.log('点击触发融头条组件');
-	      },
 		  goToMeltTt (e) {
-		  	console.log('to融头条');
-		  	console.log(e, '点击触发发现');
 		  	this.clickItems = e;
 		  	this.$store.commit('setHome', this.clickItems);
 		  	this.$store.commit('setFindTabItems', 1); // 更新setFindTabItems

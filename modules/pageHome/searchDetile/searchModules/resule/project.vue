@@ -18,7 +18,7 @@
 				<view class="resule-modules-more" @tap="getMoreProjectList(project)">查看更多</view>
 			</view>
 		</view>
-		<empty v-else>没有数据哦！</empty>
+		<empty v-else>抱歉，没有找到相关内容~</empty>
 	</view>
 </template>
 

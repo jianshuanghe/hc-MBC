@@ -8,7 +8,7 @@
 			</view>
 		</view>
 	</view>
-	<empty v-else>没有数据哦！</empty>
+	<empty v-else>抱歉，没有相关内容~</empty>
 </template>
 
 <script>

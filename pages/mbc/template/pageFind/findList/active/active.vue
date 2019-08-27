@@ -1,22 +1,26 @@
 <template>
 	<div class="meltTt-content">
-		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
-		@scroll="scroll">
-			<view class="scrollContent">
-				<!-- 列表 -->
-				<view class="list" v-for="(items,index) in active.listData" :key="index">
-					<items :msgData="items"></items>
+		<view v-if="active.listData.length > 0">
+			<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
+			@scroll="scroll">
+				<view class="scrollContent">
+					<!-- 列表 -->
+					<view class="list" v-for="(items,index) in active.listData" :key="index">
+						<items :msgData="items"></items>
+					</view>
 				</view>
-			</view>
-			<view class="loading-more">
-			    <text class="loading-more-text">{{loadingText}}</text>
-			</view>
-		</scroll-view>
+				<view class="loading-more">
+					<text class="loading-more-text">{{loadingText}}</text>
+				</view>
+			</scroll-view>
+		</view>
+		<empty v-else>抱歉，没有相关内容~</empty>
 	</div>
 </template>
 
 <script>
 	import items from "./items.vue";
+	import empty from "@/components/empty/empty.vue";
 	import { mapMutations, mapGetters } from 'vuex';
 	export default {
 		data() {
@@ -45,7 +49,8 @@
 			};
 		},
 		components: {
-			items
+			items,
+			empty
 		},
 		computed: {
 			...mapGetters(['GET_FIND'])

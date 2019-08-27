@@ -13,7 +13,7 @@
 				</view>
 			</scroll-view>
 		</view>
-		<empty v-else>没有数据哦！</empty>
+		<empty v-else>抱歉，没有找到相关内容~</empty>
 	</view>
 </template>
 

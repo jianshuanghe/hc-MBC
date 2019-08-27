@@ -34,6 +34,7 @@
   .empty>img{
     position: relative;
     width: 100%;
+	height: 100%;
   }
   .emptyBlankText{
     position: relative;
