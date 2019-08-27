@@ -27,7 +27,8 @@
 				<view>
 					<view class="ziti" v-if="!logo">点击上传</view>
 					<div class="Img-Upload">
-						<imageUploadOne class="img" v-model="imageData" :server-url="serverUrl" limit=1 @delete="deleteImage" @add="addImage">
+						<imageUploadOne class="img" 
+						v-model="imageData" :server-url="serverUrl" limit=1 @delete="deleteImage" @add="addImage">
 						</imageUploadOne>
 					</div>
 				</view>
@@ -52,8 +53,8 @@
 				<view>
 					<image :src="Ima1" mode=""></image>
 				</view>
-				<view>{{item.time}}</view>
-				<view>{{item.lun}}</view>
+				<view>{{item.startTime}}</view>
+				<view>{{item.levelCodeStr}}</view>
 				<view @tap="dele(index)">删除</view>
 			</view>
 		</view>
@@ -94,32 +95,40 @@
 				projLogo: '',
 				id:'',
 				shijian:'',
-				userInveLevelList: []
-
+				userInveLevelList: [],
+				times:[],
 			};
 		},
 		computed: {
-			...mapGetters(['GET_MY'])
+			...mapGetters(['GET_MY']),
 		},
 		components: {
 			imageUploadOne
 		},
+		watch: {
+			GET_MY: {
+				handler(a, b) {
+					// console.log(a,b)
+					this.time=a.MyList.Times;
+					// console.log(this.time, '-----------------this.time-----------------')
+					let paramsTime = [...this.time];
+					paramsTime.map((items, index) =>{
+						let objItems = {
+							levelCode: items.levelCode,
+							startTime: items.startTime+'-01'
+						};
+						this.userInveLevelList.push(objItems);
+					})
+				},
+				deep: true
+			},
+		},
 		created() {
-			this.time = this.GET_MY.MyList.Time;
-			// this.id = this.GET_MY.MyList.Time[0].id;
-			// this.shijian = this.GET_MY.MyList.Time[0].time;
-			console.log(this.time, '-----------------this.time-----------------')
-			console.log(this.time,this.id,this.shijian);
-			let paramsTime = [...this.time];
-			paramsTime.map((items, index) =>{
-				let objItems = {
-					levelCode: items.id,
-					startTime: items.time + '-01'
-				};
-				this.userInveLevelList.push(objItems);
-			})
 		},
 		methods: {
+			...mapMutations({
+				setCase: 'setCase'
+			}),
 			caseadd() {
 				if (uni.getStorageSync('landRegist')) {
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
@@ -132,7 +141,7 @@
 						userInveLevelList: this.userInveLevelList
 					};
 					 // 请求总数居时 参数为空
-					 console.log(params)
+					 console.log(this.userInveLevelList,'this.userInveLevelList')
 					uni.showLoading({ // 展示loading
 						title: '加载中'
 					});
@@ -147,9 +156,14 @@
 						success: (response) => {
 							uni.hideLoading();
 							console.log(response.data);
-							// this.$store.commit('setCollection', this.list);
-							// this.List=response.data
-							// console.log(this.List,'asdasd')
+							let caseadd=params
+							// this.$store.commit('setCase', caseadd);
+							uni.navigateTo({
+								'url':'../../InvestmentList-data/InvestmentList-data'
+							})
+							// uni.navigateBack({
+							// 	
+							// })
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -169,7 +183,7 @@
 			gotodatasListtime(e) {
 				console.log(e + '轮次时间选择')
 				uni.navigateTo({
-					url: './datas-List-time',
+					url: './datas-List-time2',
 				});
 			},
 			bindPickerChange: function(e) {
@@ -464,10 +478,11 @@
 	}
 
 	.datas-List-case-nei-one view:nth-of-type(2) {
-		width: 150upx;
+		width: 115upx;
 		height: 100%;
 		line-height: 100upx;
 		font-size: 18upx;
+		overflow: hidden;
 	}
 
 	.datas-List-case-nei-one view:nth-of-type(3) {
@@ -475,6 +490,7 @@
 		height: 100%;
 		line-height: 100upx;
 		font-size: 18upx;
+		margin-left: 100upx;
 	}
 
 	.datas-List-case-nei-one view:nth-of-type(4) {

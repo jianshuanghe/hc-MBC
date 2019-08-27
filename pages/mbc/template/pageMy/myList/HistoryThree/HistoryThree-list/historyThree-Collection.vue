@@ -20,6 +20,16 @@
 		created() {
 			
 		},
+		watch: {
+			GET_MY: {
+				handler(a, b) {
+					console.log(a, b, '--------------------------------------------------------------------');
+					this.List=a.MyList.header
+					console.log(this.List)
+				},
+				deep: true
+			}
+		},
 		methods: {
 			getHeader() {
 				if (uni.getStorageSync('landRegist')) {
@@ -40,7 +50,7 @@
 							uni.hideLoading();
 							console.log(response.data);
 							this.List = response.data.content
-							console.log(this.List,'a')
+							console.log(this.List,'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading

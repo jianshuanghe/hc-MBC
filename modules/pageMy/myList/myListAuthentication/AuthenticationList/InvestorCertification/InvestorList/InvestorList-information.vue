@@ -535,10 +535,7 @@
 					}
 				}
 
-				// console.log('去' + e + '提交成功');
-				// uni.navigateTo({
-				// 	url: '/modules/pageMy/myList/myListAuthentication/AuthenticationList/Submission-success/Submission-success',
-				// });
+			
 			},
 			Finanjigou() { //投资机构
 				if (uni.getStorageSync('landRegist')) {
@@ -590,16 +587,8 @@
 						},
 						success: (response) => {
 							uni.hideLoading();
-							// console.log(response.data.content);
 							this.arr = response.data.content
-							// console.log(this.arr.name)
-							// for (var i = 0; i <= response.data.content.length; i++) {
-							// 	let objarr = {
-							// 		name: response.data.content[i].name,
-							// 		id: response.data.content[i].id
-							// 	}
-							// 	this.arr[i] = objarr
-							// }
+							
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -632,17 +621,6 @@
 							uni.hideLoading();
 							// console.log(response.data.content);
 							this.arry = response.data.content
-							// console.log(this.arr.name)
-							// for (var i = 0; i <= response.data.content.length; i++) {
-							// 	// this.arry[i] = response.data.content[i].name
-							// 	// console.log(this.arry[i])
-							// 	let obj = {
-							// 		name: response.data.content[i].name,
-							// 		id: response.data.content[i].id
-							// 	}
-							// 	this.arry[i] = obj
-							// console.log(this.arry)
-							// }
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading

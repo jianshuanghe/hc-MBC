@@ -82,7 +82,8 @@
 				pick:'',
 				imageData: [],
 				serverUrl: 'https://img01.iambuyer.com/imgup/upLoad/fileUpload',
-				Listdata:[]
+				Listdata:[],
+				logo2:''
 			};
 		},
 		components: {
@@ -151,11 +152,15 @@
 								console.log(response.data,'----------------------');
 								let setLvliData = this.GET_MY.MyList.Lvli;
 								params.id = response.data.content;
+								params.compLogo=this.logo2
 								console.log(params, '--------------params---------------')
 								setLvliData.unshift(params);
 								this.$store.commit('setLvli', setLvliData);
-								uni.navigateTo({
-									'url':'../../InvestmentList-data/InvestmentList-data'
+								// uni.navigateTo({
+								// 	'url':'../../InvestmentList-data/InvestmentList-data'
+								// })
+								uni.navigateBack({
+									
 								})
 							},
 							fail: (error) => {
@@ -233,6 +238,7 @@
 				console.log(e, '添加图片')
 				if (e.allImages) { // 上传成功
 					this.logo = (e.allImages[0].imgName);
+					this.logo2=(e.allImages[0])
 				}
 			},
 		}

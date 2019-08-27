@@ -82,6 +82,7 @@
 					// console.log(a,b)
 					this.List = a.MyList.Collection;
 					this.Listdata = a.MyList.Lvli;
+					// this.Listcase=a.MyList.
 				},
 				deep: true
 			},
@@ -212,7 +213,7 @@
 			gotocasebianji(e){
 				console.log(e + '任职履历编辑')
 				uni.navigateTo({
-					url: '../../../Investment-status/InvestmentList/InvestmentList-data/datas-List/datas-List-case?id='+e,
+					url: '../../../Investment-status/InvestmentList/InvestmentList-data/datas-List/datas-List-casebian?id='+e,
 				});
 			}
 		}

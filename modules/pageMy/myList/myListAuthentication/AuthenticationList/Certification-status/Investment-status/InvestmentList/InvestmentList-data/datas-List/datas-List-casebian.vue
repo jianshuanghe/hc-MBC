@@ -1,11 +1,602 @@
 <template>
-	<view class="">
-		13
+	<view class="datas-List-case">
+		<view class="datas-List-case-name">
+			<view class="datas-List-case-name-box">
+				<view>
+					<image :src="xin"></image>
+				</view>
+				<view>项目名称</view>
+				<view><input type="text" placeholder="请输入" placeholder-style="color:#D2D2D2" v-model="projName" /></view>
+			</view>
+		</view>
+		<view class="datas-List-case-name">
+			<view class="datas-List-case-name-box">
+				<view>
+					<image></image>
+				</view>
+				<view>简介</view>
+				<view><input type="text" placeholder="请输入" placeholder-style="color:#D2D2D2" v-model="projContent" /></view>
+			</view>
+		</view>
+		<view class="datas-List-case-logo">
+			<view class="datas-List-case-logo-box">
+				<view>
+					<image src=""></image>
+				</view>
+				<view>机构logo</view>
+				<view>
+					<image :src="List.projLogo" v-if="!logo" class="ziti"></image>
+					<div class="Img-Upload">
+						<imageUploadOne class="img" v-model="imageData" :server-url="serverUrl" limit=1 @delete="deleteImage" @add="addImage">
+						</imageUploadOne>
+					</div>
+				</view>
+				<view>
+					<image :src="right"></image>
+				</view>
+			</view>
+		</view>
+		<view class="datas-List-case-Tips">
+			请上传清晰可见，容易识别的照片，支持JPG、PNG格式
+		</view>
+		<view class="datas-List-case-yes">
+			<view class="datas-List-case-yes-box">
+				<view>
+					<image :src="xin"></image>
+				</view>
+				<view>投资时间和轮次</view>
+			</view>
+		</view>
+		<view class="datas-List-case-nei" v-for="(item,index) in Listdata" :key="index">
+			<view class="datas-List-case-nei-one">
+				<view>
+					<image :src="Ima1" mode=""></image>
+				</view>
+				<view>{{item.startTime|formatDate}}</view>
+				<view>{{item.levelCodeStr}}</view>
+				<view @tap="dele(index)">删除</view>
+			</view>
+		</view>
+		<view class="datas-List-case-add" @tap="gotodatasListtime">
+			<view>
+				<span>+</span> <span>添加时间和轮次</span>
+			</view>
+		</view>
+		<view class="del" @tap="del">
+			删除
+		</view>
+		<view class="datas-List-case-bao" @tap="caseadd">
+			<view>
+				<view>
+					保存
+				</view>
+			</view>
+		</view>
 	</view>
 </template>
 
 <script>
+	import imageUploadOne from '@/components/imageUpload/imageUploadOne.vue'
+	import {
+		mapMutations,
+		mapGetters
+	} from 'vuex';
+	export default {
+		data() {
+			return {
+				Ima1: this.Static + 'mbcImg/my/Ima1.png',
+				logo: '',
+				xin: this.Static + 'mbcImg/common/xing.png',
+				right: this.Static + 'mbcImg/my/right.png',
+				imageData: [],
+				serverUrl: 'https://img01.iambuyer.com/imgup/upLoad/fileUpload',
+				time: [],
+				projName: '',
+				projContent: '',
+				projLogo: '',
+				id:'',
+				shijian:'',
+				userInveLevelList: [],
+				caseid:'',
+				List:[],
+				Listdata:[],
+				activeIndex:-1
+			};
+		},
+		computed: {
+			...mapGetters(['GET_MY'])
+		},
+		filters: {
+			formatDate: function(value) {
+				let date = new Date(value);
+				let y = date.getFullYear();
+				let MM = date.getMonth() + 1;
+				MM = MM < 10 ? ('0' + MM) : MM;
+				let d = date.getDate();
+				d = d < 10 ? ('0' + d) : d;
+				let h = date.getHours();
+				h = h < 10 ? ('0' + h) : h;
+				let m = date.getMinutes();
+				m = m < 10 ? ('0' + m) : m;
+				let s = date.getSeconds();
+				s = s < 10 ? ('0' + s) : s;
+				return y + '-' + MM ;
+			},
+		},
+		components: {
+			imageUploadOne
+		},
+		onLoad:function(options){
+			this.caseid = options.id
+			console.log(this.id)
+		},
+		
+		created() {
+			this.xiangqing();
+			
+		},
+		watch: {
+			GET_MY: {
+				handler(a, b) {
+					console.log(a.MyList.Time)
+					console.log(this.Listdata, '-----------------this.Listdata---------------')
+					this.Listdata.unshift(a.MyList.Time[0])
+					console.log(this.Listdata)
+				},
+				deep: true
+			},
+		
+		},
+		methods: {
+			xiangqing(){
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/user/inve/info?id='+this.caseid, //接口地址。
+						// data: this.endParams(params),
+						method: 'GET',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							uni.hideLoading();
+							console.log(response.data);
+							this.List=response.data.content
+							this.projName=response.data.content.projName
+							this.projContent=response.data.content.projContent
+							this.Listdata=response.data.content.userInveLevelList
+							this.time = this.Listdata;
+							console.log(this.time, '-----------------this.time-----------------')
+							let paramsTime = [...this.time];
+							paramsTime.map((items, index) =>{
+								let objItems = {
+									levelCode: items.id,
+									startTime: items.startTime,
+								};
+								this.userInveLevelList.push(objItems);
+							})
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
+			caseadd() {
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					let params = {
+						id: this.List.id,
+						projName: this.projName,
+						projContent: this.projContent,
+						projLogo: this.logo,
+						userInveLevelList: this.Listdata
+					};
+					 // 请求总数居时 参数为空
+					 console.log(params)
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					console.log(params)
+					uni.request({
+						url: this.api2 + '/user/inve/update', //接口地址。
+						data: this.endParams(params),
+						method: 'POST',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							uni.hideLoading();
+							console.log(response.data);
+							// this.$store.commit('setCollection', this.list);
+							// this.List=response.data
+							// console.log(this.List,'asdasd')
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
+			dele(index){
+				console.log(index)
+				this.Listdata.splice(index, 1)
+			},
+			del(index) {
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					 // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/user/inve/del?ids='+this.caseid, //接口地址。
+						// data: this.endParams(params),
+						method: 'GET',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							uni.hideLoading();
+							console.log(response.data);
+							uni.navigateTo({
+								'url':'../../InvestmentList-data/InvestmentList-data'
+							})
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
+			gotodatasListtime(e) {
+				console.log(e + '轮次时间选择')
+				uni.navigateTo({
+					url: './datas-List-time',
+				});
+			},
+			bindPickerChange: function(e) {
+				console.log('picker发送选择改变，携带值为', e.target.value);
+				this.array.map((items, index) => {
+					if (index === e.target.value) {
+						this.pickerValue = items;
+					}
+				})
+			},
+			bindPickerChange2: function(e) {
+				console.log('picker发送选择改变，携带值为', e.target.value);
+				this.array2.map((items, index) => {
+					if (index === e.target.value) {
+						this.pickerValue2 = items;
+					}
+				})
+			},
+			deleteImage: function(e) {
+				console.log(e, '删除图片')
+				this.logo = ''; // 清空数据
+			},
+			addImage: function(e) {
+				console.log(e, '添加图片')
+				if (e.allImages) { // 上传成功
+					this.logo = (e.allImages[0].imgName);
+				}
+			}
+		}
+	};
 </script>
 
 <style>
+	input {
+		color: #D2D2D2;
+	}
+
+	.datas-List-case {
+		width: 100%;
+		height: 100%;
+
+	}
+
+	.datas-List-case-name {
+		width: 100%;
+		height: 122upx;
+		background: #FFFFFF;
+	}
+
+	.datas-List-case-name-box {
+		width: 90%;
+		height: 100%;
+		border-bottom: 2upx solid #F5F5F5;
+		margin: 0 auto;
+		display: flex;
+		position: relative;
+	}
+
+	.datas-List-case-name-box view:nth-of-type(1) {
+		width: 20upx;
+		height: 20upx;
+		padding-top: 26upx;
+	}
+
+	.datas-List-case-name-box view:nth-of-type(1) image {
+		width: 100%;
+		height: 100%;
+	}
+
+	.datas-List-case-name-box view:nth-of-type(2) {
+		width: 142upx;
+		height: 32upx;
+		font-size: 30upx;
+		color: #2E2E30;
+		padding-top: 30upx;
+		padding-left: 10upx;
+	}
+
+	.datas-List-case-name-box view:nth-of-type(3) {
+		width: 200upx;
+		height: 35upx;
+		position: absolute;
+		right: 0;
+		top: 40upx;
+		font-size: 30upx;
+		color: #D2D2D2;
+		text-align: right;
+	}
+
+	.ziti {
+		position: absolute;
+		right: 0upx;
+		width: 80upx !important;
+		height: 80upx;
+		top: -20upx;
+		font-size: 30upx !important;
+	}
+
+	.datas-List-case-yes {
+		width: 100%;
+		height: 122upx;
+		background: #FFFFFF;
+		margin-top: 20upx;
+		border-bottom: 2upx solid #F5F5F5;
+	}
+
+	.datas-List-case-yes-box {
+		width: 90%;
+		height: 100%;
+
+		margin: 0 auto;
+		display: flex;
+		position: relative;
+	}
+
+	.datas-List-case-yes-box view:nth-of-type(1) {
+		width: 20upx;
+		height: 20upx;
+		padding-top: 26upx;
+	}
+
+	.datas-List-case-yes-box view:nth-of-type(1) image {
+		width: 100%;
+		height: 100%;
+	}
+
+	.datas-List-case-yes-box view:nth-of-type(2) {
+		width: 242upx;
+		height: 32upx;
+		font-size: 30upx;
+		color: #2E2E30;
+		padding-top: 30upx;
+		padding-left: 10upx;
+	}
+
+	.Img-Upload {
+		width: 120upx !important;
+		height: 80upx;
+		position: absolute;
+		right: 58upx;
+		top: -45upx;
+		font-size: 226upx;
+	}
+
+	.imageUpload {
+		width: 200upx !important;
+	}
+
+	.datas-List-case-logo {
+		width: 100%;
+		height: 122upx;
+		background: #FFFFFF;
+	}
+
+	.datas-List-case-logo-box {
+		width: 90%;
+		height: 100%;
+		border-bottom: 2upx solid #F5F5F5;
+		margin: 0 auto;
+		display: flex;
+		position: relative;
+	}
+
+	.datas-List-case-logo-box view:nth-of-type(1) {
+		width: 20upx;
+		height: 20upx;
+		padding-top: 26upx;
+	}
+
+	.datas-List-case-logo-box view:nth-of-type(1) image {
+		width: 100%;
+		height: 100%;
+	}
+
+	.datas-List-case-logo-box view:nth-of-type(2) {
+		width: 152upx;
+		height: 32upx;
+		font-size: 30upx;
+		color: #2E2E30;
+		padding-top: 30upx;
+		padding-left: 10upx;
+	}
+
+	.datas-List-case-logo-box view:nth-of-type(3) {
+		width: 200upx;
+		height: 35upx;
+		position: absolute;
+		right: 40upx;
+		top: 40upx;
+		font-size: 30upx;
+		color: #D2D2D2;
+		text-align: right;
+	}
+
+	.datas-List-case-logo-box view:nth-of-type(4) {
+		position: absolute;
+		right: 0;
+		top: 40upx;
+		width: 25upx;
+		height: 18upx;
+	}
+
+	.datas-List-case-logo-box view:nth-of-type(4) image {
+		width: 100%;
+		height: 100%;
+	}
+
+	.datas-List-case-Tips {
+		width: 90%;
+		height: 25upx;
+		margin: 0 auto;
+		font-size: 24upx;
+		color: #9B9B9B;
+	}
+
+	.datas-List-case-bao {
+		width: 100%;
+		height: 122upx;
+		background: #FFFFFF;
+		bottom: 0;
+		position: absolute;
+	}
+
+	.datas-List-case-bao view:nth-of-type(1) view {
+		width: 690upx;
+		height: 90upx;
+		background: #02C2A2;
+		border-radius: 2px;
+		margin-top: 20upx;
+		text-align: center;
+		line-height: 90upx;
+		font-size: 28upx;
+		color: #FFFFFF;
+	}
+
+	.datas-List-case-bao view:nth-of-type(1) {
+		margin: 0 auto;
+	}
+
+	.datas-List-case-add {
+		width: 100%;
+		height: 80upx;
+		text-align: center;
+		line-height: 80upx;
+	}
+
+	.datas-List-case-add view span:nth-of-type(1) {
+		font-size: 50upx;
+		color: #02C2A2;
+		/* padding-top: 20upx; */
+		display: block;
+	}
+
+	.datas-List-case-add view span:nth-of-type(2) {
+		margin-left: 10upx;
+		display: block;
+	}
+
+	.datas-List-case-add view {
+		width: 250upx;
+		height: 100%;
+		margin: 0 auto;
+		display: flex;
+		line-height: 80upx;
+	}
+
+	.datas-List-case-nei {
+		width: 100%;
+		height: 100upx;
+		background: #FFFFFF;
+	}
+
+	.datas-List-case-nei-one {
+		position: relative;
+		width: 90%;
+		height: 100%;
+		margin: 0 auto;
+		border-bottom: 2upx solid #F5F5F5;
+		display: flex;
+
+	}
+
+	.datas-List-case-nei-one view:nth-of-type(1) {
+		width: 8%;
+		height: 100%;
+	}
+
+	.datas-List-case-nei-one view:nth-of-type(1) image {
+		width: 60%;
+		height: 35upx;
+		padding-top: 35upx;
+	}
+
+	.datas-List-case-nei-one view:nth-of-type(2) {
+		width: 150upx;
+		height: 100%;
+		line-height: 100upx;
+		font-size: 18upx;
+	}
+
+	.datas-List-case-nei-one view:nth-of-type(3) {
+		width: 200upx;
+		height: 100%;
+		line-height: 100upx;
+		font-size: 18upx;
+	}
+
+	.datas-List-case-nei-one view:nth-of-type(4) {
+		width: 100upx;
+		height: 100%;
+		line-height: 100upx;
+		text-align: center;
+		padding-left: 180upx;
+	}
+	.del{
+		width: 100%;
+		height: 100upx;
+		background: #FFFFFF;
+		text-align: center;
+		color: red;line-height: 100upx;
+		margin-top: 40upx;
+	}
 </style>

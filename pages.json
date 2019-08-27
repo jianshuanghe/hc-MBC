@@ -458,6 +458,15 @@
 					}
 				},
 				{
+					"path": "myList/myListAuthentication/AuthenticationList/Certification-status/Investment-status/InvestmentList/InvestmentList-data/datas-List/datas-List-time2",
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "编辑更多资料"
+					}
+				},
+				{
 					"path": "myList/myListAuthentication/AuthenticationList/Certification-status/Investment-status/InvestmentList/InvestmentList-data/datas-List/datas-List-me",
 					"style": {
 						// #ifdef H5

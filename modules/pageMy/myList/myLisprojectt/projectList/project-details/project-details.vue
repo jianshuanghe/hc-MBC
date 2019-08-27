@@ -46,27 +46,25 @@
 		<view class="jianxi"></view>
 		<view class="project-details-data">
 			<view class="project-details-data-bianji">项目简介</view>
-			<view class="project-details-data-imges">
+			<view class="project-details-data-imges" v-if="arr.projImgs.length!==0">
 				<view class="project-details-data-imges-one" v-for="(imang,index) in arr.projImgs" :key="index"><image :src="imang.imgName"></image></view>
-				<!-- <view class="project-details-data-imges-one"><image :src="keji" mode=""></image></view>
-				<view class="project-details-data-imges-one"><image :src="keji" mode=""></image></view> -->
 			</view>
-			<view class="project-details-data-two">
+			<view class="project-details-data-two" v-if="arr.projContent!==''">
 				<view>项目介绍</view>
 				<view>{{arr.projContent}}</view>
 			</view>
-			<view class="project-details-data-two">
+			<view class="project-details-data-two"  v-if="arr.conentMarket!==''">
 				<view>市场需求</view>
 				<view>{{arr.conentMarket}}</view>
 			</view>
-			<view class="project-details-data-thre">
+			<view class="project-details-data-thre"  v-if="arr.conentPortrait!==''">
 				<view>用户画像</view>
 				<view>{{arr.conentPortrait}}</view>
 			</view>
-			<view class="project-details-data-bian" @tap="gotobrief">编辑</view>
-			<!-- <view @tap="gotodatasListme" class="project-details-data-brief">
+			<view class="project-details-data-bian" @tap="gotobrief" v-if="arr.projImgs.length!==0||arr.projContent||arr.conentMarket||arr.conentPortrait !=='' ">编辑</view>
+			<view @tap="gotobrief" class="project-details-data-brief" v-if="arr.projImgs.length=='0'|arr.projContent|arr.conentMarket|arr.conentPortrait =='' ">
 				填写项目简介
-			</view> -->
+			</view>
 		</view>
 		
 		
@@ -76,11 +74,11 @@
 		<view class="jianxi"></view>
 		<view class="demand">
 			<view>融资需求</view>
-			<view class="demand-two">{{arr.finanLevelCode}}&nbsp;&nbsp;&nbsp;&nbsp;{{arr.finanMoney}}万人民币</view>
-			<view @tap="gotodatasdemand" class="demand-an" v-if="arr.finanLevelCode&arr.finanMoney =='' ">
+			<view class="demand-two" v-if="arr.finanLevelCode||arr.finanMoney !=='' ">{{arr.finanLevelCode}}&nbsp;&nbsp;&nbsp;&nbsp;{{arr.finanMoney}}万人民币</view>
+			<view @tap="gotodatasdemand" class="demand-an" v-if="arr.finanLevelCode|arr.finanMoney =='' ">
 				填写融资需求
 			</view>
-			<view class="demand-bian" @tap="gotodatasdemand(arr.id)" v-if="arr.finanLevelCode||arr.finanMoney !=='' ">编辑</view>
+			<view class="demand-bian" @tap="gotodatasdemand" v-if="arr.finanLevelCode||arr.finanMoney !=='' ">编辑</view>
 		</view>
 		<view class="jianxi"></view>
 		<view class="history">
@@ -133,14 +131,14 @@
 			</view>
 		</view>
 		<view class="jianxi"></view>
-		<view class="project-details-link">
+		<!-- <view class="project-details-link">
 			<view>项目数据</view>
 			<view>相关链接</view>
 			<view class="add">
 				<span @tap="addlianjie">添加链接</span>
 			</view>
-		</view>
-		<view class="Mask" :class="{'zhe':hiden}" @tap="cancel">
+		</view> -->
+		<!-- <view class="Mask" :class="{'zhe':hiden}" @tap="cancel">
 			<view class="Mask-box" v-on:click.stop='child'>
 				<view class="Mask-box-header">
 					<view @tap="cancel">取消</view>
@@ -158,7 +156,7 @@
 					</view>
 				</view>
 			</view>
-		</view>
+		</view> -->
 	</view>
 </template>
 
@@ -298,7 +296,8 @@
 			gotodatasdemand(e){
 				console.log(e+'融资需求')
 				uni.navigateTo({
-					url: '/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-demand?id='+e
+					url: '/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-demand?id='+ this
+						.id
 				})
 			},
 			gotobrief(e){

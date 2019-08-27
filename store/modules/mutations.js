@@ -126,6 +126,11 @@ const mutations = {
 	  console.log(info,'setheader')
 	  state.my.MyList.header=info
   },
+  //我的 头部消息
+  setMation(state, info){
+	  console.log(info,'setMation')
+	  state.my.MyList.Mation=info
+  },
   //我的 认证详情
   setAuthentication(state, info){
 	  console.log(info,'setAuthentication')
@@ -146,9 +151,18 @@ const mutations = {
 	  console.log(info,'setCompany')
 	  state.my.MyList.Company=info
   }, 
+  // 我的 投资时间融资列表
   setTime(state, info){
 	  console.log(info,'setTime')
 	  state.my.MyList.Time=info
+  },
+  setTimes(state, info){
+	  console.log(info,'setTimes')
+	  state.my.MyList.Times=info
+  },
+  setCase(state, info){
+	  console.log(info,'setCase')
+	  state.my.MyList.Case=info
   },
   setSeekCapitalTitleIndex (state, info) { // 找投资的title
     console.log(info, 'setHomeListTitleIndex');
