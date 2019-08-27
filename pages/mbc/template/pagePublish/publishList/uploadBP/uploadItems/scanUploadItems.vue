@@ -1,43 +1,43 @@
 <template>
-	<div class="scanUploadItems-content">
+	<view class="scanUploadItems-content">
 		<!-- 未上传 -->
-		<div class="SUI-tent" @tap='goToScanLand()' v-if='GET_PUBLISH.isUpLoadFile.isSuccess === false'>
-			<div class="left SUI-left-img">
-				<div class="SUI-File">
+		<view class="SUI-tent" @tap='goToScanLand()' v-if='GET_PUBLISH.isUpLoadFile.isSuccess === false'>
+			<view class="left SUI-left-img">
+				<view class="SUI-File">
 					<image class="file" :src="scanLogo"></image>
-				</div>
-			</div>
-			<div class="left SUI-cont-text">
-				<div class="SUI-text-top">电脑扫码上传</div>
-				<div class="SUI-text-bot">附件格式支持doc、docx、pdf、jpg、png
-大小不超过10M</div>
-			</div>
-			<div class="right SUI-right-img">
+				</view>
+			</view>
+			<view class="left SUI-cont-text">
+				<view class="SUI-text-top">电脑扫码上传</view>
+				<view class="SUI-text-bot">附件格式支持doc、docx、pdf、jpg、png
+大小不超过10M</view>
+			</view>
+			<view class="right SUI-right-img">
 				<image class="rignt-arrow" :src='rightArrow'></image>
-			</div>
-			<div class="clear"></div>
-		</div>
+			</view>
+			<view class="clear"></view>
+		</view>
 		<!-- 上传成功 -->
-		<div class="SUI-tent" v-if='GET_PUBLISH.isUpLoadFile.isSuccess === true'>
-			<div class="left SUI-left-img">
-				<div class="SUI-File">
+		<view class="SUI-tent" v-if='GET_PUBLISH.isUpLoadFile.isSuccess === true'>
+			<view class="left SUI-left-img">
+				<view class="SUI-File">
 					<image class="file" :src="scanLogo"></image>
-				</div>
-			</div>
-			<div class="left SUI-cont-text">
-				<div class="SUI-text-top">{{GET_PUBLISH.isUpLoadFile.content.enclosureName}}</div>
-				<div class="SUI-text-bot1">{{GET_PUBLISH.isUpLoadFile.content.enclosureSize }}  {{ GET_PUBLISH.isUpLoadFile.content.createTime | dateTime}}上传</div>
-			</div>
-			<div class="right SUI-right-img">
+				</view>
+			</view>
+			<view class="left SUI-cont-text">
+				<view class="SUI-text-top">{{GET_PUBLISH.isUpLoadFile.content.enclosureName}}</view>
+				<view class="SUI-text-bot1">{{GET_PUBLISH.isUpLoadFile.content.enclosureSize }}  {{ GET_PUBLISH.isUpLoadFile.content.createTime | dateTime}}上传</view>
+			</view>
+			<view class="right SUI-right-img">
 				<image class="rignt-arrow" :src='rightArrow'></image>
-			</div>
-			<div class="clear"></div>
-		</div>
+			</view>
+			<view class="clear"></view>
+		</view>
 		
 		<view class="SL-btn"  v-if='GET_PUBLISH.isUpLoadFile.isSuccess === true'>
 			<view class="SL-btn-text" @tap="clickPublishTitle(2)">下一步</view>
 		</view>
-	</div>
+	</view>
 </template>
 
 <script>

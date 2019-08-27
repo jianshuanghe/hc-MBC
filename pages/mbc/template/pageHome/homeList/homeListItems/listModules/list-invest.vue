@@ -1,13 +1,17 @@
 
 <template>
-	<view class="listInvest">
-		<view v-for="(items,index) in listData" :key="index" >
-			<investItems :msgData="items"></investItems>
+	<view v-if="listData.length > 0">
+		<view class="listInvest">
+			<view v-for="(items,index) in listData" :key="index" >
+				<investItems :msgData="items"></investItems>
+			</view>
 		</view>
 	</view>
+	<empty v-else>没有数据哦！</empty>
 </template>
 
 <script>
+	import empty from "@/components/empty/empty.vue";
 	import investItems from "./invest/invest-Items.vue";
 	import { mapGetters } from 'vuex';
 	export default {
@@ -17,7 +21,8 @@
 			};
 	    },
 		components: {
-			investItems
+			investItems,
+			empty
 		},
 		computed: {
           ...mapGetters(['GET_HOME'])
@@ -31,12 +36,6 @@
           }
         },
 	    methods: {
-			goToPutIn () {
-				console.log('点击触发发布项目');
-			},
-			goToSeek () {
-				console.log('点击触发寻找资本');
-			}
 	    }
 	};
 </script>

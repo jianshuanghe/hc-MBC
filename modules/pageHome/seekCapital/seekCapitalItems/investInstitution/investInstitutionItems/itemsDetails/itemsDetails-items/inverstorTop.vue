@@ -7,7 +7,7 @@
 			<view class="left iT-text">
 				<div class="company-box">{{msgData.capitalComp.compName}}</div>
 			</view>
-			<div class="Authentication-type">
+			<div class="Authentication-type" @tap='goToAuth()'>
 				<image :src="authen" class="AuType"></image>
 				成员认证
 			</div>
@@ -35,8 +35,11 @@
 					url: '/modules/pageHome/homeList/homeList'
 				});
 			},
-			goToPutIn () {
-				console.log('点击触发发布项目');
+			goToAuth () {
+				console.log('点击触发去认证');
+				uni.navigateTo({
+					url: '/modules/pageMy/myList/myListAuthentication/Authentication'
+				});
 			},
 			goToSeek () {
 				console.log('点击触发寻找资本');

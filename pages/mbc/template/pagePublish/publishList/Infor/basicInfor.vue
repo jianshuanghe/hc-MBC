@@ -35,6 +35,8 @@
 								<wInput
 									v-model="listData.publishParams.projSlogan"
 									placeholder="请输入"
+									type="text" 
+									maxlength="30" 
 								></wInput>
 							</view>
 						</view>
@@ -395,7 +397,7 @@
 				};
 				if (data.projSlogan === '') { // 项目口号不能为空
 					 uni.showToast({
-						title: '项目口号不能为空',
+						title: '项目介绍不能为空',
 						icon: 'none',
 						duration: 500
 					});

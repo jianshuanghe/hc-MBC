@@ -22,8 +22,11 @@
 
 <script>
 	import { mapMutations, mapGetters } from 'vuex';
-	
+	import entrust from "@/components/entrust/entrust.vue";
 	export default {
+		components: {
+			entrust
+		},
 	    data () {
 			return {
 				love: this.Static + 'mbcImg/home/seekCapital/like.png',
@@ -52,8 +55,6 @@
 				authState: '99' // -1 未认证 0 待审核 1审核通过 2 审核失败
 			};
 	    },
-		components: {
-		},
 		props: {
 			msgData: {
 				type: Object
@@ -76,6 +77,10 @@
 			console.log(this.msgData, 'dasdasda');
 			this.getClickRecord();
 			this.getUserType();
+		},
+		beforeDestroy () {
+			console.log('页面销毁之前缓存数据')
+			this.$store.commit('setEnTrustShow', false); // 更新setEntrustSignUp
 		},
 		methods: {
 			...mapMutations({

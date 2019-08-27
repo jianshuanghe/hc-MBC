@@ -1,25 +1,29 @@
 <template>
-	<view class="resule-modules-content">
-		<!-- 总数居 -->
-		<view class="resule-modules-num">项目({{project.listNum}})</view>
-		<!-- 数据列表 -->
-		<div class="S" v-if="clickItemsIndex !== 1">
-			<view class="resule-modules-list" v-for="(items,index) in project.listData" :key="index">
-				<projectItems :msgData="items"></projectItems>
+	<view class="">
+		<view class="resule-modules-content"  v-if="project.listData.length > 0">
+			<!-- 总数居 -->
+			<view class="resule-modules-num">项目({{project.listNum}})</view>
+			<!-- 数据列表 -->
+			<view class="S" v-if="clickItemsIndex !== 1">
+				<view class="resule-modules-list" v-for="(items,index) in project.listData" :key="index">
+					<projectItems :msgData="items"></projectItems>
+				</view>
+				<view class="resule-modules-more" @tap="getMoreProjectList(project)">{{project.loadingText}}</view>
 			</view>
-			<view class="resule-modules-more" @tap="getMoreProjectList(project)">{{project.loadingText}}</view>
-		</div>
-		<!-- 综合展示 -->
-		<div class="M" v-if="clickItemsIndex === 1">
-			<view class="resule-modules-list" v-for="(items,index) in project.listData" :key="index">
-				<projectItems :msgData="items" v-if='index < 3'></projectItems>
+			<!-- 综合展示 -->
+			<view class="M" v-if="clickItemsIndex === 1">
+				<view class="resule-modules-list" v-for="(items,index) in project.listData" :key="index">
+					<projectItems :msgData="items" v-if='index < 3'></projectItems>
+				</view>
+				<view class="resule-modules-more" @tap="getMoreProjectList(project)">查看更多</view>
 			</view>
-			<view class="resule-modules-more" @tap="getMoreProjectList(project)">查看更多</view>
-		</div>
+		</view>
+		<empty v-else>没有数据哦！</empty>
 	</view>
 </template>
 
 <script>
+	import empty from "@/components/empty/empty.vue";
 	import projectItems from "./project/items.vue";
 	import { mapMutations, mapGetters } from 'vuex';
 	export default {
@@ -41,7 +45,8 @@
 			};
 		},
 		components: {
-			projectItems
+			projectItems,
+			empty
 		},
 		computed: {
 		  ...mapGetters(['GET_HOME'])

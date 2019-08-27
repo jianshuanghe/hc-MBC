@@ -337,13 +337,6 @@
 				}
 			});
         }
-      },
-      goToMaterial () {
-        console.log('to个人资料');
-        this.$router.push({
-          path: '/personMaterial',
-          query: { }
-        });
       }
     }
   };

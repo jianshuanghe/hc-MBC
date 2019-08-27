@@ -43,15 +43,8 @@
 		  }
 		},
 		created() {
-			console.log(this.clickItemsIndex, 'this.clickItemsIndex切换的title');
 		},
 	    methods: {
-			goToPutIn () {
-				console.log('点击触发发布项目');
-			},
-			goToSeek () {
-				console.log('点击触发寻找资本');
-			}
 	    }
 	};
 </script>

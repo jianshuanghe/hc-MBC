@@ -2,10 +2,10 @@
 	<view class="content-content">
 		<view class="activeDetails">
 			<view class="AD-img">
-				<image :src="banner1"></image>
+				<image :src="msgData.activity.activityImg"></image>
 			</view>
 			<view class="AD-content">
-				<view class="AD-title">{{msgData.activity.activityAbstract}}</view>
+				<view class="AD-title">{{msgData.activity.activityTitel}}</view>
 				<view class="AD-items-list">
 					<view class="AD-items">
 						活动时间
@@ -16,7 +16,8 @@
 				<view class="AD-items-list">
 					<view class="AD-items">
 						活动地点
-						<text class="AD-text">{{msgData.activity.activityAddress}}</text>
+						<view :class=" isAll ? 'AD-text1 AD2' : 'AD-text AD2'">{{msgData.activity.activityAddress}}</view>
+						<text class="zhankai right" @tap="clickAllShow">{{isAll ? '收起' : '展开'}}</text>
 					</view>
 					<view class="line"></view>
 				</view>
@@ -43,12 +44,7 @@
 				</view>
 				<!-- 活动详情 -->
 				<view class="AD-details-title">活动详情</view>
-				<view class="AD-details-text">
-					{{msgData.activityContent}}
-				</view>
-				<view class="AD-details-img">
-					<image :src="banner1"></image>
-				</view>
+				<view class="AD-details-text" v-html='msgData.activity.activityContent'></view>
 			</view>
 		</view>
 	</view>
@@ -59,7 +55,8 @@
 	export default {
 	    data () {
 			return {
-				dataList: [] // 后台返回数据
+				dataList: [] ,// 后台返回数据
+				isAll: false
 			};
 	    },
 		components: {
@@ -84,6 +81,10 @@
 		created() {
 		},
 	    methods: {
+			clickAllShow () {
+				console.log('展示全部')
+				this.isAll = !this.isAll;
+			}
 	    }
 	};
 </script>
@@ -189,9 +190,35 @@
 		text-align: right;
 		line-height: 110upx;
 	}
+	.zhankai{
+		position: absolute;
+		font-size: 28upx;
+		color: red;
+		text-align: right;
+		line-height: 110upx;
+		right: 0;
+	}
 	.AD-text{
 		position: relative;
 		color: #5D5D5D;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		max-width: 75%;
+		line-height: 110upx;
+	}
+	.AD2{
+		max-width: 66% !important;
+		margin-right: 8% !important;
+		display: inline-block;
+	}
+	.AD-text1{
+		position: absolute;
+		color: #5D5D5D;
+		line-height: 34upx !important;
+		max-width: 66% !important;
+		margin-left: 60upx;
+		top: 34upx;
 	}
 	.AD-details-title{
 		font-family: PingFangSC-Semibold;

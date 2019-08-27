@@ -589,13 +589,6 @@
               return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
             });
             return uuid;
-          },
-          goToMaterial () {
-            console.log('to代理商注册');
-            this.$router.push({
-              path: '/agentRegistration',
-              query: { }
-            });
           }
         }
       };

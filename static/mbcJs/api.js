@@ -10,8 +10,8 @@ if (process.env.NODE_ENV === 'development') {
 }
 // uEnvProd
 if (process.env.NODE_ENV === 'production') {
-    api1 = 'http://api.iambuyer.com';
-    api2 = 'http://api.ruhexiu.com';
-    api3 = 'http://img01.iambuyer.com';
+    api1 = 'https://api.iambuyer.com';
+    api2 = 'https://api.ruhexiu.com';
+    api3 = 'https://img01.iambuyer.com';
 }
 export {api1, api2, api3};

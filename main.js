@@ -7,10 +7,8 @@ import {isWeiXin} from './static/mbcJs/browserType';
 import {pageNums} from './static/mbcJs/pageNums';
 import {dateTime} from './static/mbcJs/dateTime';
 import {Static, dImg} from './static/mbcJs/static';
-import entrust from "./components/entrust/entrust.vue";
 
 Vue.config.productionTip = false
-Vue.component('entrust', entrust)
 
 Vue.prototype.$store = store
 

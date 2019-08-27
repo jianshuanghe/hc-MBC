@@ -13,6 +13,9 @@ const getters = {
 	GET_HOME: state => state.home,
 	//find 发现数据
 	GET_FIND: state =>state.find,
+	// 活动申请组件
+	ENTRUSTSINGUPSHOW: state =>state.find.entrustSignUp.entrustShow,
+	ENTRUSTSINGUP: state =>state.find.entrustSignUp,
 	// publish 发布
 	GET_PUBLISH: state =>state.publish,
 	//news 消息数据

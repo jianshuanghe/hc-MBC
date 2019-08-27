@@ -125,16 +125,16 @@
 	}
 	.SD-bot-items .image2{
 		position: absolute;
-		width: 32upx;
-		height: 32upx;
-		top: 24upx;
+		width: 26upx;
+		height: 26upx;
+		top: 30upx;
 		left: -6upx;
 	}
 	.SD-bot-items .image3{
 		position: absolute;
-		width: 32upx;
-		height: 32upx;
-		top: 24upx;
-		left: -14upx;
+		width: 26upx;
+		height: 26upx;
+		top: 28upx;
+		left: -12upx;
 	}
 </style>

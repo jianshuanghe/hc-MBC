@@ -81,17 +81,6 @@
 					}
 				},
 				{
-					"path": "homeList/entrust/entrust",
-					"style": {
-						// #ifdef H5
-							"navigationStyle":"custom",
-						// #endif
-						"navigationBarTitleText": "委托联系项目",
-						"app-plus": {
-						}
-					}
-				},
-				{
 					"path": "seekCapital/seekCapitalItems/investor/inverstorItems/itemsDetails/itemsDetails",
 					"style": {
 						// #ifdef H5

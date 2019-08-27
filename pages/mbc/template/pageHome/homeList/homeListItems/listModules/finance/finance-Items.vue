@@ -277,14 +277,6 @@
 				uni.navigateTo({
 					url: '/modules/pageHome/homeList/FinancProject/FinancProject?id=' + e.id
 				});
-			},
-			clickLike () {
-				console.log('点赞');
-				this.like = liked;
-			},
-			clickLove () {
-				console.log('收藏');
-				this.love = loved;
 			}
 	    }
 	};

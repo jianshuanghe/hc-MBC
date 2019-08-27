@@ -1,5 +1,5 @@
 <template>
-	<div class="personalProfile-contnet">
+	<div class="personalProfile-contnet" v-if='msgData.capitalCompInves.length > 0'>
 		<div class="personalProfile">
 			<div class="pP-title">
 				投资案例
@@ -7,7 +7,7 @@
 				<!-- <text class="pP-text-right">纠错</text> -->
 			</div>
 			<div class="ITM-box">
-				<view class="ITM-content"  v-for="(items,index) in msgData.capitalCompInves" :key="index">
+				<view class="ITM-content"  v-for="(items,index) in msgData.capitalCompInves" :key="index" v-if="(index > 2 && isShow === false) ? false : true">
 					<view class="left Itm-left">
 						<image :src="items.projLogo"></image>
 					</view>
@@ -17,20 +17,20 @@
 								{{items.projName}}
 							</view>
 							<view class="employ">{{items.projContent}}</view>
-							<view class="lun" v-for="(item,index) in items.userInveLevelList" :key="index">
+							<view class="lun" v-for="(item,index) in items.inveLevel" :key="index">
 								<image :src="yuan"></image>
-								{{item.startTime | dateTime}}
+								{{item.starTime | dateTime}}
 								<text class="lun-text">{{item.levelCode}}</text>
-								<view class="itm-line-y" v-if='items.userInveLevelList.length > 1 && items.userInveLevelList.length - 1 > index'></view>
+								<view class="itm-line-y" v-if='items.inveLevel.length > 1 && items.inveLevel.length - 1 > index'></view>
 							</view>
 						</view>
 					</view>
 					<view class="clear"></view>
 					<view class="line" v-if='msgData.capitalCompInves.length > 1 && msgData.capitalCompInves.length - 1 > index'></view>
 				</view>
-				<div class="openOrClose">
+				<div class="openOrClose" @tap='isShowAll()'>
 					<div class="line"></div>
-					展开/收起
+					{{ !isShow ? '展开' : '收起'}}
 				</div>
 			</div>
 		</div>
@@ -45,7 +45,8 @@
 	    data () {
 			return {
 				iiImg: iiImg,
-				yuan: yuan
+				yuan: yuan,
+				isShow: false // 默认不展开全部
 			};
 	    },
 		props: {
@@ -65,6 +66,14 @@
 				uni.navigateTo({
 					url: '/modules/pageHome/homeList/homeList'
 				});
+			},
+			isShowAll() {
+				if (this.isShow === false) {
+					this.isShow = true;
+				} else {
+					this.isShow = false;
+				}
+				console.log(this.isShow)
 			},
 			goToPutIn () {
 				console.log('点击触发发布项目');
@@ -196,7 +205,6 @@
 		font-size: 26upx;
 		color: #02C2A2;
 		line-height: 84upx;
-		padding-top: 10upx;
 		text-align: center;
 	}
 </style>

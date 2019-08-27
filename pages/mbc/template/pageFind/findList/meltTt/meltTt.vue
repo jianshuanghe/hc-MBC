@@ -1,22 +1,26 @@
 <template>
-	<div class="meltTt-content">
-		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
-		@scroll="scroll">
-			<view class="scrollContent">
-				<!-- 列表 -->
-				<view class="list" v-for="(items,index) in meltTt.listData" :key="index">
-					<items :msgData="items"></items>
+	<view class="meltTt-content">
+		<view v-if="meltTt.listData.length > 0">
+			<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
+			@scroll="scroll">
+				<view class="scrollContent">
+					<!-- 列表 -->
+					<view class="list" v-for="(items,index) in meltTt.listData" :key="index">
+						<items :msgData="items"></items>
+					</view>
 				</view>
-			</view>
-			<view class="loading-more">
-			    <text class="loading-more-text">{{loadingText}}</text>
-			</view>
-		</scroll-view>
-	</div>
+				<view class="loading-more">
+					<text class="loading-more-text">{{loadingText}}</text>
+				</view>
+			</scroll-view>
+		</view>
+		<empty v-else>没有数据哦！</empty>
+	</view>
 </template>
 
 <script>
 	import items from "./items.vue";
+	import empty from "@/components/empty/empty.vue";
 	import { mapMutations, mapGetters } from 'vuex';
 	export default {
 		data() {
@@ -45,7 +49,8 @@
 			};
 		},
 		components: {
-			items
+			items,
+			empty
 		},
 		computed: {
 			...mapGetters(['GET_FIND'])
@@ -118,7 +123,7 @@
 				    console.log(landRegistLG.user.id);
 					let params = {
 						activityTitel:"",
-						activityState:"1"
+						activityState:"0"
 					}; // 请求总数居时 参数为空
 					uni.showLoading({ // 展示loading
 						title: '加载中'
@@ -162,7 +167,7 @@
 				    console.log(landRegistLG.user.id);
 					let params = {
 						activityTitel:"",
-						activityState:"1"
+						activityState:"0"
 					}; // 请求总数居时 参数为空
 					uni.showLoading({ // 展示loading
 						title: '加载中'

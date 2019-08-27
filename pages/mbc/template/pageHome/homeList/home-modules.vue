@@ -76,9 +76,6 @@
 				this.$store.commit('setHome', this.clickItems);
 				this.$store.commit('setFindTabItems', 2); // 更新setFindTabItems
 				uni.setStorageSync('clickItems', e);
-			},
-			goToSeek () {
-				console.log('点击触发寻找资本');
 			}
 	    }
 	};

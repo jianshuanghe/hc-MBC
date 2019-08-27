@@ -1,5 +1,5 @@
 <template>
-	<div class="personalProfile-contnet">
+	<div class="personalProfile-contnet" v-if='msgData.capitalCompUserList.length > 0'>
 		<div class="personalProfile">
 			<div class="pP-title">
 				团队成员
@@ -8,7 +8,7 @@
 			<div class="ITM-box">
 				<div class="ITM-content"  v-for="(items,index) in msgData.capitalCompUserList" :key="index">
 					<div class="left Itm-left">
-						<image :src="items.projUserImg"></image>
+						<image :src="items.projUserImg || this.dImg"></image>
 					</div>
 					<div class="left Itm-right">
 						<div class="Itm-content-mm">
@@ -32,7 +32,6 @@
 	export default {
 	    data () {
 			return {
-				iiImg: this.dImg
 			};
 	    },
 		props: {

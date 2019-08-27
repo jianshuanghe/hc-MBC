@@ -16,7 +16,10 @@
 				<!-- 列表 -->
 				<homeList></homeList>
 			</view>
-			<view class="loading-more">
+			<view class="loading-more" v-if="clickItemsIndex === 1 && HomeList.finance.listData.length > 0">
+			    <text class="loading-more-text">{{loadingText}}</text>
+			</view>
+			<view class="loading-more"  v-if="clickItemsIndex === 2 && HomeList.invest.listData.length > 0">
 			    <text class="loading-more-text">{{loadingText}}</text>
 			</view>
 		</scroll-view>

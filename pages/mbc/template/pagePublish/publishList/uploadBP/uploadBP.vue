@@ -1,7 +1,7 @@
 <template>
-	<div class="uploadBP-centent">
+	<view class="uploadBP-centent">
 		<scanUploadItems></scanUploadItems>
-	</div>
+	</view>
 </template>
 
 <script>
@@ -10,21 +10,12 @@
 		data() {
 			return {};
 		},
-		
 		components: {
 			scanUploadItems
 		},
 		computed: {
-			// ...mapGetters(['GET_HOME'])
 		},
 		watch: {
-		  // GET_HOME: {
-		  //   handler (a, b) {
-		  //     this.clickItemsIndex = a.HomeList.titleIndex; // 切换的title
-			 //  console.log(this.clickItemsIndex, '切换的数据');
-		  //   },
-		  //   deep: true
-		  // }
 		},
 		computed: {
 		},

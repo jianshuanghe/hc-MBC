@@ -10,7 +10,7 @@
         <view class="left II-suer-insr">
           <view class="II-insr">
             <view class="user">
-              投资人
+              {{msgData.compName}}
             </view>
             <view class="mbc">
 				<view class="II-mod" >
@@ -22,7 +22,16 @@
         </view>
       </view>
       <view class="II-bot">
-		  <view class="left mbc-text">{{msgData.compName || '无'}}</view>
+		  <div class="title left">
+			 最近投资:
+		  </div>
+		  <view class="left mbc-text">
+			<text class="items"  v-for="(items,index) in msgData.inves" :key="index">
+				{{items}}
+				<text class="dian" v-if="msgData.inves.length - 1 > index">、</text>
+			</text>
+		  </view>
+		  <view class="clear"></view>
       </view>
     </view>
     <view class="line"></view>
@@ -64,7 +73,7 @@
 		position: relative;
 		width: 100%;
 		padding: 22upx 0;
-		height: 128upx;
+		height: 140upx;
 	}
 	.II-top{
 		position: relative;
@@ -154,12 +163,24 @@
 		padding: 2upx 12upx;
 		margin-right: 10upx;
 	}
+	.title{
+		position: relative;
+		width: 30%;
+		text-align: right;
+		font-family: PingFangSC-Regular;
+		font-size: 24upx;
+		color: #5D5D5D;
+		line-height: 28upx;
+		margin-top: 8upx;
+	}
 	.mbc-text{
+		position: relative;
+		width: 70%;
 		font-family: FZLTHJW--GB1-0;
 		font-size: 24upx;
-		color: #9B9B9B;
+		color: #5D5D5D;
 		letter-spacing: 0;
-		line-height: 40upx;
-		margin: 12upx 0 0 110upx;
+		line-height: 28upx;
+		margin-top: 8upx;
 	}
 </style>

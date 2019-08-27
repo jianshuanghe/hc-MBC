@@ -104,6 +104,14 @@ const mutations = {
     console.log(info, 'setInformation');
     state.find.information = info;
   },
+  setEntrustSignUpShow (state, info) { // 活动报名展示
+    console.log(info, 'setEntrustSignUpShow');
+    state.find.entrustSignUp.entrustShow = info;
+  },
+  setEntrustSignUp (state, info) { // 活动报名
+    console.log(info, 'setEntrustSignUp');
+    state.find.entrustSignUp = info;
+  },
   // 发布模块
   setPublishTitleIndex (state, info) { // title切换
     console.log(info, 'setPublishTitleIndex');

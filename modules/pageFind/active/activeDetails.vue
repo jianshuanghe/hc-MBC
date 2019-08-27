@@ -1,7 +1,7 @@
 <template>
 	<view class="activeDetails-content">
 		<contentCC :msgData="dataList"></contentCC>
-		<constSubmit></constSubmit>
+		<constSubmit :msgData="dataList"></constSubmit>
 	</view>
 </template>
 

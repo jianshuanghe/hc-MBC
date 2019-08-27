@@ -154,30 +154,12 @@
 			},
 			mpTtLand () {
 				console.log('头条小程序登录');
-				uni.login({
-					provider: 'toutiao',
-					success: function (loginRes) {
-						console.log(loginRes.authResult);
-					}
-				});		  
 			},
 			mpBdLand () {
 				console.log('百度小程序登录');
-				uni.login({
-					provider: 'baidu',
-					success: function (loginRes) {
-						console.log(loginRes.authResult);
-					}
-				});		  
 			},
 			mpApLand () {
 				console.log('支付宝小程序登录');
-				uni.login({
-					provider: 'alipay',
-					success: function (loginRes) {
-						console.log(loginRes.authResult);
-					}
-				});		  
 			},
 			getUserData () {
 				console.log('获取用户信息，全部');
