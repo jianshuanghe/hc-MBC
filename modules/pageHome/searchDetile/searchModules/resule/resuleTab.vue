@@ -77,14 +77,14 @@
 	.resuleTab-content{
 		position: fixed;
 		width: 750upx;
-		margin-top: 118upx;
+		margin-top: 104upx;
 		background: #FFFFFF;
 		z-index: 101;
 	}
 	.resuleTab{
 		position: relative;
 		width: 100%;
-		margin-bottom: 10upx;
+		padding: 12upx 0;
 	}
 	.resuleTab-box{
 		position: relative;

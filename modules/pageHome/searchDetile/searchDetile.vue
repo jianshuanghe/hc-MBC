@@ -33,6 +33,6 @@
 
 <style>
 	.searchDetile-content{
-		min-height: 1334upx;
+		min-height: 100vh;
 	}
 </style>

@@ -10,15 +10,15 @@
 			<div class="items1-bot">
 				<div class="SD-bot">
 					<div class="SD-bot-items text-SD1 left">
-						<image class="image1" :src='icon1'></image>
+						<image class="image1" :src='icons1'></image>
 						350+政府资源
 					</div>
 					<div class="SD-bot-items text-SD2 left">
-						<image class="image2" :src='icon1'></image>
+						<image class="image2" :src='icons2'></image>
 						50+投融资机构
 					</div>
 					<div class="SD-bot-items text-SD3 left">
-						<image class="image3" :src='icon1'></image>
+						<image class="image3" :src='icons3'></image>
 						20年产业服务积累
 					</div>
 					<div class="clear"></div>
@@ -33,7 +33,9 @@
 	    data () {
 			return {
 				items1: this.Static + 'mbcImg/home/lookServices/items1s.png',
-				icon1: this.Static + 'mbcImg/home/lookServices/icon1.png',
+				icons1: this.Static + 'mbcImg/home/lookServices/icons1.png',
+				icons2: this.Static + 'mbcImg/home/lookServices/icons2.png',
+				icons3: this.Static + 'mbcImg/home/lookServices/icons3.png',
 				dataList: [] // 后台返回数据
 			};
 	    },
@@ -116,10 +118,10 @@
 	}
 	.SD-bot-items .image1{
 		position: absolute;
-		width: 32upx;
-		height: 32upx;
-		top: 24upx;
-		left: 20upx;
+		width: 26upx;
+		height: 24upx;
+		top: 28upx;
+		left: 26upx;
 	}
 	.SD-bot-items .image2{
 		position: absolute;

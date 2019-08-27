@@ -165,10 +165,10 @@
 	}
 	.tb-img>image{
 		position: relative;
-		width: 38upx;
-		height: 36.2upx;
+		width: 44upx;
+		height: 44upx;
 		margin: auto;
-		top: 12upx;
+		top: 8upx;
 	}
 	.tb-img-pub{
 		position: relative;
@@ -180,19 +180,19 @@
 		width: 74upx;
 		height: 74upx;
 		margin: auto;
-		top: 12upx;
+		top: 4upx;
 	}
 	.tb-text{
 		position: relative;
 		width: 100%;
-		line-height: 28upx;
+		line-height: 20upx;
 		text-align: center;
 	}
 	.tb-text>text{
 		position: relative;
 		width: 100%;
 		font-family: PingFangSC-Regular;
-		font-size: 20upx;
+		font-size: 24upx;
 		color: #2E2E30;
 	}
 	.class-a{

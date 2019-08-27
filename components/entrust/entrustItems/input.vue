@@ -33,11 +33,11 @@
 						<div class="En-in-title">委托联系信息</div>
 						<div class="En-in-name">
 							类别
-							<text class="right">{{entrust.modelId}}</text>
+							<text class="right">{{entrust.params.applyeType | applyeType}}</text>
 						</div>
 						<div class="En-in-name">
 							名称
-							<text class="right">{{entrust.projectName}}</text>
+							<text class="right">{{entrust.params.projectName}}</text>
 						</div>
 						<!-- <div class="En-in-name">
 							名称
@@ -66,10 +66,10 @@
 					type: 0, // 0代表服务申请， 1项目委托
 					success: false, // 是否申请成功
 					params: {
-						modelId: 0, // 0 代表投资人ID  1代表投资机构ID 2代表项目ID
+						modelId: 0, // 代表投资人ID  代表投资机构ID 代表项目ID
 						projectName: '', // 委托项目
 						userId: '', // 申请人ID
-						applyeType: 0 ,// 创业者联系投资人 1创业者联系投资机构
+						applyeType: 0 ,// 创业者联系投资人 1创业者联系投资机构 2 项目
 						phone: 0, // 电话
 						name: '', // 姓名
 						serverId: '', // 服务ID
@@ -85,6 +85,18 @@
 			msgData: {
 				type: Object
 			}
+		},
+		filters: {
+		  /* 格式化applyeType */
+		  applyeType (val) {
+		    if (val === 0) {
+				return '投资人';
+			} else if (val === 1) {
+				return '投资机构';
+			} else if (val === 2) {
+				return '项目';
+			}
+		  },
 		},
 		computed: {
 		  ...mapGetters(['ENTRUSSHOW', 'ENTRUST'])
@@ -159,8 +171,8 @@
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 					console.log(landRegistLG.user.id);
 					let params = {
-							modelId: Number(this.entrust.modelId),
-							applyeType: this.entrust.applyeType,
+							modelId: Number(this.entrust.params.modelId),
+							applyeType: String(this.entrust.params.applyeType),
 							userId: this.entrust.params.userId,
 							userPhone: this.entrust.params.phone,
 							userName: this.entrust.params.name
@@ -177,6 +189,10 @@
 						},
 						success: (response) => {
 							console.log(response.data);
+							if (response.data.content.time) {
+								this.entrust.params.time = response.data.content.time;
+							}
+							this.$store.commit('setEntrustSuccess', true); // 更新setEntrustSuccess
 							this.$store.commit('setEntrustParams', this.entrust.params); // 更新setEntrustParams
 							uni.hideLoading(); // 隐藏 loading
 						},

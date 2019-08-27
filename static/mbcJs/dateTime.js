@@ -9,6 +9,7 @@
 			//    不传参数，默认返回 2018-08-13 10：38: 10
 			//     'y' 返回年 2019
 			//     'm' 返回月 4
+			//     'y.m.d h minute' 返回 2018.03.04 10: 30
 
 export default {
 	dateTime (type, str) {
@@ -42,6 +43,8 @@ export default {
 			return y
 		} else if (type === 'm') {
 			return m
+		} else if (type === 'y.m.d h minute') {
+			return y + '.' + m + '.' + d+' '+h+':'+minute;
 		} else {
 			return y + '-' + m + '-' + d+' '+h+':'+minute+':'+second;
 		};

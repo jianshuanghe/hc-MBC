@@ -98,6 +98,9 @@
 		background: #fff;
 		height: 1162upx;
 		padding-bottom: 100upx;
+		// #ifdef MP-WEIXIN || MP-TOUTIAO || MP-BAIDU || MP-ALIPAY
+			padding-bottom: 400upx;
+		// #endif
 		top: 172upx;
 	}
 </style>

@@ -339,7 +339,7 @@
 
 <style>
 	.scroll-Y {
-		height: 1250upx;
+		height: 94vh;
 	}
 	
 	.scroll-view_H {
@@ -348,7 +348,7 @@
 	}
 	
 	.scroll-view-item {
-		height: 1162upx;
+		height: 94vh;
 		line-height: 300upx;
 		text-align: center;
 		font-size: 36upx;
@@ -365,8 +365,8 @@
 	.loading-more {
 		align-items: center;
 		justify-content: center;
-		padding-top: 10px;
-		padding-bottom: 10px;
+		padding-top: 20upx;
+		padding-bottom: 40upx;
 		text-align: center;
 	}
 	.loading-more-text {

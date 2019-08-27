@@ -363,4 +363,33 @@ radio-group label, checkbox-group label {
 padding-right: 0rpx;
 }
 
+
+.submit-box1{
+	position: relative;
+	width: 60%;
+	background: #E2E2E2;
+	font-family: PingFangSC-Regular;
+	font-size: 32upx;
+	color: #FFFFFF;
+	letter-spacing: 0;
+	text-align: center;
+	line-height: 100upx;
+}
+.WL-box1{
+	position: relative;
+	width: 50%;
+	background: #E2E2E2;
+	color: #FFFFFF;
+	text-align: center;
+	line-height: 100upx;
+}
+.loading-more {
+	align-items: center;
+	justify-content: center;
+	padding-top: 20upx !important;
+	padding-bottom: 50upx !important;
+	text-align: center;
+	margin-bottom: 50upx !important;
+}
+
 	

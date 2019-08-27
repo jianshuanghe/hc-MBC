@@ -60,7 +60,7 @@
 		onLoad(option) {
 			this.data.id = option.id;
 			this.getList(option.id);
-			this.getUserApply()
+			this.getUserApply(option.id)
 		},
 		methods: {
 			getList (e) {
@@ -80,6 +80,8 @@
 						success: (response) => {
 							console.log(response.data.content);
 							this.dataList = response.data.content;
+							this.data.projectName = this.dataList.capitalComp.compName;
+							this.data.modelId = e;
 							uni.hideLoading(); // 隐藏 loading
 						},
 						fail: (error) => {
@@ -94,7 +96,7 @@
 					});
 				}
 			},
-			getUserApply(){
+			getUserApply(e){
 				if (uni.getStorageSync('landRegist')) {
 				    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 				    console.log(landRegistLG.user.id);
@@ -103,7 +105,7 @@
 						title: '加载中'
 					});
 					uni.request({
-						url: this.api2 + '/contact/is/apply?modelId=2&applyeType=1'+ '&userId=' + landRegistLG.user.id, //接口地址。
+						url: this.api2 + '/contact/is/apply?applyeType=1' + '&modelId=' + e + '&userId=' + landRegistLG.user.id, //接口地址。
 						data: this.endParams(params),
 						header: {
 							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中

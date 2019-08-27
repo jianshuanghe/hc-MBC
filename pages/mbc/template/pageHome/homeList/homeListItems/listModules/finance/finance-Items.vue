@@ -9,7 +9,7 @@
 					<view class="left FI-t-cont">
 						<view class="FI-t-title">
 							<text class="title">{{msgData.projName}}</text>
-							<text class="inst">营销平台</text>
+							<text class="inst">{{msgData.fieldCode}}</text>
 						</view>
 						<view class="FI-t-ins">{{msgData.projSlogan}}</view>
 					</view>
@@ -22,10 +22,10 @@
 					<view class="clear"></view>
 				</view>
 				<view class="FI-modules">
-					<text class="modules-items-FI left">顺为资本完成天使轮融资2000万</text>
+					<text class="modules-items-FI left"  v-for="(items,index) in msgData.lables" :key="index">{{items.labelName}}</text>
 				</view>
 				<view class="FI-insCd">
-					<view class="FI-C-text">我需要寻找投资相关的服务我需要寻找投资相我需要寻找投资相关的服务我需要寻找投资相我需要寻找资…</view>
+					<view class="FI-C-text">{{msgData.infoCount}}</view>
 				</view>
 				<view class="FI-cont" v-if="msgData.imgs.length === 1">
 					<view class="ImageBox1">
@@ -349,7 +349,8 @@
 		line-height: 24upx;
 	}
 	.FI-t-right{
-		position: relative;
+		position: absolute;
+		right: 0;
 	}
 	.FI-t-money{
 		position: relative;
@@ -536,10 +537,12 @@
 		color: #9B9B9B;
 		line-height: 36upx;
 		text-align: right;
+		padding-left: 8upx;
 	}
 	.icon-text1{
 		position: relative;
-		width: 40%;
+		width: 60%;
+		margin-left: 8%;
 	}
 	.icon-text1>p{
 		position: relative;
@@ -547,6 +550,5 @@
 		font-size: 22upx;
 		color: #9B9B9B;
 		line-height: 40upx;
-		text-align: right;
 	}
 </style>

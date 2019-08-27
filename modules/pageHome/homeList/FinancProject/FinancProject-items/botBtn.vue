@@ -8,7 +8,7 @@
 					</view>
 					<view :class="items.love ? 'text1' : 'text'">收藏</view>
 				</view>
-				<view class="WL-box left">
+				<view class="WL-box left" @tap="clickBPshow()">
 					<view class="img-box">
 						<image class="img" :src="text"></image>
 					</view>
@@ -16,16 +16,17 @@
 				</view>
 				<view class="clear"></view>
 			</view>
-			<view class="left submit-box" @tap="goToEntrust(msgData.id)">
-				委托联系
-			</view>
-			<view class="clear"></view>
+			<view :class="msgData.content === 0 ? 'left submit-box' : 'left submit-box1'" @tap='Apply()'> {{msgData.content === 0 ? '委托联系' : '已委托'}}</view>
+			<view class="clear"></view>v>
 		</view>
+		<!-- 全局设置申请组件 -->
+		<entrust v-if="entrust.entrustShow"></entrust>
 	</view>
 </template>
 
 <script>
 	
+	import { mapMutations, mapGetters } from 'vuex';
 	export default {
 	    data () {
 			return {
@@ -40,7 +41,24 @@
 					like: false, // 点赞
 					love: false // 收藏
 				},
-				clickRecordsArr: [] // 用户点击行为数组记录
+				clickRecordsArr: [] ,// 用户点击行为数组记录
+				entrust:{
+					entrustShow: false, // 默认不显示
+					type: 1, // 0代表服务申请， 1项目委托
+					success: false, // 是否申请成功
+					params: {
+						modelId: 2, // 0 代表投资人ID  1代表投资机构ID 2代表项目ID
+						projectName: '', // 委托项目
+						userId: '', // 申请人ID
+						applyeType: 2 ,// 创业者联系投资人 1创业者联系投资机构 2代表项目
+						phone: 0, // 电话
+						name: '', // 姓名
+						serverId: '', // 服务ID
+						time: '', // 提交成功时间
+					}
+				},
+				userType: '99', // 用户类型  -1 未认证 0 创业者 1 个人投资人 2 机构投资人
+				authState: '99' // -1 未认证 0 待审核 1审核通过 2 审核失败
 			};
 	    },
 		props: {
@@ -51,8 +69,99 @@
 		mounted() {
 			console.log(this.msgData, '子组件获取的数据2');
 			this.getClickRecord();
+			this.getUserType();
+		},
+		computed: {
+          ...mapGetters(['ENTRUSSHOW', 'ENTRUST'])
+        },
+		watch: {
+		  ENTRUSSHOW: {
+            handler (a, b) {
+              this.entrust.entrustShow = a; // 申请组件
+            },
+            deep: true
+          }
+        },
+		created() {
+			this.entrust = this.ENTRUST;
+			console.log(this.ENTRUST, 'ENTRUST')
 		},
 	    methods: {
+			...mapMutations({
+				setEnTrustShow: 'setEnTrustShow',
+				setEntrustType: 'setEntrustType',
+				setEntrustParams: 'setEntrustParams'
+			}),
+			message() {
+				
+			},
+			getUserType () {
+				console.log('判断用户是否认证');
+				if (uni.getStorageSync('UserData')) {
+					let UserData = JSON.parse(uni.getStorageSync('UserData')); // 读取缓存的用户信息
+					this.authState = UserData.authState; // -1 未认证 0 待审核 1审核通过 2 审核失败
+					this.userType = UserData.userType; // 用户类型  -1 未认证 0 创业者 1 个人投资人 2 机构投资人
+				}
+			},
+			clickBPshow () {
+				console.log('触发预览BP');
+				console.log(this.msgData.enclosurePath);
+				// this.isBPshow = true;
+				uni.showLoading({ // 展示loading
+					title: '加载中,请稍后!'
+				});
+				uni.downloadFile({
+					url: this.msgData.enclosurePath,
+					success: function (res) {
+						console.log(res, '--------------------pdf----------------------')
+						var filePath = res.tempFilePath;
+						uni.openDocument({
+						  filePath: filePath,
+						  success: function (res) {
+							console.log('打开文档成功');
+							uni.hideLoading(); // 隐藏 loading
+						  }
+						});
+					}
+				});
+			},
+			Apply () {
+				console.log('触发申请');
+				if (this.userType === 1 || this.userType === 2) { // 1 个人投资人 2 机构投资人
+					if (this.authState !== 1) { // 没有认证.或者认证没通过
+						uni.showToast({
+							title: '认证投资人或者投资机构可见全部内容！',
+							icon: 'none',
+							duration: 1000
+						});
+						return
+					} else {
+						console.log('认证投资人或者投资机构')
+					}
+				} else {
+					uni.showToast({
+						title: '认证投资人或者投资机构可见全部内容！',
+						icon: 'none',
+						duration: 1000
+					});
+					return
+				}
+				if (this.msgData.content === 1) {
+					uni.showToast({
+						title: '您已经申请过了！',
+						icon: 'none',
+						duration: 1000
+					});
+				} else {
+					this.entrust.params.serverId = this.msgData.serverId;
+					this.entrust.params.modelId = this.msgData.modelId;
+					this.entrust.params.projectName = this.msgData.projectName;
+					this.entrust.params.applyeType = 2;
+					this.$store.commit('setEntrustType', 1); // 更新setEntrustType
+					this.$store.commit('setEntrustParams', this.entrust.params); // 更新setEntrustParams
+					this.$store.commit('setEnTrustShow', true); // 更新setEnTrustShow
+				}
+			},
 			getClickRecord () {
 				console.log('获取缓存中的用户点击行为数组记录');
 				if (uni.getStorageSync('clickRecordsArr')) {

@@ -1,5 +1,6 @@
 <template>
 	<view class="searchHistory-content">
+		<view class="line"></view>
 		<view class="searchHistory">
 		  <view class="SH-cont">
 			<view class="top-SH">
@@ -7,8 +8,8 @@
 			</view>
 			<view class="cont-SH">
 			  <view class="search-Box-Sh">
-				<view class="search-Items left" >
-				  <p class="" @click="clickHistoryList">搜索名称1</p>
+				<view class="search-Items left"  v-for="(items,index) in reMenLIstData" :key="index">
+				  <p class="" @click="clickHistoryList(items)">{{items}}</p>
 				</view>
 				<view class="clear"></view>
 			  </view>
@@ -44,6 +45,7 @@
 	        value: '商机名称',
 			results: '',
 	        searchText: '',
+			reMenLIstData: [], // 盛放热门
 			searchHistoryData: [], // 用来盛放搜索的历史记录
 	        project: { // 项目
 				listNum: 0, // 总数居
@@ -103,6 +105,7 @@
 			}
 		},
 		created() {
+			this.getReMenList();
 			if (uni.getStorageSync('searchHistoryData')) {
 				this.searchHistoryData = JSON.parse(uni.getStorageSync('searchHistoryData'));
 			}
@@ -118,6 +121,38 @@
 				setSeachActive: 'setSeachActive',
 				setSearchHistoryData: 'setSearchHistoryData' // 搜索的历史数据
 			}),
+			getReMenList () {
+				console.log('获取热门推荐数据')
+				if (uni.getStorageSync('landRegist')) {
+				    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+				    console.log(landRegistLG.user.id);
+					let params = {}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/index/select/hot', //接口地址。
+						data: this.endParams(params),
+						header: {
+							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
+						},
+						success: (response) => {
+							console.log(response.data.content);
+							this.reMenLIstData = response.data.content;
+							uni.hideLoading(); // 隐藏 loading
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
 			clickHistoryList (e) {
 				this.searchText = e;
 				if (this.searchText === '') {
@@ -340,6 +375,8 @@
   overflow: scroll;
   -webkit-overflow-scrolling:touch;
   background: #fff;
+  padding-top: 8upx;
+  z-index: 108;
 }
   .searchHistory{
     position: relative;
@@ -351,7 +388,6 @@
   }
   .top-SH{
     position: relative;
-    width: 100%;
     padding: 4vw;
   }
   .top-SH>p{
@@ -363,7 +399,6 @@
   }
   .cont-SH{
     position: relative;
-    width: 100%;
     padding: 0vw 0 4vw 4vw;
   }
   .search-Box-Sh{

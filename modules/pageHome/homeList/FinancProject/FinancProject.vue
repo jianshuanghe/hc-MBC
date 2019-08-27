@@ -56,7 +56,11 @@
 		},
 		onLoad(option) {
 			this.project.id = option.id;
-			this.getList(option.id)
+			this.getList(option.id);
+			this.getUserApply(option.id);
+		},
+		mounted() {
+			
 		},
 		methods: {
 			getList (e) {
@@ -76,6 +80,10 @@
 						success: (response) => {
 							console.log(response.data.content);
 							this.dataList = response.data.content;
+							this.project.projectName = this.dataList.projName;
+							this.project.modelId = this.dataList.id;
+							// this.project.enclosurePath = this.dataList.projFile.enclosurePath; // BP文件路径
+							this.project.enclosurePath = 'https://style.iambuyer.com/doc/2019_PDF.pdf'; // 测试使用
 							uni.hideLoading(); // 隐藏 loading
 						},
 						fail: (error) => {
@@ -99,14 +107,14 @@
 						title: '加载中'
 					});
 					uni.request({
-						url: this.api2 + '/contact/is/apply?modelId=2' + e + '&userId=' + landRegistLG.user.id, //接口地址。
+						url: this.api2 + '/contact/is/apply?applyeType=2' + '&modelId=' + e + '&userId=' + landRegistLG.user.id, //接口地址。
 						data: this.endParams(params),
 						header: {
 							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
 						},
 						success: (response) => {
 							console.log(response.data);
-							this.data.content = response.data.content;
+							this.project.content = response.data.content;
 							uni.hideLoading(); // 隐藏 loading
 						},
 						fail: (error) => {

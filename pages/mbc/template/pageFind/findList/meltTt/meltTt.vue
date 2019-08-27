@@ -204,7 +204,7 @@
 		background: #fff;
 	}
 	.scroll-Y {
-		height: 1040upx;
+		height: 82vh;
 		padding-bottom: 100upx;
 	}
 
@@ -213,10 +213,10 @@
 		width: 100%;
 	}
 	.uni-scroll-view{
-		height: 1040upx;
+		height: 82vh;
 	}
 	.scroll-view-item {
-		height: 1040upx;
+		height: 82vh;
 		line-height: 300upx;
 		text-align: center;
 		font-size: 36upx;
@@ -233,9 +233,10 @@
 	.loading-more {
 		align-items: center;
 		justify-content: center;
-		padding-top: 10px;
-		padding-bottom: 10px;
+		padding-top: 20upx;
+		padding-bottom: 50upx;
 		text-align: center;
+		margin-bottom: 50upx;
 	}
 	.loading-more-text {
 		font-size: 28upx;

@@ -25,9 +25,8 @@
 				</div>
 			</div>
 			<div class="left SUI-cont-text">
-				<div class="SUI-text-top">电脑扫码上传</div>
-				<div class="SUI-text-bot">附件格式支持doc、docx、pdf、jpg、png
-大小不超过10M</div>
+				<div class="SUI-text-top">{{GET_PUBLISH.isUpLoadFile.content.enclosureName}}</div>
+				<div class="SUI-text-bot1">{{GET_PUBLISH.isUpLoadFile.content.enclosureSize }}  {{ GET_PUBLISH.isUpLoadFile.content.createTime | dateTime}}上传</div>
 			</div>
 			<div class="right SUI-right-img">
 				<image class="rignt-arrow" :src='rightArrow'></image>
@@ -42,6 +41,7 @@
 </template>
 
 <script>
+	import date from '@/static/mbcJs/dateTime.js';
 	import { mapMutations, mapGetters } from 'vuex';
 	export default {
 	    data () {
@@ -52,6 +52,12 @@
 	    },
 		computed: {
 			...mapGetters(['GET_PUBLISH'])
+		},
+		filters: {
+		  /* 格式化时间戳 */
+		  dateTime (val) {
+		    return date.dateTime('y.m.d h minute', val);
+		  }
 		},
 	    methods: {
 			...mapMutations({
@@ -118,6 +124,13 @@
 		color: #9B9B9B;
 		letter-spacing: 0;
 		line-height: 32upx;
+	}
+	.SUI-text-bot1{
+		font-family: PingFangSC-Regular;
+		font-size: 24upx;
+		color: #9B9B9B;
+		letter-spacing: 0;
+		line-height: 64upx;
 	}
 	.SUI-right-img{
 		position: relative;
