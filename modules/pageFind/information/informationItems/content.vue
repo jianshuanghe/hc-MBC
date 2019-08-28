@@ -41,10 +41,18 @@
 		  dataImg (val) {
 			  return 'https://' + val;
 		  }
+		  
 		},
 		computed: {},
 		watch: {},
 		created() {
+		},
+		mounted () {
+			let s =  this.msgData.activity.activityContent.replace(/<img[^>]*>/gi, function (match, capture) {
+			// return match.replace(/(<img[^>]*)(\/?>)/gi, "$1width='100%' $2") // 添加width="100%"
+			   return match.replace(/style\s*?=\s*?([‘"])[\s\S]*?\1/ig, 'style="max-width:100%;height:auto;"') // 替换style
+			});
+			console.log(s);
 		},
 	    methods: {
 	    }

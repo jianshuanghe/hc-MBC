@@ -419,4 +419,12 @@ padding-right: 0rpx;
 .Posied{
 	position: fixed !important; 
 }
+rich-text{
+	position: relative;
+	width: 690upx;
+}
+rich-text>img{
+	position: relative;
+	width: 100%;
+}
 	
