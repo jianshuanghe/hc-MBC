@@ -1,5 +1,5 @@
 <template>
-  <view class="investItems-content">
+  <view class="investItems-content" @tap="goToInvestDetail(msgData.userId)">
     <view class="II-content">
       <view class="II-top">
         <view class="left II-user-img">
@@ -51,6 +51,12 @@
 			}
 		},
 	    methods: {
+			goToInvestDetail (e){
+				console.log('去' + e + '投资人详情页面');
+				uni.navigateTo({
+					url: '/modules/pageHome/seekCapital/seekCapitalItems/investor/inverstorItems/itemsDetails/itemsDetails?userId=' + e
+				});
+			}
 	    }
 	};
 </script>

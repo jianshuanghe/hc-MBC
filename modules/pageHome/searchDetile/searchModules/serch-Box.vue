@@ -420,7 +420,7 @@
 	.cal-box{
 		position: absolute;
 		width: 80upx;
-		right: 8px;
+		right: 0px;
 	}
 	.cl-text{
 		position: relative;

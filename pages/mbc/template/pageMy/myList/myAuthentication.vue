@@ -8,11 +8,10 @@
 </template>
 
 <script>
-	import right from '@/static/mbcImg/my/right.png'
 	export default {
 		data() {
 			return {
-				right:right
+				right:this.Static + 'mbcImg/my/right.png'
 			};
 		},
 		computed: {

@@ -56,12 +56,6 @@
 				uni.navigateTo({
 					url: '/modules/pageHome/seekCapital/seekCapitalItems/investor/inverstorItems/itemsDetails/itemsDetails?userId=' + e
 				});
-			},
-			goToPutIn () {
-				console.log('点击触发发布项目');
-			},
-			goToSeek () {
-				console.log('点击触发寻找资本');
 			}
 	    }
 	};

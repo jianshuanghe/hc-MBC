@@ -391,5 +391,16 @@ padding-right: 0rpx;
 	text-align: center;
 	margin-bottom: 50upx !important;
 }
+.submit-box1{
+	position: relative;
+	width: 60%;
+	background: #E2E2E2;
+	color: #FFFFFF;
+	font-family: PingFangSC-Regular;
+	font-size: 32upx;
+	letter-spacing: 0;
+	text-align: center;
+	line-height: 100upx;
+}
 
 	

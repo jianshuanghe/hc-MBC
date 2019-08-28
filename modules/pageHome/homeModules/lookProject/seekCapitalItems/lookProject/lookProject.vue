@@ -1,21 +1,25 @@
 
 <template>
 	<view class="listInvest">
-		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
-		@scroll="scroll">
-			<view v-for="(items,index) in list.listData" :key="index" >
-				<lookProjectItems :msgData="items"></lookProjectItems>
-				<view class="line"></view>
-			</view>
-			<view class="loading-more">
-			    <text class="loading-more-text">{{loadingText}}</text>
-			</view>
-		</scroll-view>
+		<view v-if="list.listData.length > 0">
+			<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
+			@scroll="scroll">
+				<view v-for="(items,index) in list.listData" :key="index" >
+					<lookProjectItems :msgData="items"></lookProjectItems>
+					<view class="line"></view>
+				</view>
+				<view class="loading-more">
+					<text class="loading-more-text">{{loadingText}}</text>
+				</view>
+			</scroll-view>
+		</view>
+		<empty v-else>抱歉，没有找到相关内容~</empty>
 	</view>
 </template>
 
 <script>
 	import lookProjectItems from "./lookProjectItems/finance-Items.vue";
+	import empty from "@/components/empty/empty.vue";
 	import { mapMutations, mapGetters } from 'vuex';
 	export default {
 	    data () {
@@ -59,7 +63,8 @@
 			};
 	    },
 		components: {
-			lookProjectItems
+			lookProjectItems,
+			empty
 		},
 		computed: {
           ...mapGetters(['GET_HOME', 'LOOKPROJECTSEARCH', 'LOOKPROJECTSEARCHTYPE', 'AREADATA', 'FIELDDATA', 'LEVELDATA'])

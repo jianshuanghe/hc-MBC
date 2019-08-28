@@ -33,6 +33,10 @@
 			this.data.serverId = option.serverId;
 			this.getUserApply(option.serverId);
 		},
+		beforeDestroy () {
+			console.log('页面销毁之前缓存数据')
+			this.$store.commit('setEnTrustShow', false); // 更新setEntrustSignUp
+		},
 		methods: {
 			getUserApply(e){
 				if (uni.getStorageSync('landRegist')) {

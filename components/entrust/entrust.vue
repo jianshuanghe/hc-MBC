@@ -1,5 +1,5 @@
 <template>
-	<div class="entrust">
+	<div class="entrust" @touchmove.prevent>
 		<inputBox v-if='!ENTRUST.success'></inputBox>
 		<success v-if="ENTRUST.success"></success>
 	</div>

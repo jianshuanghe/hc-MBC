@@ -18,7 +18,11 @@
 <script>
 	import { mapMutations, mapGetters } from 'vuex';
 	
+	import entrust from "@/components/entrust/entrust.vue";
 	export default {
+		components: {
+			entrust
+		},
 	    data () {
 			return {
 				tel: this.Static + 'mbcImg/home/lookServices/tel.png',
@@ -60,6 +64,10 @@
 		created() {
 			this.entrust = this.ENTRUST;
 			console.log(this.ENTRUST, 'ENTRUST')
+		},
+		beforeDestroy () {
+			console.log('页面销毁之前缓存数据')
+			this.$store.commit('setEnTrustShow', false); // 更新setEntrustSignUp
 		},
 	    methods: {
 			...mapMutations({

@@ -12,9 +12,11 @@
 				<basicInfor ></basicInfor>
 			</view>
 		</view>
+		<tipsBox></tipsBox>
 	</view>
 </template>
 <script>
+	import tipsBox from "@/components/tips/tips.vue";
 	import publishTitle from "./publishList/publishTitle.vue";
 	import uploadBP from "./publishList/uploadBP/uploadBP.vue";
 	import basicInfor from "./publishList/Infor/basicInfor.vue";
@@ -26,6 +28,7 @@ export default {
 		};
 	},
 	components: {
+		tipsBox,
 		publishTitle,
 		uploadBP,
 		basicInfor
@@ -41,7 +44,11 @@ export default {
 		};
 		if(uni.getStorageSync('SacnToken')) {
 			this.isTokenConnect();
-		}
+		};
+		uni.pageScrollTo({
+		    scrollTop: 0,
+		    duration: 0
+		});
 	},
 	mounted() {
 	},

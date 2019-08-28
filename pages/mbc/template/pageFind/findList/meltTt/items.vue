@@ -1,7 +1,7 @@
 <template>
 	<view class="active-content-items">
 		<view class="active-box">
-			<view class="title-active">{{msgData.activityAbstract || '无'}}</view>
+			<view class="title-active">{{msgData.activityTitel || '无'}}</view>
 			<view class="time-active">{{msgData.releaseTime | dateTime}}</view>
 		</view>
 		<view class="line"></view>
@@ -29,15 +29,6 @@
           }
         },
 	    methods: {
-			goToFinanceDetail (e){
-				console.log('去' + e + '详情页面');
-			},
-			goToPutIn () {
-				console.log('点击触发发布项目');
-			},
-			goToSeek () {
-				console.log('点击触发寻找资本');
-			}
 	    }
 	};
 </script>

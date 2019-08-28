@@ -6,13 +6,13 @@
 				<!-- <text class="pP-text-right">纠错</text> -->
 			</div>
 			<div class="pP-content">
-				基本规模：{{msgData.capitalComp.compScale}}亿人民币
+				基本规模：{{msgData.capitalComp.compScale || ''}}
 			</div>
 			<div class="pP-content">
-				机构总部：{{msgData.capitalComp.pcode}}
+				机构总部：{{msgData.capitalComp.pcode || ''}}
 			</div>
 			<div class="pP-content">
-				官网：{{msgData.capitalComp.linkUrl}}
+				官网：{{msgData.capitalComp.linkUrl || ''}}
 			</div>
 		</div>
 	</div>

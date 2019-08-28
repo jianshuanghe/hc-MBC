@@ -1,0 +1,110 @@
+<template>
+	<div class="tips-content" @touchmove.prevent>
+		<div class="tips-mask"></div>
+		<div class="tips-box">
+			<div class="tips-box-content">
+				<div class="title">提示</div>
+				<image class="img" :src="close"></image>
+				<!-- <div class="content"><slot></slot></div> -->
+				<div class="content">
+					<div class="TIPS-isnt">认证创业者可见全部内容</div>
+					<div class="line"></div>
+					<div class="TIPS-btn">立即认证</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+	import close from '@/static/mbcImg/common/close.png'
+	import { mapMutations, mapGetters } from 'vuex';
+	export default {
+		data() {
+			return {
+				close: close
+			};
+		},
+		components: {
+		},
+		
+		computed: {
+		  ...mapGetters(['ENTRUSSHOW', 'ENTRUST'])
+		},
+		created() {
+			console.log('在组件中并不能使用页面生命周期函数');
+		},
+		mounted() {
+		},
+		methods: {
+		}
+	};
+</script>
+
+<style>
+	.tips-content{
+		position: fixed;
+		z-index: 200;
+		top: 0;
+		height: 100vh;
+		width: 100vw;
+	}
+	.tips-mask{
+		position: fixed;
+		background: rgba(46,46,48,0.20);
+		height: 100vh;
+		width: 100vw;
+		top: 0;
+		z-index: 200;
+	}
+	.tips-box{
+		position: fixed;
+		height: 100vh;
+		width: 100vw;
+		top: 0;
+		z-index: 201;
+	}
+	.img{
+		position: absolute;
+		right: 10upx;
+		top: 10upx;
+		height: 40upx;
+		width: 40upx;
+	}
+	.tips-box-content{
+		/*设置元素绝对定位*/
+		    position:absolute;
+		/*top 50%*/
+		    top: 50%;
+		/*left 50%*/
+		    left: 50%;
+		/*css3   transform 实现*/
+		    transform: translate(-50%, -50%);
+			width: 590upx;
+			height: 360upx;
+			background: #FFFFFF;
+			box-shadow: 0 2px 6px 0 rgba(46,46,48,0.20);
+			border-radius: 2px;
+	}
+	.title{
+		font-family: PingFangSC-Regular;
+		font-size: 40upx;
+		color: #2E2E30;
+		text-align: center;
+		line-height: 140upx;
+	}
+	.TIPS-isnt{
+		font-family: PingFangSC-Light;
+		font-size: 32upx;
+		color: #5D5D5D;
+		text-align: center;
+		line-height: 120upx;
+	}
+	.TIPS-btn{
+		font-family: PingFangSC-Regular;
+		font-size: 32upx;
+		color: #02C2A2;
+		text-align: center;
+		line-height: 100upx;
+	}
+</style>

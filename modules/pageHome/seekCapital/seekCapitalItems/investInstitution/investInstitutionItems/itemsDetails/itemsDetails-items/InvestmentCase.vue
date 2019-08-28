@@ -1,18 +1,25 @@
 <template>
-	<div class="personalProfile-contnet">
+	<div class="personalProfile-contnet"  v-if = 'msgData.capitalCompFields.length > 0 && msgData.capitalCompLevels.length > 0'>
 		<div class="personalProfile">
 			<div class="pP-title">
-				任职履历
+				投资偏好
 				<text class="pP-text-right"  @tap="goToOpinion()">纠错</text>
 			</div>
 			<div class="IC-content">
-				<div class="IC-box">
+				<div class="IC-box" v-if = 'msgData.capitalCompFields.length > 0'>
 					<div class="title">关注领域</div>
 					<div class="IC-items-list">
 						<div class="IC-items left" v-for="(items,index) in msgData.capitalCompFields" :key="index">{{items.fieldCode}}</div>
 						<div class="clear"></div>
 					</div>
 					<div class="line"></div>
+				</div>
+				<div class="IC-box"  v-if = 'msgData.capitalCompLevels.length > 0'>
+					<div class="title">关注轮次</div>
+					<div class="IC-items-list">
+						<div class="IC-items left" v-for="(items,index) in msgData.capitalCompLevels" :key="index">{{items.levelCode}}</div>
+						<div class="clear"></div>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -80,6 +80,11 @@
 		font-size: 30upx;
 		color: #2E2E30;
 		line-height: 40upx;
+		overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp:2;
+        -webkit-box-orient: vertical;
 	}
 	.infor-text-bot{
 		position: relative;

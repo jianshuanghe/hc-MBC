@@ -220,6 +220,15 @@ const state = {
 			}
 		},
 		listData: '' // 列表数据
+	},
+	entrustSignUp:{ // 报名
+		entrustShow: false, // 默认不显示
+		success: false, // 是否申请成功
+		params: {
+			modelId: 0, // 代表活动id
+			phone: params.phone, // 电话
+			name: params.name, // 姓名
+		}
 	}
   },
   publish: { // 发布

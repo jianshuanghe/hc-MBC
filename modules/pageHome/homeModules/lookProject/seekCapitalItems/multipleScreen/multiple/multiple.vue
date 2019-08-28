@@ -143,26 +143,68 @@
 				setLevelData: 'setLevelData', // 公共组件融资阶段
 				setLookProjectDataSearch: 'setLookProjectDataSearch'
 			}),
-			// 领域
+			// 阶段
 			labelBtn(name,index){
 			  console.log(name,index,"nameindex")
-			  if(this.levesDataList.join(',').indexOf(name) >-1){
-			    this.LEVELDATA[index].checked = true
-			  }else{
-			    this.LEVELDATA[index].checked = false
+			  let LEVELDATA = this.LEVELDATA;
+			  if (name === '0001') { // 阶段全部
+					console.log('选择的全部');
+					LEVELDATA.map((items, index) => {
+						if (items.value !== '0001') {
+							LEVELDATA[index].checked = false
+						} else {
+							LEVELDATA[index].checked = true
+						}
+						this.$store.commit('setLevelData', LEVELDATA); // 更新setLevelData
+					})
+			  } else { // 选择非全部
+					if(this.levesDataList.join(',').indexOf(name) >-1){
+						this.levesDataList.map((items, key) => {
+							if (items !== '0001') { // 除了全部那项，前他保持选择状态
+								LEVELDATA[index].checked = true;
+							} else {
+								LEVELDATA[0].checked = false; // 如果已经选择了全部，则全部哪项取消
+							}
+						})
+						
+					}else{
+						LEVELDATA[index].checked = false
+					}
+					this.$store.commit('setLevelData', LEVELDATA); // 更新setLevelData
 			  }
 			},
 			checkboxChange: function (e) {
 			  this.levesDataList = e.detail.value; // 获取选中的值
 			  console.log(this.levesDataList,"levesDataList");
 			},
-			// 阶段
+			// 领域
 			labelBtn1(name,index){
-			  console.log(name,index,"nameindex")
-			  if(this.fieldsDataList.join(',').indexOf(name) >-1){
-			    this.FIELDDATA[index].checked = true
-			  }else{
-			    this.FIELDDATA[index].checked = false
+			  console.log(name,index,"nameindex");
+			  let FIELDDATA = this.FIELDDATA;
+			  if (name === '0001') { // 阶段全部
+				console.log('选择的全部');
+				FIELDDATA.map((items, index) => {
+					if (items.value !== '0001') {
+						FIELDDATA[index].checked = false
+					} else {
+						FIELDDATA[index].checked = true
+					}
+					this.$store.commit('setFieldData', FIELDDATA); // 更新setFieldData
+				})
+			  } else { // 选择非全部
+				if(this.fieldsDataList.join(',').indexOf(name) >-1){
+					this.fieldsDataList.map((items, key) => {
+						if (items !== '0001') { // 除了全部那项，前他保持选择状态
+							FIELDDATA[index].checked = true;
+						} else {
+							FIELDDATA[0].checked = false; // 如果已经选择了全部，则全部哪项取消
+						}
+					})
+					
+				}else{
+					FIELDDATA[index].checked = false
+				}
+				this.$store.commit('setFieldData', FIELDDATA); // 更新setFieldData
 			  }
 			},
 			checkboxChange1: function (e) {
@@ -172,10 +214,31 @@
 			// 地区
 			labelBtn2(name,index){
 			  console.log(name,index,"nameindex")
-			  if(this.areaDataList.join(',').indexOf(name) >-1){
-			    this.AREADATA.province[index].checked = true
-			  }else{
-			    this.AREADATA.province[index].checked = false
+			  let AREADATA = this.AREADATA;
+			  if (name === '0001') { // 阶段全部
+					console.log('选择的全部');
+					AREADATA.province.map((items, index) => {
+						if (items.value !== '0001') {
+							AREADATA.province[index].checked = false
+						} else {
+							AREADATA.province[index].checked = true
+						}
+						this.$store.commit('setAreaData', AREADATA); // 更新setAreaData
+					})
+			  } else { // 选择非全部
+					if(this.areaDataList.join(',').indexOf(name) >-1){
+						this.areaDataList.map((items, key) => {
+							if (items !== '0001') { // 除了全部那项，前他保持选择状态
+								AREADATA.province[index].checked = true;
+							} else {
+								AREADATA.province[0].checked = false; // 如果已经选择了全部，则全部哪项取消
+							}
+						})
+						
+					}else{
+						AREADATA.province[index].checked = false
+					}
+					this.$store.commit('setAreaData', AREADATA); // 更新setAreaData
 			  }
 			},
 			checkboxChange2: function (e) {
@@ -217,19 +280,60 @@
 			},
 			clickReset(){
 				console.log('触发重置按钮');
-				this.$store.commit('setMultipleShow', false); // 更新setMultipleShow
+				this.resetData();
+			},
+			resetData () {
+				console.log('触发重置按钮');
+				// ----------------------------阶段-----------------------------
+				let LEVELDATA = this.LEVELDATA;
+				LEVELDATA.map((items, index) => {
+					items.checked = false;
+				});
+				this.$store.commit('setLevelData', LEVELDATA); // 更新setLevelData
+				this.levesDataList = [];
+				// ----------------------------领域-----------------------------
+				let FIELDDATA = this.FIELDDATA;
+				FIELDDATA.map((items, index) => {
+					items.checked = false;
+				});
+				this.$store.commit('setFieldData', FIELDDATA); // 更新setFieldData
+				this.fieldsDataList = [];
+				// ----------------------------区域-----------------------------
+				let AREADATA = this.AREADATA;
+				AREADATA.province.map((items, index) => {
+					items.checked = false;
+				})
+				this.$store.commit('setAreaData', AREADATA); // 更新setAreaData
+				this.areaDataList = [];
+				uni.showToast({
+					title: '已重置！',
+					icon: 'none',
+					duration: 1000
+				});
 			},
 			clickSure(){
 				console.log('触发确认按钮');
-				if (this.fieldsDataList !== '') {
-					this.search.fields = this.fieldsDataList.join(',');
-				}
-				if (this.levesDataList !== '') {
-					this.search.leves = this.levesDataList.join(',');
-				}
-				if (this.areaDataList !== '') {
-					this.search.area = this.areaDataList.join(',');
-				};
+				let fieldsData = []; // 领域
+				this.FIELDDATA.map((items,index) => {
+					if (items.checked === true && items.value !== '0001') {
+						fieldsData.push(items.value);
+					}
+				});
+				this.search.fields = fieldsData.join(',');
+				let levesData = []; // 阶段
+				this.LEVELDATA.map((items,index) => {
+					if (items.checked === true && items.value !== '0001') {
+						levesData.push(items.value);
+					}
+				});
+				this.search.leves = levesData.join(',');
+				let areaData = []; // 地区
+				this.AREADATA.province.map((items,index) => {
+					if (items.checked === true && items.value !== '0001') {
+						areaData.push(items.value);
+					}
+				});
+				this.search.area = areaData.join(',');
 				this.$store.commit('setLookProjectDataSearch', this.search); // 更新setLookProjectDataSearch
 				this.$store.commit('setMultipleShow', false); // 更新setMultipleShow
 			}
@@ -367,7 +471,7 @@
 	.MILClose .img{
 		width: 32upx;
 		height: 32upx;
-		margin: 24upx 0upx 0upx 30upx;
+		margin: 30upx 0upx 0upx 30upx;
 	}
 	.MILReset{
 		position: relative;

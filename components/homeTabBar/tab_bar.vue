@@ -45,26 +45,17 @@
 </template>
 
 <script>
-	import home from '@/static/mbcImg/tabBar/home.png';
-	import homed from '@/static/mbcImg/tabBar/homed.png';
-	import find from '@/static/mbcImg/tabBar/find.png';
-	import finded from '@/static/mbcImg/tabBar/finded.png';
-	import published from '@/static/mbcImg/tabBar/published.png';
-	import news from '@/static/mbcImg/tabBar/news.png';
-	import newsed from '@/static/mbcImg/tabBar/newsed.png';
-	import my from '@/static/mbcImg/tabBar/my.png';
-	import myed from '@/static/mbcImg/tabBar/myed.png';
 	import { mapMutations, mapGetters } from 'vuex';
 	export default {
 		data() {
 			return {
 				clickItems: 1, // 用户初次进来默认用户为首页
 				tabbarItems: 1, // 记录用户切换的按钮
-				home: homed, // 首页
-				find: find, // 发现
-				published: published, // 发布
-				news: news, // 消息
-				my: my // 我的
+				home: this.Static + 'mbcImg/tabBar/homed.png', // 首页
+				find: this.Static + 'mbcImg/tabBar/find.png', // 发现
+				published: this.Static + 'mbcImg/tabBar/published.png', // 发布
+				news: this.Static + 'mbcImg/tabBar/news.png', // 消息
+				my: this.Static + 'mbcImg/tabBar/my.png' // 我的
 			}
 		},
 		components: {
@@ -84,14 +75,12 @@
 		  }
 		},
 		created() {
-			console.log(home, '加载主页');
 			if(uni.getStorageSync('clickItems')) {
 				this.clickItems = uni.getStorageSync('clickItems'); // 取缓存中tabbar数据
 				this.tabBarItems(this.clickItems);
 			}
 		},
 		mounted() {
-			console.log(home, '加载主页');
 		},
 		methods: {
 			...mapMutations({
@@ -103,30 +92,30 @@
 				this.$store.commit('setHome', this.clickItems);
 				uni.setStorageSync('clickItems', e);
 				if (e === 1) {
-				  this.home = homed;
-				  this.find = find;
-				  this.news = news;
-				  this.my = my;
+				  this.home = this.Static + 'mbcImg/tabBar/homed.png';
+				  this.find = this.Static + 'mbcImg/tabBar/find.png';
+				  this.news = this.Static + 'mbcImg/tabBar/news.png';
+				  this.my = this.Static + 'mbcImg/tabBar/my.png';
 				} else if (e === 2) {
-				  this.home = home;
-				  this.find = finded;
-				  this.news = news;
-				  this.my = my;
+				  this.home = this.Static + 'mbcImg/tabBar/home.png';
+				  this.find = this.Static + 'mbcImg/tabBar/finded.png';
+				  this.news = this.Static + 'mbcImg/tabBar/news.png';
+				  this.my = this.Static + 'mbcImg/tabBar/my.png';
 				} else if (e === 3) {
-				  this.home = home;
-				  this.find = find;
-				  this.news = newsed;
-				  this.my = my;
+				  this.home = this.Static + 'mbcImg/tabBar/home.png';
+				  this.find = this.Static + 'mbcImg/tabBar/find.png';
+				  this.news = this.Static + 'mbcImg/tabBar/newsed.png';
+				  this.my = this.Static + 'mbcImg/tabBar/my.png';
 				} else if (e === 4) {
-				  this.home = home;
-				  this.find = find;
-				  this.news = news;
-				  this.my = myed;
+				  this.home = this.Static + 'mbcImg/tabBar/home.png';
+				  this.find = this.Static + 'mbcImg/tabBar/find.png';
+				  this.news = this.Static + 'mbcImg/tabBar/news.png';
+				  this.my = this.Static + 'mbcImg/tabBar/myed.png';
 				} else if (e === 5) {
-				  this.home = home;
-				  this.find = find;
-				  this.news = news;
-				  this.my = my;
+				  this.home = this.Static + 'mbcImg/tabBar/home.png';
+				  this.find = this.Static + 'mbcImg/tabBar/find.png';
+				  this.news = this.Static + 'mbcImg/tabBar/news.png';
+				  this.my = this.Static + 'mbcImg/tabBar/my.png';
 				};
 			}
 		}
@@ -180,7 +169,7 @@
 		width: 74upx;
 		height: 74upx;
 		margin: auto;
-		top: 4upx;
+		top: 8upx;
 	}
 	.tb-text{
 		position: relative;

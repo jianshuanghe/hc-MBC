@@ -8,10 +8,8 @@
 						姓名
 						<div class="input-right right">
 							<wInput
-								v-model="phone"
-								type="number"
-								maxlength="11"
-								placeholder="请输入手机号码"
+								v-model="entrustSignUp.params.name"
+								placeholder="请输入姓名"
 							></wInput>
 						</div>
 					</div>
@@ -20,7 +18,7 @@
 						手机号
 						<div class="input-right right">
 							<wInput
-								v-model="phone"
+								v-model="entrustSignUp.params.phone"
 								type="number"
 								maxlength="11"
 								placeholder="请输入手机号码"
@@ -29,28 +27,9 @@
 					</div>
 				</div>
 			</div>
-			<div class="entrust-box">
-				<div class="input-box">
-					<div class="En-my-other">
-						<div class="En-in-title">委托联系信息</div>
-						<div class="En-in-name">
-							类别
-							<text class="right">项目</text>
-						</div>
-						<div class="En-in-name">
-							名称
-							<text class="right">如何秀</text>
-						</div>
-						<div class="En-in-name">
-							名称
-							<image class="right" :src="iiImg"></image>
-						</div>
-					</div>
-				</div>
-			</div>
 			<div class="submit-box">
-				<div class="left cancal">取消</div>
-				<div class="left submit">确定</div>
+				<div class="left cancal" @tap="clickCancal()">取消</div>
+				<div class="left submit" @tap='clickSubmit()'>确定</div>
 				<div class="clear"></div>
 			</div>
 		</div>
@@ -58,13 +37,20 @@
 </template>
 
 <script>
-	import iiImg from '@/static/mbcImg/home/banner1.png';
 	import wInput from '@/components/watch-login/watch-input1.vue';
+	import { mapMutations, mapGetters } from 'vuex';
 	export default {
 	    data () {
 			return {
-				iiImg: iiImg,
-				phone: '1231231'
+				entrustSignUp:{
+					entrustShow: false, // 默认不显示
+					success: false, // 是否申请成功
+					params: {
+						modelId: 0, // 代表投资人ID  代表投资机构ID 代表项目ID
+						phone: 0, // 电话
+						name: '', // 姓名
+					}
+				},
 			};
 	    },
 		components: {
@@ -75,18 +61,77 @@
 				type: Object
 			}
 		},
+		computed: {
+		  ...mapGetters(['ENTRUSTSINGUPSHOW', 'ENTRUSTSINGUP'])
+		},
+		watch: {
+			ENTRUSTSINGUP: {
+				handler (a, b) {
+				  this.entrustSignUp = a; // 申请组件
+				  console.log(this.entrustSignUp);
+				},
+				deep: true
+			}
+		},
+		created() {
+			this.entrustSignUp = this.ENTRUSTSINGUP;
+			console.log(this.entrustSignUp);
+		},
 	    methods: {
+			...mapMutations({
+				setEntrustSignUp: 'setEntrustSignUp',
+				setEntrustSignUpShow: 'setEntrustSignUpShow'
+			}),
+			clickCancal () {
+				console.log('触发取消申请');
+				this.$store.commit('setEntrustSignUpShow', false); // 更新setEnTrustShow
+			},
+			clickSubmit () {
+				console.log('委托类')
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					let params = {}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/activity/sgin?activityId=' + this.entrustSignUp.params.modelId + '&userId=' + landRegistLG.user.id, //接口地址。
+						data: this.endParams(params),
+						header: {
+							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
+						},
+						success: (response) => {
+							console.log(response.data);
+							this.$store.commit('setEntrustSignUpShow', false); // 更新setEntrustSignUp
+							this.entrustSignUp.success = true; // 报名成功
+							this.$store.commit('setEntrustSignUp', this.entrustSignUp); // 更新setEntrustSignUp
+							uni.hideLoading(); // 隐藏 loading
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			}
 	    }
 	};
 </script>
 
 <style>
 	.entrust-content{
-		position: relative;
+		position: fixed;
 		width: 750upx;
 		padding: 30upx;
 		background: #FFf;
 		height: 100vh;
+		top: 0;
 	}
 	.entrust-box{
 		position: relative;

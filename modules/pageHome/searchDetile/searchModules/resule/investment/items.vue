@@ -1,5 +1,5 @@
 <template>
-  <view class="investItems-content">
+  <view class="investItems-content" @tap="goToItemsDetails(msgData.id)">
     <view class="II-content">
       <view class="II-top">
         <view class="left II-user-img">
@@ -33,22 +33,13 @@
 	export default {
 	    data () {
 			return {
-				iiImg: this.dImg,
-				msgData:{
-					"city":"北京",
-					"compLogo":"https://img04.iambuyer.com/imgup/upload/images/2019/05/29/78rDzOrYFe0YmZLQY6cKzSFAVXzc4ENs4d5PcJGxfaYD7F2aeAhcjjc2FB9OxLhcjjc2Bk6jjidi.png",
-					"compName":"徐州泓芊商贸有限公司",
-					"fields":[
-						"金融",
-						"汽车交通"
-					],
-					"id":4,
-					"inves":[],
-					"pCode":"110000"
-				}
+				iiImg: this.dImg
 			};
 	    },
 		props: {
+			msgData: {
+				type: Object
+			}
 		},
 	    methods: {
 			goToFinanceDetail (e){
@@ -57,8 +48,11 @@
 					url: '/modules/pageHome/homeList/homeList'
 				});
 			},
-			goToPutIn () {
-				console.log('点击触发发布项目');
+			goToItemsDetails (e){
+				console.log('to投资机构详情页面');
+				uni.navigateTo({
+					url: '/modules/pageHome/seekCapital/seekCapitalItems/investInstitution/investInstitutionItems/itemsDetails/itemsDetails?id=' + e
+				});
 			},
 			goToSeek () {
 				console.log('点击触发寻找资本');

@@ -13,13 +13,12 @@
 </template>
 
 <script>
-	import xiaoxo from '@/static/mbcImg/news/xiaoxo.png';
 	import { mapMutations,mapGetters } from 'vuex';
 	export default {
 		props: ['Innum'],
 		data() {
 			return {
-				xiaoxo: xiaoxo,
+				xiaoxo: this.Static + 'mbcImg/news/xiaoxo.png',
 				Listdata:[]
 			};
 		},

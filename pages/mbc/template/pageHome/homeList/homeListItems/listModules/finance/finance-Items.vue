@@ -67,17 +67,6 @@
 							<view class="clear"></view>
 						</view>
 					</view>
-					<!-- <view class="left lists">
-						<view class="list-item">
-							<view class="icon-img left">
-								<image :src="doc"></image>
-							</view>
-							<view class="icon-text left">
-								<p class="">{{msgData.infoCount}}</p>
-							</view>
-							<view class="clear"></view>
-						</view>
-					</view> -->
 					<view class="left lists">
 						<view class="list-item" @tap="setClickRecord('like', items, msgData)">
 							<view class="icon-img left">
@@ -277,14 +266,6 @@
 				uni.navigateTo({
 					url: '/modules/pageHome/homeList/FinancProject/FinancProject?id=' + e.id
 				});
-			},
-			clickLike () {
-				console.log('点赞');
-				this.like = liked;
-			},
-			clickLove () {
-				console.log('收藏');
-				this.love = loved;
 			}
 	    }
 	};

@@ -1,5 +1,5 @@
 <template>
-  <view class="investItems-content">
+  <view class="investItems-content"  @tap="goToFinanceDetail(msgData)">
     <view class="II-content">
       <view class="II-top">
         <view class="left II-user-img">
@@ -36,6 +36,12 @@
 			}
 		},
 	    methods: {
+			goToFinanceDetail (e){
+				console.log('去' + e.id + '项目详情页面');
+				uni.navigateTo({
+					url: '/modules/pageHome/homeList/FinancProject/FinancProject?id=' + e.id
+				});
+			}
 	    }
 	}
 </script>

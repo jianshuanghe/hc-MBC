@@ -2,19 +2,16 @@
 	<view class="content-content">
 		<view class="activeDetails">
 			<view class="AD-content">
-				<view class="AD-title">此处是资讯名称限制字数15字，多余的用省略代替…</view>
-				<view class="AD-items">2018.08.14 </view>
+				<view class="AD-title">{{msgData.activity.activityTitel}}</view>
+				<view class="AD-items">{{msgData.activity.createTime | dateTime}}</view>
 				<!-- 活动详情 -->
 				<view class="AD-details-text">
-					专利转让是专利人获取经济收益的重要放方式，除此之外专利转让出去有什么好处？其实好处非常的多，以下是专利转让好处的细分。
-专利技术人才比较吃香的便是利用自己的专利技术，获取更多好处，其实除了专利人以外，非专利人一样可以获取专利技术，那就是通过专利转让的方式来获取专利，话说回来，专利转让出去有什么什么好处呢？我们在进行专利抓人的时候需要了解哪些重要的知识呢，相信专利人迫不及待想了解了。
+					{{msgData.activity.activityAbstract}}
 				</view>
 				<view class="AD-details-img">
-					<image :src="msgData.activityImg || this.dImg"></image>
+					<image :src="msgData.activity.activityImg || this.dImg"></image>
 				</view>
-				<view class="AD-details-text">
-					专利转让是专利人获取经济收益的重要放方式，除此之外专利转让出去有什么好处？
-				</view>
+				<view class="AD-details-text" v-html='msgData.activity.activityContent'></view>
 			</view>
 		</view>
 	</view>
@@ -38,7 +35,7 @@
 		filters: {
 		  /* 格式化时间戳 */
 		  dateTime (val) {
-		    return date.dateTime('m/d h minute', val);
+		    return date.dateTime('.', val);
 		  },
 		  /* 格式图片 */
 		  dataImg (val) {

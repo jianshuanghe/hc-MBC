@@ -1,19 +1,23 @@
 
 <template>
-	<view class="listInvest">
-		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
-		@scroll="scroll">
-			<view v-for="(items,index) in invest.listData" :key="index" >
-				<investItems :msgData="items"></investItems>
-			</view>
-			<view class="loading-more">
-			    <text class="loading-more-text">{{loadingText}}</text>
-			</view>
-		</scroll-view>
+	<view class="s"  v-if="invest.listData.length > 0">
+		<view class="listInvest">
+			<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
+			@scroll="scroll">
+				<view v-for="(items,index) in invest.listData" :key="index" >
+					<investItems :msgData="items"></investItems>
+				</view>
+				<view class="loading-more">
+					<text class="loading-more-text">{{loadingText}}</text>
+				</view>
+			</scroll-view>
+		</view>
 	</view>
+	<empty v-else>抱歉，没有找到相关内容~</empty>
 </template>
 
 <script>
+	import empty from "@/components/empty/empty.vue";
 	import investItems from "./inverstorItems/invest-Items.vue";
 	import { mapMutations, mapGetters } from 'vuex';
 	export default {
@@ -50,7 +54,8 @@
 			};
 	    },
 		components: {
-			investItems
+			investItems,
+			empty
 		},
 		computed: {
           ...mapGetters(['GET_HOME', 'SEEKCAPITALTITLE', 'INVESTORSEARCH', 'INVESTORSEARCHTYPE', 'AREADATA', 'FIELDDATA', 'LEVELDATA'])
@@ -269,8 +274,8 @@
 	.loading-more {
 		align-items: center;
 		justify-content: center;
-		padding-top: 10px;
-		padding-bottom: 10px;
+		padding-top: 20upx;
+		padding-bottom: 40upx;
 		text-align: center;
 	}
 	.loading-more-text {
