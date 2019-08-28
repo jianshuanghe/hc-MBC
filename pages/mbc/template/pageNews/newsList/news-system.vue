@@ -4,9 +4,9 @@
 			<image :src='xiaoxo'></image>
 		</view>
 		<view class="system-notice">
-			<view>系统通知<span>12:08</span></view>
-			<view v-for="(item,index) in Innum.rows" v-if="index<1">{{item.content}}
-				<view v-if="Listdata.noticeCount!=0">{{Listdata.noticeCount}}</view>
+			<view>系统通知<span v-for="(items,index) in Innum.rows" v-if="index<1" :key="index">{{items.createTime|formatDate}}</span></view>
+			<view v-for="(item,index) in Innum.rows" v-if="index<1" :key="index">{{item.content}}
+				<view v-if="Listdata.noticeCount !== 0">{{Listdata.noticeCount}}</view>
 			</view>
 		</view>
 	</view>
@@ -27,6 +27,25 @@
 		},
 		created() {
 			this.getHeader();
+			
+		},
+		filters: {
+			formatDate: function(value) {
+				let date = new Date(value);
+				let y = date.getFullYear();
+				let MM = date.getMonth() + 1;
+				MM = MM < 10 ? ('0' + MM) : MM;
+				let d = date.getDate();
+				d = d < 10 ? ('0' + d) : d;
+				let h = date.getHours();
+				h = h < 10 ? ('0' + h) : h;
+				let m = date.getMinutes();
+				m = m < 10 ? ('0' + m) : m;
+				let s = date.getSeconds();
+				s = s < 10 ? ('0' + s) : s;
+				return h + ':' + m ;
+			},
+			
 		},
 		methods: {
 			goToMessageList(e) {
@@ -55,7 +74,8 @@
 						success: (response) => {
 							console.log(response.data);
 							this.Listdata=response.data.content
-							console.log(this.Listdata,'this.Listdata----')
+							console.log(this.Listdata,'--------------------------------------------')
+							console.log(this.Innum)
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading

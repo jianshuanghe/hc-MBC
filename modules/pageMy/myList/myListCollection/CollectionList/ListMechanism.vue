@@ -149,6 +149,7 @@
 		position: absolute;
 		display: flex;
 		overflow: hidden;
+		flex-wrap: wrap;
 	}
 
 	.ListMechanismtrees span {

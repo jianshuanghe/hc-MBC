@@ -82,7 +82,7 @@
 				name: '',
 				mail: '',
 				Listdata: [],
-				imageData: [],
+				imageData: '',
 				serverUrl: 'https://img01.iambuyer.com/imgup/upLoad/fileUpload',
 				logo2:'',
 				wx:''
@@ -101,9 +101,14 @@
 			this.mail = this.Listdata.userEmail
 			this.wx=this.Listdata.userWx
 			console.log(this.Listdata, 'this.Listdata');
+			console.log(this.logo, 'this.Listdata');
 		},
 
 		methods: {
+			...mapMutations({
+				setheader: 'setheader',
+				setMation:'setMation'
+			}),
 			deleteImage: function(e) {
 				console.log(e, '删除图片')
 				this.logo = ''; // 清空数据
@@ -111,7 +116,6 @@
 			addImage: function(e) {
 				console.log(e, '添加图片')
 				if (e.allImages) { // 上传成功
-					// console.log(e.allImages[0].imgName)
 					this.logo = (e.allImages[0].imgName);
 					this.logo2=(e.allImages[0].imgUrl)
 				}
@@ -123,7 +127,7 @@
 					console.log(landRegistLG.user.id);
 					let params = {
 						userId: landRegistLG.user.id,
-						headImg: this.Listdata.headImg,
+						headImg: this.logo,
 						userName: this.name,
 						email: this.mail,
 						user:this.wx
@@ -142,12 +146,50 @@
 						success: (response) => {
 							uni.hideLoading();
 							console.log(response.data);
+							if (response.data.code === 200) {
+								this.getHeader();
+							}
 							// let muabout=this.GET_MY.MyList.header
 							// muabout=params
-							// params.headImg=this.logo2
 							this.$store.commit('setMation',params)
 							wx.navigateBack({
 							})
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
+			getHeader() {
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					// let params = {}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/user/' + landRegistLG.user.id, //接口地址。
+						// data: this.endParams(params),
+						method: 'GET',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							uni.hideLoading();
+							console.log(response.data);
+							this.List = response.data.content
+							console.log(this.List)
+							this.$store.commit('setheader', this.List); // 更新vuex
+							this.$store.commit('setMation', this.List); // 更新vuex
+							
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading

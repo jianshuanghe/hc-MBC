@@ -35,7 +35,7 @@
 				</view>
 				<view>
 					<span>{{arr.projFile.enclosureName}}</span>
-					<span>558.KB &nbsp;&nbsp; {{arr.projFile.createTime | formatDate}}上传</span>
+					<span>{{arr.projFile.enclosureSize}} &nbsp;&nbsp; {{arr.projFile.createTime | formatDate}}上传</span>
 				</view>
 			</view>
 		</view>

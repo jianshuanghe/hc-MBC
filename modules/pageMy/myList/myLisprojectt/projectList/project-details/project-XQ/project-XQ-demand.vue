@@ -103,9 +103,7 @@
 									this.lunid = items.id
 								}
 							})
-							// uni.navigateTo({
-							// 	url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-details?id='+this.id
-							// })
+							
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -169,6 +167,9 @@
 							// uni.navigateTo({
 							// 	url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-details?id='+this.id
 							// })
+							uni.navigateTo({
+								url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-details?id='+this.id
+							})
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
