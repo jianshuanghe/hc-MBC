@@ -6,6 +6,8 @@ const getters = {
 	LOADING: state => state.loading,
 	// 空状态
 	EMPTY: state => state.empty,
+	// 认证提示组件
+	AUTH: state => state.auth,
 	// 申请组件
 	ENTRUSSHOW: state => state.entrust.entrustShow,
 	ENTRUST: state => state.entrust,

@@ -7,7 +7,7 @@
 				</div>
 				<div class="En-title">申请提交成功</div>
 				<div class="En-ins">您提交的信息正在处理，请耐心等待</div>
-				<div class="En-more" @tap='clickLookMore()'>查看其他项目</div>
+				<div class="En-more" @tap='clickLookMore()'> {{entrust.type === 1 ? '查看其他项目' : '查看其他服务'}}</div>
 			</div>
 			<div class="input-box">
 				<div class="En-my-other">

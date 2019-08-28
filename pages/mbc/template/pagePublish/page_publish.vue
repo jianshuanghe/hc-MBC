@@ -1,5 +1,5 @@
 <template>
-	<view class="publishContent">
+	<view :class="AUTH.show ? 'Posied' : 'publishContent'">
 		<view class="des">
 			<!-- title -->
 			<publishTitle></publishTitle>
@@ -12,7 +12,13 @@
 				<basicInfor ></basicInfor>
 			</view>
 		</view>
-		<tipsBox></tipsBox>
+		<tipsBox v-if='AUTH.show'>
+			<div class="content">
+				<div class="TIPS-isnt">认证成为创业者，可发布项目</div>
+				<div class="line"></div>
+				<div class="TIPS-btn" @tap='goToAuth'>立即认证</div>
+			</div>
+		</tipsBox>
 	</view>
 </template>
 <script>
@@ -34,7 +40,7 @@ export default {
 		basicInfor
 	},
 	computed: {
-		...mapGetters(['GET_PUBLISH'])
+		...mapGetters(['GET_PUBLISH', 'AUTH'])
 	},
 	created() {
 		if(uni.getStorageSync('isUpLoadFile')) {
@@ -49,13 +55,15 @@ export default {
 		    scrollTop: 0,
 		    duration: 0
 		});
+		this.getUserData();
 	},
 	mounted() {
 	},
 	methods: {
 		...mapMutations({
 			setIsUploadFileSuccess: 'setIsUploadFileSuccess',
-			setIsUploadFileContent: 'setIsUploadFileContent'
+			setIsUploadFileContent: 'setIsUploadFileContent',
+			setAuthShow: 'setAuthShow'
 		}),
 		isTokenConnect () {
 			console.log('校验token是否有效')
@@ -82,6 +90,53 @@ export default {
 					}
 				});
 			}
+		},
+		goToAuth () {
+			console.log('点击触发去认证');
+			uni.navigateTo({
+				url: '/modules/pageMy/myList/myListAuthentication/Authentication'
+			});
+		},
+		getUserData () {
+		  console.log('获取用户信息，全部');
+		  let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+		  console.log(landRegistLG.user.id);
+			uni.request({
+				url: this.api2 + '/user/' + landRegistLG.user.id, //接口地址。
+				data: {},
+				header: {
+					Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
+				},
+				success: (response) => {
+					console.log(response.data);
+					if (String(response.data.code) === '200') {
+					  let UserData = response.data.content;
+					  uni.setStorageSync('UserData', JSON.stringify(UserData)); // 缓存用户信息
+					  console.log(UserData.userType, '------------UserData.userType----------');
+					  if (String(UserData.userType) !== '0') { // 未认证
+						this.$store.commit('setAuthShow', true); // 更新setAuthShow
+					  } else {
+						  this.$store.commit('setAuthShow', false); // 更新setAuthShow
+						}
+					} else {
+						uni.hideLoading(); // 隐藏 loading
+						uni.showToast({
+							title: response.data.msg,
+							icon: 'none',
+							duration: 500
+						});
+					}
+				},
+				fail: (error) => {
+					uni.hideLoading(); // 隐藏 loading
+					uni.showToast({
+						title: '网络繁忙，请稍后',
+						icon: 'none',
+						duration: 1000
+					});
+					console.log(error, '网络繁忙，请稍后');
+				}
+			});
 		}
 	}
 };

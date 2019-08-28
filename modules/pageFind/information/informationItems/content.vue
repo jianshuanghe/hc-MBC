@@ -2,11 +2,11 @@
 	<view class="content-content">
 		<view class="activeDetails">
 			<view class="AD-content">
-				<view class="AD-title">{{msgData.activity.activityTitel}}</view>
+				<view class="AD-title">{{msgData.activity.activityTitel || ''}}</view>
 				<view class="AD-items">{{msgData.activity.createTime | dateTime}}</view>
 				<!-- 活动详情 -->
 				<view class="AD-details-text">
-					{{msgData.activity.activityAbstract}}
+					{{msgData.activity.activityAbstract || ''}}
 				</view>
 				<view class="AD-details-img">
 					<image :src="msgData.activity.activityImg || this.dImg"></image>

@@ -39,6 +39,10 @@ const mutations = {
     console.log(info, 'setEntrustParams');
     state.entrust.params = info;
   },
+  setAuthShow (state, info) { // 认证提示
+    console.log(info, 'setAuthShow');
+    state.auth.show = info;
+  },
   setHome (state, info) {
     console.log(info, 'setHome');
     state.home.tabItems = info;
