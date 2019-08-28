@@ -33,7 +33,7 @@
 	export default {
 		data() {
 			return {
-				kong:this.Static + 'mbcImg/my/kong.png',
+				kong:this.Static + 'mbcImg/my/kong1.png',
 				CollectionList: [],
 				page: 1,
 				picArr: [],

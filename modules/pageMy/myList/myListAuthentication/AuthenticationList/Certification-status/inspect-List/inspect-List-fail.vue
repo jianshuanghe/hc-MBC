@@ -11,8 +11,8 @@
 			<view v-if="Listdata.userPosition!==''">职位:{{Listdata.userPosition}}</view>
 			<view>邮箱:{{Listdata.userEmail}}</view>
 			<view v-if="Listdata.compName!==''">机构名称:{{Listdata.compName}}</view>
-			<view>
-				<image :src="Listdata.img"></image>
+			<view class="conter-img">
+				<img :src="Listdata.img"></img>
 			</view>
 		</view>
 		<view class="fail-yuanying">
@@ -26,9 +26,9 @@
 				<view>审核失败</view>
 				<view>{{Listdata.userAuthInfos[0].createTime|formatDate}}</view>
 				<view>审核中</view>
-				<view>2019.05.23 10:23:34</view>
+				<view>{{Listdata.userAuthInfos[1].createTime|formatDate}}</view>
 				<view>发起认证</view>
-				<view>2019.05.23 10:23:34</view>
+				<view>{{Listdata.userAuthInfos[1].createTime|formatDate}}</view>
 			</view>
 		</view>
 	</view>
@@ -63,7 +63,7 @@
 				m = m < 10 ? ('0' + m) : m;
 				let s = date.getSeconds();
 				s = s < 10 ? ('0' + s) : s;
-				return y + '.' + MM + '.' + d + '.' + h + '.' + m + '.' + s;
+				return y + '.' + MM + '.' + d + ' ' + h + ':' + m + ':' + s;
 			}
 		},
 		watch: {
@@ -147,16 +147,14 @@
 		color: #5D5D5D;
 		padding-left: 48upx;
 	}
-
-	.inspect-List-fail-conter view:nth-of-type(5) {
+	.conter-img{
 		width: 320upx;
-		height: 179upx;
+		height: 180upx;
 		padding-top: 30upx;
 		color: #5D5D5D;
 		padding-left: 48upx;
 	}
-
-	.inspect-List-fail-conter view:nth-of-type(5) image {
+	.conter-img>img {
 		width: 100%;
 		height: 100%;
 	}

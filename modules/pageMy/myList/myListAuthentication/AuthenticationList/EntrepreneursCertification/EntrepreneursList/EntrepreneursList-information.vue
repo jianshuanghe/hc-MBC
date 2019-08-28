@@ -42,25 +42,27 @@
 				<view><input type="text" placeholder="请输入" placeholder-style="color:#D2D2D2" v-model="position"/></view>
 			</view>
 		</view>
-		<view class="Entrepreneurs-card">
-			<view class="Entrepreneurs-card-box">
-				<view><image :src="xin"></image></view>
-				<view>名片原件</view>
-				<view>
-					<view class="ziti" v-if="!logo">点击上传</view>
-					<div class="Img-Upload">
-						<imageUploadOne 
-						class="img"
-							v-model="imageData" 
-							:server-url="serverUrl" 
-							limit= 1
-							@delete="deleteImage" 
-							@add="addImage">
-						</imageUploadOne>
-					</div>
+		<view class="BI-items">
+			<view class="left BI-items-left">
+				<view class="mustFill">
+					<image :src='xin'></image>
 				</view>
-				<view><image :src="right"></image></view>
+				<view class="BI-text-left">上传名片</view>
 			</view>
+			<view class="right BI-items-right">
+				<view class="BI-text-right">
+					<view class="zitia" v-if="!logo">点击上传</view>
+					<view class="Img-logo">
+						<!-- 图片上传 -->
+						<view class="Img-Upload">
+							<imageUploadOne v-model="imageData" :server-url="serverUrl" limit=1 @delete="deleteImage" @add="addImage">
+							</imageUploadOne>
+						</view>
+					</view>
+					<image :src="right" class="BI-rightArrow"></image>
+				</view>
+			</view>
+			<view class="clear"></view>
 		</view>
 		<view class="Entrepreneurs-Tips">
 			上传名片会提高认证成功率
@@ -182,6 +184,7 @@
 							userId:landRegistLG.user.id,
 							userName:this.name,
 							email:this.mailbox,
+							wxCode:this.wx,
 							position:this.position,
 							compName:this.company,
 							userProj:this.project,
@@ -226,12 +229,97 @@
 </script>
 
 <style>
+	.zitia {
+		position: absolute;
+		right: 50upx !important;
+		height: 30upx;
+		top: 30upx;
+		font-size: 30upx !important;
+		color: #D2D2D2
+	}
+	.BI-items {
+		position: relative;
+		width: 100%;
+		margin: 0 auto;
+		background: #FFFFFF;
+	}
+	
+	.BI-items-left {
+		position: relative;
+		width: 36%;
+	}
+	
+	.BI-text-left {
+		position: relative;
+		font-family: PingFang-SC-Medium;
+		font-size: 30upx;
+		color: #2E2E30;
+		letter-spacing: 0;
+		padding: 0px;
+		margin-top: 44upx;
+		margin-bottom: 44upx;
+		line-height: 36upx;
+		margin-left: 70upx
+	}
+	
+	.BI-items-right {
+		position: relative;
+		width: 64%;
+	}
+	
+	.BI-text-right {
+		position: relative;
+		width: 90%;
+		margin-top: 44upx;
+		margin-bottom: 44upx;
+		margin: 0 auto;
+	}
+	
+	.Img-Upload {
+		width: 120upx;
+		height: 80upx;
+		position: absolute;
+		right: 28upx;
+		top: 30upx !important;
+	}
+	
+	.mustFill {
+		position: absolute;
+		left: 40upx;
+		top: 10upx;
+	}
+	
+	.mustFill>image {
+		position: relative;
+		width: 20upx;
+		height: 20upx;
+		top: 20upx;
+	}
+	
+	.uni-input-wrapper {
+		text-align: right;
+	}
+	
+	.BI-rightArrow {
+		position: absolute;
+		width: 25upx;
+		height: 18upx;
+		right: 15upx;
+		top: 50upx;
+	}
+	
+	.uni-input-placeholder {
+		color: #D2D2D2 !important;
+	}
+	
+	.InvestorList-information {
+		width: 100%;
+		height: 100%;
+		padding-bottom: 200upx;
+	}
 	.EntrepreneursList-information{
 		width: 100%;
 		height: 100%;
-	}
-	input {
-		color: #D2D2D2;
 	}
 	.Entrepreneurs-name{
 		width:100%;

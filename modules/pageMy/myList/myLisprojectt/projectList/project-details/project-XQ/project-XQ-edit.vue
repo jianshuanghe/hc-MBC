@@ -1,36 +1,25 @@
 <template>
 	<view class="project-XQ-edit">
-		<view class="Investor-name">
-			<view class="Investor-name-box">
-				<view>
-					<image :src="xin"></image>
-				</view>
-				<view>项目名称</view>
-				<view><input type="text" placeholder="请输入" placeholder-style="color:#D2D2D2" /></view>
+		<view class="edit-one">
+			<view>添加标签</view>
+			<view>
+				<checkbox-group @change="checkboxChange1">
+				  <label @click="labelBtn1(item.value,index)"  v-for="(item,index) in editarr" :key="index" v-if="(index > 8 && isAll[1].allShow === false) ? false : true" >
+				    <checkbox :value="item.value" :checked="item.checked" v-show="false"/>
+					<view class="left MIL-item items">
+						<view :class="[item.checked ? 'edit' : '', 'MIL-item-text']">{{item.name}}</view>
+					</view>
+				  </label>
+				</checkbox-group>
+				<!-- <view v-for="(item,index) in editarr" :key="index" @tap="add(index)" :class="{'edit':hiden}">{{item}}<image :src="del"></image></view>
+				<div class="clear"></div> -->
 			</view>
+			<view @tap="gotoeditbianji">+ 创建自己的标签</view>
 		</view>
-		<view class="Investor-name">
-			<view class="Investor-name-box">
+		<view class="Investor-Submission">
+			<view @tap="Submission">
 				<view>
-					<image :src="xin"></image>
-				</view>
-				<view>一句话介绍</view>
-				<view><input type="text" placeholder="请输入" placeholder-style="color:#D2D2D2"/></view>
-			</view>
-		</view>
-		<view class="Investor-field">
-			<view class="Investor-field-box">
-				<view>
-					<image :src="xin"></image>
-				</view>
-				<view>所属领域</view>
-				<view>
-					<picker @change="Finanarry" :value="index" :range="arry" range-key='name'>
-						<view class="ziti">{{pickerarry? pickerarry : '请选择'}}</view>
-					</picker>
-				</view>
-				<view>
-					<image :src="right"></image>
+					提交
 				</view>
 			</view>
 		</view>
@@ -38,56 +27,99 @@
 </template>
 
 <script>
-	import imageUploadOne from '@/components/imageUpload/imageUploadOne.vue'
+	import { mapMutations, mapGetters } from 'vuex';
 	export default {
 		data() {
 			return {
-				logo: '',
-				xin: this.Static + 'mbcImg/common/xing.png',
-				right: this.Static + 'mbcImg/my/right.png',
-				index: 0, // 默认选择第一个
-				arry: [],
-				pickerValue: "", // 选中的值
-				pickerarry: "", // 选中的值
-				id1:''
+				del: this.Static + 'mbcImg/common/searchClose.png',
+				id:'',
+				editarr:['平台用户超2000万','大数据服务','消费生活','高新技术企业','天使轮融资2000万'],
+				fieldsDataList:[],
+				editnew:[],
+				editshu:[]
 			};
 		},
-		components: {
-			imageUploadOne
+		computed: {
+			...mapGetters(['GET_MY'])
 		},
 		created() {
-			//融资领域
-			this.Financinfield();
+			//获取标签
+			this.edits();
+			
+		},
+		watch: {
+			GET_MY: {
+				handler(a, b) {
+					console.log(a.MyList.Edit)
+					let items = {
+						name: a.MyList.Edit,
+						value: this.editarr.length + 1,
+						checked: false
+					}
+					this.editarr.push(items);
+				},
+				deep: true
+			},
+		},
+		onLoad:function(options){
+			this.id = options.id
+			console.log(this.id)
 		},
 		methods: {
-			Finanarry: function(e) {
-				this.arry.map((items, index) => {
-					if (String(index) === String(e.target.value)) {
-						this.pickerarry = items.name;
-						this.id1=items.id
-						console.log(this.pickerarry, this.id1)
-					}
+			resetDate (e) {
+				let edit = [];
+				[...e].map((items, index) => {
+					let editItems = {
+						name: items,
+						value: index,
+						checked: false
+					};
+					edit.push(editItems);
+				})
+				this.editarr = edit;
+				console.log(this.editarr)
+			},
+			labelBtn1(name,index){
+			  console.log(name,index,"nameindex")
+			  if(this.fieldsDataList.join(',').indexOf(name) >-1){
+				  console.log(this.editarr, '----------------this.editarr')
+			    this.editarr[index].checked = true
+			  }else{
+			    this.editarr[index].checked = false
+			  }
+			},
+			checkboxChange1: function (e) {
+			  this.fieldsDataList = e.detail.value; // 获取选中的值
+			  console.log(this.fieldsDataList,"fieldsDataList");
+			},
+			gotoeditbianji(){
+				console.log('编辑标签内容')
+				uni.navigateTo({
+					url:'./project-XQ-edit-bianji?id='+this.id,
 				})
 			},
-			Financinfield(){//融资领域
+			edits(){
 				if (uni.getStorageSync('landRegist')) {
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 					console.log(landRegistLG.user.id);
-					// let params = {}; // 请求总数居时 参数为空
 					uni.showLoading({ // 展示loading
 						title: '加载中'
 					});
+					// console.log(params)
 					uni.request({
-						url: this.api2 + '/field/fieldList', //接口地址。
-						// data: this.endParams(params),
+						url: this.api2 + '/proj/label/getProjLabel?projId='+this.id, //接口地址。
 						method: 'GET',
 						header: {
 							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
 						},
 						success: (response) => {
 							uni.hideLoading();
-							// console.log(response.data.content);
-							this.arry=response.data.content
+							console.log(response.data.content);
+							let editnew=response.data.content;
+							editnew.map((items, index) => {
+								this.editarr.push(items.labelName);
+							})
+							this.resetDate(this.editarr);
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -107,119 +139,85 @@
 </script>
 
 <style>
-	.ziti {
-		position: absolute;
-		right: 0upx;
-		width: 300upx !important;
-		height: 30upx;
-		top: -30upx;
-		font-size: 30upx !important;
+	.edit{
+		color: #02C2A2!important;
+		border: 2upx solid #02C2A2!important;
+	}
+	.changeColor {
+		color: #02C2A2;
+		border: 2upx solid #02C2A2;
 	}
 	.project-XQ-edit{
 		width: 100%;
 		min-height: 100%;
+		background: #FFFFFF;
+		padding: 2upx;
+		padding-bottom: 50upx;
 	}
-	.Investor-name {
+	.edit-one{
+		margin: 50upx auto;
+		width: 90%;
+		min-height: 150upx;
+		padding-bottom: 20upx;
+		border-bottom: 2upx solid #F5F5F5;
+	}
+	.edit-one>view:nth-of-type(1){
+		font-size: 28upx;
+		color: #2E2E30;
+		font-weight: 700;
+	}
+	.edit-one>view:nth-of-type(3){
+		font-size: 28upx;
+		margin-top: 20upx;
+	}
+	.edit-one>view:nth-of-type(2){
+		width: 100%;
+		min-height: 70upx;	
+		margin-top: 0upx;
+		display: flex;
+		flex-wrap: wrap;
+	}
+	.items>view{
+		border: 2upx solid #E2E2E2;
+		border-radius: 4upx;
+		padding:0 20upx;
+		text-align: center;
+		line-height: 70upx;
+		font-size: 26upx;
+		color: #5D5D5D;
+		font-weight: 100;
+		margin-left: 25upx;
+		margin-top: 30upx;
+		position: relative;
+	}
+	.items>view>image{
+		width: 40upx;
+		height: 40upx;
+		position: absolute;
+		right: -20upx;
+		top: -20upx;
+	}
+	.Investor-Submission {
 		width: 100%;
 		height: 122upx;
 		background: #FFFFFF;
+		bottom: 0;
+		position: fixed;
 	}
 	
-	.Investor-name-box {
-		width: 90%;
-		height: 100%;
-		border-bottom: 2upx solid #F5F5F5;
+	.Investor-Submission view:nth-of-type(1) view {
+		width: 690upx;
+		height: 90upx;
+		background: #02C2A2;
+		border-radius: 2px;
+		margin-top: 20upx;
+		text-align: center;
+		line-height: 90upx;
+		font-size: 28upx;
+		color: #FFFFFF;
+	}
+	
+	.Investor-Submission view:nth-of-type(1) {
 		margin: 0 auto;
-		display: flex;
-		position: relative;
-	}
-	
-	.Investor-name-box view:nth-of-type(1) {
-		width: 20upx;
-		height: 20upx;
-		padding-top: 26upx;
-	}
-	
-	.Investor-name-box view:nth-of-type(1) image {
-		width: 100%;
-		height: 100%;
-	}
-	
-	.Investor-name-box view:nth-of-type(2) {
-		width: 152upx;
-		height: 32upx;
-		font-size: 30upx;
-		color: #2E2E30;
-		padding-top: 30upx;
-		padding-left: 10upx;
-	}
-	
-	.Investor-name-box view:nth-of-type(3) {
-		width: 300upx;
-		height: 35upx;
-		position: absolute;
-		right: 0;
-		top: 40upx;
-		font-size: 30upx;
-		color: #D2D2D2;
-		text-align: right;
-	}
-	.Investor-field {
-		width: 100%;
-		height: 122upx;
-		background: #FFFFFF;
-	}
-	
-	.Investor-field-box {
-		width: 90%;
-		height: 100%;
-		border-bottom: 2upx solid #F5F5F5;
-		margin: 0 auto;
-		display: flex;
-		position: relative;
-	}
-	
-	.Investor-field-box view:nth-of-type(1) {
-		width: 20upx;
-		height: 20upx;
-		padding-top: 26upx;
-	}
-	
-	.Investor-field-box view:nth-of-type(1) image {
-		width: 100%;
-		height: 100%;
-	}
-	
-	.Investor-field-box view:nth-of-type(2) {
-		width: 152upx;
-		height: 32upx;
-		font-size: 30upx;
-		color: #2E2E30;
-		padding-top: 30upx;
-		padding-left: 10upx;
-	}
-	
-	.Investor-field-box view:nth-of-type(3) {
-		width: 200upx;
-		height: 35upx;
-		position: absolute;
-		right: 40upx;
-		top: 40upx;
-		font-size: 30upx;
-		color: #D2D2D2;
-		text-align: right;
-	}
-	
-	.Investor-field-box view:nth-of-type(4) {
-		position: absolute;
-		right: 0;
-		top: 40upx;
-		width: 25upx;
-		height: 18upx;
-	}
-	
-	.Investor-field-box view:nth-of-type(4) image {
-		width: 100%;
-		height: 100%;
 	}
 </style>

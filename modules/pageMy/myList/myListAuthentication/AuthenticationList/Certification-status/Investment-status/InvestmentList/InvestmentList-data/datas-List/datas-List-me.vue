@@ -27,6 +27,7 @@
 		},
 		created() {
 			this.list = this.GET_MY.MyList.Collection;
+			// this.desc=this.list.userContent
 		},
 		mounted() {},
 		methods: {
@@ -39,7 +40,7 @@
 						console.log(landRegistLG.user.id);
 						let params = {
 							userId:landRegistLG.user.id,
-							userContent:this.list.userContent,
+							userContent:this.list.userContent
 						}; // 请求总数居时 参数为空
 						uni.showLoading({ // 展示loading
 							title: '加载中'
@@ -57,7 +58,6 @@
 								console.log(response.data);
 								this.$store.commit('setCollection', this.list);
 								uni.navigateBack({
-									
 								})
 								// this.List=response.data
 								// console.log(this.List,'asdasd')
@@ -75,9 +75,9 @@
 					}
 			},
 			descInput(){
-				var txtVal = this.desc.length;
+				var txtVal = this.list.userContent.length;
 				this.remnane = 1 + txtVal;
-			}
+			},
 
 		}
 	};

@@ -8,11 +8,11 @@
 		</view>
 		<view class="inspect-List-in-conter">
 			<view>{{Listdata.userName}}</view>
-			<view>职位:{{Listdata.userPosition}}</view>
+			<view v-if="Listdata.userPosition!==''">职位:{{Listdata.userPosition}}</view>
 			<view>邮箱:{{Listdata.userEmail}}</view>
-			<view>机构名称:{{Listdata.compName}}</view>
-			<view>
-				<image :src="Listdata.img" mode=""></image>
+			<view v-if="Listdata.compName!==''">机构名称:{{Listdata.compName}}</view>
+			<view class="conter-img">
+				<img :src="Listdata.img"></img>
 			</view>
 		</view>
 		<view class="inspect-List-in-fotter">
@@ -23,7 +23,7 @@
 				<view>审核中</view>
 				<view>{{Listdata.userAuthInfos[0].createTime|formatDate}}</view>
 				<view>发起认证</view>
-				<view>2019.05.23 10:23:34</view>
+				<view>{{Listdata.userAuthInfos[0].createTime|formatDate}}</view>
 			</view>
 		</view>
 	</view>
@@ -56,7 +56,7 @@
 				m = m < 10 ? ('0' + m) : m;
 				let s = date.getSeconds();
 				s = s < 10 ? ('0' + s) : s;
-				return y +'.'+ MM +'.'+ d +'.'+ h +'.'+ m +'.'+ s ;
+				return y +'.'+ MM +'.'+ d +' '+ h +':'+ m +':'+ s ;
 			},
 		},
 		watch: {
@@ -115,41 +115,39 @@
 		background: #FFFFFF;
 	}
 
-	.inspect-List-in-conter view:nth-of-type(1) {
+	.inspect-List-in-conter>view:nth-of-type(1) {
 		font-size: 36upx;
 		color: #2E2E30;
 		padding-top: 60upx;
 		padding-left: 48upx;
 	}
 
-	.inspect-List-in-conter view:nth-of-type(2) {
+	.inspect-List-in-conter>view:nth-of-type(2) {
 		font-size: 28upx;
 		color: #5D5D5D;
 		padding-top: 30upx;
 		padding-left: 48upx;
 	}
 
-	.inspect-List-in-conter view:nth-of-type(3) {
+	.inspect-List-in-conter>view:nth-of-type(3) {
 		font-size: 28upx;
 		color: #5D5D5D;
 		padding-left: 48upx;
 	}
 
-	.inspect-List-in-conter view:nth-of-type(4) {
+	.inspect-List-in-conter>view:nth-of-type(4) {
 		font-size: 28upx;
 		color: #5D5D5D;
 		padding-left: 48upx;
 	}
-
-	.inspect-List-in-conter view:nth-of-type(5) {
+	.conter-img{
 		width: 320upx;
-		height: 179upx;
+		height: 180upx;
 		padding-top: 30upx;
 		color: #5D5D5D;
 		padding-left: 48upx;
 	}
-
-	.inspect-List-in-conter view:nth-of-type(5) image {
+	.conter-img>img {
 		width: 100%;
 		height: 100%;
 	}

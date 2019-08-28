@@ -57,7 +57,7 @@
 				right: this.Static + 'mbcImg/my/right.png',
 				index: 0, // 默认选择第一个
 				array2: [],
-				pickerValue2: "", // 选中的值
+				pickerValue2: '', // 选中的值
 				date: currentDate,
 				index:0,
 				id:''
@@ -164,8 +164,10 @@
 			},
 			bindPickerChange2: function(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value);
+				console.log(this.array2, 'this.array2')
 				this.array2.map((items, index) => {
-					if (index === e.target.value) {
+					console.log(items,index)
+					if (String(index) === String(e.target.value)) {
 						this.pickerValue2 = items.name;
 						this.id = items.id
 					}

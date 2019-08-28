@@ -168,6 +168,11 @@ const mutations = {
 	  console.log(info,'setTime')
 	  state.my.MyList.Time=info
   },
+  //我的项目 标签
+  setEdit(state, info){
+	  console.log(info,'setEdit')
+	  state.my.MyList.Edit=info
+  },
   setTimes(state, info){
 	  console.log(info,'setTimes')
 	  state.my.MyList.Times=info

@@ -1,7 +1,7 @@
 <template>
 	<view class="history2Look" @tap="gotoLookme">
 		<span>{{List.lookUserCount}}</span>
-		<span>看过</span>
+		<span>看过我</span>
 	</view>
 </template>
 

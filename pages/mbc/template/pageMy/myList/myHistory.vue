@@ -74,6 +74,8 @@
 								}
 							}else if(this.List.authState==1){
 								this.hideen=false;
+							}else if(this.List.authState==2){
+								this.hideen=false;
 							}
 						},
 						fail: (error) => {

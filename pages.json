@@ -364,7 +364,16 @@
 						// #ifdef H5
 							"navigationStyle":"custom",
 						// #endif
-						"navigationBarTitleText": "项目简介"
+						"navigationBarTitleText": "编辑标签"
+					}
+				},
+				{
+					"path": "myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-edit-bianji",
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "编辑标签内容"
 					}
 				},
 				{
