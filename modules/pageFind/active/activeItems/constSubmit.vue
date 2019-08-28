@@ -8,7 +8,7 @@
 					</view>
 					<view class="text">咨询客服</view>
 				</view>
-				<view :class="(data.content === 0  && entrustSignUp.success === false) ? 'left submit-box' : 'left submit-box1'" @tap='Apply()'> {{(data.content === 0  && entrustSignUp.success === false) ? '立即报名' : '已报名'}}</view>
+				<view :class="(msgData.content === 0  && entrustSignUp.success === false) ? 'left submit-box' : 'left submit-box1'" @tap='Apply()'> {{(msgData.content === 0  && entrustSignUp.success === false) ? '立即报名' : '已报名'}}</view>
 				<view class="clear"></view>
 			</view>
 		</view>
@@ -33,6 +33,7 @@
 					}
 				},
 				data: {
+					id: -1,
 					content: 0, // 0表示未申请过 1表示已经申请过
 				} // 接口返回值 
 			};
@@ -58,13 +59,13 @@
 		},
 		created() {
 			this.entrustSignUp = this.ENTRUSTSINGUP;
-			this.entrustSignUp.params.modelId = this.msgData.activity.id; // 活动id
-			this.getUserApply(this.msgData.activity.id);
+			this.entrustSignUp.params.modelId = this.msgData.id; // 活动id
 		},
 		mounted() {
 			this.entrustSignUp = this.ENTRUSTSINGUP;
-			this.entrustSignUp.params.modelId = this.msgData.activity.id; // 活动id
-			this.getUserApply(this.msgData.activity.id);
+			console.log(this.msgData, 'this.msgDatay.id')
+			console.log(this.msgData.id, 'this.msgData.id')
+			this.entrustSignUp.params.modelId = this.msgData.id; // 活动id
 		},
 		beforeDestroy () {
 			console.log('页面销毁之前缓存数据')
@@ -80,37 +81,6 @@
 				uni.makePhoneCall({
 					phoneNumber: '010-61723026' // 拨打电话
 				});
-			},
-			getUserApply(e){
-				if (uni.getStorageSync('landRegist')) {
-				    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
-				    console.log(landRegistLG.user.id);
-					let params = {}; // 请求总数居时 参数为空
-					uni.showLoading({ // 展示loading
-						title: '加载中'
-					});
-					uni.request({
-						url: this.api2 + '/activity/is/sgin?activityId=' + e+ '&userId=' + landRegistLG.user.id, //接口地址。
-						data: this.endParams(params),
-						header: {
-							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
-						},
-						success: (response) => {
-							console.log(response.data);
-							this.data.content = response.data.content;
-							uni.hideLoading(); // 隐藏 loading
-						},
-						fail: (error) => {
-							uni.hideLoading(); // 隐藏 loading
-							uni.showToast({
-								title: '网络繁忙，请稍后',
-								icon: 'none',
-								duration: 1000
-							});
-							console.log(error, '网络繁忙，请稍后');
-						}
-					});
-				}
 			},
 			Apply () {
 				this.entrustSignUp.entrustShow = true; // 显示提交组件

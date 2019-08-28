@@ -31,6 +31,9 @@ const state = {
     emptyShow: false,
     emptyText: '当前没有数据！',
   },
+  auth: { // 认证提示
+	  show: true, // 默认不显示
+  },
   areaData: { // 地区
 	area: [], // 全国省市区
 	province: [], // 全国省

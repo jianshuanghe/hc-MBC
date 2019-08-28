@@ -91,21 +91,35 @@
 				if (uni.getStorageSync('landRegist')) {
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 					console.log(landRegistLG.user.id);
-					let params = {}; // 请求总数居时 参数为空
+					let params = {
+						activityId: Number(this.entrustSignUp.params.modelId),
+						userId: landRegistLG.user.id,
+						userPhone: this.entrustSignUp.params.phone,
+						userName: this.entrustSignUp.params.name
+					}; // 请求总数居时 参数为空
 					uni.showLoading({ // 展示loading
 						title: '加载中'
 					});
 					uni.request({
-						url: this.api2 + '/activity/sgin?activityId=' + this.entrustSignUp.params.modelId + '&userId=' + landRegistLG.user.id, //接口地址。
+						url: this.api2 + '/activity/sgin', //接口地址。
 						data: this.endParams(params),
+						method: 'POST',
 						header: {
 							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
 						},
 						success: (response) => {
 							console.log(response.data);
-							this.$store.commit('setEntrustSignUpShow', false); // 更新setEntrustSignUp
-							this.entrustSignUp.success = true; // 报名成功
-							this.$store.commit('setEntrustSignUp', this.entrustSignUp); // 更新setEntrustSignUp
+							if (response.data.code === 200) {
+								this.$store.commit('setEntrustSignUpShow', false); // 更新setEntrustSignUp
+								this.entrustSignUp.success = true; // 报名成功
+								this.$store.commit('setEntrustSignUp', this.entrustSignUp); // 更新setEntrustSignUp
+							} else {
+								uni.showToast({
+									title: '网络繁忙，请稍后',
+									icon: 'none',
+									duration: 1000
+								});
+							}
 							uni.hideLoading(); // 隐藏 loading
 						},
 						fail: (error) => {

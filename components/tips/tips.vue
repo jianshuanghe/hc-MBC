@@ -5,12 +5,7 @@
 			<div class="tips-box-content">
 				<div class="title">提示</div>
 				<image class="img" :src="close"></image>
-				<!-- <div class="content"><slot></slot></div> -->
-				<div class="content">
-					<div class="TIPS-isnt">认证创业者可见全部内容</div>
-					<div class="line"></div>
-					<div class="TIPS-btn">立即认证</div>
-				</div>
+				<div class=""><slot></slot></div>
 			</div>
 		</div>
 	</div>
@@ -37,6 +32,12 @@
 		mounted() {
 		},
 		methods: {
+			...mapMutations({
+			}),
+			handletouchmove (e) {
+				console.log(e, '------------e------------')
+				e.stopPropagation()
+			}
 		}
 	};
 </script>
@@ -93,18 +94,5 @@
 		text-align: center;
 		line-height: 140upx;
 	}
-	.TIPS-isnt{
-		font-family: PingFangSC-Light;
-		font-size: 32upx;
-		color: #5D5D5D;
-		text-align: center;
-		line-height: 120upx;
-	}
-	.TIPS-btn{
-		font-family: PingFangSC-Regular;
-		font-size: 32upx;
-		color: #02C2A2;
-		text-align: center;
-		line-height: 100upx;
-	}
+	
 </style>
