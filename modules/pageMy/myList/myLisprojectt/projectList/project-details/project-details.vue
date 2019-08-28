@@ -7,7 +7,7 @@
 				</view>
 				<view>
 					<span>{{arr.projName}}</span>
-					<span>{{arr.projContent}}</span>
+					<span>{{arr.projSlogan}}</span>
 					<view>
 						<span>{{arr.fieldCode}}</span>
 						<span>{{arr.pcode}}</span>
@@ -17,11 +17,11 @@
 			</view>
 			<view class="project-details-header-two" v-if="this.Labelarr.length!==0">
 				<span v-for="(items,index) in arr.projLabels" :key="index">{{items.labelName}}</span>
-				<view>编辑</view>
+				<view @tap="gotoedit">编辑</view>
 			</view>
 			<view class="project-details-header-twos" v-if="this.Labelarr.length==0">
 				<span>暂未添加标签</span>
-				<view class="gotoedit">编辑</view>
+				<view class="gotoedit" @tap="gotoedit">编辑</view>
 			</view>
 		</view>
 		<view class="project-details-BP">
@@ -311,8 +311,9 @@
 				uni.navigateTo({
 					url: '/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-my?id='+this.id
 				})
-			},gotomy(e){
-				console.log(e+'基本信息')
+			},
+			gotoedit(e){
+				console.log(e+'标签编辑')
 				uni.navigateTo({
 					url: '/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-edit?id='+this.id
 				})
@@ -487,7 +488,7 @@
 		width: 400upx;
 		height: 25upx;
 		margin-top: 10upx;
-		margin-left: 0;
+		margin-left: 10upx;
 	}
 
 	.project-details-header-one view:nth-of-type(2) view:nth-of-type(1) span:nth-of-type(1) {

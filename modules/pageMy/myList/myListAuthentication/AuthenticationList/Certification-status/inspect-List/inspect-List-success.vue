@@ -8,9 +8,9 @@
 		</view>
 		<view class="inspect-List-success-conter">
 			<view>{{Listdata.userName}}</view>
-			<view>职位:{{Listdata.userPosition}}</view>
+			<view v-if="Listdata.userPosition!==''">职位:{{Listdata.userPosition}}</view>
 			<view>邮箱:{{Listdata.userEmail}}</view>
-			<view>机构名称:{{Listdata.compName}}</view>
+			<view v-if="Listdata.compName!==''">机构名称:{{Listdata.compName}}</view>
 			<view>
 				<image :src="Listdata.img"></image>
 			</view>
@@ -58,7 +58,7 @@
 				m = m < 10 ? ('0' + m) : m;
 				let s = date.getSeconds();
 				s = s < 10 ? ('0' + s) : s;
-				return y + '.' + MM + '.' + d + '.' + h + '.' + m + '.' + s;
+				return y + '.' + MM + '.' + d + ' ' + h + ':' + m + ':' + s;
 			}
 		},
 		watch: {

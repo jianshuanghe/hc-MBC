@@ -3,7 +3,7 @@
 		<view><image :src="chuang"></image></view>
 		<view>
 			<span>认证成功</span>
-			<span>恭喜您成为膜拜资本认证创业者，您将拥有以下权限：</span>
+			<span>恭喜您成为陌拜资本认证创业者，您将拥有以下权限：</span>
 			<view>
 				<span>发布项目</span>
 				<span>BP诊断</span>

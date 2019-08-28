@@ -315,6 +315,8 @@
 						this.touziren = e.target.value
 						if (this.pickerValue1 == '机构投资人') {
 							this.hideen = false
+						}else if(this.pickerValue1 == '个人投资人'){
+							this.hideen = true
 						}
 						console.log(this.touziren)
 					}
@@ -724,9 +726,7 @@
 		padding-bottom: 200upx;
 	}
 
-	input {
-		color: #D2D2D2;
-	}
+	
 
 	.img {
 		position: absolute;

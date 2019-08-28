@@ -1,10 +1,29 @@
 <template>
 	<view class="SetupSignout">
-		<view>退出登录</view>
+		<view @tap="Signout">退出登录</view>
 	</view>
 </template>
 
 <script>
+	export default {
+		data() {
+			return {
+				
+			};
+		},
+		components: {
+			
+		},
+		computed: {},
+		created() {},
+		mounted() {},
+		methods: {
+			Signout(){
+				let landRegistLG = JSON.parse(uni.getStorageSync('landRegist'));
+				console.log(landRegistLG)
+			}
+		}
+	};
 </script>
 
 <style>

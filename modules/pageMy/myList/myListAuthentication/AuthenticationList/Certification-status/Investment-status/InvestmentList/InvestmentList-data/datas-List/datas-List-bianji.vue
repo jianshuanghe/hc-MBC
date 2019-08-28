@@ -34,24 +34,29 @@
 				</view>
 			</view>
 		</view>
-		<view class="datas-List-vitae-logo">
-			<view class="datas-List-vitae-logo-box">
-				<view>
-					<image src=""></image>
+		<view class="BI-items">
+			<view class="left BI-items-left">
+				<view class="mustFill">
+					<image :src='xin'></image>
 				</view>
-				<view>机构logo</view>
-				<view>
+				<view class="BI-text-left">机构logo</view>
+			</view>
+			<view class="right BI-items-right">
+				<view class="BI-text-right">
 					<image class="ziti1" :src="List.compLogo" v-if="!logo">点击上传</image>
-					<div class="Img-Upload">
-						<imageUploadOne class="img" v-model="imageData" :server-url="serverUrl" limit=1 @delete="deleteImage" @add="addImage">
-						</imageUploadOne>
-					</div>
-				</view>
-				<view>
-					<image :src="right"></image>
+					<view class="Img-logo">
+						<!-- 图片上传 -->
+						<view class="Img-Upload">
+							<imageUploadOne v-model="imageData" :server-url="serverUrl" limit=1 @delete="deleteImage" @add="addImage">
+							</imageUploadOne>
+						</view>
+					</view>
+					<image :src="right" class="BI-rightArrow"></image>
 				</view>
 			</view>
+			<view class="clear"></view>
 		</view>
+		
 		<view class="datas-List-vitae-Tips">
 			请上传清晰可见，容易识别的照片，支持JPG、PNG格式
 		</view>
@@ -113,6 +118,28 @@
 				setLvli: 'setLvli'
 			}),
 			lvli(){
+				if(this.compName===''){
+					uni.showToast({
+						title: '机构名不能为空,请重填',
+						icon: 'none',
+						duration: 1000
+					});
+					return false;
+				}else if(this.position === ''){
+					uni.showToast({
+						title: '职位不能为空,请重填',
+						icon: 'none',
+						duration: 1000
+					});
+					return false;
+				}else if(this.pickerValue === ''){
+					uni.showToast({
+						title: '在职情况不能为空,请重填',
+						icon: 'none',
+						duration: 1000
+					});
+					return false;
+				}
 				if(this.List.isIncu=='1'){
 					if (uni.getStorageSync('landRegist')) {
 						let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
@@ -312,12 +339,90 @@
 </script>
 
 <style>
+	.BI-items {
+		position: relative;
+		width: 100%;
+		margin: 0 auto;
+		background: #FFFFFF;
+	}
+	.zitia {
+		position: absolute;
+		right: 50upx !important;
+		height: 30upx;
+		top: 30upx;
+		font-size: 30upx !important;
+		color: #D2D2D2
+	}
+	.BI-items-left {
+		position: relative;
+		width: 36%;
+	}
+	
+	.BI-text-left {
+		position: relative;
+		font-family: PingFang-SC-Medium;
+		font-size: 30upx;
+		color: #2E2E30;
+		letter-spacing: 0;
+		padding: 0px;
+		margin-top: 44upx;
+		margin-bottom: 44upx;
+		line-height: 36upx;
+		margin-left: 70upx
+	}
+	
+	.BI-items-right {
+		position: relative;
+		width: 64%;
+	}
+	
+	.BI-text-right {
+		position: relative;
+		width: 90%;
+		margin-top: 44upx;
+		margin-bottom: 44upx;
+		margin: 0 auto;
+	}
+	
+	.Img-Upload {
+		width: 120upx;
+		height: 80upx;
+		position: absolute;
+		right: 28upx;
+		top: 30upx !important;
+	}
+	
+	.mustFill {
+		position: absolute;
+		left: 40upx;
+		top: 10upx;
+	}
+	
+	.mustFill>image {
+		position: relative;
+		width: 20upx;
+		height: 20upx;
+		top: 20upx;
+	}
+	
+	.uni-input-wrapper {
+		text-align: right;
+	}
+	
+	.BI-rightArrow {
+		position: absolute;
+		width: 25upx;
+		height: 18upx;
+		right: 15upx;
+		top: 50upx;
+	}
+	
+	
+	
 	.datas-List-vitae {
 		width: 100%;
 		height: 100%;
-
 	}
-
 	.datas-List-vitae-name {
 		width: 100%;
 		height: 122upx;
@@ -374,12 +479,13 @@
 		height: 80upx;
 		top: -30upx;
 		font-size: 30upx !important;
-	}.ziti1 {
+	}
+	.ziti1 {
 		position: absolute;
-		right: 0upx;
-		width: 100upx !important;
-		height: 90upx;
-		top: -30upx;
+		right: 50upx;
+		width: 70upx !important;
+		height: 70upx;
+		top: 27upx;
 		font-size: 30upx !important;
 	}
 

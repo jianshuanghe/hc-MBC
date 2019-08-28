@@ -165,7 +165,7 @@
 			bindPickerChange2: function(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value);
 				this.array2.map((items, index) => {
-					if (index === e.target.value) {
+					if (String(index) === String(e.target.value)) {
 						this.pickerValue2 = items.name;
 						this.id = items.id
 					}

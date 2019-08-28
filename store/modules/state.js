@@ -240,7 +240,8 @@ const state = {
 		Company:[],
 		Times:[],
 		Case:[],
-		Mation:[]
+		Mation:[],
+		Edit:[]
 	}  
   }
 };

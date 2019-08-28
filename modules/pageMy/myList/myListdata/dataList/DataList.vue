@@ -32,6 +32,15 @@
 				</view>
 			</view>
 		</view>
+		<view class="dataname-two">
+			<view>
+				<view>微信号</view>
+				<view><input v-model="wx" placeholder="请填写" /></view>
+				<view>
+					<image :src="right"></image>
+				</view>
+			</view>
+		</view>
 		<view class="dataNumber">
 			<view>
 				<view>手机号</view>
@@ -75,7 +84,8 @@
 				Listdata: [],
 				imageData: [],
 				serverUrl: 'https://img01.iambuyer.com/imgup/upLoad/fileUpload',
-				logo2:''
+				logo2:'',
+				wx:''
 			};
 		},
 		components: {
@@ -89,6 +99,7 @@
 			this.Listdata = this.GET_MY.MyList.header;
 			this.name = this.Listdata.userName
 			this.mail = this.Listdata.userEmail
+			this.wx=this.Listdata.userWx
 			console.log(this.Listdata, 'this.Listdata');
 		},
 
@@ -112,9 +123,10 @@
 					console.log(landRegistLG.user.id);
 					let params = {
 						userId: landRegistLG.user.id,
-						headImg: this.logo,
+						headImg: this.Listdata.headImg,
 						userName: this.name,
-						email: this.mail
+						email: this.mail,
+						user:this.wx
 					}; // 请求总数居时 参数为空
 					console.log(landRegistLG.user.id, this.logo, this.name, this.mail)
 					uni.showLoading({ // 展示loading
@@ -132,7 +144,7 @@
 							console.log(response.data);
 							// let muabout=this.GET_MY.MyList.header
 							// muabout=params
-							params.headImg=this.logo2
+							// params.headImg=this.logo2
 							this.$store.commit('setMation',params)
 							wx.navigateBack({
 							})
@@ -344,14 +356,56 @@
 		width: 100%;
 		height: 100%;
 	}
+	
+	.dataname-two {
+		width: 100%;
+		height: 120upx;
+		background: #FFFFFF;
+	}
+
+	.dataname-two view:nth-of-type(1) {
+		width: 90%;
+		height: 100%;
+		margin: 0 auto;
+		border-bottom: 2upx solid #F5F5F5;
+		position: relative;
+		line-height: 120upx;
+		display: flex;
+	}
+
+	.dataname-two view:nth-of-type(1) view:nth-of-type(1) {
+		font-size: 28upx;
+		color: #2E2E30;
+	}
+
+	.dataname-two view:nth-of-type(1) view:nth-of-type(2) {
+		width: 300upx;
+		height: 100%;
+		font-size: 28upx;
+		text-align: right;
+		margin-right: 30upx;
+		color: #3C3D3F;
+	}
+
+	.dataname-two view:nth-of-type(1) view:nth-of-type(2) input {
+		margin-top: 40upx;
+	}
+
+	.dataname-two view:nth-of-type(1) view:nth-of-type(3) {
+		width: 25upx;
+		height: 18upx;
+		padding-top: 30upx;
+	}
+
+	.dataname-two view:nth-of-type(1) view:nth-of-type(3) image {
+		width: 100%;
+		height: 100%;
+	}
 
 	.dataNumber {
 		width: 100%;
 		height: 120upx;
 		background: #FFFFFF;
-		/* display: flex; */
-		/* position: relative; */
-		/* margin-top: 20upx; */
 	}
 
 	.dataNumber view:nth-of-type(1) {

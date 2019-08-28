@@ -27,7 +27,7 @@
 	export default {
 		data() {
 			return {
-				kong:this.Static + 'mbcImg/my/kong.png',
+				kong:this.Static + 'mbcImg/my/kong1.png',
 				List: [],
 				page: 1,
 				picArr:[],
@@ -112,7 +112,7 @@
 	}
 
 	.ListMechanismfist view:nth-of-type(1) {
-		width: 80upx;
+		width: 101upx;
 		height: 80upx;
 		border-radius: 50%;
 		margin-top: 30upx;
@@ -125,14 +125,14 @@
 	}
 
 	.ListMechanismfist view:nth-of-type(2) {
-		width: 400upx;
+		width: 700upx;
 		height: 160upx;
 		margin-top: 30upx;
 		margin-left: 30upx;
 	}
 
 	.ListMechanismfist view:nth-of-type(2) view:nth-of-type(1) {
-		width: 300upx;
+		width: 400upx;
 		height: 50upx;
 		font-size: 32upx;
 		color: #2E2E30;
@@ -140,14 +140,15 @@
 	}
 
 	.ListMechanismtrees {
-		width: 400upx;
-		height: 20upx;
+		width: 700upx;
+		height: 30upx;
 		font-size: 20upx;
 		color: #9B9B9B;
 		top: 60upx;
 		left: 60upx;
 		position: absolute;
 		display: flex;
+		overflow: hidden;
 	}
 
 	.ListMechanismtrees span {
@@ -162,11 +163,14 @@
 	}
 
 	.ListMechanismtwo {
-		width: 300upx;
+		width: 500upx;
 		height: 30upx;
 		font-size: 24upx;
 		color: #5D5D5D;
 		margin-top: 60upx;
+		overflow: hidden;
+		text-overflow:ellipsis;
+		white-space: nowrap;
 	}
 	.meirenkanwo{
 		width: 320upx;

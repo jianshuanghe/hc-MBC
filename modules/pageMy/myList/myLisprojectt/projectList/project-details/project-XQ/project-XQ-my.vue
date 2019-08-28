@@ -261,6 +261,8 @@
 						success: (response) => {
 							uni.hideLoading();
 							console.log(response.data);
+							uni.navigateBack({
+							})
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -515,7 +517,7 @@
 	}
 
 	.Investor-wx-box view:nth-of-type(2) {
-		width: 152upx;
+		width: 202upx;
 		height: 32upx;
 		font-size: 30upx;
 		color: #2E2E30;
@@ -524,7 +526,7 @@
 	}
 
 	.Investor-wx-box view:nth-of-type(3) {
-		width: 200upx;
+		width: 300upx;
 		height: 35upx;
 		position: absolute;
 		right: 0;
