@@ -21,7 +21,7 @@
 		<tipsBox v-if='AUTH.show'>
 			<image class="TIPS-img" :src="close" @tap="clickClose()"></image>
 			<view class="content">
-				<view class="TIPS-isnt">认证创业者可见全部内容</view>
+				<view class="TIPS-isnt">只有认证创业者才可以见全部内容</view>
 				<view class="line"></view>
 				<view class="TIPS-btn" @tap='goToAuth'>立即认证</view>
 			</view>
