@@ -5,7 +5,6 @@
 		<!-- 投资者 -->
 		<Investment v-if="Listdata.userType=='1'"></Investment>
 		<Investment v-if="Listdata.userType=='2'"></Investment>
-		
 	</view>
 </template>
 

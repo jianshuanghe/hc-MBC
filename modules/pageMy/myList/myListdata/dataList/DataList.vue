@@ -95,15 +95,24 @@
 			...mapGetters(['GET_MY'])
 		},
 		created() {
-
 			this.Listdata = this.GET_MY.MyList.header;
 			this.name = this.Listdata.userName
 			this.mail = this.Listdata.userEmail
 			this.wx=this.Listdata.userWx
 			console.log(this.Listdata, 'this.Listdata');
 			console.log(this.logo, 'this.Listdata');
+			if (uni.getStorageSync('DataList')) {
+				let DataList = JSON.parse(uni.getStorageSync('DataList')); // 读取缓存的用户信息
+				console.log(DataList);
+				this.ListData = DataList;
+			};
 		},
-
+		beforeDestroy () {
+			console.log('页面销毁之前缓存数据')
+			if (this.Listdata.isPostSucccess === false) { // 如果用户没有提交数据之前用户切换页面,需要缓存数据
+				uni.setStorageSync('DataList', JSON.stringify(this.ListData));// 缓存确认成功的数据
+			}
+		},
 		methods: {
 			...mapMutations({
 				setheader: 'setheader',
@@ -130,7 +139,7 @@
 						headImg: this.logo,
 						userName: this.name,
 						email: this.mail,
-						user:this.wx
+						wxCode:this.wx
 					}; // 请求总数居时 参数为空
 					console.log(landRegistLG.user.id, this.logo, this.name, this.mail)
 					uni.showLoading({ // 展示loading
@@ -271,6 +280,7 @@
 		width: 120upx;
 		height: 80upx;
 		position: absolute;
+		border-radius: 50%;
 		right: 80upx;
 		top: -20upx;
 	}
@@ -305,7 +315,8 @@
 		right: 80upx;
 		width: 80upx;
 		height: 80upx;
-		top: -30upx;
+		border-radius: 50%;
+		top: -20upx;
 		font-size: 30upx;
 	}
 

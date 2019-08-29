@@ -10,7 +10,7 @@
 					<span>BP诊断</span>
 					<span>完善资料即可曝光、推广项目</span>
 				</view>
-				<view>
+				<view @tap="gotozhenduan">
 					<view>去诊断</view>
 				</view>
 			</view>
@@ -22,7 +22,7 @@
 					<span>BP打磨</span>
 					<span>完善资料即可曝光、推广项目</span>
 				</view>
-				<view>
+				<view @tap="gotodamo">
 					<view>去打磨</view>
 				</view>
 			</view>
@@ -34,7 +34,7 @@
 					<span>速融服务</span>
 					<span>完善资料即可曝光、推广项目</span>
 				</view>
-				<view>
+				<view @tap="gotujiashu">
 					<view>去加速</view>
 				</view>
 			</view>
@@ -60,6 +60,25 @@
 		mounted() {
 		},
 		methods: {
+			gotozhenduan(){
+				console.log('去BP诊断')
+				uni.navigateTo({
+					url:'/modules/pageHome/homeModules/lookServices/serviceDetails/BPD/serviceDetails?id='+1
+				})
+			},
+			gotodamo(){
+				console.log('去BP打磨')
+				uni.navigateTo({
+					url:'/modules/pageHome/homeModules/lookServices/serviceDetails/Bp/serviceDetails?id='+2
+				})
+			},
+			gotujiashu(){
+				console.log('去速融服务')
+				uni.navigateTo({
+					url:'/modules/pageHome/homeModules/lookServices/serviceDetails/quickMelt/serviceDetails?id='+3
+				})
+			},
+			
 		}
 	};
 </script>

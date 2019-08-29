@@ -4,6 +4,10 @@
 		<project></project>
 		<!-- 更多融资服务 -->
 		<services></services>
+		<!-- 发布项目 -->
+		<view class="fabuxiangmu"  @tap="goToPutIn(5)">
+			<image :src="black"></image>
+		</view>
 	</view>
 </template>
 
@@ -13,7 +17,7 @@
 	export default {
 		data() {
 			return {
-				
+				black: this.Static + 'mbcImg/my/black.png',
 			};
 		},
 		components: {
@@ -28,6 +32,17 @@
 		mounted() {
 		},
 		methods: {
+			goToPutIn(e) {
+				console.log(e, '点击触发发布项目');
+				this.clickItems = e;
+				this.$store.commit('setHome', this.clickItems);
+				uni.setStorageSync('clickItems', e);
+				uni.navigateBack({
+					delta: 2,
+					animationType: 'pop-out',
+					animationDuration: 200
+				});
+			}
 		}
 	};
 </script>
@@ -36,5 +51,17 @@
 	.myproject{
 		width: 100%;
 		min-height: 100%;
+	}
+	.fabuxiangmu{
+		width: 90upx;
+		height: 90upx;
+		border-radius: 50%;
+		position: fixed;
+		bottom: 40upx;
+		right: 40upx;
+	}
+	.fabuxiangmu>image{
+		width: 100%;
+		height: 100%;
 	}
 </style>

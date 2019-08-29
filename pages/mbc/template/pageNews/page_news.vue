@@ -44,9 +44,6 @@
 					success: (response) => {
 						console.log(response.data);
 						this.num = response.data
-						console.log(this.num)
-						
-						console.log(this.arr)
 						
 						uni.hideLoading(); // 隐藏 loading
 					},

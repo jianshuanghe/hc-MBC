@@ -508,7 +508,7 @@
 						// #ifdef H5
 							"navigationStyle":"custom",
 						// #endif
-						"navigationBarTitleText": "任职履历"
+						"navigationBarTitleText": "投资案例"
 					}
 				},
 				{
@@ -522,6 +522,15 @@
 				},
 				{
 					"path": "myList/myListSetup/Setup/Opinion/Opinion",
+					"style": {
+						// #ifdef H5
+							"navigationStyle":"custom",
+						// #endif
+						"navigationBarTitleText": "意见反馈"
+					}
+				},
+				{
+					"path": "myList/myListSetup/Setup/SetupReplace/SetupReplace",
 					"style": {
 						// #ifdef H5
 							"navigationStyle":"custom",

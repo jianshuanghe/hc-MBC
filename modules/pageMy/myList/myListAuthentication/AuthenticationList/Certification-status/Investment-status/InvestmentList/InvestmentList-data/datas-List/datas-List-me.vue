@@ -16,7 +16,8 @@
 				txtVal: 1,
 				desc:"",
 				remnane:0,
-				list: [] // 盛放list数据
+				list: [], // 盛放list数据
+				List:[]
 			};
 		},
 		components: {
@@ -27,6 +28,9 @@
 		},
 		created() {
 			this.list = this.GET_MY.MyList.Collection;
+			this.List=this.GET_MY.MyList.Collection.userContent
+			this.remnane = this.List.length
+			console.log(this.List.length)
 			// this.desc=this.list.userContent
 		},
 		mounted() {},

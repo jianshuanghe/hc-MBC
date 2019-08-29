@@ -20,6 +20,7 @@
 			GET_MY: {
 				handler(a, b) {
 					console.log(a, b);
+					this.Listdata=a.MyList.header
 				},
 				deep: true
 			}
