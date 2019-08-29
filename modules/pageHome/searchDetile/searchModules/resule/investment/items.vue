@@ -10,7 +10,7 @@
         <view class="left II-suer-insr">
           <view class="II-insr">
             <view class="user">
-              投资人
+              {{msgData.compName || '无'}}
             </view>
             <view class="mbc">
 				<view class="II-mod" >
@@ -22,7 +22,10 @@
         </view>
       </view>
       <view class="II-bot">
-		  <view class="left mbc-text">{{msgData.compName || '无'}}</view>
+		 <view class="II-mod1" >
+		   <view class="mod1-items left" v-for="(items,index) in msgData.inves" :key="index">{{items}}</view>
+		   <view class="clear"></view>
+		 </view>
       </view>
     </view>
     <view class="line"></view>
@@ -163,6 +166,23 @@
 		text-align: center;
 		padding: 2upx 12upx;
 		margin-right: 10upx;
+	}
+	.II-mod1{
+		position: relative;
+		margin: 12upx 0 0 110upx;
+	}
+	.mod1-items{
+		background: #F5F5F5;
+		border-radius: 4upx;
+		font-family: FZLTHJW--GB1-0;
+		font-size: 20upx;
+		color: #9B9B9B;
+		letter-spacing: 0;
+		line-height: 30upx;
+		text-align: center;
+		padding: 2upx 12upx;
+		margin-right: 10upx;
+		margin-top: 10upx;
 	}
 	.mbc-text{
 		font-family: FZLTHJW--GB1-0;

@@ -1,12 +1,14 @@
 <template>
-  <view class="empty-content">
-    <view class="empty">
-      <img :src="empty" alt="" class="img">
-    </view>
-    <view class="emptyBlankText">
-      <p class=""><slot></slot></p>
-    </view>
-  </view>
+	<view class="empty-box-cent">
+		<view class="empty-content">
+			<view class="empty">
+				<img :src="empty" alt="" class="img">
+			</view>
+			<view class="emptyBlankText">
+				<p class=""><slot></slot></p>
+			</view>
+		</view>
+	</view>
 </template>
 
 <script>
@@ -20,6 +22,13 @@
 </script>
 
 <style scoped>
+	.empty-box-cent{
+		position: absolute;
+		height: 100vh;
+		background: #fff;
+		width: 750upx;
+		left: 0;
+	}
   .empty-content{
     position: relative;
     width: 690upx;

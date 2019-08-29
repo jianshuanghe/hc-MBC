@@ -171,7 +171,7 @@
 				let province = [{
 									name: '全部',
 									value: '0001',
-									checked: false
+									checked: true
 								}]; // 全国省
 				let provinceAndCity = []; // 全国省市
 				if (uni.getStorageSync('landRegist')) {
@@ -228,7 +228,7 @@
 				let fieldData = [{
 									name: '全部',
 									value: '0001',
-									checked: false
+									checked: true
 								}];
 				if (uni.getStorageSync('landRegist')) {
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
@@ -268,7 +268,7 @@
 			let levelData = [{
 									name: '全部',
 									value: '0001',
-									checked: false
+									checked: true
 								}];
 				if (uni.getStorageSync('landRegist')) {
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息

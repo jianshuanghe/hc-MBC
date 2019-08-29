@@ -1,6 +1,6 @@
 <template>
 	<view class="activeDetails-content">
-		<contentCC :msgData="data"></contentCC>
+		<contentCC :msgData="dataList"></contentCC>
 		<constSubmit :msgData="data"></constSubmit>
 	</view>
 </template>

@@ -1,5 +1,5 @@
 <template>
-	<view :class="AUTH.show ? 'Posied' : 'itemsDetails-content'">
+	<view class="itemsDetails-content">
 		<view class="k">
 			<!-- top -->
 			<projectTop :msgData="dataList"></projectTop>
@@ -19,6 +19,7 @@
 			<botBtn :msgData="project"></botBtn>
 		</view>
 		<tipsBox v-if='AUTH.show'>
+			<image class="TIPS-img" :src="close" @tap="clickClose()"></image>
 			<view class="content">
 				<view class="TIPS-isnt">认证创业者可见全部内容</view>
 				<view class="line"></view>
@@ -80,6 +81,10 @@
 			...mapMutations({
 				setAuthShow: 'setAuthShow'
 			}),
+			clickClose() {
+				console.log('触发关闭');
+				this.$store.commit('setAuthShow', false); // 更新setAuthShow
+			},
 			goToAuth () {
 				console.log('点击触发去认证');
 				uni.navigateTo({
@@ -101,12 +106,6 @@
 						if (String(response.data.code) === '200') {
 						  let UserData = response.data.content;
 						  uni.setStorageSync('UserData', JSON.stringify(UserData)); // 缓存用户信息
-						  console.log(UserData.userType, '------------UserData.userType----------');
-						  if (String(UserData.userType) !== '0') { // 未认证
-							this.$store.commit('setAuthShow', true); // 更新setAuthShow
-						  } else {
-							  this.$store.commit('setAuthShow', false); // 更新setAuthShow
-							}
 						} else {
 							uni.hideLoading(); // 隐藏 loading
 							uni.showToast({

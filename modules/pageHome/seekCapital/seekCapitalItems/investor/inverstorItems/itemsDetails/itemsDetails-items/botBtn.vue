@@ -81,12 +81,14 @@
 		beforeDestroy () {
 			console.log('页面销毁之前缓存数据')
 			this.$store.commit('setEnTrustShow', false); // 更新setEntrustSignUp
+			this.$store.commit('setAuthShow', false); // 更新setAuthShow
 		},
 		methods: {
 			...mapMutations({
 				setEnTrustShow: 'setEnTrustShow',
 				setEntrustType: 'setEntrustType',
-				setEntrustParams: 'setEntrustParams'
+				setEntrustParams: 'setEntrustParams',
+				setAuthShow: 'setAuthShow'
 			}),
 			getUserType () {
 				console.log('判断用户是否认证');
@@ -198,23 +200,16 @@
 			},
 			Apply () {
 				console.log('触发申请');
-				if (this.userType === 0) { // 1 个人投资人 2 机构投资人
-					if (this.authState !== 1) { // 没有认证.或者认证没通过
-						uni.showToast({
-							title: '认证创业者可见全部内容',
-							icon: 'none',
-							duration: 1000
-						});
+				if (this.userType === '0') { // 创业者
+					if (this.authState !== '1') { // 没有认证.或者认证没通过
+						this.$store.commit('setAuthShow', true); // 更新setAuthShow
 						return
 					} else {
-						console.log('认证创业者')
+						console.log('认证创业者');
+						this.$store.commit('setAuthShow', false); // 更新setAuthShow
 					}
-				} else {
-					uni.showToast({
-						title: '认证创业者可见全部内容',
-						icon: 'none',
-						duration: 1000
-					});
+				} else { // 不是创业者
+					this.$store.commit('setAuthShow', true); // 更新setAuthShow
 					return
 				}
 				if (this.msgData.content === 1) {

@@ -1,45 +1,45 @@
 <template>
 	<view class="financeItems-content" >
 		<view class="FI-content">
-			<view class="FI-box-cont" @tap="goToFinanceDetail(msgData)">
+			<view class="FI-box-cont" @tap="goToFinanceDetail(msgDatas)">
 				<view class="FI-top">
 					<view class="left FI-t-left">
-						<image :src="msgData.projLogo"></image>
+						<image :src="msgDatas.projLogo"></image>
 					</view>
 					<view class="left FI-t-cont">
 						<view class="FI-t-title">
-							<text class="title">{{msgData.projName}}</text>
-							<text class="inst">{{msgData.fieldCode}}</text>
+							<text class="title">{{msgDatas.projName}}</text>
+							<text class="inst">{{msgDatas.fieldCode}}</text>
 						</view>
-						<view class="FI-t-ins">{{msgData.projSlogan}}</view>
+						<view class="FI-t-ins">{{msgDatas.projSlogan}}</view>
 					</view>
 					<view class="right FI-t-right">
 						<view class="FI-t-money">
-							￥<text class="money">{{msgData.finanMoney}}</text>万
+							￥<text class="money">{{msgDatas.finanMoney}}</text>万
 						</view>
-						<view class="FI-t-ins2">融资轮次: {{msgData.finanLevelCode}}</view>
+						<view class="FI-t-ins2">融资轮次: {{msgDatas.finanLevelCode}}</view>
 					</view>
 					<view class="clear"></view>
 				</view>
 				<view class="FI-modules">
-					<text class="modules-items-FI left"  v-for="(items,index) in msgData.lables" :key="index">{{items.labelName}}</text>
+					<text class="modules-items-FI left"  v-for="(items,index) in msgDatas.lables" :key="index">{{items.labelName}}</text>
 				</view>
 				<view class="FI-insCd">
-					<view class="FI-C-text">{{msgData.infoCount}}</view>
+					<view class="FI-C-text">{{msgDatas.infoCount}}</view>
 				</view>
-				<view class="FI-cont" v-if="msgData.imgs.length === 1">
+				<view class="FI-cont" v-if="msgDatas.imgs.length === 1">
 					<view class="ImageBox1">
-						<image :src="msgData.imgs[0].imgName"></image>
+						<image :src="msgDatas.imgs[0].imgName"></image>
 					</view>
 				</view>
-				<view class="FI-cont-imgMoreTwo" v-if="msgData.imgs.length === 2" >
-					<view class="imageBox left" v-for="(items,index) in msgData.imgs" :key="index">
+				<view class="FI-cont-imgMoreTwo" v-if="msgDatas.imgs.length === 2" >
+					<view class="imageBox left" v-for="(items,index) in msgDatas.imgs" :key="index">
 						<image :src="items.imgName" v-if="index < 3"></image>
 					</view>
 					<view class="clear"></view>
 				</view>
-				<view class="FI-cont-imgMore" v-if="msgData.imgs.length > 2" >
-					<view class="imageBox left" v-for="(items,index) in msgData.imgs" :key="index" v-if="index < 3">
+				<view class="FI-cont-imgMore" v-if="msgDatas.imgs.length > 2" >
+					<view class="imageBox left" v-for="(items,index) in msgDatas.imgs" :key="index" v-if="index < 3">
 						<image :src="items.imgName"></image>
 					</view>
 					<view class="clear"></view>
@@ -51,40 +51,40 @@
 						<image :src="address"></image>
 					</view>
 					<view class="icon-text1 left">
-						<p class="">{{msgData.pcode}}</p>
+						<p class="">{{msgDatas.pcode}}</p>
 					</view>
 					<view class="clear"></view>
 				</view>
 				<view class="FI-data left">
 					<view class="left lists">
-						<view class="list-item" @tap="setClickRecord('find', items, msgData)">
+						<view class="list-item" @tap="setClickRecord('find', items, msgDatas)">
 							<view class="icon-img left">
 								<image :src="items.find ? finded : find"></image>
 							</view>
 							<view class="icon-text left">
-								<p class="">{{msgData.infoCount}}</p>
+								<p class="">{{msgDatas.infoCount}}</p>
 							</view>
 							<view class="clear"></view>
 						</view>
 					</view>
 					<view class="left lists">
-						<view class="list-item" @tap="setClickRecord('like', items, msgData)">
+						<view class="list-item" @tap="setClickRecord('like', items, msgDatas)">
 							<view class="icon-img left">
 								<image :src="items.like ? liked : like"></image>
 							</view>
 							<view class="icon-text left">
-								<p class="">{{msgData.likeCount}}</p>
+								<p class="">{{msgDatas.likeCount}}</p>
 							</view>
 							<view class="clear"></view>
 						</view>
 					</view>
 					<view class="left lists">
-						<view class="list-item" @tap="setClickRecord('love', items, msgData)">
+						<view class="list-item" @tap="setClickRecord('love', items, msgDatas)">
 							<view class="icon-img left">
 								<image :src="items.love ? loved : love"></image>
 							</view>
 							<view class="icon-text left">
-								<p class="">{{msgData.followCount}}</p>
+								<p class="">{{msgDatas.followCount}}</p>
 							</view>
 							<view class="clear"></view>
 						</view>
@@ -110,6 +110,7 @@
 				liked: this.Static + 'mbcImg/home/liked.png', // 喜欢
 				love: this.Static + 'mbcImg/home/love.png', // 收藏
 				loved: this.Static + 'mbcImg/home/loved.png', // 收藏
+				msgDatas: {}, // 盛放父组件传过来的数据
 				items: { // 用户缓存用户行为的子项
 					id: '', // id
 					doc: false, // 留言
@@ -126,7 +127,8 @@
 			}
 		},
 		created() {
-			console.log(this.msgData, '子组件获取的数据');
+			this.msgDatas = this.msgData;
+			console.log(this.msgData, this.msgDatas, '************************************************子组件获取的数据***********************************************');
 			this.getClickRecord();
 		},
 		mounted() {
@@ -138,7 +140,7 @@
 				if (uni.getStorageSync('clickRecordsArr')) {
 					this.clickRecordsArr = JSON.parse(uni.getStorageSync('clickRecordsArr')); // 获取缓存中的用户点击行为数组记录
 					this.clickRecordsArr.map((item, index) => {
-						if (item.id === this.msgData.id) { // 取出缓存中存在的状态
+						if (item.id === this.msgDatas.id) { // 取出缓存中存在的状态
 						   console.log(item.id, '取出缓存中存在的状态');
 						   this.items = item;
 						}
@@ -149,25 +151,26 @@
 				console.log(e, items, evn, '记录用户行为');
 				if (e === 'find') { // 查看
 					this.items.find = true; // 点击之后状态变化
-					this.msgData.infoCount = Number(this.msgData.infoCount) + 1;
-					this.goToFinanceDetail(evn);
+					this.msgDatas.infoCount = Number(this.msgDatas.infoCount) + 1;
+					this.goToFinanceDetail(evn, 'find');
 					this.resetClickRecord(items);
 				} else if (e === 'like') { // 喜欢
 					if (this.items.like === false) {
 						this.items.like = true; // 点击之后状态变化
-						this.msgData.likeCount = Number(this.msgData.likeCount) + 1;
+						this.msgDatas.likeCount = Number(this.msgDatas.likeCount) + 1;
 						this.upDataIsLike(evn);
 						this.resetClickRecord(items);
 					};
 				} else if (e === 'love') { // 收藏
 					if (this.items.love === false) {
 						this.items.love = true; // 点击之后状态变化
-						this.msgData.followCount = Number(this.msgData.followCount) + 1;
+						console.log(this.msgDatas.followCount, 'this.msgData.followCount=================+++++')
+						this.msgDatas.followCount = Number(this.msgDatas.followCount) + 1;
 						this.upDataIsLoved(evn); // 收藏
 						this.resetClickRecord(items);
 					} else if (this.items.love === true) {
 						this.items.love = false; // 点击之后状态变化
-						this.msgData.followCount = Number(this.msgData.followCount) - 1;
+						this.msgDatas.followCount = Number(this.msgDatas.followCount) - 1;
 						this.upDataIsLove(evn); // 取消收藏
 						this.resetClickRecord(items);
 					}
@@ -261,7 +264,7 @@
 			goToFinanceDetail (e){
 				console.log('去' + e.id + '在融项目详情页面');
 				this.items.find = true; // 点击之后状态变化
-				this.msgData.infoCount = Number(this.msgData.infoCount) + 1;
+				this.msgDatas.infoCount = Number(this.msgDatas.infoCount) + 1;
 				this.resetClickRecord(this.items);
 				uni.navigateTo({
 					url: '/modules/pageHome/homeList/FinancProject/FinancProject?id=' + e.id
@@ -434,6 +437,7 @@
 		letter-spacing: 0;
 		line-height: 24upx;
 		padding: 4upx 8upx;
+		margin-right: 10upx;
 	}
 	.FI-insCd{
 		position: relative;

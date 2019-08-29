@@ -76,6 +76,11 @@
 		created() {
 			this.entrustSignUp = this.ENTRUSTSINGUP;
 			console.log(this.entrustSignUp);
+			if (uni.getStorageSync('UserData')) {
+				let UserData = JSON.parse(uni.getStorageSync('UserData')); // 读取缓存的用户信息
+				this.entrustSignUp.params.phone = UserData.userPhone;
+				this.entrustSignUp.params.name = UserData.userName;
+			}
 		},
 	    methods: {
 			...mapMutations({

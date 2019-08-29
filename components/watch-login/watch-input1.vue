@@ -45,7 +45,7 @@
 			maxlength: {
 				//最大长度
 				type: [Number,String],
-				default: 20,
+				default: 200,
 			},
 			isShowPass:{
 				//是否显示密码图标（二选一）

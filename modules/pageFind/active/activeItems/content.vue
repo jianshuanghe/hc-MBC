@@ -2,21 +2,21 @@
 	<view class="content-content">
 		<view class="activeDetails">
 			<view class="AD-img">
-				<image :src="dataList.activity.activityImg"></image>
+				<image :src="msgData.activity.activityImg"></image>
 			</view>
 			<view class="AD-content">
-				<view class="AD-title">{{dataList.activity.activityTitel}}</view>
+				<view class="AD-title">{{msgData.activity.activityTitel}}</view>
 				<view class="AD-items-list">
 					<view class="AD-items">
 						活动时间
-						<text class="AD-text">{{dataList.activity.activityStartTime | dateTime}} - {{dataList.activity.activityEndTime | dateTime}}</text>
+						<text class="AD-text">{{msgData.activity.activityStartTime | dateTime}} - {{msgData.activity.activityEndTime | dateTime}}</text>
 					</view>
 					<view class="line"></view>
 				</view>
 				<view class="AD-items-list">
 					<view class="AD-items">
 						活动地点
-						<view :class=" isAll ? 'AD-text1 AD2' : 'AD-text AD2'">{{dataList.activity.activityAddress}}</view>
+						<view :class=" isAll ? 'AD-text1 AD2' : 'AD-text AD2'">{{msgData.activity.activityAddress}}</view>
 						<text class="zhankai right" @tap="clickAllShow">{{isAll ? '收起' : '展开'}}</text>
 					</view>
 					<view class="line"></view>
@@ -24,23 +24,23 @@
 				<view class="AD-items-list">
 					<view class="AD-items">
 						咨询热线
-						<text class="AD-text">{{dataList.activity.activityTelphone}}</text>
+						<text class="AD-text">{{msgData.activity.activityTelphone}}</text>
 					</view>
 					<view class="line"></view>
 				</view>
 				<view class="AD-items-img">
 					<view class="AD-items-img-list left">
-						<image class="img-Ad left" :class="'marg'+ index" :src="items"  v-for="(items,index) in dataList.sginImg" :key="index"></image>
+						<image class="img-Ad left" :class="'marg'+ index" :src="items || this.dImg"  v-for="(items,index) in msgData.sginImg" :key="index"></image>
 					</view>
 					<view class="AD-items-text right">
-						{{dataList.sginSum}} <text class="AD-text">人已报名</text>
+						{{msgData.sginSum}} <text class="AD-text">人已报名</text>
 					</view>
 					<view class="clear"></view>
 					<view class="line"></view>
 				</view>
 				<!-- 活动详情 -->
 				<view class="AD-details-title">活动详情</view>
-				<view class="AD-details-text" v-html='dataList.activityContent | htmlImg'></view>
+				<view class="AD-details-text" v-html='msgData.activity.activityContent'></view>
 			</view>
 		</view>
 	</view>
@@ -51,12 +51,7 @@
 	export default {
 	    data () {
 			return {
-				dataList: {
-					activity: {},
-					sginImg: [],
-					activityContent: '',
-					sginSum: 0
-				},// 后台返回数据
+				dataList: [] ,// 后台返回数据
 				isAll: false
 			};
 	    },
@@ -72,68 +67,35 @@
 		  dateTime (val) {
 		    return date.dateTime('m/d h minute', val);
 		  },
-		  htmlImg (htmlstr) {
-			  console.log(htmlstr)
-				//正则匹配所有img标签
-				//var regex0 = new RegExp("(i?)(\<img)([^\>]+\>)","gmi");
-				//正则匹配不含style="" 或 style='' 的img标签
-				var regex1 = new RegExp("(i?)(\<img)(?!(.*?style=['\"](.*)['\"])[^\>]+\>)","gmi");
-				//给不含style="" 或 style='' 的img标签加上style=""
-				htmlstr = htmlstr.replace(regex1, "$2 style=\"\"$3");
-				console.log("增加style=\"\"后的html字符串："+htmlstr);
-				//正则匹配含有style的img标签
-				var regex2 = new RegExp("(i?)(\<img.*?style=['\"])([^\>]+\>)","gmi");
-				//在img标签的style里面增加css样式(这里增加的样式：display:block;max-width:100%;height:auto;border:5px solid red;)
-				htmlstr = htmlstr.replace(regex2, "$2display:block;max-width:100%;height:auto;border:5px solid red;$3");
-				console.log("在img标签的style里面增加样式后的html字符串："+htmlstr);
-				return htmlstr;
-		  }
+		  /* 格式图片 */
+		  dataImg (val) {
+			  return 'https://' + val;
+		  },
+		  // htmlImg (val) {
+			 //  //正则匹配所有img标签
+				// //var regex0 = new RegExp("(i?)(\<img)([^\>]+\>)","gmi");
+				// //正则匹配不含style="" 或 style='' 的img标签
+				// var regex1 = new RegExp("(i?)(\<img)(?!(.*?style=['\"](.*)['\"])[^\>]+\>)","gmi");
+				// //给不含style="" 或 style='' 的img标签加上style=""
+				// htmlstr = htmlstr.replace(regex1, "$2 style=\"\"$3");
+				// console.log("增加style=\"\"后的html字符串："+htmlstr);
+				// //正则匹配含有style的img标签
+				// var regex2 = new RegExp("(i?)(\<img.*?style=['\"])([^\>]+\>)","gmi");
+				// //在img标签的style里面增加css样式(这里增加的样式：display:block;max-width:100%;height:auto;border:5px solid red;)
+				// htmlstr = htmlstr.replace(regex2, "$2display:block;max-width:100%;height:auto;border:5px solid red;$3");
+				// console.log("在img标签的style里面增加样式后的html字符串："+htmlstr);
+				// return htmlstr;
+		  // }
 		},
 		computed: {},
 		watch: {},
 		created() {
-			console.log(this.msgData, '--------------------------------')
-			this.getList(this.msgData.id)
-		},
-		mounted() {
-			console.log(this.msgData, 'this.msgDatay.id')
 		},
 	    methods: {
 			clickAllShow () {
 				console.log('展示全部')
 				this.isAll = !this.isAll;
-			},
-			getList (e) {
-				if (uni.getStorageSync('landRegist')) {
-				    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
-				    console.log(landRegistLG.user.id);
-					let params = {}; // 请求总数居时 参数为空
-					uni.showLoading({ // 展示loading
-						title: '加载中'
-					});
-					uni.request({
-						url: this.api2 + '/activity/detail?activityId=' + e, //接口地址。
-						data: this.endParams(params),
-						header: {
-							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
-						},
-						success: (response) => {
-							console.log(response.data.content, '-----------+++++++++++---------');
-							this.dataList = response.data.content;
-							uni.hideLoading(); // 隐藏 loading
-						},
-						fail: (error) => {
-							uni.hideLoading(); // 隐藏 loading
-							uni.showToast({
-								title: '网络繁忙，请稍后',
-								icon: 'none',
-								duration: 1000
-							});
-							console.log(error, '网络繁忙，请稍后');
-						}
-					});
-				}
-			},
+			}
 	    }
 	};
 </script>

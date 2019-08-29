@@ -4,7 +4,6 @@
 		<div class="tips-box">
 			<div class="tips-box-content">
 				<div class="title">提示</div>
-				<image class="img" :src="close"></image>
 				<div class=""><slot></slot></div>
 			</div>
 		</div>
@@ -12,12 +11,12 @@
 </template>
 
 <script>
-	import close from '@/static/mbcImg/common/close.png'
+	// import close from '@/static/mbcImg/common/close.png'
 	import { mapMutations, mapGetters } from 'vuex';
 	export default {
 		data() {
 			return {
-				close: close
+				close: this.Static + 'mbcImg/common/searchClose.png'
 			};
 		},
 		components: {

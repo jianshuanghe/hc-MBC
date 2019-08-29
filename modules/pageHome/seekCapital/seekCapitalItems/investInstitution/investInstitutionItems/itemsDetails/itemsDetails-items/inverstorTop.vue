@@ -7,7 +7,7 @@
 			<view class="left iT-text">
 				<div class="company-box">{{msgData.capitalComp.compName}}</div>
 			</view>
-			<div class="Authentication-type" @tap='goToAuth()'>
+			<div class="Authentication-type" @tap='goToAuth()' v-if='isAuth === false'>
 				<image :src="authen" class="AuType"></image>
 				成员认证
 			</div>
@@ -20,7 +20,8 @@
 	export default {
 	    data () {
 			return {
-				authen: this.Static + 'mbcImg/home/seekCapital/authen.png'
+				authen: this.Static + 'mbcImg/home/seekCapital/authen.png',
+				isAuth: false, // 是否认证
 			};
 	    },
 		props: {
@@ -28,12 +29,35 @@
 				type: Object
 			}
 		},
+		mounted() {
+			this.getUserType();
+		},
 	    methods: {
 			goToFinanceDetail (e){
 				console.log('去' + e + '详情页面');
 				uni.navigateTo({
 					url: '/modules/pageHome/homeList/homeList'
 				});
+			},
+			getUserType () {
+				console.log('判断用户是否认证');
+				if (uni.getStorageSync('UserData')) {
+					let UserData = JSON.parse(uni.getStorageSync('UserData')); // 读取缓存的用户信息
+					this.authState = UserData.authState; // -1 未认证 0 待审核 1审核通过 2 审核失败
+					this.userType = UserData.userType; // 用户类型  -1 未认证 0 创业者 1 个人投资人 2 机构投资人
+					if (Number(this.userType) === 0) { // 1 个人投资人 2 机构投资人
+						if (Number(this.authState) !== 1) { // 没有认证.或者认证没通过
+							this.isAuth = false;
+							return
+						} else {
+							console.log('认证创业者');
+							this.isAuth = true;
+						}
+					} else {
+						this.isAuth = false;
+						return
+					}
+				}
 			},
 			goToAuth () {
 				console.log('点击触发去认证');

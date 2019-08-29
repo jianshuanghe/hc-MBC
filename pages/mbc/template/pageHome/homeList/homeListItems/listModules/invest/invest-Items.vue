@@ -13,17 +13,17 @@
               {{msgData.userName}}
             </view>
             <view class="mbc">
-              <view class="left mbc-text">{{msgData.comp || '无'}}</view>
-              <view class="IIline-Y left"></view>
-              <view class="left mbc-text">{{msgData.position || '无'}}</view>
-              <view class="clear"></view>
+				<view class="left mbc-text" v-if="msgData.userType === '1'">投资人</view>
+				<view class="left mbc-text"  v-if="msgData.userType === '2'">{{msgData.comp || '投资机构'}}</view>
+				<view class="IIline-Y left"></view>
+				<view class="left mbc-text">{{msgData.position || '无'}}</view>
+				<view class="clear"></view>
             </view>
           </view>
         </view>
         <view class="right II-user-address">
           <view class="adderss">
-            <text v-if="msgData.city">中国·{{msgData.city}}</text>
-			<text v-if="!msgData.city">中国</text>
+            <text v-if="msgData.city">{{msgData.city}}</text>
           </view>
         </view>
         <view class="clear"></view>
@@ -35,7 +35,6 @@
         </view>
       </view>
     </view>
-    <view class="line"></view>
   </view>
 </template>
 
