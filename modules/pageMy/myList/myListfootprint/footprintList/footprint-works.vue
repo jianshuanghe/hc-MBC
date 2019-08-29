@@ -2,7 +2,7 @@
 	<view class="footprint-works">
 		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
 		@scroll="scroll">
-			<view class="footprint-works-fist" v-for="(item,index) in List" :key="index" @tap="gotoxiangmuxiang(item.id)">
+			<view class="footprint-works-fist" v-for="(item,index) in List" :key="index" @tap="gotoxiangmuxiang(item.projId)">
 				<view><image :src="item.projLogo"></image></view>
 				<view>
 					<span>{{item.projName}}</span>

@@ -194,9 +194,10 @@
 	}
 	.Message-Tips{
 		width: 100%;
-		height: 208upx;
+		min-height: 208upx;
 		border-bottom: 2upx solid  #F5F5F5;
-		position: relative;
+		/* position: relative; */
+		padding-bottom: 20upx;
 	}
 	.Message-Tips view:nth-of-type(1){
 		font-size: 30upx;
@@ -214,6 +215,7 @@
 	}
 	.Message-Tips view:nth-of-type(2){
 		width: 690upx;
+		min-height: 50upx;
 		font-size: 26upx;
 		color: #9B9B9B;
 		padding-top: 10upx;
