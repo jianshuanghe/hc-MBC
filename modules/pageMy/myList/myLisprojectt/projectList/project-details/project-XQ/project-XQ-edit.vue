@@ -4,7 +4,7 @@
 			<view>添加标签</view>
 			<view>
 				<checkbox-group @change="checkboxChange1">
-				  <label @click="labelBtn1(item.value,index)"  v-for="(item,index) in editarr" :key="index" v-if="(index > 8 && isAll[1].allShow === false) ? false : true" >
+				  <label @click="labelBtn1(item.value,index)"  v-for="(item,index) in editarr" :key="index" v-if="(index > 100 && isAll[1].allShow === false) ? false : true" >
 				    <checkbox :value="item.value" :checked="item.checked" v-show="false"/>
 					<view class="left MIL-item items">
 						<view :class="[item.checked ? 'edit' : '', 'MIL-item-text']">{{item.name}}</view>
@@ -36,7 +36,8 @@
 				editarr:['平台用户超2000万','大数据服务','消费生活','高新技术企业','天使轮融资2000万'],
 				fieldsDataList:[],
 				editnew:[],
-				editshu:[]
+				editshu:[],
+				editadd:[]
 			};
 		},
 		computed: {
@@ -45,7 +46,7 @@
 		created() {
 			//获取标签
 			this.edits();
-			
+			console.log(...new Set(this.editarr))
 		},
 		watch: {
 			GET_MY: {
@@ -54,8 +55,9 @@
 					let items = {
 						name: a.MyList.Edit,
 						value: this.editarr.length + 1,
-						checked: false
+						checked: true
 					}
+					this.editadd.push(items);
 					this.editarr.push(items);
 				},
 				deep: true
@@ -68,7 +70,8 @@
 		methods: {
 			resetDate (e) {
 				let edit = [];
-				[...e].map((items, index) => {
+				[...new Set(e)].map((items, index) => {
+					console.log(items)
 					let editItems = {
 						name: items,
 						value: index,
@@ -82,10 +85,16 @@
 			labelBtn1(name,index){
 			  console.log(name,index,"nameindex")
 			  if(this.fieldsDataList.join(',').indexOf(name) >-1){
-				  console.log(this.editarr, '----------------this.editarr')
+				  // console.log(this.editarr, '----------------this.editarr')
 			    this.editarr[index].checked = true
+				console.log(this.editarr)
+				if(this.editarr[index].checked == true){
+					this.editadd.push(this.editarr[index])
+					console.log(this.editadd)
+				}
 			  }else{
 			    this.editarr[index].checked = false
+				console.log(this.editarr)
 			  }
 			},
 			checkboxChange1: function (e) {
@@ -117,9 +126,44 @@
 							console.log(response.data.content);
 							let editnew=response.data.content;
 							editnew.map((items, index) => {
+								items.checked=true
 								this.editarr.push(items.labelName);
 							})
 							this.resetDate(this.editarr);
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
+			Submission(){
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					let params = this.editadd // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					console.log(params)
+					console.log(this.pick)
+					uni.request({
+						url: this.api2 + '/proj/label/setProjLabel?projId=' + this.id, //接口地址。
+						data: this.endParams(params),
+						method: 'POST',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							uni.hideLoading();
+							console.log(response.data);
+							// uni.navigateBack({})
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading

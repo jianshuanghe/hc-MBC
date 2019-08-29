@@ -427,18 +427,19 @@
 	}
 	.project-details-header {
 		width: 90%;
-		height: 304upx;
+		min-height: 304upx;
 		margin: 40upx auto auto auto;
 		background: rgba(255, 255, 255, 0.90);
 		border: 2upx solid rgba(226, 226, 226, 0.50);
 		box-shadow: 0 2upx 16upx 0 #EBEBEB;
 		border-radius: 8upx;
+		padding-bottom: 20upx;
 	}
 
 	.project-details-header-one {
 		margin: 0 auto;
 		width: 90%;
-		height: 70%;
+		height:200upx;
 		border-bottom: 2upx solid #F5F5F5;
 		padding: 2upx;
 		display: flex;
@@ -446,9 +447,9 @@
 	}
 
 	.project-details-header-one view:nth-of-type(1) {
-		width: 75upx;
+		width: 84upx;
 		height: 84upx;
-		margin-left: 22upx;
+		margin-left: 10upx;
 		margin-top: 62upx;
 		border-radius: 50%;
 	}
@@ -497,14 +498,13 @@
 		color: #9B9B9B;
 		display: block;
 		min-width: 100upx;
-		text-align: center;
-		/* padding-right:10upx ; */
+		height: 30upx;
+		text-align: left;
 		line-height: 25upx;
-		/* padding-left: 0upx; */
 		border: 0;
 	}
 
-	.project-details-header-one view:nth-of-type(2) view:nth-of-type(1) span {
+	.project-details-header-one view:nth-of-type(2) view:nth-of-type(1) span:nth-of-type(2) {
 		margin-left: 10upx;
 		font-size: 24upx;
 		color: #9B9B9B;
@@ -525,9 +525,10 @@
 	}
 
 	.project-details-header-two {
-		width: 90%;
-		height: 60upx;
-		margin: 15upx auto;
+		width: 80%;
+		min-height: 60upx;
+		margin-left: 30upx;
+		margin-top: 30upx;
 		position: relative;
 		/* background: red; */
 	}
@@ -551,15 +552,17 @@
 		font-size: 26upx;
 		color: #02C2A2;
 		position: absolute;
-		right: 0upx;
+		right: -70upx;
 		top: 0upx;
 		font-weight: 700;
 	}
 
 	.project-details-header-twos {
-		width: 90%;
 		height: 60upx;
-		margin: 15upx auto;
+		width: 80%;
+		min-height: 60upx;
+		margin-left: 30upx;
+		margin-top: 30upx;
 		position: relative;
 		/* background: red; */
 	}
@@ -578,7 +581,7 @@
 		font-size: 26upx;
 		color: #02C2A2;
 		position: absolute;
-		right: 0upx;
+		right: -70upx;
 		top: 0upx;
 		font-weight: 700;
 	}

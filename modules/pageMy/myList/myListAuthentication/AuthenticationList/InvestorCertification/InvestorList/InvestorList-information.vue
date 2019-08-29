@@ -36,7 +36,7 @@
 				<view>
 					<picker mode="multiSelector" @columnchange="columnChange" @cancel='cancelPC' @change='clickPC' :value="multiIndex"
 					 :range="multiArray" range-key='name'>
-						<view class="uni-input BI-picker ziti" :class="paramsPC.ptext ? 'BI-pickered' : ''">{{paramsPC.ptext ? paramsPC.ptext + '-' + paramsPC.ctext : '请选择'}}</view>
+						<view class="uni-input BI-picker ziti1" :class="paramsPC.ptext ? 'BI-pickered' : ''">{{paramsPC.ptext ? paramsPC.ptext + '-' + paramsPC.ctext : '请选择'}}</view>
 					</picker>
 				</view>
 				<view>
@@ -879,14 +879,24 @@
 		top: -30upx;
 		font-size: 30upx !important;
 	}
-
+	.ziti1 {
+		position: absolute;
+		right: -20upx;
+		width: 300upx !important;
+		height: 30upx;
+		top: -30upx;
+		font-size: 30upx !important;
+	}
+	.pic{
+		color: #000000!important;
+	}
 	.zitia {
 		position: absolute;
 		right: 50upx !important;
 		height: 30upx;
 		top: 30upx;
 		font-size: 30upx !important;
-		color: #D2D2D2
+		color: #D2D2D2;
 	}
 
 	.Investor-City {

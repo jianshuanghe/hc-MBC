@@ -154,18 +154,18 @@
 							success: (response) => {
 								uni.hideLoading();
 								console.log(response.data,'----------------------');
-								let setLvliData = this.GET_MY.MyList.Lvli;
-								params.id = response.data.content;
-								params.compLogo=this.logo2
-								console.log(params, '--------------params---------------')
-								setLvliData.unshift(params);
-								this.$store.commit('setLvli', setLvliData);
-								// uni.navigateTo({
-								// 	'url':'../../InvestmentList-data/InvestmentList-data'
-								// })
-								uni.navigateBack({
-									
+								// let setLvliData = this.GET_MY.MyList.Lvli;
+								// params.id = response.data.content;
+								// params.compLogo=this.logo2
+								// console.log(params, '--------------params---------------')
+								// setLvliData.unshift(params);
+								// this.$store.commit('setLvli', setLvliData);
+								uni.navigateTo({
+									'url':'../../InvestmentList-data/InvestmentList-data'
 								})
+								// uni.navigateBack({
+								// 	
+								// })
 							},
 							fail: (error) => {
 								uni.hideLoading(); // 隐藏 loading

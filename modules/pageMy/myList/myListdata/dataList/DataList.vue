@@ -271,6 +271,7 @@
 		width: 120upx;
 		height: 80upx;
 		position: absolute;
+		border-radius: 50%;
 		right: 80upx;
 		top: -20upx;
 	}
@@ -305,7 +306,8 @@
 		right: 80upx;
 		width: 80upx;
 		height: 80upx;
-		top: -30upx;
+		border-radius: 50%;
+		top: -20upx;
 		font-size: 30upx;
 	}
 

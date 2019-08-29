@@ -16,7 +16,7 @@
 			</view>
 		</view>
 		<view class="fail-yuanying">
-			失败原因:{{Listdata.userAuthInfos[0].authContent}}
+			失败原因:{{Listdata.userAuthInfos[0].authContent}}爱是掉进阿斯加德哈师大哈师大哈沙试胆大会
 		</view>
 		<view class="inspect-List-fail-fotter">
 			<view>
@@ -237,8 +237,8 @@
 		color: #9B9B9B;
 	}
 	.fail-yuanying{
-		width: 100%;
-		height: 50upx;
+		width: 90%;
+		min-height: 50upx;
 		font-size: 28upx;
 		color: #FF6C84;
 		margin-top: 30upx;

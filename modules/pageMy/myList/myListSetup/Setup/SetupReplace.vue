@@ -1,5 +1,5 @@
 <template>
-	<view class="SetupReplace">
+	<view class="SetupReplace" @tap="gotoReplace">
 		<view>
 			更换手机号
 			<image :src="right"></image>
@@ -22,7 +22,12 @@
 		mounted() {
 		},
 		methods: {
-			
+			gotoReplace(){
+				console.log('去往更换手机号')
+				uni.navigateTo({
+					url:'/modules/pageMy/myList/myListSetup/Setup/SetupReplace/SetupReplace'
+				})
+			}
 		}
 	};
 </script>

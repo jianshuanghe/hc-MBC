@@ -31,19 +31,19 @@
 		</view>
 		<view class="data-footer">
 			<view>投资案例</view>
-			<view class="touzianli" v-for="(item,index) in Listcase" :key="index">
+			<view class="touzianli" v-for="(items,index) in Listcase" :key="index">
 				<view>
-					<image :src="item.projLogo" v-if="item.projLogo!==''"></image>
-					<image :src="images" v-if="item.projLogo==''"></image>
+					<image :src="items.projLogo" v-if="items.projLogo!==''"></image>
+					<image :src="images" v-if="items.projLogo==''"></image>
 				</view>
 				<view class="lunshu">
-					<span>{{item.projName}}</span>
-					<span>{{item.projContent}}</span>
-					<span class="lunshu-shu" v-for="(itea,index) in item.userInveLevelList" :key="index">
+					<span>{{items.projName}}</span>
+					<span>{{items.projContent}}</span>
+					<span class="lunshu-shu" v-for="(itea,index) in items.userInveLevelList" :key="index">
 						<image :src="Ima1"></image><span>{{itea.startTime|formatDate}}</span> <span>{{itea.levelCodeStr}}</span>
 					</span>
 				</view>
-				<view class="data-footer-three" @tap="gotocasebianji(item.id)">编辑</view>
+				<view class="data-footer-three" @tap="gotocasebianji(items.id)">编辑</view>
 			</view>
 			<view @tap="gotodatasListcase" class="data-footer-one">
 				填写投资案例
@@ -211,7 +211,7 @@
 				});
 			},
 			gotocasebianji(e){
-				console.log(e + '任职履历编辑')
+				console.log(e + '投资案例编辑')
 				uni.navigateTo({
 					url: '../../../Investment-status/InvestmentList/InvestmentList-data/datas-List/datas-List-casebian?id='+e,
 				});

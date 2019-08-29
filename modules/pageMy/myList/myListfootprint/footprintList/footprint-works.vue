@@ -2,7 +2,7 @@
 	<view class="footprint-works">
 		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
 		@scroll="scroll">
-			<view class="footprint-works-fist" v-for="(item,index) in List" :key="index">
+			<view class="footprint-works-fist" v-for="(item,index) in List" :key="index" @tap="gotoxiangmuxiang(item.id)">
 				<view><image :src="item.projLogo"></image></view>
 				<view>
 					<span>{{item.projName}}</span>
@@ -58,6 +58,11 @@
 		},
 		mounted() {},
 		methods: {
+			gotoxiangmuxiang(e){
+				uni.navigateTo({
+					url:'/modules/pageHome/homeList/FinancProject/FinancProject?id=' + e
+				})
+			},
 			...mapMutations({
 				setCollectionr: 'setCollection'
 			}),
@@ -235,7 +240,7 @@
 	}
 	.footprint-works-fist view:nth-of-type(3){
 		position: absolute;
-		width: 200upx;
+		width: 400upx;
 		height:80upx ;
 		padding-top: 40upx;
 		text-align: right;

@@ -2,7 +2,7 @@
 	<view class="edit-bianji">
 		<view class="datas-List-vitae-name">
 			<view class="datas-List-vitae-name-box">
-				<view><input type="text" placeholder="输入标签内容" placeholder-style="color:#D2D2D2" v-model="compName" /></view>
+				<view><input type="text" placeholder="输入标签内容" maxlength="15" placeholder-style="color:#D2D2D2" v-model="compName" /></view>
 			</view>
 		</view>
 		<view class="edit-bianji-one">

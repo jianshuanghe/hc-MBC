@@ -129,7 +129,11 @@
 		onLoad:function(options){
 			this.caseId = options.id
 			console.log(this.caseId)
+		},
+		
+		created() {
 			this.xiangqing();
+			console.log(123)
 		},
 		watch: {
 			GET_MY: {
@@ -144,50 +148,50 @@
 		
 		},
 		methods: {
-			xiangqing(){
-				if (uni.getStorageSync('landRegist')) {
-					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
-					console.log(landRegistLG.user.id);
-					uni.showLoading({ // 展示loading
-						title: '加载中'
-					});
-					uni.request({
-						url: this.api2 + '/user/inve/info?id=' + this.caseId, //接口地址。
-						// data: this.endParams(params),
-						method: 'GET',
-						header: {
-							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
-						},
-						success: (response) => {
-							uni.hideLoading();
-							console.log(response.data);
-							this.List=response.data.content
-							this.projName=response.data.content.projName
-							this.projContent=response.data.content.projContent
-							this.Listdata=response.data.content.userInveLevelList
-							this.time = this.Listdata;
-							console.log(this.time, '-----------------this.time-----------------')
-							let paramsTime = [...this.time];
-							paramsTime.map((items, index) =>{
-								let objItems = {
-									levelCode: items.id,
-									startTime: items.startTime,
-								};
-								this.userInveLevelList.push(objItems);
-							})
-						},
-						fail: (error) => {
-							uni.hideLoading(); // 隐藏 loading
-							uni.showToast({
-								title: '网络繁忙，请稍后',
-								icon: 'none',
-								duration: 1000
-							});
-							console.log(error, '网络繁忙，请稍后');
-						}
-					});
-				}
-			},
+			// xiangqing(){
+			// 	if (uni.getStorageSync('landRegist')) {
+			// 		let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+			// 		console.log(landRegistLG.user.id);
+			// 		uni.showLoading({ // 展示loading
+			// 			title: '加载中'
+			// 		});
+			// 		uni.request({
+			// 			url: this.api2 + '/user/inve/info?id=' + this.caseId, //接口地址。
+			// 			// data: this.endParams(params),
+			// 			method: 'GET',
+			// 			header: {
+			// 				Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+			// 			},
+			// 			success: (response) => {
+			// 				uni.hideLoading();
+			// 				console.log(response.data);
+			// 				this.List=response.data.content
+			// 				this.projName=response.data.content.projName
+			// 				this.projContent=response.data.content.projContent
+			// 				this.Listdata=response.data.content.userInveLevelList
+			// 				this.time = this.Listdata;
+			// 				console.log(this.time, '-----------------this.time-----------------')
+			// 				let paramsTime = [...this.time];
+			// 				paramsTime.map((items, index) =>{
+			// 					let objItems = {
+			// 						levelCode: items.id,
+			// 						startTime: items.startTime,
+			// 					};
+			// 					this.userInveLevelList.push(objItems);
+			// 				})
+			// 			},
+			// 			fail: (error) => {
+			// 				uni.hideLoading(); // 隐藏 loading
+			// 				uni.showToast({
+			// 					title: '网络繁忙，请稍后',
+			// 					icon: 'none',
+			// 					duration: 1000
+			// 				});
+			// 				console.log(error, '网络繁忙，请稍后');
+			// 			}
+			// 		});
+			// 	}
+			// },
 			caseadd() {
 				if (uni.getStorageSync('landRegist')) {
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
@@ -218,9 +222,6 @@
 							// this.$store.commit('setCollection', this.list);
 							// this.List=response.data
 							// console.log(this.List,'asdasd')
-							uni.navigateTo({
-								'url':'../../InvestmentList-data/InvestmentList-data'
-							})
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -247,7 +248,7 @@
 						title: '加载中'
 					});
 					uni.request({
-						url: this.api2 + '/user/inve/del?ids='+this.caseId, //接口地址。
+						url: this.api2 + '/user/inve/del?ids='+this.caseid, //接口地址。
 						// data: this.endParams(params),
 						method: 'GET',
 						header: {
