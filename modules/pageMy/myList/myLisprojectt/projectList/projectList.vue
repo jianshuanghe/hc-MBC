@@ -109,7 +109,7 @@
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 					console.log(landRegistLG.user.id);
 					let params = {
-						userId:965
+						userId:landRegistLG.user.id
 					}; // 请求总数居时 参数为空
 					uni.showLoading({ // 展示loading
 						title: '加载中'

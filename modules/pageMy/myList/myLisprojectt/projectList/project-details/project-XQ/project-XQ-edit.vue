@@ -164,6 +164,9 @@
 							uni.hideLoading();
 							console.log(response.data);
 							// uni.navigateBack({})
+							uni.navigateTo({
+								url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-details?id='+this.id
+							})
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading

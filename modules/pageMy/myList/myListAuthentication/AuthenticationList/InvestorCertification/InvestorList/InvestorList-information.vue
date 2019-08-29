@@ -163,6 +163,7 @@
 				tou:false,
 				peopo:false,
 				jigou1:false,
+				lunci:false,
 				xin: this.Static + 'mbcImg/common/xing.png',
 				right: this.Static + 'mbcImg/my/right.png',
 				imageData: [],
@@ -338,6 +339,9 @@
 						this.picker = items.name;
 						this.id2 = items.id
 						console.log(this.picker, this.id2)
+						if(this.picker!=='请输入'){
+							this.lunci=true
+						}
 					}
 				})
 			},
@@ -654,6 +658,9 @@
 
 <style>
 	.tou{
+		color: black;
+	}
+	.lunci{
 		color: black;
 	}
 	.jigou1{
