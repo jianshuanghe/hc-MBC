@@ -28,8 +28,8 @@ Vue.prototype.Static = Static
 
 Vue.prototype.dImg = dImg
 
-Vue.prototype.APPID = 'wxfe5497e8a3f7578a'
-Vue.prototype.SECRET = 'e7de9721ba154902733fa00ce2aa6641'
+Vue.prototype.APPID = 'wx81a69a253bbe2710'
+Vue.prototype.SECRET = '71a391cd646494ae4db3072a992fa6d0'
 Vue.prototype.WX_AUTH_URL = 'https://api.weixin.qq.com/sns/jscode2session'
 
 Vue.prototype.$backgroundAudioData = {

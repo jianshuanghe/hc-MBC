@@ -8,7 +8,8 @@
 					</view>
 					<view class="text">咨询客服</view>
 				</view>
-				<view :class="(msgData.content === 0  && entrustSignUp.success === false) ? 'left submit-box' : 'left submit-box1'" @tap='Apply()'> {{(msgData.content === 0  && entrustSignUp.success === false) ? '立即报名' : '已报名'}}</view>
+				<div class="left submit-box1" v-if="msgData.isEndTime === '1'" @tap='Applyed()'>活动已结束</div>
+				<view v-else :class="(msgData.content === 0  && entrustSignUp.success === false) ? 'left submit-box' : 'left submit-box1'" @tap='Apply()'> {{(msgData.content === 0  && entrustSignUp.success === false) ? '立即报名' : '已报名'}}</view>
 				<view class="clear"></view>
 			</view>
 		</view>
@@ -82,7 +83,23 @@
 					phoneNumber: '010-61723026' // 拨打电话
 				});
 			},
+			Applyed () {
+				uni.showToast({
+					title: '该活动已结束！',
+					icon: 'none',
+					duration: 1000
+				});
+			},
 			Apply () {
+				console.log(this.msgData.content, this.entrustSignUp.success);
+				if (this.msgData.content === 1  || this.entrustSignUp.success === true) {
+					uni.showToast({
+						title: '该活动已报名！',
+						icon: 'none',
+						duration: 1000
+					});
+					return
+				};
 				this.entrustSignUp.entrustShow = true; // 显示提交组件
 				this.$store.commit('setEntrustSignUpShow', true); // 更新setEntrustSignUp
 				this.$store.commit('setEntrustSignUp', this.entrustSignUp); // 更新setEntrustSignUp

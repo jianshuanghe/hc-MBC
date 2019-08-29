@@ -22,8 +22,7 @@
         </view>
         <view class="right II-user-address">
           <view class="adderss">
-            <text v-if="msgData.city">中国·{{msgData.city}}</text>
-			<text v-if="!msgData.city">中国</text>
+            <text v-if="msgData.city">{{msgData.city}}</text>
           </view>
         </view>
         <view class="clear"></view>

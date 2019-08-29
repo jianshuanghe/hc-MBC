@@ -72,7 +72,8 @@
 		},
 		methods: {
 			...mapMutations({
-				setAuthShow: 'setAuthShow'
+				setAuthShow: 'setAuthShow',
+				setheader: 'setheader'
 			}),
 			clickClose() {
 				console.log('触发关闭');
@@ -98,6 +99,7 @@
 						console.log(response.data);
 						if (String(response.data.code) === '200') {
 						  let UserData = response.data.content;
+						  this.$store.commit('setheader', UserData); // 更新setheader
 						  uni.setStorageSync('UserData', JSON.stringify(UserData)); // 缓存用户信息
 						  console.log(UserData.userType, '------------UserData.userType----------');
 						} else {
