@@ -34,7 +34,7 @@
 				</view>
 				<view>常住城市</view>
 				<view>
-					<picker mode="multiSelector" @columnchange="columnChange" @cancel='cancelPC' @change='clickPC' :value="multiIndex"
+					<picker :class="{'tou':tou}" mode="multiSelector" @columnchange="columnChange" @cancel='cancelPC' @change='clickPC' :value="multiIndex"
 					 :range="multiArray" range-key='name'>
 						<view class="uni-input BI-picker ziti1" :class="paramsPC.ptext ? 'BI-pickered' : ''">{{paramsPC.ptext ? paramsPC.ptext + '-' + paramsPC.ctext : '请选择'}}</view>
 					</picker>
@@ -52,7 +52,7 @@
 				<view>投资人身份</view>
 				<view>
 					<picker @change="bindPickerChange1" :value="index1" :range="array1">
-						<view class="ziti">{{pickerValue1? pickerValue1 : '请选择'}}</view>
+						<view class="ziti" :class="{'peopo':peopo}">{{pickerValue1? pickerValue1 : '请选择'}}</view>
 					</picker>
 				</view>
 				<view>
@@ -68,7 +68,7 @@
 				<view>投资机构</view>
 				<view>
 					<picker @change="bind" :value="ind" :range="jigou" range-key='COMP_NAME'>
-						<view class="ziti">{{pic? pic : '请选择'}}</view>
+						<view class="ziti" :class="{'jigou1':jigou1}">{{pic? pic : '请选择'}}</view>
 					</picker>
 				</view>
 				<view>
@@ -93,7 +93,7 @@
 				<view>关注领域</view>
 				<view>
 					<picker @change="Finanarry" :value="index" :range="arry" range-key='name'>
-						<view class="ziti">{{pickerarry? pickerarry : '请选择'}}</view>
+						<view class="ziti" :class="{'tou':tou}">{{pickerarry? pickerarry : '请选择'}}</view>
 					</picker>
 				</view>
 				<view>
@@ -109,7 +109,7 @@
 				<view>关注轮次</view>
 				<view>
 					<picker @change="Finan" :value="index" :range="arr" range-key='name'>
-						<view class="ziti">{{picker? picker : '请选择'}}</view>
+						<view class="ziti" :class="{'lunci':lunci}">{{picker? picker : '请选择'}}</view>
 					</picker>
 				</view>
 				<view>
@@ -160,6 +160,9 @@
 				position: '',
 				hideen: true,
 				logo: '',
+				tou:false,
+				peopo:false,
+				jigou1:false,
 				xin: this.Static + 'mbcImg/common/xing.png',
 				right: this.Static + 'mbcImg/my/right.png',
 				imageData: [],
@@ -305,6 +308,9 @@
 						this.pic = items.COMP_NAME;
 						this.picid = items.ID
 						console.log(this.picid, this.pic)
+						if(this.pic!=='请输入'){
+							this.jigou1=true
+						}
 					}
 				})
 			},
@@ -313,6 +319,9 @@
 					if (String(index) === String(e.target.value)) {
 						this.pickerValue1 = items;
 						this.touziren = e.target.value
+						if(this.pickerValue1!=='请输入'){
+							this.peopo=true
+						}
 						if (this.pickerValue1 == '机构投资人') {
 							this.hideen = false
 						}else if(this.pickerValue1 == '个人投资人'){
@@ -338,6 +347,9 @@
 						this.pickerarry = items.name;
 						this.id1 = items.id
 						console.log(this.pickerarry, this.id1)
+						if(this.pickerarry!=='请输入'){
+							this.tou=true
+						}
 					}
 				})
 			},
@@ -641,6 +653,15 @@
 </script>
 
 <style>
+	.tou{
+		color: black;
+	}
+	.jigou1{
+		color: black;
+	}
+	.peopo{
+		color: black;
+	}
 	.xian {
 		display: none;
 	}

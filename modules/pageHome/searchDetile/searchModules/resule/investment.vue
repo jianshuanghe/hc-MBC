@@ -1,21 +1,21 @@
 <template>
-	<view class="s"  v-if="investen.listData.length > 0">
+	<view class="s"  v-if="GET_HOME.HomeSearch.investen.listData.length > 0">
 		<view class="resule-modules-content">
 			<!-- 总数居 -->
-			<view class="resule-modules-num">项目({{investen.listNum}})</view>
+			<view class="resule-modules-num">投资机构({{GET_HOME.HomeSearch.investen.listNum}})</view>
 			<!-- 数据列表 -->
 			<view class="S" v-if="clickItemsIndex !== 1">
-				<view class="resule-modules-list" v-for="(items,index) in investen.listData" :key="index">
+				<view class="resule-modules-list" v-for="(items,index) in GET_HOME.HomeSearch.investen.listData" :key="index">
 					<investmentItems :msgData="items"></investmentItems>
 				</view>
-				<view class="resule-modules-more" @tap="getMoreInvstenList(investen)">{{investen.loadingText}}</view>
+				<view class="resule-modules-more" @tap="getMoreInvstenList(GET_HOME.HomeSearch.investen)">{{GET_HOME.HomeSearch.investen.loadingText}}</view>
 			</view>
 			<!-- 综合展示 -->
 			<view class="M" v-if="clickItemsIndex === 1">
-				<view class="resule-modules-list" v-for="(items,index) in investen.listData" :key="index">
+				<view class="resule-modules-list" v-for="(items,index) in GET_HOME.HomeSearch.investen.listData" :key="index">
 					<investmentItems :msgData="items" v-if='index < 3'></investmentItems>
 				</view>
-				<view class="resule-modules-more" @tap="getMoreInvstenList(investen)">查看更多</view>
+				<view class="resule-modules-more" @tap="getMoreInvstenList(GET_HOME.HomeSearch.investen)">查看更多</view>
 			</view>
 		</view>
 	</view>

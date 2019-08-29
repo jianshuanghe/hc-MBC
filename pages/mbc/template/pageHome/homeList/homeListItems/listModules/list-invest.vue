@@ -4,6 +4,7 @@
 		<view class="listInvest">
 			<view v-for="(items,index) in listData" :key="index" >
 				<investItems :msgData="items"></investItems>
+				<view class="line" v-if="listData.length - 1 > index"></view>
 			</view>
 		</view>
 	</view>
@@ -41,4 +42,8 @@
 </script>
 
 <style>
+	.line{
+		position: relative;
+		width: 690upx !important;
+	}
 </style>

@@ -7,7 +7,7 @@
 			</view>
 			<view class="infor-text-bot">
 				<view class="left text-bot-infor-left">{{msgData.activityAbstract}}</view>
-				<view class="right text-bot-infor-right">{{msgData.activityStartTime | dateTime}}</view>
+				<view class="right text-bot-infor-right">{{msgData.releaseTime | dateTime}}</view>
 				<view class="clear"></view>
 			</view>
 		</view>

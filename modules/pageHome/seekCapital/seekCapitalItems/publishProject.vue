@@ -36,7 +36,7 @@
 <style>
 	.publishProject-content{
 		position: fixed;
-		z-index: 105;
+		z-index: 100;
 		width: 750upx;
 		bottom: 0;
 		background: #FFFFFF;

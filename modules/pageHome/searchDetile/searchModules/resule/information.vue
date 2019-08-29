@@ -1,21 +1,21 @@
 <template>
-	<view class="s"  v-if="active.listData.length > 0">
+	<view class="s"  v-if="GET_HOME.HomeSearch.active.listData.length > 0">
 		<view class="resule-modules-content">
 			<!-- 总数居 -->
-			<view class="resule-modules-num">项目({{active.listNum}})</view>
+			<view class="resule-modules-num">资讯({{GET_HOME.HomeSearch.active.listNum}})</view>
 			<!-- 数据列表 -->
 			<view class="S" v-if="clickItemsIndex !== 1">
-				<view class="resule-modules-list" v-for="(items,index) in active.listData" :key="index">
+				<view class="resule-modules-list" v-for="(items,index) in GET_HOME.HomeSearch.active.listData" :key="index">
 					<informationItems :msgData="items"></informationItems>
 				</view>
-				<view class="resule-modules-more" @tap="getMoreActiveList(active)">{{active.loadingText}}</view>
+				<view class="resule-modules-more" @tap="getMoreActiveList(GET_HOME.HomeSearch.active)">{{GET_HOME.HomeSearch.active.loadingText}}</view>
 			</view>
 			<!-- 综合展示 -->
 			<view class="M" v-if="clickItemsIndex === 1">
-				<view class="resule-modules-list" v-for="(items,index) in active.listData" :key="index">
+				<view class="resule-modules-list" v-for="(items,index) in GET_HOME.HomeSearch.active.listData" :key="index">
 					<informationItems :msgData="items" v-if='index < 3'></informationItems>
 				</view>
-				<view class="resule-modules-more" @tap="getMoreActiveList(active)">查看更多</view>
+				<view class="resule-modules-more" @tap="getMoreActiveList(GET_HOME.HomeSearch.active)">查看更多</view>
 			</view>
 		</view>
 	</view>
@@ -56,6 +56,7 @@
 				handler (a, b) {
 					this.searchText = a.HomeSearch.searchText;
 					this.active = a.HomeSearch.active;
+					console.log(this.active, '-------------------this.active----------------------->>>>>>>>')
 					this.clickItemsIndex = a.HomeSearch.clickItemsIndex;
 				},
 				deep: true

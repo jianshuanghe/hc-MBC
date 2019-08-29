@@ -9,7 +9,7 @@
 	export default {
 	    data () {
 			return {
-				dataList: [] // 后台返回数据
+				dataList: {} // 后台返回数据
 			};
 	    },
 		components: {

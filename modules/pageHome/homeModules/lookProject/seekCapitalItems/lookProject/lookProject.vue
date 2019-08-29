@@ -6,7 +6,7 @@
 			@scroll="scroll">
 				<view v-for="(items,index) in list.listData" :key="index" >
 					<lookProjectItems :msgData="items"></lookProjectItems>
-					<view class="line"></view>
+					<view class="line" v-if="list.listData.length - 1 > index"></view>
 				</view>
 				<view class="loading-more">
 					<text class="loading-more-text">{{loadingText}}</text>

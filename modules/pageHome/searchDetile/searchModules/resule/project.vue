@@ -1,21 +1,21 @@
 <template>
 	<view class="">
-		<view class="resule-modules-content"  v-if="project.listData.length > 0">
+		<view class="resule-modules-content"  v-if="GET_HOME.HomeSearch.project.listData.length > 0">
 			<!-- 总数居 -->
-			<view class="resule-modules-num">项目({{project.listNum}})</view>
+			<view class="resule-modules-num">项目({{GET_HOME.HomeSearch.project.listNum}})</view>
 			<!-- 数据列表 -->
 			<view class="S" v-if="clickItemsIndex !== 1">
-				<view class="resule-modules-list" v-for="(items,index) in project.listData" :key="index">
+				<view class="resule-modules-list" v-for="(items,index) in GET_HOME.HomeSearch.project.listData" :key="index">
 					<projectItems :msgData="items"></projectItems>
 				</view>
-				<view class="resule-modules-more" @tap="getMoreProjectList(project)">{{project.loadingText}}</view>
+				<view class="resule-modules-more" @tap="getMoreProjectList(GET_HOME.HomeSearch.project)">{{GET_HOME.HomeSearch.project.loadingText}}</view>
 			</view>
 			<!-- 综合展示 -->
 			<view class="M" v-if="clickItemsIndex === 1">
-				<view class="resule-modules-list" v-for="(items,index) in project.listData" :key="index">
+				<view class="resule-modules-list" v-for="(items,index) in GET_HOME.HomeSearch.project.listData" :key="index">
 					<projectItems :msgData="items" v-if='index < 3'></projectItems>
 				</view>
-				<view class="resule-modules-more" @tap="getMoreProjectList(project)">查看更多</view>
+				<view class="resule-modules-more" @tap="getMoreProjectList(GET_HOME.HomeSearch.project)">查看更多</view>
 			</view>
 		</view>
 		<empty v-else>抱歉，没有找到相关内容~</empty>

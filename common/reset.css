@@ -402,6 +402,13 @@ padding-right: 0rpx;
 	text-align: center;
 	line-height: 100upx;
 }
+.TIPS-img{
+	position: absolute;
+	right: 10upx;
+	top: 10upx;
+	height: 40upx;
+	width: 40upx;
+}
 .TIPS-isnt{
 	font-family: PingFangSC-Light;
 	font-size: 32upx;
@@ -418,5 +425,13 @@ padding-right: 0rpx;
 }
 .Posied{
 	position: fixed !important; 
+}
+rich-text{
+	position: relative;
+	width: 690upx;
+}
+rich-text>img{
+	position: relative;
+	width: 100%;
 }
 	

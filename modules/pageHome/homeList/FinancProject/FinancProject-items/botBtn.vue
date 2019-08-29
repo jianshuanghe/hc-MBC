@@ -92,12 +92,14 @@
 		beforeDestroy () {
 			console.log('页面销毁之前缓存数据')
 			this.$store.commit('setEnTrustShow', false); // 更新setEntrustSignUp
+			this.$store.commit('setAuthShow', false); // 更新setAuthShow
 		},
 	    methods: {
 			...mapMutations({
 				setEnTrustShow: 'setEnTrustShow',
 				setEntrustType: 'setEntrustType',
-				setEntrustParams: 'setEntrustParams'
+				setEntrustParams: 'setEntrustParams',
+				setAuthShow: 'setAuthShow'
 			}),
 			message() {
 				
@@ -114,6 +116,20 @@
 				console.log('触发预览BP');
 				console.log(this.msgData.enclosurePath);
 				// this.isBPshow = true;
+				if (this.userType === 1 || this.userType === 2) { // 1 个人投资人 2 机构投资人
+					if (this.authState !== 1) { // 没有认证.或者认证没通过
+						
+						console.log(UserData.userType, '------------UserData.userType----------');
+						this.$store.commit('setAuthShow', true); // 更新setAuthShow
+						return
+					} else {
+						this.$store.commit('setAuthShow', false); // 更新setAuthShow
+						console.log('认证投资人或者投资机构')
+					}
+				} else {
+					this.$store.commit('setAuthShow', true); // 更新setAuthShow
+					return
+				}
 				uni.showLoading({ // 展示loading
 					title: '加载中,请稍后!'
 				});
@@ -136,21 +152,16 @@
 				console.log('触发申请');
 				if (this.userType === 1 || this.userType === 2) { // 1 个人投资人 2 机构投资人
 					if (this.authState !== 1) { // 没有认证.或者认证没通过
-						uni.showToast({
-							title: '认证投资人或者投资机构可见全部内容！',
-							icon: 'none',
-							duration: 1000
-						});
+						
+						console.log(UserData.userType, '------------UserData.userType----------');
+						this.$store.commit('setAuthShow', true); // 更新setAuthShow
 						return
 					} else {
+						this.$store.commit('setAuthShow', false); // 更新setAuthShow
 						console.log('认证投资人或者投资机构')
 					}
 				} else {
-					uni.showToast({
-						title: '认证投资人或者投资机构可见全部内容！',
-						icon: 'none',
-						duration: 1000
-					});
+					this.$store.commit('setAuthShow', true); // 更新setAuthShow
 					return
 				}
 				if (this.msgData.content === 1) {

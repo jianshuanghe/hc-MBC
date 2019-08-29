@@ -103,7 +103,16 @@
 		},
 		created() {
 			this.entrust = this.ENTRUST;
-			console.log(this.ENTRUST, 'ENTRUST')
+			console.log(this.ENTRUST, 'ENTRUST');
+			if (uni.getStorageSync('UserData')) {
+				let UserData = JSON.parse(uni.getStorageSync('UserData')); // 读取缓存的用户信息
+				this.entrust.params.phone = UserData.userPhone;
+				this.entrust.params.name = UserData.userName;
+			}
+			if (uni.getStorageSync('landRegist')) {
+				let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+				this.entrust.params.userId = landRegistLG.user.id;
+			}
 		},
 	    methods: {
 			...mapMutations({

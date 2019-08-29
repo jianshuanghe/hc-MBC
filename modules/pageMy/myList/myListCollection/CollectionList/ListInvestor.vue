@@ -426,6 +426,6 @@
 	}
 	.meirenkanwo image{
 		width: 100%;
-		height: 85%;
+		height: 80%;
 	}
 </style>

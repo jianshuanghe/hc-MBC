@@ -11,7 +11,7 @@
 						type="text" 
 						class="left inputSearch" 
 						focus 
-						placeholder="项目、机构、活动" 
+						placeholder="项目、机构" 
 						v-model='searchText'
 						@confirm="onSubmit"
 						@blur="onFocus"
@@ -177,13 +177,14 @@
 							console.log(response.data);
 							e.listData = response.data.rows; // 第一页返回的数据
 							e.listNum = response.data.total; // 总数居
-							e.search.pageNum = this.pageNums(response.data.total) // 总页数
-							console.log(response.data.total, e.search.pageNum);
-							if (e.search.pageNum === 1) { // 总页数为1时，显示没有数据了
+							if (response.data.rows.length === 0) {
 								e.loadingText = '已经没有数据了!';
 							}
 							uni.hideLoading(); // 隐藏 loading
 							this.$store.commit('setSeachProject', e); // 更新setSeachProject
+							this.$store.commit('setSeachInvestor', this.investor); // 更新setSeachInvestor
+							this.$store.commit('setSeachInvesten', this.investen); // 更新setSeachInvesten
+							this.$store.commit('setSeachActive', this.active); // 更新setSeachActive
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -219,13 +220,14 @@
 							console.log(response.data);
 							e.listData = response.data.rows; // 第一页返回的数据
 							e.listNum = response.data.total; // 总数居
-							e.search.pageNum = this.pageNums(response.data.total) // 总页数
-							console.log(response.data.total, e.search.pageNum);
-							if (e.search.pageNum === 1) { // 总页数为1时，显示没有数据了
+							if (response.data.rows.length === 0) {
 								e.loadingText = '已经没有数据了!';
 							}
 							uni.hideLoading(); // 隐藏 loading
+							this.$store.commit('setSeachProject', this.project); // 更新setSeachProject
 							this.$store.commit('setSeachInvestor', e); // 更新setSeachInvestor
+							this.$store.commit('setSeachInvesten', this.investen); // 更新setSeachInvesten
+							this.$store.commit('setSeachActive', this.active); // 更新setSeachActive
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -261,13 +263,14 @@
 							console.log(response.data);
 							e.listData = response.data.rows; // 第一页返回的数据
 							e.listNum = response.data.total; // 总数居
-							e.search.pageNum = this.pageNums(response.data.total) // 总页数
-							console.log(response.data.total, e.search.pageNum);
-							if (e.search.pageNum === 1) { // 总页数为1时，显示没有数据了
+							if (response.data.rows.length === 0) {
 								e.loadingText = '已经没有数据了!';
 							}
 							uni.hideLoading(); // 隐藏 loading
+							this.$store.commit('setSeachProject', this.project); // 更新setSeachProject
+							this.$store.commit('setSeachInvestor', this.investor); // 更新setSeachInvestor
 							this.$store.commit('setSeachInvesten', e); // 更新setSeachInvesten
+							this.$store.commit('setSeachActive', this.active); // 更新setSeachActive
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -302,13 +305,15 @@
 						success: (response) => {
 							console.log(response.data);
 							e.listData = response.data.rows; // 第一页返回的数据
+							console.log(e.listData, '搜索资讯数据接口。listData');
 							e.listNum = response.data.total; // 总数居
-							e.search.pageNum = this.pageNums(response.data.total) // 总页数
-							console.log(response.data.total, e.search.pageNum);
-							if (e.search.pageNum === 1) { // 总页数为1时，显示没有数据了
+							if (response.data.rows.length === 0) {
 								e.loadingText = '已经没有数据了!';
 							}
 							uni.hideLoading(); // 隐藏 loading
+							this.$store.commit('setSeachProject', this.project); // 更新setSeachProject
+							this.$store.commit('setSeachInvestor', this.investor); // 更新setSeachInvestor
+							this.$store.commit('setSeachInvesten', this.investen); // 更新setSeachInvesten
 							this.$store.commit('setSeachActive', e); // 更新setSeachActive
 						},
 						fail: (error) => {
@@ -418,9 +423,9 @@
 		width: 596upx;
 	}
 	.cal-box{
-		position: absolute;
-		width: 80upx;
-		right: 0px;
+		position: relative;
+		width: 72upx;
+		padding-left: 10upx;
 	}
 	.cl-text{
 		position: relative;

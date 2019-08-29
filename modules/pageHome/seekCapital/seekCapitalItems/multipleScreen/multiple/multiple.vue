@@ -393,7 +393,7 @@
 		width: 100%;
 		position: fixed;
 		background: rgba(46,46,48,0.20);
-		min-height: 2000upx;
+		min-height: 100vh;
 		z-index: 102;
 		top: 0;
 	}
@@ -532,7 +532,7 @@
 		margin-top: 20upx;
 	}
 	.mG-btn{
-		margin-bottom: 800upx;
+		margin-bottom: 1000upx;
 	}
 	.selectBox{
 	  background: #EB5248!important;

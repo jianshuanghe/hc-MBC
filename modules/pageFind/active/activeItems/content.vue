@@ -30,11 +30,7 @@
 				</view>
 				<view class="AD-items-img">
 					<view class="AD-items-img-list left">
-						<image class="img-Ad left" :class="'marg'+ index" :src="items"  v-for="(items,index) in msgData.sginImg" :key="index"></image>
-						<image class="img-Ad left" :class="'marg1'" :src="items"  v-for="(items,index) in msgData.sginImg" :key="index"></image>
-						<image class="img-Ad left" :class="'marg2'" :src="items"  v-for="(items,index) in msgData.sginImg" :key="index"></image>
-						<image class="img-Ad left" :class="'marg3'" :src="items"  v-for="(items,index) in msgData.sginImg" :key="index"></image>
-						<image class="img-Ad left" :class="'marg4'" :src="items"  v-for="(items,index) in msgData.sginImg" :key="index"></image>
+						<image class="img-Ad left" :class="'marg'+ index" :src="items || this.dImg"  v-for="(items,index) in msgData.sginImg" :key="index"></image>
 					</view>
 					<view class="AD-items-text right">
 						{{msgData.sginSum}} <text class="AD-text">人已报名</text>
@@ -74,7 +70,22 @@
 		  /* 格式图片 */
 		  dataImg (val) {
 			  return 'https://' + val;
-		  }
+		  },
+		  // htmlImg (val) {
+			 //  //正则匹配所有img标签
+				// //var regex0 = new RegExp("(i?)(\<img)([^\>]+\>)","gmi");
+				// //正则匹配不含style="" 或 style='' 的img标签
+				// var regex1 = new RegExp("(i?)(\<img)(?!(.*?style=['\"](.*)['\"])[^\>]+\>)","gmi");
+				// //给不含style="" 或 style='' 的img标签加上style=""
+				// htmlstr = htmlstr.replace(regex1, "$2 style=\"\"$3");
+				// console.log("增加style=\"\"后的html字符串："+htmlstr);
+				// //正则匹配含有style的img标签
+				// var regex2 = new RegExp("(i?)(\<img.*?style=['\"])([^\>]+\>)","gmi");
+				// //在img标签的style里面增加css样式(这里增加的样式：display:block;max-width:100%;height:auto;border:5px solid red;)
+				// htmlstr = htmlstr.replace(regex2, "$2display:block;max-width:100%;height:auto;border:5px solid red;$3");
+				// console.log("在img标签的style里面增加样式后的html字符串："+htmlstr);
+				// return htmlstr;
+		  // }
 		},
 		computed: {},
 		watch: {},

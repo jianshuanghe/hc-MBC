@@ -73,9 +73,11 @@
 				this.upTitle(this.clickItems);
 			};
 			this.getArea();
+			this.$store.commit('setAuthShow', false); // 更新setAuthShow
 		},
 		methods: {
 			...mapMutations({
+				setAuthShow: 'setAuthShow'
 			}),
 			upTitle(e) {
 				console.log('跟新主页的title');

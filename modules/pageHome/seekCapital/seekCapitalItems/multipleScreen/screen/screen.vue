@@ -76,6 +76,7 @@
 				handler (a, b) {
 					console.log(a, '获取VUX投资人的参数')
 					this.investorSearch = a; // 接口投资人参数
+					
 				},
 				deep: true
 			},
@@ -83,6 +84,7 @@
 				handler (a, b) {
 					console.log(a, '获取VUX投资项目参数')
 					this.investInsSearch = a; // 接口投资项目参数
+					
 				},
 				deep: true
 			},
@@ -97,6 +99,13 @@
 			}
 		},
 		mounted(){
+			if (this.SEEKCAPITALTITLE === 1) {
+				this.clickItemsCode = this.INVESTORSEARCH.sortType;
+				console.log(this.clickItemsCode, '-----------------------this.clickItemsCode1-------------------')
+			} else if (this.SEEKCAPITALTITLE === 2) {
+				this.clickItemsCode = this.INVERSTINSSEARCH.sortType;
+				console.log(this.clickItemsCode, '-----------------------this.clickItemsCode2-------------------')
+			}
 		},
 	    methods: {
 			...mapMutations({

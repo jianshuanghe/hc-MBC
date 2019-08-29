@@ -13,6 +13,7 @@
 			</view>
 		</view>
 		<tipsBox v-if='AUTH.show'>
+			<image class="TIPS-img" :src="close"  @tap="clickClose()"></image>
 			<div class="content">
 				<div class="TIPS-isnt">认证成为创业者，可发布项目</div>
 				<div class="line"></div>
@@ -59,12 +60,22 @@ export default {
 	},
 	mounted() {
 	},
+	beforeDestroy () {
+		console.log('页面销毁之前缓存数据')
+		this.$store.commit('setAuthShow', false); // 更新setAuthShow
+	},
 	methods: {
 		...mapMutations({
 			setIsUploadFileSuccess: 'setIsUploadFileSuccess',
 			setIsUploadFileContent: 'setIsUploadFileContent',
 			setAuthShow: 'setAuthShow'
 		}),
+		clickClose() {
+			console.log('触发关闭');
+			this.$store.commit('setAuthShow', false); // 更新setAuthShow
+			this.$store.commit('setHome', 1);
+			uni.setStorageSync('clickItems', 1);
+		},
 		isTokenConnect () {
 			console.log('校验token是否有效')
 			if (uni.getStorageSync('landRegist')) {
@@ -110,13 +121,17 @@ export default {
 				success: (response) => {
 					console.log(response.data);
 					if (String(response.data.code) === '200') {
-					  let UserData = response.data.content;
-					  uni.setStorageSync('UserData', JSON.stringify(UserData)); // 缓存用户信息
-					  console.log(UserData.userType, '------------UserData.userType----------');
-					  if (String(UserData.userType) !== '0') { // 未认证
-						this.$store.commit('setAuthShow', true); // 更新setAuthShow
-					  } else {
-						  this.$store.commit('setAuthShow', false); // 更新setAuthShow
+						let UserData = response.data.content;
+						uni.setStorageSync('UserData', JSON.stringify(UserData)); // 缓存用户信息
+						console.log(UserData.userType, '------------UserData.userType----------');
+						if (String(UserData.userType) === '0') { // 创业者
+							if (String(UserData.authState) === '1') { // 认证通过
+								this.$store.commit('setAuthShow', false); // 更新setAuthShow
+							} else { // 认证未通过
+								this.$store.commit('setAuthShow', true); // 更新setAuthShow
+							}
+						} else { // 不是创业者
+						  this.$store.commit('setAuthShow', true); // 更新setAuthShow
 						}
 					} else {
 						uni.hideLoading(); // 隐藏 loading
