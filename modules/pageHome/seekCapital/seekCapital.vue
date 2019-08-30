@@ -54,7 +54,6 @@
 		  }
 		},
 		created() {
-			console.log('在组件中并不能使用页面生命周期函数');
 		},
 		mounted() {
 		},

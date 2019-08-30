@@ -1,46 +1,52 @@
 <template>
-	<div class="entrust-content">
-		<div class="entrust-box">
-			<div class="success-box">
-				<div class="img">
+	<view class="entrust-content">
+		<view class="entrust-box">
+			<view class="success-box">
+				<view class="img">
 					<image class="img-box" :src="success || this.dImg"></image>
-				</div>
-				<div class="En-title">申请提交成功</div>
-				<div class="En-ins">您提交的信息正在处理，请耐心等待</div>
-				<div class="En-more" @tap='clickLookMore()'> {{entrust.type === 1 ? '查看其他项目' : '查看其他服务'}}</div>
-			</div>
-			<div class="input-box">
-				<div class="En-my-other">
-					<div class="En-in-title">您的信息</div>
-					<div class="En-in-name">
+				</view>
+				<view class="En-title">申请提交成功</view>
+				<view class="En-ins">您提交的信息正在处理，请耐心等待</view>
+				<view class="l" v-if='entrust.type === 1'>
+					<view class="En-more" @tap='clickLookMore()'> {{entrust.params.applyeType === 0 ? '查看其它投资人' : '查看其他投资机构'}}</view>
+				</view>
+				<view class="k" v-else>
+					<view class="En-more" @tap='clickLookMore()'>查看其他服务</view>
+				</view>
+				
+			</view>
+			<view class="input-box">
+				<view class="En-my-other">
+					<view class="En-in-title">您的信息</view>
+					<view class="En-in-name">
 						姓名
 						<text class="right">{{entrust.params.name}}</text>
-					</div>
-					<div class="En-in-name">
+					</view>
+					<view class="En-in-name">
 						手机号
 						<text class="right">{{entrust.params.phone}}</text>
-					</div>
-				</div>
-				<div class="line" v-if='entrust.type === 1'></div>
-				<div class="En-my-other" v-if='entrust.type === 1'>
-					<div class="En-in-title">委托联系信息</div>
-					<div class="En-in-name">
+					</view>
+				</view>
+				<view class="line" v-if='entrust.type === 1'></view>
+				<view class="En-my-other" v-if='entrust.type === 1'>
+					<view class="En-in-title">委托联系信息</view>
+					<view class="En-in-name">
 						类别
 						<text class="right">{{entrust.params.applyeType | applyeType}}</text>
-					</div>
-					<div class="En-in-name">
+					</view>
+					<view class="En-in-name">
 						名称
 						<text class="right">{{entrust.params.projectName}}</text>
-					</div>
-					<!-- <div class="En-in-name">
+					</view>
+					<!-- <view class="En-in-name">
 						名称
 						<image class="right" :src="iiImg"></image>
-					</div> -->
-				</div>
-			</div>
-			<div class="time">提交时间:  {{entrust.params.time | dateTime}}</div>
-		</div>
-	</div>
+					</view> -->
+				</view>
+			</view>
+			<view class="time">提交时间:  {{entrust.params.time | dateTime}}</view>
+		</view>
+	</view>
 </template>
 
 <script>

@@ -138,7 +138,11 @@
 						},
 						success: (response) => {
 							console.log(response.data.content);
-							this.dataList = response.data.content;
+							let dataM = response.data.content;
+							if (dataM.user.compName === '') {
+								dataM.user.compName = '投资人'
+							};
+							this.dataList = dataM;
 							this.data.projectName = this.dataList.user.userName;
 							this.data.modelId = this.dataList.user.userId;
 							uni.hideLoading(); // 隐藏 loading

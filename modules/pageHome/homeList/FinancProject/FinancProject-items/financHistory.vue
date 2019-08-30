@@ -1,5 +1,5 @@
 <template>
-	<div class="personalProfile-contnet">
+	<div class="personalProfile-contnet" v-if='msgData.projCapis.length > 0'>
 		<div class="personalProfile">
 			<div class="pP-title">
 				融资历史

@@ -12,10 +12,6 @@
 					<image :src="msgData.activity.activityImg || this.dImg"></image>
 				</view>
 				<view class="AD-details-text" v-html='msgData.activity.activityContent'></view>
-				<div class="lovebox">
-					<image class="imgbg"></image>
-					<image class="imgT"></image>
-				</div>
 			</view>
 		</view>
 	</view>
@@ -116,22 +112,5 @@
 		position: relative;
 		width: 100%;
 		height: 384upx;
-	}
-	.lovebox{
-		position: relative;
-		width: 162upx;
-		height: 162upx;
-		margin: auto;
-		margin-top: 40upx;
-	}
-	.imgbg{
-		position: relative;
-		width: 162upx;
-		height: 162upx;
-	}
-	.imgT{
-		position: relative;
-		width: 46upx;
-		height: 46upx;
 	}
 </style>
