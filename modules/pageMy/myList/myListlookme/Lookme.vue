@@ -33,7 +33,6 @@
 				yong: this.Static + 'mbcImg/my/yong.png',
 				kong:this.Static + 'mbcImg/my/kong.png',
 				CollectionList: [],
-				page: 1,
 			};
 		},
 		computed: {
@@ -75,7 +74,7 @@
 						title: '加载中'
 					});
 					uni.request({
-						url: this.api2 + '/user/lookUserList?userId=760', //接口地址。
+						url: this.api2 + '/user/lookUserList?userId='+landRegistLG.user.id, //接口地址。
 						// data: this.endParams(params),
 						method: 'GET',
 						header: {
@@ -145,6 +144,9 @@
 		font-size: 32upx;
 		color: #2E2E30;
 		margin-top: 0;
+		overflow: hidden;
+		text-overflow:ellipsis;
+		white-space: nowrap;
 	}
 	.LookmeLast{
 		width: 200upx;
@@ -158,17 +160,19 @@
 	}
 	.LookmeLast span:nth-of-type(1){
 		display: block;
-		width: 120upx;
+		/* width: 120upx; */
+		padding: 0 20upx;
 		height: 30upx;
 		text-align: center;
 		line-height: 30upx;
 		border-right: 4upx solid #D2D2D2;
 	}
-	.LookmeLast span{
+	.LookmeLast span:nth-of-type(2){
 		display: block;
 		width: 100upx;
 		height: 30upx;
 		text-align: center;
+		margin-left: 20upx;
 		line-height: 30upx;
 	}
 	.Lookmefist view:nth-of-type(3){

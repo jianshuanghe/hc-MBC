@@ -76,7 +76,7 @@
 
 <style>
 	.history3Collection{
-		width: 33%;
+		width: 250upx;
 		height: 100%;
 		/* background: red; */
 		text-align: center;

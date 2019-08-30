@@ -185,6 +185,11 @@ const mutations = {
 	  console.log(info,'setEdit')
 	  state.my.MyList.Edit=info
   },
+  //我的 融资历史
+  setHistory(state, info){
+	  console.log(info,'setHistory')
+	  state.my.MyList.History=info
+  },
   setTimes(state, info){
 	  console.log(info,'setTimes')
 	  state.my.MyList.Times=info

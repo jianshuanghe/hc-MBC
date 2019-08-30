@@ -18,8 +18,6 @@
 		},
 		
 		created() {
-			// this.List=this.GET_MY.MyList.header;
-			// console.log(this.List,'----------------------------------------------------------------------')
 		},
 		watch: {
 			GET_MY: {
@@ -44,7 +42,7 @@
 
 <style>
 	.historyThree-BP{
-		width: 33%;
+		width:250upx;
 		min-height: 100%;
 		background: #FFFFFF;
 		text-align: center;
