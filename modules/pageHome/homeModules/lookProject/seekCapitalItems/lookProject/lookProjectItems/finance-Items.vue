@@ -24,9 +24,9 @@
 				<view class="FI-modules">
 					<text class="modules-items-FI left"  v-for="(items,index) in msgDatas.lables" :key="index">{{items.labelName}}</text>
 				</view>
-				<view class="FI-insCd">
+				<!-- <view class="FI-insCd">
 					<view class="FI-C-text">{{msgDatas.infoCount}}</view>
-				</view>
+				</view> -->
 				<view class="FI-cont" v-if="msgDatas.imgs.length === 1">
 					<view class="ImageBox1">
 						<image :src="msgDatas.imgs[0].imgName"></image>

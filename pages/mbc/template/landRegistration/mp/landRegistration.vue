@@ -127,7 +127,12 @@
 											uni.hideLoading(); // 隐藏 loading
 											console.log(response.data, '---------------------response.data---------------------')
 											console.log('------------------------5000-----------------------')
-											_this.getWxMiniLogin(params);
+											uni.showToast({
+												title: '网络开小差了，请再次点击登录！',
+												icon: 'none',
+												duration: 500
+											});
+											// _this.getWxMiniLogin(params);
 										} else {
 											uni.hideLoading(); // 隐藏 loading
 											uni.showToast({
@@ -151,53 +156,6 @@
 						})	
 					}
 				});  
-			},
-			getWxMiniLogin (params) {
-				let _this = this;
-				uni.request({
-					url: _this.api2 + '/wechat/portal/wxMiniLogin', //接口地址。
-					data: params,
-					method: 'POST',
-					header: {},
-					success: (response) => {
-						console.log(response.data);
-						if (String(response.data.code) === '200') {
-							let landRegist = {
-								randomKey: response.data.content.randomKey,
-								token: response.data.content.token,
-								user: {
-									id: response.data.content.userId
-								}
-							};
-							uni.setStorageSync('landRegist', JSON.stringify(landRegist));// 缓存用户登录信息
-							_this.getUserData();
-						} else if (String(response.data.code) === '400') {
-							uni.hideLoading(); // 隐藏 loading
-							_this.phoneIsGet = false; // 显示获取手机号
-							uni.showToast({
-								title: '请同意获取手机号注册，再登录！',
-								icon: 'none',
-								duration: 500
-							});
-						} else {
-							uni.hideLoading(); // 隐藏 loading
-							uni.showToast({
-								title: response.data.msg,
-								icon: 'none',
-								duration: 500
-							});
-						}
-					},
-					fail: (error) => {
-						uni.hideLoading(); // 隐藏 loading
-						uni.showToast({
-							title: '网络繁忙，请稍后',
-							icon: 'none',
-							duration: 1000
-						});
-						console.log(error, '网络繁忙，请稍后');
-					}
-				});
 			},
 			mpTtLand () {
 				console.log('头条小程序登录');

@@ -51,6 +51,13 @@
 		  /* 格式图片 */
 		  dataImg (val) {
 			  return 'https://' + val;
+		  },
+		  htmlImg (val) {
+			  // let str = htmlText.replace(/<img[^>]*>/gi, function (match, capture) {
+			  //    return match.replace(/style\s*?=\s*?([‘"])[\s\S]*?\1/ig, 'style="max-width:100%;height:auto;"') // 替换style
+			var regex2 = new RegExp("(i?)(\<img.*?style=['\"])([^\>]+\>)","gmi");
+			//在img标签的style里面增加css样式(这里增加的样式：display:block;max-width:100%;height:auto;border:5px solid red;)
+			return val.replace(regex2, "$2max-width:100%;$3");
 		  }
 		  
 		},
