@@ -15,11 +15,11 @@
 					<view class="bianji" @tap="gotomy">编辑</view>
 				</view>
 			</view>
-			<view class="project-details-header-two" v-if="this.Labelarr.length!==0">
+			<view class="project-details-header-two" v-if="Labelarr.length!==0">
 				<span v-for="(items,index) in arr.projLabels" :key="index">{{items.labelName}}</span>
 				<view @tap="gotoedit">编辑</view>
 			</view>
-			<view class="project-details-header-twos" v-if="this.Labelarr.length==0">
+			<view class="project-details-header-twos" v-if="Labelarr.length==0">
 				<span>暂未添加标签</span>
 				<view class="gotoedit" @tap="gotoedit">编辑</view>
 			</view>
@@ -27,7 +27,7 @@
 		<view class="project-details-BP">
 			<view class="project-details-BP-one">
 				<view>BP/商业计划书</view>
-				<view>重新上传</view>
+				<view @tap="goToPutIn(5)">重新上传</view>
 			</view>
 			<view class="project-details-BP-two">
 				<view>
@@ -42,7 +42,7 @@
 		<view class="jianxi"></view>
 		<view class="project-details-data">
 			<view class="project-details-data-bianji">项目简介</view>
-			<view class="project-details-data-imges" v-if="arr.projImgs.length!=='0'">
+			<view class="project-details-data-imges" v-if="arr.projImgs.length!==0">
 				<view class="project-details-data-imges-one" v-for="(imang,index) in arr.projImgs" :key="index"><image :src="imang.imgName"></image></view>
 			</view>
 			<view class="project-details-data-two" v-if="arr.projContent!==''">
@@ -57,8 +57,8 @@
 				<view>用户画像</view>
 				<view>{{arr.conentPortrait}}</view>
 			</view>
-			<view class="project-details-data-bian" @tap="gotobrief" v-if="arr.projImgs.length!==0||arr.projContent||arr.conentMarket||arr.conentPortrait !=='' ">编辑</view>
-			<view @tap="gotobrief" class="project-details-data-brief" v-if="arr.projImgs.length=='0'&&arr.projContent&&arr.conentMarket&&arr.conentPortrait =='' ">
+			<view class="project-details-data-bian" @tap="gotobrief" >编辑</view>
+			<view @tap="gotobrief" class="project-details-data-brief" v-if="arr.projImgs.length==0||arr.projContent||arr.conentMarket||arr.conentPortrait =='' ">
 				填写项目简介
 			</view>
 		</view>
@@ -251,6 +251,17 @@
 			cancel() {
 				this.hiden = true
 			},
+			goToPutIn(e) {
+				console.log(e, '点击触发发布项目');
+				this.clickItems = e;
+				this.$store.commit('setHome', this.clickItems);
+				uni.setStorageSync('clickItems', e);
+				uni.navigateBack({
+					delta: 20,
+					animationType: 'pop-out',
+					animationDuration: 200
+				});
+			},
 			projectXQgsname() {
 				console.log('公司信息')
 				uni.navigateTo({
@@ -332,6 +343,7 @@
 							this.arr = response.data.content
 							this.$store.commit('setCompany', this.arr);
 							console.log(this.arr)
+							
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -531,8 +543,8 @@
 	.project-details-header-two span {
 		padding: 8upx 12upx 8upx 12upx;
 		font-size: 20upx;
-		color: #02C2A2;
-		background: rgba(2, 194, 162, 0.10);
+		color: #FE9D08;
+		background: #FFF7E5;
 		border-radius: 2px;
 		margin-left: 20upx;
 		margin-top: 30upx;

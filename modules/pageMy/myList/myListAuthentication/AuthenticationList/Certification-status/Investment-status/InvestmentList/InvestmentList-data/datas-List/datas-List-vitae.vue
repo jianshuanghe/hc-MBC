@@ -26,7 +26,7 @@
 				<view>是否在职</view>
 				<view>
 					<picker @change="bindPickerChange" :value="index" :range="array">
-						<view class="ziti">{{pickerValue? pickerValue : '请选择'}}</view>
+						<view class="ziti"  :class="{'tou':tou}">{{pickerValue? pickerValue : '请选择'}}</view>
 					</picker>
 				</view>
 				<view>
@@ -43,7 +43,7 @@
 			</view>
 			<view class="right BI-items-right">
 				<view class="BI-text-right">
-					<view class="zitia" v-if="!logo">点击上传</view>
+					<view class="zitib" v-if="!logo">点击上传</view>
 					<view class="Img-logo">
 						<!-- 图片上传 -->
 						<view class="Img-Upload">
@@ -75,6 +75,7 @@
 	export default {
 		data() {
 			return {
+				tou:false,
 				logo: '',
 				xin: this.Static + 'mbcImg/common/xing.png',
 				right: this.Static + 'mbcImg/my/right.png',
@@ -231,6 +232,9 @@
 				console.log('picker发送选择改变，携带值为', e.target.value);
 				this.array.map((items, index) => {
 					if (index == e.target.value) {
+						if(this.pickerValue!=='请选择'){
+							this.tou=true
+						}
 						this.pickerValue = items;
 						this.pick=e.target.value
 						console.log(this.pick)
@@ -253,6 +257,9 @@
 </script>
 
 <style>
+	.tou{
+		color: black;
+	}
 	.BI-items {
 		position: relative;
 		width: 100%;
@@ -260,6 +267,14 @@
 		background: #FFFFFF;
 	}
 	.zitia {
+		position: absolute;
+		right: 50upx !important;
+		height: 30upx;
+		top: 30upx;
+		font-size: 30upx !important;
+		color: #D2D2D2
+	}
+	.zitib {
 		position: absolute;
 		right: 50upx !important;
 		height: 30upx;
@@ -382,10 +397,6 @@
 		top: 40upx;
 		font-size: 30upx;
 		text-align: right;
-	}
-
-	.datas-List-vitae-name-box view:nth-of-type(3) input {
-		color: #D2D2D2;
 	}
 
 	.ziti {

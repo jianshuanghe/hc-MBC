@@ -3,7 +3,7 @@
 		<view><image :src="tou"></image></view>
 		<view>
 			<span>认证成功</span>
-			<span>恭喜您成为膜拜资本认证投资人，您将拥有以下权限：</span>
+			<span>恭喜您成为陌拜资本认证投资人，您将拥有以下权限：</span>
 			<view>
 				<span>查看项目</span>
 				<span>关注项目</span>

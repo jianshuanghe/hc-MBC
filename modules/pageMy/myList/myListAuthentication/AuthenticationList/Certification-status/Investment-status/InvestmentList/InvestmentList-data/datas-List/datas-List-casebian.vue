@@ -309,10 +309,6 @@
 </script>
 
 <style>
-	input {
-		color: #D2D2D2;
-	}
-
 	.datas-List-case {
 		width: 100%;
 		height: 100%;
@@ -573,14 +569,14 @@
 		width: 150upx;
 		height: 100%;
 		line-height: 100upx;
-		font-size: 18upx;
+		font-size: 30upx;
 	}
 
 	.datas-List-case-nei-one view:nth-of-type(3) {
 		width: 200upx;
 		height: 100%;
 		line-height: 100upx;
-		font-size: 18upx;
+		font-size: 30upx;
 	}
 
 	.datas-List-case-nei-one view:nth-of-type(4) {

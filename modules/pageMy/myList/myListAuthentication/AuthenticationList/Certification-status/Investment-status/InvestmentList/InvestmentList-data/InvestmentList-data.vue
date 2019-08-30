@@ -434,22 +434,23 @@
 	}
 
 	.lunshu-shu image {
-		width: 18upx;
-		height: 18upx;
+		width: 22upx;
+		height: 22upx;
+		border-radius: 50%;
 	}
 
 	.lunshu-shu span:nth-of-type(1) {
-		font-size: 20upx;
+		font-size: 26upx;
 		color: #9B9B9B;
 		margin-top: -10upx;
 		margin-left: 20upx;
 	}
 
 	.lunshu-shu span:nth-of-type(2) {
-		font-size: 20upx;
+		font-size: 26upx;
 		color: #2E2E30;
 		margin-left: 20upx;
-		margin-top: -5upx;
+		margin-top: 0upx;
 	}
 
 	.data-footer-three {

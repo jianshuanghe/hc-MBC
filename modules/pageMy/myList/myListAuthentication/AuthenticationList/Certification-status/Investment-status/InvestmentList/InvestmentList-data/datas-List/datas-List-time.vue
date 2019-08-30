@@ -8,7 +8,7 @@
 				<view>投资时间</view>
 				<view>
 					<picker @change="bindDateChange" mode="date" :value="date" :start="startDate" fields="month" :end="endDate">
-						<view class="ziti">{{date}}</view>
+						<view class="zitia">{{date}}</view>
 					</picker>
 				</view>
 				<view>
@@ -24,7 +24,7 @@
 				<view>投资轮次</view>
 				<view>
 					<picker @change="bindPickerChange2" :value="index" :range="array2" range-key='name'>
-						<view class="ziti">{{pickerValue2? pickerValue2 : '请选择'}}</view>
+						<view class="ziti" :class="{'tou':tou}">{{pickerValue2? pickerValue2 : '请选择'}}</view>
 					</picker>
 				</view>
 				<view>
@@ -53,6 +53,7 @@
 				format: true
 			})
 			return {
+				tou:false,
 				xin: this.Static + 'mbcImg/common/xing.png',
 				right: this.Static + 'mbcImg/my/right.png',
 				index: 0, // 默认选择第一个
@@ -166,8 +167,10 @@
 				console.log('picker发送选择改变，携带值为', e.target.value);
 				console.log(this.array2, 'this.array2')
 				this.array2.map((items, index) => {
-					console.log(items,index)
 					if (String(index) === String(e.target.value)) {
+						if(this.pickerValue!=='请选择'){
+							this.tou=true
+						}
 						this.pickerValue2 = items.name;
 						this.id = items.id
 					}
@@ -178,6 +181,9 @@
 </script>
 
 <style>
+	.tou{
+		color: black;
+	}
 	.datas-List-time {
 		width: 100%;
 	}
@@ -248,6 +254,15 @@
 		height: 30upx;
 		top: -30upx;
 		font-size: 30upx !important;
+	}
+	.zitia {
+		position: absolute;
+		right: 0upx;
+		width: 300upx !important;
+		height: 30upx;
+		top: -30upx;
+		font-size: 30upx !important;
+		color: black;
 	}
 
 	.datas-List-case-bao {

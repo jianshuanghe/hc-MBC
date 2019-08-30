@@ -168,9 +168,6 @@
 						success: (response) => {
 							uni.hideLoading();
 							console.log(response.data);
-							// uni.navigateTo({
-							// 	url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-details?id='+this.id
-							// })
 							uni.navigateTo({
 								url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-details?id='+this.id
 							})
@@ -224,6 +221,9 @@
 				console.log('picker发送选择改变，携带值为', e.target.value);
 				this.array2.map((items, index) => {
 					if (String(index) === String(e.target.value)) {
+						if(this.pickerValue2!=='请输入'){
+							this.tou=true
+						}
 						this.pickerValue2 = items.name;
 						this.lunid = items.id
 						console.log(this.lunid)

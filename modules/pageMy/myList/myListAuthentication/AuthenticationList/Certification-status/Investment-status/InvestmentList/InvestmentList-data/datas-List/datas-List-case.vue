@@ -183,6 +183,8 @@
 							console.log(response.data);
 							let caseadd=params
 							// this.$store.commit('setCase', caseadd);
+							let nav=[]
+							this.$store.commit('setTimes', nav);
 							uni.navigateTo({
 								'url':'../../InvestmentList-data/InvestmentList-data'
 							})

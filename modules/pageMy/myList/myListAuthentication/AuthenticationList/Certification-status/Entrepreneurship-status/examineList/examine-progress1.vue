@@ -3,7 +3,7 @@
 		<view><image :src="chuang"></image></view>
 		<view>
 			<span>审核中</span>
-			<span>审核人员正在全力审核，将于三个工作日内日给我出审核结果</span>
+			<span>审核人员正在全力审核，将于三个工作日内给出审核结果</span>
 		</view>
 		<view @tap="gotoinspectListin">查看认证详情</view>
 	</view>

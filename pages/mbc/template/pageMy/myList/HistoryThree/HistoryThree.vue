@@ -2,6 +2,8 @@
 	<view class="History3">
 		<!-- 投资人 收藏 -->
 		<historyThreeCollection></historyThreeCollection>
+		<!-- 投资人 以收到 -->
+		<historyThreeBP></historyThreeBP>
 		<!-- 投资人 足迹 -->
 		<historyThreeFootprint></historyThreeFootprint>
 	</view>
@@ -10,6 +12,7 @@
 <script>
 	import historyThreeCollection from './HistoryThree-list/historyThree-Collection.vue'
 	import historyThreeFootprint from './HistoryThree-list/historyThree-Footprint.vue'
+	import historyThreeBP from './HistoryThree-list/historyThree-BP.vue'
 	export default {
 		data() {
 			return {
@@ -18,7 +21,8 @@
 		},
 		components: {
 			historyThreeCollection,
-			historyThreeFootprint
+			historyThreeFootprint,
+			historyThreeBP
 		},
 		computed: {},
 		created() {

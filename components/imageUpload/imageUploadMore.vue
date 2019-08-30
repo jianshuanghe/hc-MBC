@@ -319,13 +319,14 @@
 	.imageDel{
 		position: relative;
 		left: 120upx;
-		bottom: 165upx;
+		bottom: 185upx;
 		background-color: rgba(0,0,0,0.5);
 		width: 36upx;
+		height: 27upx;
 		text-align: center;
-		line-height: 35upx;
-		border-radius: 17upx;
-		color: white;
+		line-height: 14upx;
+		border-radius: 50%;
+		color: white!important;
 		font-size: 30upx;
 		padding-bottom: 2upx;
 	}

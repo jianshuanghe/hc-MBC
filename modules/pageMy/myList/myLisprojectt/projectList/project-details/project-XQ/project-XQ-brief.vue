@@ -2,22 +2,22 @@
 	<view class="project-XQ-brief">
 		<view class="project-XQ-brief-image">
 			<view>添加图片</view>
-			<!-- <view class="images-thr">
-				<image class="ziti" :src="img[0]" v-if="!logo">点击上传</image>
-				<image class="ziti" :src="img[1]" v-if="!logo">点击上传</image>
-				<image class="ziti" :src="img[2]" v-if="!logo">点击上传</image>
+			<!--<view class="images-thr" v-if="img.length!==0">
+				<image class="ziti" :src="img[0]">点击上传</image>
+				<image class="ziti" :src="img[1]">点击上传</image>
+				<image class="ziti" :src="img[2]">点击上传</image>
 			</view> -->
 			<view class="Img-Upload">
 				<imageUploadMore
 				 class="imhae"
-					v-model="imageData" 
+					:value="imageData"
 					:server-url="serverUrl" 
-					limit= 3
+					limit=3
 					@delete="deleteImage" 
 					@add="addImage">
 				</imageUploadMore>
 			</view>
-			<view>注：最多只能上传3张图片</view>
+			<view class="zhuyi">注：最多只能上传3张图片</view>
 		</view>
 		<view class="projectXQteam-resume">
 			<view><image :src="xin"></image>项目简介</view>
@@ -58,9 +58,9 @@
 				<span class="numberV">{{remnane5}}/500</span>
 			</view>
 		</view>
-		<view class="datas-List-case-bao" @tap="updata">
+		<view class="datas-List-case-bao">
 			<view>
-				<view>
+				<view  @tap="updata">
 					保存
 				</view>
 			</view>
@@ -77,9 +77,9 @@
 				logo2:'',
 				logo3:'',
 				xin: this.Static + 'mbcImg/common/xing.png',
-				imageData: [],
+				imageData: '',
 				serverUrl: 'https://img01.iambuyer.com/imgup/upLoad/fileUpload',
-				txtVal: 1,
+				txtVal: 0,
 				remnane:0,
 				remnane2:0,
 				remnane3:0,
@@ -92,41 +92,46 @@
 				conentModel:'',
 				conentCore:'',
 				conentPortrait:'',
-				img:[]
+				img:[],
+				array2:[],
+				images:[]
 			};
 		},
 		components: {
 			imageUploadMore
 		},
 		computed: {},
-		created() {
-			this.Getinto();
+		mounted() {
+			
 		},
-		mounted() {},
 		onLoad:function(options){
 			this.id = options.id
 			console.log(this.id)
+			this.Getinto();
+			
 		},
 		methods: {
 			descInput(){
-				var txtVal = this.projContent.length;
-				this.remnane = 1 + txtVal;
+				setTimeout(() => { 
+					var txtVal = this.projContent.length;
+					this.remnane = 0 + txtVal;
+				}, 0)
 			},
 			descInput2(){
 				var txtVal2 = this.conentMarket.length;
-				this.remnane2 = 1 + txtVal2;
+				this.remnane2 = 0 + txtVal2;
 			},
 			descInput3(){
 				var txtVal3 = this.conentPortrait.length;
-				this.remnane3 = 1 + txtVal3;
+				this.remnane3 = 0 + txtVal3;
 			},
 			descInput4(){
 				var txtVal4 = this.conentModel.length;
-				this.remnane4 = 1 + txtVal4;
+				this.remnane4 = 0 + txtVal4;
 			},
 			descInput5(){
 				var txtVal5 = this.conentCore.length;
-				this.remnane5 = 1 + txtVal5;
+				this.remnane5 = 0 + txtVal5;
 			},
 			deleteImage: function(e) {
 				console.log(e, '删除图片')
@@ -137,6 +142,10 @@
 			addImage: function(e) {
 				console.log(e, '添加图片')
 				if (e.allImages) { // 上传成功
+				e.allImages.map((items,index)=>{
+					this.images.push(items.imgName)
+				})
+				console.log(this.images)
 					this.logo = (e.allImages[0].imgName);
 					this.logo2=(e.allImages[1].imgName);
 					this.logo3=(e.allImages[2].imgName);
@@ -160,14 +169,20 @@
 						success: (response) => {
 							uni.hideLoading();
 							console.log(response.data.content);
-							// this.array2 = response.data.content
+							this.array2 = response.data.content
 							this.projContent=response.data.content.projContent
 							this.conentMarket=response.data.content.conentMarket
 							this.conentModel=response.data.content.conentModel
 							this.conentData=response.data.content.conentData
 							this.conentCore=response.data.content.conentCore
 							this.conentPortrait=response.data.content.conentPortrait
-							this.img=response.data.content.imgs
+							this.imageData=response.data.content.imgs
+							console.log(this.imageData)
+							this.descInput()
+							this.descInput2()
+							this.descInput3()
+							this.descInput4()
+							this.descInput5()
 							
 						},
 						fail: (error) => {
@@ -203,6 +218,7 @@
 					uni.showLoading({ // 展示loading
 						title: '加载中'
 					});
+					
 					uni.request({
 						url: this.api2 + '/proj/setProjContent', //接口地址。
 						data: this.endParams(params),
@@ -214,6 +230,7 @@
 							uni.hideLoading();
 							console.log(response.data.content);
 							// this.array2 = response.data.content
+							console.log(params)
 							uni.navigateTo({
 								url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-details?id='+this.id
 							})
@@ -251,7 +268,7 @@
 	.project-XQ-brief-image view:nth-of-type(1){
 		font-size: 28upx;
 		color: #2E2E30;
-		padding-top: 40upx;
+		padding-top: 10upx;
 	}
 	.ziti{
 		margin-top: 50upx;
@@ -262,7 +279,7 @@
 	.Img-Upload{
 		width: 148upx;
 		height: 148upx;
-		margin-top: 40upx;
+		top: -200upx;
 		display: flex;
 		position: relative;
 	}
@@ -270,10 +287,11 @@
 		width: 148upx !important;
 		height: 148upx !important;
 		position: absolute;
-		top: -40upx;
+		/* top: -40upx; */
+		top: 200upx;
 		left: -10upx;
 	}
-	.project-XQ-brief-image view:nth-of-type(3){
+	.zhuyi{
 		width: 100%;
 		height: 30upx;
 		font-size: 24upx;
@@ -334,6 +352,7 @@
 		background: #FFFFFF;
 		bottom: 0;
 		position: fixed;
+		z-index: 20;
 	}
 	
 	.datas-List-case-bao view:nth-of-type(1) view {

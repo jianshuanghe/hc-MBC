@@ -99,7 +99,7 @@
 		methods: {
 			descInput(){
 				var txtVal = this.desc.length;
-				this.remnane = 1 + txtVal;
+				this.remnane = 0 + txtVal;
 			},
 			deleteImage: function(e){
 				console.log(e, '删除图片')
@@ -188,6 +188,7 @@
 							this.projUserName=this.arr.projUserName
 							this.projUserPosition=this.arr.projUserPosition
 							this.desc=this.arr.projUserContent
+							this.descInput();
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
