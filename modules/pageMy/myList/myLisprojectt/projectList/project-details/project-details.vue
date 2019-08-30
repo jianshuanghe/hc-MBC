@@ -57,7 +57,7 @@
 				<view>用户画像</view>
 				<view>{{arr.conentPortrait}}</view>
 			</view>
-			<view class="project-details-data-bian" @tap="gotobrief" >编辑</view>
+			<view class="project-details-data-bian" @tap="gotobrief" v-if="arr.projImgs.length !== 0 || arr.projContent!=='' || arr.conentMarket!=='' || arr.conentPortrait!==''">编辑</view>
 			<view @tap="gotobrief" class="project-details-data-brief" v-if="arr.projImgs.length == 0 && arr.projContent=='' && arr.conentMarket==''&& arr.conentPortrait==''">
 				填写项目简介
 			</view>
@@ -175,17 +175,6 @@
 				history:[]
 			};
 		},
-		computed: {
-			...mapGetters(['GET_MY'])
-		},
-		watch: {
-		  GET_MY: {
-		    handler (a, b) {
-				this.arr = a.MyList.Company
-		    },
-		    deep: true
-		  }
-		},
 		filters: {
 			formatDate: function(value) {
 				let date = new Date(value);
@@ -233,6 +222,7 @@
 				return MM ;
 			}
 		},
+
 		watch: {
 			GET_MY: {
 				handler(a, b) {
@@ -267,17 +257,13 @@
 			},
 			goToPutIn(e) {
 				console.log(e, '点击触发发布项目');
-				// this.clickItems = e;
-				// this.$store.commit('setHome', this.clickItems);
-				// uni.setStorageSync('clickItems', e);
-				// uni.navigateBack({
-				// 	delta: 20,
-				// 	animationType: 'pop-out',
-				// 	animationDuration: 200
-				// });
-				console.log('去扫码登录上传');
-				uni.navigateTo({
-					url: '/modules/pagePublish/publishList/publishUpload?projId=' + this.id
+				this.clickItems = e;
+				this.$store.commit('setHome', this.clickItems);
+				uni.setStorageSync('clickItems', e);
+				uni.navigateBack({
+					delta: 20,
+					animationType: 'pop-out',
+					animationDuration: 200
 				});
 			},
 			projectXQgsname() {
@@ -558,19 +544,23 @@
 		width: 80%;
 		min-height: 60upx;
 		margin-left: 30upx;
-		margin-top: 30upx;
+		/* margin-top: 15upx; */
 		position: relative;
+		display: flex;
+		flex-wrap: wrap;
 		/* background: red; */
 	}
 
 	.project-details-header-two span {
-		padding: 8upx 12upx 8upx 12upx;
+		/* padding: 8upx 12upx 8upx 12upx; */
+		padding: 0 20upx;
 		font-size: 20upx;
 		color: #FE9D08;
 		background: #FFF7E5;
 		border-radius: 2px;
 		margin-left: 20upx;
-		margin-top: 30upx;
+		margin-top: 10upx;
+		display: block;
 		/* min-width: 100upx; */
 	}
 

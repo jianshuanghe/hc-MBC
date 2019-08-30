@@ -429,6 +429,7 @@
 		width: 100%;
 		margin: 20upx 0 20upx 0;
 		height: 32upx;
+		overflow: hidden;
 	}
 	.modules-items-FI{
 		background: #FFF7E5;

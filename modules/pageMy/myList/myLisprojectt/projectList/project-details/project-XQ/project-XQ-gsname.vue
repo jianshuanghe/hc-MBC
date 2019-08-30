@@ -114,10 +114,6 @@
 	.project-XQ-gsname{
 		width: 100%;
 	}
-	input {
-		color: #D2D2D2;
-	}
-	
 	.Investor-name {
 		width: 100%;
 		height: 122upx;
@@ -154,7 +150,7 @@
 	}
 	
 	.Investor-name-box view:nth-of-type(3) {
-		width: 200upx;
+		width: 300upx;
 		height: 35upx;
 		position: absolute;
 		right: 0;

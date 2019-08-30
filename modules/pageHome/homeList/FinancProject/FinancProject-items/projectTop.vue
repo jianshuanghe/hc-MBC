@@ -116,5 +116,6 @@
 		border-radius: 2px;
 		padding: 4upx 6upx;
 		margin-right: 10upx;
+		margin-top: 10upx;
 	}
 </style>
