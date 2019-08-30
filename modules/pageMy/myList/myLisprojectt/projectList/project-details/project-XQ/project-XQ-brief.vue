@@ -2,14 +2,12 @@
 	<view class="project-XQ-brief">
 		<view class="project-XQ-brief-image">
 			<view>添加图片</view>
-			<view class="images-thr">
+			<!-- <view class="images-thr">
 				<image class="ziti" :src="img[0]" v-if="!logo">点击上传</image>
 				<image class="ziti" :src="img[1]" v-if="!logo">点击上传</image>
 				<image class="ziti" :src="img[2]" v-if="!logo">点击上传</image>
-			</view>
-		
+			</view> -->
 			<view class="Img-Upload">
-				
 				<imageUploadMore
 				 class="imhae"
 					v-model="imageData" 
@@ -133,6 +131,8 @@
 			deleteImage: function(e) {
 				console.log(e, '删除图片')
 				this.logo = ''; // 清空数据
+				this.logo1 = '';
+				this.logo2 = '';
 			},
 			addImage: function(e) {
 				console.log(e, '添加图片')
@@ -168,6 +168,7 @@
 							this.conentCore=response.data.content.conentCore
 							this.conentPortrait=response.data.content.conentPortrait
 							this.img=response.data.content.imgs
+							
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -213,6 +214,9 @@
 							uni.hideLoading();
 							console.log(response.data.content);
 							// this.array2 = response.data.content
+							uni.navigateTo({
+								url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-details?id='+this.id
+							})
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -269,7 +273,7 @@
 		top: -40upx;
 		left: -10upx;
 	}
-	.project-XQ-brief-image view:nth-of-type(4){
+	.project-XQ-brief-image view:nth-of-type(3){
 		width: 100%;
 		height: 30upx;
 		font-size: 24upx;
@@ -311,7 +315,6 @@
 		width: 100%;
 		height: 100%;
 		background: #FFFFFF;
-		color: #D2D2D2;
 	}
 	.numberV{
 		font-size: 28upx;

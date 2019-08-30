@@ -7,7 +7,8 @@
 				<view><image :src="item.projLogo" mode=""></image></view>
 				<view>
 					<span>{{item.projName}}</span>
-					<span>{{item.finanLevelCode}}</span>
+					<span>未曝光</span>
+					<!-- <span v-if="item.projType==1">融资中</span> -->
 					<span>资料完整度:{{item.projData}}</span>
 				</view>
 				<view>
@@ -17,7 +18,7 @@
 		</view>
 		<view class="meirenkanwo" v-if="active.listData!==undefined &&active.listData.length==0">
 			<image :src="kong" mode=""></image>
-			您还没有收藏文章！
+			您还没有项目！
 		</view>
 		</scroll-view>
 	</view>
@@ -124,6 +125,7 @@
 						success: (response) => {
 							uni.hideLoading();
 							console.log(response.data);
+							this.arr=response.data.rows;
 							e.listData = response.data.rows; // 第一页返回的数据
 							e.search.pageNum = this.pageNums(response.data.total) // 总页数
 							// console.log(response.data.total, e.search.pageNum);
@@ -233,6 +235,10 @@
 		font-weight: 700;
 		display: block;
 		margin-top: 0;
+		width: 300upx;
+		overflow: hidden; //超出的文本隐藏
+		text-overflow: ellipsis; //溢出用省略号显示
+		white-space: nowrap; //溢出不换行
 	}.projectList-my-one view:nth-of-type(2) span:nth-of-type(2){
 		font-size: 24upx;
 		color: #9B9B9B;
@@ -265,7 +271,7 @@
 	}
 	.meirenkanwo {
 		width: 100%;
-		height: 350upx;
+		height: 400upx;
 		display: block;
 		margin: 80upx auto auto auto;
 		font-size: 28upx;

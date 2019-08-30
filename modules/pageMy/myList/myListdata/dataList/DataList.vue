@@ -109,9 +109,9 @@
 		},
 		beforeDestroy () {
 			console.log('页面销毁之前缓存数据')
-			if (this.Listdata.isPostSucccess === false) { // 如果用户没有提交数据之前用户切换页面,需要缓存数据
+			// if (this.Listdata.isPostSucccess === false) { // 如果用户没有提交数据之前用户切换页面,需要缓存数据
 				uni.setStorageSync('DataList', JSON.stringify(this.ListData));// 缓存确认成功的数据
-			}
+			// }
 		},
 		methods: {
 			...mapMutations({
