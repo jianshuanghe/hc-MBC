@@ -259,7 +259,8 @@ const state = {
 		Times:[],
 		Case:[],
 		Mation:[],
-		Edit:[]
+		Edit:[],
+		History:[],
 	}  
   }
 };

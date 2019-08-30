@@ -58,7 +58,7 @@
 				<view>{{arr.conentPortrait}}</view>
 			</view>
 			<view class="project-details-data-bian" @tap="gotobrief" >编辑</view>
-			<view @tap="gotobrief" class="project-details-data-brief" v-if="arr.projImgs.length==0||arr.projContent||arr.conentMarket||arr.conentPortrait =='' ">
+			<view @tap="gotobrief" class="project-details-data-brief" v-if="arr.projImgs.length == 0 && arr.projContent=='' && arr.conentMarket==''&& arr.conentPortrait==''">
 				填写项目简介
 			</view>
 		</view>
@@ -161,6 +161,7 @@
 	export default {
 		data() {
 			return {
+				tou:false,
 				num: 0,
 				hiden: true,
 				linkname: '',
@@ -171,7 +172,7 @@
 				id: '',
 				pdf: this.Static + 'mbcImg/my/pdf.png',
 				keji:this.Static + 'mbcImg/my/keji.png',
-
+				history:[]
 			};
 		},
 		computed: {
@@ -232,6 +233,19 @@
 				return MM ;
 			}
 		},
+		watch: {
+			GET_MY: {
+				handler(a, b) {
+					// console.log(a,b)
+					this.arr = a.MyList.Company;
+					this.history = a.MyList.History
+					console.log(this.history)
+				},
+				deep: true
+			},
+
+		},
+		computed: {},
 		onLoad: function(options) {
 			this.id = options.id
 			console.log(this.id)
@@ -242,7 +256,8 @@
 		},
 		methods: {
 			...mapMutations({
-				setCompany: 'setCompany'
+				setCompany: 'setCompany',
+				setHistory:'setHistory'
 			}),
 			addlianjie() {
 				this.hiden = false
@@ -345,6 +360,8 @@
 							console.log(response.data);
 							this.arr = response.data.content
 							this.$store.commit('setCompany', this.arr);
+							this.$store.commit('setHistory', this.arr);
+
 							console.log(this.arr)
 							
 						},
@@ -425,6 +442,9 @@
 </script>
 
 <style>
+	.tou{
+		display: none;
+	}
 	.project-details {
 		width: 100%;
 		min-height: 100%;

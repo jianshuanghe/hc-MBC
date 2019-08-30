@@ -5,28 +5,28 @@
 				项目简介
 				<text class="pP-text-right"  @tap="goToOpinion()">纠错</text>
 			</div>
-			<div class="pP-img">
+			<div class="pP-img" >
 				<div class="img-list">
 					<image class="items-img left" :src="items.imgName" v-for="(items,index) in msgData.projImgs" :key="index"></image>
 					<div class="clear"></div>
 				</div>
 				<div class="line"></div>
 			</div>
-			<div class="pP-content-box">
+			<div class="pP-content-box" v-if="msgData.projContent !== ''">
 				<div class="titel-pP">项目介绍</div>
 				<div class="pP-content">
 					{{msgData.projContent}}
 				</div>
 				<div class="line"></div>
 			</div>
-			<div class="pP-content-box">
+			<div class="pP-content-box" v-if="msgData.conentMarket !== ''">
 				<div class="titel-pP">市场需求</div>
 				<div class="pP-content">
 					{{msgData.conentMarket}}
 				</div>
 				<div class="line"></div>
 			</div>
-			<div class="pP-content-box">
+			<div class="pP-content-box" v-if="msgData.conentPortrait !== ''">
 				<div class="titel-pP">用户画像</div>
 				<div class="pP-content">
 					{{msgData.conentPortrait}}

@@ -44,7 +44,7 @@
 
 <style>
 	.history3Footprint{
-		width: 33%;
+		width: 250upx;
 		height: 100%;
 		text-align: center;
 	}
