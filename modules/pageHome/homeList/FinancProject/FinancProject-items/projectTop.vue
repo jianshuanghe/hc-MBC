@@ -109,11 +109,12 @@
 		position: relative;
 		font-family: FZLTHJW--GB1-0;
 		font-size: 20upx;
-		color: #02C2A2;
+		background: #FFF7E5;
+		color: #FE9D08;
 		letter-spacing: 0;
 		line-height: 30upx;
-		background: rgba(2,194,162,0.10);
 		border-radius: 2px;
 		padding: 4upx 6upx;
+		margin-right: 10upx;
 	}
 </style>

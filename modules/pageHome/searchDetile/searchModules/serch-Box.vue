@@ -415,7 +415,7 @@
 	.serchBox{
 		position: relative;
 		margin-left: 36upx;
-		width: 339px;
+		width: 678upx;
 		height: 60upx;
 	}
 	.sB-box{

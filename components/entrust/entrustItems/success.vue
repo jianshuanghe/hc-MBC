@@ -1,50 +1,55 @@
 <template>
-	<div class="entrust-content">
-		<div class="entrust-box">
-			<div class="success-box">
-				<div class="img">
+	<view class="entrust-content">
+		<view class="entrust-box">
+			<view class="success-box">
+				<view class="img">
 					<image class="img-box" :src="success || this.dImg"></image>
-				</div>
-				<div class="En-title">申请提交成功</div>
-				<div class="En-ins">您提交的信息正在处理，请耐心等待</div>
-				<div class="En-more" @tap='clickLookMore()'> {{entrust.type === 1 ? '查看其他项目' : '查看其他服务'}}</div>
-			</div>
-			<div class="input-box">
-				<div class="En-my-other">
-					<div class="En-in-title">您的信息</div>
-					<div class="En-in-name">
+				</view>
+				<view class="En-title">申请提交成功</view>
+				<view class="En-ins">您提交的信息正在处理，请耐心等待</view>
+				<view class="l" v-if='entrust.type === 1'>
+					<view class="En-more" @tap='clickLookMore()'> {{entrust.params.applyeType === 0 ? '查看其它投资人' : '查看其他投资机构'}}</view>
+				</view>
+				<view class="k" v-else>
+					<view class="En-more" @tap='clickLookMore()'>查看其他服务</view>
+				</view>
+				
+			</view>
+			<view class="input-box">
+				<view class="En-my-other">
+					<view class="En-in-title">您的信息</view>
+					<view class="En-in-name">
 						姓名
 						<text class="right">{{entrust.params.name}}</text>
-					</div>
-					<div class="En-in-name">
+					</view>
+					<view class="En-in-name">
 						手机号
 						<text class="right">{{entrust.params.phone}}</text>
-					</div>
-				</div>
-				<div class="line" v-if='entrust.type === 1'></div>
-				<div class="En-my-other" v-if='entrust.type === 1'>
-					<div class="En-in-title">委托联系信息</div>
-					<div class="En-in-name">
+					</view>
+				</view>
+				<view class="line" v-if='entrust.type === 1'></view>
+				<view class="En-my-other" v-if='entrust.type === 1'>
+					<view class="En-in-title">委托联系信息</view>
+					<view class="En-in-name">
 						类别
 						<text class="right">{{entrust.params.applyeType | applyeType}}</text>
-					</div>
-					<div class="En-in-name">
+					</view>
+					<view class="En-in-name">
 						名称
 						<text class="right">{{entrust.params.projectName}}</text>
-					</div>
-					<!-- <div class="En-in-name">
+					</view>
+					<!-- <view class="En-in-name">
 						名称
 						<image class="right" :src="iiImg"></image>
-					</div> -->
-				</div>
-			</div>
-			<div class="time">提交时间:  {{entrust.params.time | dateTime}}</div>
-		</div>
-	</div>
+					</view> -->
+				</view>
+			</view>
+			<view class="time">提交时间:  {{entrust.params.time | dateTime}}</view>
+		</view>
+	</view>
 </template>
 
 <script>
-	import yuan from '@/static/mbcImg/home/seekCapital/yuan.png';
 	import { mapMutations, mapGetters } from 'vuex';
 	import date from '@/static/mbcJs/dateTime.js';
 	export default {
@@ -52,6 +57,7 @@
 			return {
 				success: this.Static + 'mbcImg/home/entrust/success.png',
 				yuan: this.Static + 'mbcImg/home/seekCapital/yuan.png',
+				BannerItemsType: '', // 来源类型
 				entrust: {}
 			};
 	    },
@@ -82,7 +88,12 @@
 		},
 		created() {
 			this.entrust = this.ENTRUST;
-			console.log(this.ENTRUST, 'ENTRUST')
+			console.log(this.ENTRUST, 'ENTRUST');
+		},
+		beforeDestroy () {
+			console.log('页面销毁之前缓存数据');
+			this.$store.commit('setIsUploadFileIsFileSuccess', false); // 更新setIsUploadFileIsFileSuccess
+			this.$store.commit('setAuthShow', false); // 更新setAuthShow
 		},
 	    methods: {
 			...mapMutations({
@@ -92,11 +103,21 @@
 				console.log('触发查看更多');
 				this.$store.commit('setEnTrustShow', false); // 更新setEnTrustShow
 				this.$store.commit('setEntrustSuccess', false); // 更新setEntrustSuccess
-				uni.navigateBack({
-					delta: 1,
-					animationType: 'pop-out',
-					animationDuration: 200
-				});
+				if(uni.getStorageSync('BannerItemsType')) { // 来源banner
+					this.BannerItemsType = uni.getStorageSync('BannerItemsType');
+					if (this.BannerItemsType === 'server') { // 服务
+						uni.navigateTo({
+							url: '/modules/pageHome/homeModules/lookServices/lookServices'
+						});
+						uni.removeStorageSync('BannerItemsType'); // 清除来源
+					}
+				} else {
+					uni.navigateBack({
+						delta: 1,
+						animationType: 'pop-out',
+						animationDuration: 200
+					});
+				}
 			}
 	    }
 	};
@@ -105,7 +126,7 @@
 <style>
 	.entrust-content{
 		position: relative;
-		width: 750upx;
+		width: 690upx;
 		padding: 30upx;
 		background: #FFf;
 		height: 100vh;

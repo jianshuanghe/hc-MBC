@@ -38,6 +38,7 @@
 		data() {
 			return {
 				dataList: {},
+				close: this.Static + 'mbcImg/home/seekCapital/close.png',
 				data: {
 					userId: 0, // 投资人id
 					content: 1000 // 记录用户是否申请过 1申请过，0未申请
@@ -70,9 +71,13 @@
 			this.getList(option.userId);
 			this.getUserApply(option.userId);
 		},
+		onShareAppMessage(res) {
+		    uni.hideShareMenu()
+		},
 		methods: {
 			...mapMutations({
-				setAuthShow: 'setAuthShow'
+				setAuthShow: 'setAuthShow',
+				setheader: 'setheader'
 			}),
 			clickClose() {
 				console.log('触发关闭');
@@ -98,6 +103,7 @@
 						console.log(response.data);
 						if (String(response.data.code) === '200') {
 						  let UserData = response.data.content;
+						  this.$store.commit('setheader', UserData); // 更新setheader
 						  uni.setStorageSync('UserData', JSON.stringify(UserData)); // 缓存用户信息
 						  console.log(UserData.userType, '------------UserData.userType----------');
 						} else {
@@ -136,7 +142,11 @@
 						},
 						success: (response) => {
 							console.log(response.data.content);
-							this.dataList = response.data.content;
+							let dataM = response.data.content;
+							if (dataM.user.compName === '') {
+								dataM.user.compName = '投资人'
+							};
+							this.dataList = dataM;
 							this.data.projectName = this.dataList.user.userName;
 							this.data.modelId = this.dataList.user.userId;
 							uni.hideLoading(); // 隐藏 loading
@@ -189,4 +199,7 @@
 </script>
 
 <style>
+	.itemsDetails-content{
+		margin-bottom: 200upx;
+	}
 </style>

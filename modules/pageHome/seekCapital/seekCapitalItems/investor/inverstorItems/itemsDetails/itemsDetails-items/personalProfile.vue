@@ -1,5 +1,5 @@
 <template>
-	<view class="personalProfile-contnet">
+	<view class="personalProfile-contnet"  v-if="msgData.user.userContent">
 		<view class="personalProfile">
 			<view class="pP-title">
 				个人简介

@@ -1,5 +1,5 @@
 <template>
-	<view class="personalProfile-contnet">
+	<view class="personalProfile-contnet"  v-if="msgData.expes.length > 0">
 		<view class="personalProfile">
 			<view class="pP-title">
 				任职履历

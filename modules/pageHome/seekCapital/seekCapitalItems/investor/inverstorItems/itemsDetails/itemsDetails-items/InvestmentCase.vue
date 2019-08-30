@@ -1,12 +1,12 @@
 <template>
-	<view class="personalProfile-contnet">
+	<view class="personalProfile-contnet" v-if="msgData.fieldList.length > 0 ||  msgData.userLevelList.length > 0">
 		<view class="personalProfile">
 			<view class="pP-title">
 				投资偏好
 				<text class="pP-text-right"  @tap="goToOpinion()">纠错</text>
 			</view>
 			<view class="IC-content">
-				<view class="IC-box">
+				<view class="IC-box"  v-if="msgData.fieldList.length > 0">
 					<view class="title">关注领域</view>
 					<view class="IC-items-list">
 						<view class="IC-items left"  v-for="(items,index) in msgData.fieldList" :key="index">{{items.name}}</view>
@@ -14,7 +14,7 @@
 					</view>
 					<view class="line"></view>
 				</view>
-				<view class="IC-box">
+				<view class="IC-box"  v-if="msgData.userLevelList.length > 0">
 					<view class="title">关注领域</view>
 					<view class="IC-items-list">
 						<view class="IC-items left" v-for="(items,index) in msgData.userLevelList" :key="index">{{items.name}}</view>

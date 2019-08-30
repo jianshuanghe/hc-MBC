@@ -13,11 +13,18 @@
 			</view>
 		</view>
 		<tipsBox v-if='AUTH.show'>
-			<image class="TIPS-img" :src="close"  @tap="clickClose()"></image>
-			<div class="content">
-				<div class="TIPS-isnt">认证成为创业者，可发布项目</div>
+			<div class="" v-if='GET_PUBLISH.isUpLoadFile.isFileSuccess === false'>
+				<image class="TIPS-img" :src="close"  @tap="clickClose()"></image>
+				<div class="content">
+					<div class="TIPS-isnt">认证成为创业者，可发布项目</div>
+					<div class="line"></div>
+					<div class="TIPS-btn" @tap='goToAuth'>立即认证</div>
+				</div>
+			</div>
+			<div class="content" v-if='GET_PUBLISH.isUpLoadFile.isFileSuccess === true'>
+				<div class="TIPS-isnt">发布成功</div>
 				<div class="line"></div>
-				<div class="TIPS-btn" @tap='goToAuth'>立即认证</div>
+				<div class="TIPS-btn" @tap='goToBp'>确定</div>
 			</div>
 		</tipsBox>
 	</view>
@@ -31,7 +38,8 @@
 export default {
 	data() {
 		return {
-			areaData: {}
+			areaData: {},
+			close: this.Static + 'mbcImg/home/seekCapital/close.png'
 		};
 	},
 	components: {
@@ -61,14 +69,16 @@ export default {
 	mounted() {
 	},
 	beforeDestroy () {
-		console.log('页面销毁之前缓存数据')
+		console.log('页面销毁之前缓存数据');
+		this.$store.commit('setIsUploadFileIsFileSuccess', false); // 更新setIsUploadFileIsFileSuccess
 		this.$store.commit('setAuthShow', false); // 更新setAuthShow
 	},
 	methods: {
 		...mapMutations({
 			setIsUploadFileSuccess: 'setIsUploadFileSuccess',
 			setIsUploadFileContent: 'setIsUploadFileContent',
-			setAuthShow: 'setAuthShow'
+			setAuthShow: 'setAuthShow',
+			setheader: 'setheader'
 		}),
 		clickClose() {
 			console.log('触发关闭');
@@ -108,6 +118,13 @@ export default {
 				url: '/modules/pageMy/myList/myListAuthentication/Authentication'
 			});
 		},
+		goToBp () {
+			console.log('触发确定，我的bp');
+			this.$store.commit('setIsUploadFileIsFileSuccess', false); // 更新setIsUploadFileIsFileSuccess
+			uni.navigateTo({
+				url: '/modules/pageMy/myList/myLisprojectt/myproject'
+			});
+		},
 		getUserData () {
 		  console.log('获取用户信息，全部');
 		  let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
@@ -122,6 +139,7 @@ export default {
 					console.log(response.data);
 					if (String(response.data.code) === '200') {
 						let UserData = response.data.content;
+						this.$store.commit('setheader', UserData); // 更新setheader
 						uni.setStorageSync('UserData', JSON.stringify(UserData)); // 缓存用户信息
 						console.log(UserData.userType, '------------UserData.userType----------');
 						if (String(UserData.userType) === '0') { // 创业者

@@ -4,8 +4,7 @@
       <view class="II-top">
         <view class="left II-user-img">
           <view class="II-img">
-            <image :src='msgData.headImg' v-if="msgData.headImg"></image>
-			<image :src='iiImg' v-if="!msgData.headImg"></image>
+            <image :src='msgData.headImg || this.dImg'></image>
           </view>
         </view>
         <view class="left II-suer-insr">
@@ -13,12 +12,15 @@
             <view class="user">
               {{msgData.userName}}
             </view>
-            <view class="mbc">
-              <view class="left mbc-text">{{msgData.comp || '无'}}</view>
+            <view class="mbc" v-if="msgData.userType === '2'">
+              <view class="left mbc-text">{{msgData.mechName || '无'}}</view>
               <view class="IIline-Y left"></view>
               <view class="left mbc-text">{{msgData.position || '无'}}</view>
               <view class="clear"></view>
             </view>
+			<view class="mbc" v-else>
+			  <view class="left mbc-text">投资人</view>
+			</view>
           </view>
         </view>
         <view class="right II-user-address">

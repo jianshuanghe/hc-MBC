@@ -1,5 +1,5 @@
 <template>
-	<div class="personalProfile-contnet">
+	<div class="personalProfile-contnet" v-if='msgData.projLinks.length > 0'>
 		<div class="personalProfile">
 			<div class="pP-title">
 				项目数据
@@ -55,7 +55,6 @@
 </template>
 
 <script>
-	import yuan from '@/static/mbcImg/home/seekCapital/yuan.png';
 	export default {
 	    data () {
 			return {

@@ -21,7 +21,7 @@
 		<tipsBox v-if='AUTH.show'>
 			<image class="TIPS-img" :src="close" @tap="clickClose()"></image>
 			<view class="content">
-				<view class="TIPS-isnt">认证创业者可见全部内容</view>
+				<view class="TIPS-isnt">认证投资人可见全部内容</view>
 				<view class="line"></view>
 				<view class="TIPS-btn" @tap='goToAuth'>立即认证</view>
 			</view>
@@ -44,6 +44,7 @@
 		data() {
 			return {
 				dataList: {},
+				close: this.Static + 'mbcImg/home/seekCapital/close.png',
 				project:{
 					id: 0
 				}
@@ -79,7 +80,8 @@
 		},
 		methods: {
 			...mapMutations({
-				setAuthShow: 'setAuthShow'
+				setAuthShow: 'setAuthShow',
+				setheader: 'setheader'
 			}),
 			clickClose() {
 				console.log('触发关闭');
@@ -105,6 +107,7 @@
 						console.log(response.data);
 						if (String(response.data.code) === '200') {
 						  let UserData = response.data.content;
+						  this.$store.commit('setheader', UserData); // 更新setheader
 						  uni.setStorageSync('UserData', JSON.stringify(UserData)); // 缓存用户信息
 						} else {
 							uni.hideLoading(); // 隐藏 loading
@@ -145,8 +148,8 @@
 							this.dataList = response.data.content;
 							this.project.projectName = this.dataList.projName;
 							this.project.modelId = this.dataList.id;
-							// this.project.enclosurePath = this.dataList.projFile.enclosurePath; // BP文件路径
-							this.project.enclosurePath = 'https://style.iambuyer.com/doc/2019_PDF.pdf'; // 测试使用
+							this.project.enclosurePath = this.dataList.projFile.enclosurePath; // BP文件路径
+							// this.project.enclosurePath = 'https://style.iambuyer.com/doc/2019_PDF.pdf'; // 测试使用
 							uni.hideLoading(); // 隐藏 loading
 						},
 						fail: (error) => {
@@ -197,4 +200,7 @@
 </script>
 
 <style>
+	.itemsDetails-content{
+		margin-bottom: 200upx;
+	}
 </style>

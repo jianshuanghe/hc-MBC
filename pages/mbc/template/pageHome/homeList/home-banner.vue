@@ -2,7 +2,7 @@
 	<view class="homeBanner">
 		<uni-swiper-dot :info="info" :current="current" field="content" :mode="mode" :dotsStyles='dotsStyles'>
 			<swiper class="swiper-box" @change="change" autoplay="true" interval=5000>
-				<swiper-item v-for="(item ,index) in info" :key="index">
+				<swiper-item v-for="(item ,index) in info" :key="index" @tap="clickBanner(item.url)">
 					<view class="swiper-item">
 						<image :src="item.img" class="bannerImg"></image>
 					</view>
@@ -39,6 +39,33 @@ export default {
         change(e) {
             this.current = e.detail.current;
         },
+		clickBanner(e) {
+			console.log(e, '点击banner');
+			let type = e.split('_')[0];
+			let id = Number(e.split('_')[1]);
+			console.log(type, id);
+			uni.setStorageSync('BannerItemsType', type); // 缓存点击的barnner的图片类型
+			if (type === 'server') { // 服务类
+				this.goToServiceDetails(id);
+			}
+		},
+		goToServiceDetails (e) {
+			console.log(e, '去服务详情页面，bp打磨，速溶服务等');
+			let url = '';
+			if ( e === 0) {
+				console.log('BP诊断');
+				url = '/modules/pageHome/homeModules/lookServices/serviceDetails/BPD/serviceDetails?serverId=' + e;
+			} else if (e === 1) {
+				console.log('BP打磨');
+				url = '/modules/pageHome/homeModules/lookServices/serviceDetails/Bp/serviceDetails?serverId=' + e;
+			} else if (e === 2) {
+				console.log('速溶服务');
+				url = '/modules/pageHome/homeModules/lookServices/serviceDetails/quickMelt/serviceDetails?serverId=' + e;
+			}
+			uni.navigateTo({
+				url: url
+			});
+		},
 		getImgsList(){
 			console.log('获取轮播图数据');
 			if (uni.getStorageSync('landRegist')) {

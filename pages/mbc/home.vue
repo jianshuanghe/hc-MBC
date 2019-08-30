@@ -67,7 +67,6 @@
           }
         },
 		onLoad() {
-			console.log(this.GET_HOME, '加载主页');
 			if(uni.getStorageSync('clickItems')) {
 				this.clickItems = uni.getStorageSync('clickItems'); // 取缓存中tabbar数据
 				this.upTitle(this.clickItems);

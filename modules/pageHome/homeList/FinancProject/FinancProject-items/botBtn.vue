@@ -150,8 +150,8 @@
 			},
 			Apply () {
 				console.log('触发申请');
-				if (this.userType === 1 || this.userType === 2) { // 1 个人投资人 2 机构投资人
-					if (this.authState !== 1) { // 没有认证.或者认证没通过
+				if (this.userType === '1' || this.userType === '2') { // 1 个人投资人 2 机构投资人
+					if (this.authState !== '1') { // 没有认证.或者认证没通过
 						
 						console.log(UserData.userType, '------------UserData.userType----------');
 						this.$store.commit('setAuthShow', true); // 更新setAuthShow

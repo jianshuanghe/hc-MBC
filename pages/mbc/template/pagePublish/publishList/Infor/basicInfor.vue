@@ -264,7 +264,6 @@
 	    mounted () {
 	    },
 		beforeDestroy () {
-			console.log('页面销毁之前缓存数据')
 			if (this.listData.isPostSucccess === false) { // 如果用户没有提交数据之前用户切换页面,需要缓存数据
 				uni.setStorageSync('publishListData', JSON.stringify(this.listData));// 缓存确认成功的数据
 			}
@@ -274,7 +273,9 @@
 				setPublishParams: 'setPublishParams',
 				setPublishTitleIndex: 'setPublishTitleIndex',
 				setIsUploadFileSuccess: 'setIsUploadFileSuccess',
-				setScanLandSuccess: 'setScanLandSuccess'
+				setIsUploadFileIsFileSuccess: 'setIsUploadFileIsFileSuccess',
+				setScanLandSuccess: 'setScanLandSuccess',
+				setAuthShow: 'setAuthShow'
 			}),
 			getField () { // 公共组件领域
 				let fieldData = [];
@@ -455,14 +456,24 @@
 								this.$store.commit('setPublishTitleIndex', 1); // 更新setPublishTitleIndex
 								this.$store.commit('setIsUploadFileSuccess', false); // 更新setIsUploadFileSuccess
 								this.$store.commit('setScanLandSuccess', false); // 更新setScanLandSuccess
+								this.$store.commit('setIsUploadFileIsFileSuccess', true); // 更新setIsUploadFileIsFileSuccess
+								let publishParams = {
+									userId: 0, //用户ID
+									projName: "", //项目名称
+									projSlogan: "", //项目口号
+									fieldCode: "", //领域Code
+									pcode: "", //省市
+									ccode: "",
+									projLogo: "", //项目logo
+									compName: "", //公司名称
+									compUrl: "", //公司官网
+									encloToken: "" //token
+								};
+								this.listData = publishParams;
 								uni.removeStorageSync('isUpLoadFile'); // 确认上传成功清空isUpLoadFile
 								uni.removeStorageSync('SacnToken'); // 确认上传成功清空token
 								uni.removeStorageSync('publishListData'); // 确认上传成功清空publishListData
-								uni.showToast({
-									title: '发布成功',
-									icon: 'none',
-									duration: 1000
-								});
+								this.$store.commit('setAuthShow', true); // 更新setAuthShow
 							} else {
 								uni.showToast({
 									title: response.data.message,
