@@ -2,17 +2,17 @@
 	<view class="project-XQ-brief">
 		<view class="project-XQ-brief-image">
 			<view>添加图片</view>
-			<view class="images-thr" v-if="img.length!==0">
+			<!--<view class="images-thr" v-if="img.length!==0">
 				<image class="ziti" :src="img[0]">点击上传</image>
 				<image class="ziti" :src="img[1]">点击上传</image>
 				<image class="ziti" :src="img[2]">点击上传</image>
-			</view>
+			</view> -->
 			<view class="Img-Upload">
 				<imageUploadMore
 				 class="imhae"
-					v-model="imageData" 
+					:value="imageData"
 					:server-url="serverUrl" 
-					limit= 3
+					limit=3
 					@delete="deleteImage" 
 					@add="addImage">
 				</imageUploadMore>
@@ -77,7 +77,7 @@
 				logo2:'',
 				logo3:'',
 				xin: this.Static + 'mbcImg/common/xing.png',
-				imageData: [],
+				imageData: '',
 				serverUrl: 'https://img01.iambuyer.com/imgup/upLoad/fileUpload',
 				txtVal: 0,
 				remnane:0,
@@ -177,6 +177,7 @@
 							this.conentCore=response.data.content.conentCore
 							this.conentPortrait=response.data.content.conentPortrait
 							this.imageData=response.data.content.imgs
+							console.log(this.imageData)
 							this.descInput()
 							this.descInput2()
 							this.descInput3()

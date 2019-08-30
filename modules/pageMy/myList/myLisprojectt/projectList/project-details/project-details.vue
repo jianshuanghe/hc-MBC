@@ -15,11 +15,11 @@
 					<view class="bianji" @tap="gotomy">编辑</view>
 				</view>
 			</view>
-			<view class="project-details-header-two" v-if="this.Labelarr.length!==0">
+			<view class="project-details-header-two" v-if="Labelarr.length!==0">
 				<span v-for="(items,index) in arr.projLabels" :key="index">{{items.labelName}}</span>
 				<view @tap="gotoedit">编辑</view>
 			</view>
-			<view class="project-details-header-twos" v-if="this.Labelarr.length==0">
+			<view class="project-details-header-twos" v-if="Labelarr.length==0">
 				<span>暂未添加标签</span>
 				<view class="gotoedit" @tap="gotoedit">编辑</view>
 			</view>
@@ -58,7 +58,7 @@
 				<view>{{arr.conentPortrait}}</view>
 			</view>
 			<view class="project-details-data-bian" @tap="gotobrief" >编辑</view>
-			<view @tap="gotobrief" class="project-details-data-brief" v-if="arr.projImgs.length=='0'&&arr.projContent&&arr.conentMarket&&arr.conentPortrait =='' ">
+			<view @tap="gotobrief" class="project-details-data-brief" v-if="arr.projImgs.length==0||arr.projContent||arr.conentMarket||arr.conentPortrait =='' ">
 				填写项目简介
 			</view>
 		</view>
@@ -343,6 +343,7 @@
 							this.arr = response.data.content
 							this.$store.commit('setCompany', this.arr);
 							console.log(this.arr)
+							
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading

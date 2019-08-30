@@ -168,9 +168,6 @@
 						success: (response) => {
 							uni.hideLoading();
 							console.log(response.data);
-							// uni.navigateTo({
-							// 	url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-details?id='+this.id
-							// })
 							uni.navigateTo({
 								url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-details?id='+this.id
 							})
