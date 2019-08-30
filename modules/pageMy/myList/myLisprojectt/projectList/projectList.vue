@@ -7,8 +7,8 @@
 				<view><image :src="item.projLogo" mode=""></image></view>
 				<view>
 					<span>{{item.projName}}</span>
-					<span>未曝光</span>
-					<!-- <span v-if="item.projType==1">融资中</span> -->
+					<span v-if="item.projType==0">未曝光</span>
+					<span v-if="item.projType==1">融资中</span>
 					<span>资料完整度:{{item.projData}}</span>
 				</view>
 				<view>

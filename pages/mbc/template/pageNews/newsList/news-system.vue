@@ -6,7 +6,7 @@
 		<view class="system-notice">
 			<view>系统通知<span v-for="(items,index) in Innum.rows" v-if="index<1" :key="index">{{items.createTime|formatDate}}</span></view>
 			<view v-for="(item,index) in Innum.rows" v-if="index<1" :key="index">{{item.content}}
-				<view v-if="Listdata.noticeCount !== 0">{{Listdata.noticeCount}}</view>
+				<view v-if="List.noticeCount !== 0">{{List.noticeCount}}</view>
 			</view>
 		</view>
 	</view>
@@ -19,14 +19,28 @@
 		data() {
 			return {
 				xiaoxo: this.Static + 'mbcImg/news/xiaoxo.png',
-				Listdata:[]
+				Listdata:[],
+				List:[],
+				
 			};
 		},
+		watch: {
+			GET_MY: {
+				handler(a, b) {
+					console.log(a, b);
+					this.List=a.MyList.header
+					console.log(this.List)
+				},
+				deep: true
+			}
+		},
 		computed: {
-
+			...mapGetters(['GET_MY'])
 		},
 		created() {
 			this.getHeader();
+			this.List = this.GET_MY.MyList.header;
+			console.log(this.List, 'chuan');
 		},
 		filters: {
 			formatDate: function(value) {
@@ -65,6 +79,7 @@
 						},
 						success: (response) => {
 							console.log(response.data);
+							this.getHeader();
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -101,8 +116,7 @@
 						success: (response) => {
 							console.log(response.data);
 							this.Listdata=response.data.content
-							console.log(this.Listdata,'--------------------------------------------')
-							console.log(this.Innum)
+							this.$store.commit('setheader', this.Listdata);
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading

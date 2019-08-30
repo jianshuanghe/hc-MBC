@@ -22,7 +22,7 @@
 				中国·{{item.pCodeStr}}
 			</view>
 		</view>
-		<view class="meirenkanwo" v-if="CollectionList.rows!==undefined &&CollectionList.rows.length==0">
+		<view class="meirenkanwo" v-if="CollectionList!==undefined &&CollectionList.length==0">
 			<image :src="kong" mode=""></image>
 			您还没有收藏投资人！
 		</view>
@@ -197,6 +197,7 @@
 							uni.hideLoading();
 							console.log(response.data);
 							this.CollectionList = response.data.rows;
+							console.log(this.CollectionList)
 							e.listData = response.data.rows; // 第一页返回的数据
 							e.search.pageNum = this.pageNums(response.data.total) // 总页数
 							// console.log(response.data.total, e.search.pageNum);

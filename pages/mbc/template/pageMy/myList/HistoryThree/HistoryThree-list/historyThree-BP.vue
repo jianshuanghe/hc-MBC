@@ -1,7 +1,7 @@
 <template>
-	<view class="history3Footprint" @tap="gotomyListfootprint">
-		<span>{{List.footprintCount}}</span>
-		<span>足迹</span>
+	<view class="historyThree-BP" @tap="gotomyListreceive">
+		<span>{{List.sendBpCount}}</span>
+		<span>以收到</span>
 	</view>
 </template>
 
@@ -24,18 +24,18 @@
 		watch: {
 			GET_MY: {
 				handler(a, b) {
-					console.log(a, b, '--------------------------------------------------------------------');
+					// console.log(a, b, '--------------------------------------------------------------------');
 					this.List=a.MyList.header
-					console.log(this.List)
+					console.log(this.List,'-----------')
 				},
 				deep: true
 			}
 		},
 		methods: {
-			gotomyListfootprint(e) {   
+			gotomyListreceive(e) {   
 				console.log(e)
 			    uni.navigateTo({
-			        url: '/modules/pageMy/myList/myListfootprint/footprint',
+			        url: '/modules/pageMy/myList/myListreceive/receive',
 			    });
 			}
 		}
@@ -43,18 +43,19 @@
 </script>
 
 <style>
-	.history3Footprint{
+	.historyThree-BP{
 		width: 33%;
-		height: 100%;
+		min-height: 100%;
+		background: #FFFFFF;
 		text-align: center;
 	}
-	.history3Footprint span:nth-of-type(1){
+	.historyThree-BP span:nth-of-type(1){
 		font-size: 36upx;
 		color: #2E2E30;
 		font-weight: 700;
 		padding-top: 2.5%;
 		display: block;
-	}.history3Footprint span:nth-of-type(2){
+	}.historyThree-BP span:nth-of-type(2){
 		font-size: 26upx;
 			color: #2E2E30;
 			display: block;

@@ -10,9 +10,9 @@
 			<view>{{Listdata.userName}}</view>
 			<view v-if="Listdata.userPosition!==''">职位:{{Listdata.userPosition}}</view>
 			<view>邮箱:{{Listdata.userEmail}}</view>
-			<view v-if="Listdata.compName!==''">机构名称:{{Listdata.compName}}</view>
-			<view>
-				<image :src="Listdata.img"></image>
+			<view v-if="Listdata.mechIdStr.compName!==''">机构名称:{{Listdata.mechIdStr.compName}}</view>
+			<view class="conter-img">
+				<img :src="Listdata.img"></img>
 			</view>
 		</view>
 		<view class="inspect-List-success-fotter">
@@ -23,9 +23,9 @@
 				<view>审核通过</view>
 				<view>{{Listdata.userAuthInfos[0].createTime|formatDate}}</view>
 				<view>审核中</view>
-				<view>2019.05.23 10:23:34</view>
+				<view>{{Listdata.userAuthInfos[1].createTime|formatDate}}</view>
 				<view>发起认证</view>
-				<view>2019.05.23 10:23:34</view>
+				<view>{{Listdata.userAuthInfos[1].createTime|formatDate}}</view>
 			</view>
 		</view>
 	</view>
@@ -83,6 +83,17 @@
 	.inspect-List-success {
 		width: 100%;
 		/* max-height: 100%; */
+	}
+	.conter-img{
+		width: 320upx;
+		height: 180upx;
+		padding-top: 30upx;
+		color: #5D5D5D;
+		padding-left: 48upx;
+	}
+	.conter-img>img {
+		width: 100%;
+		height: 100%;
 	}
 
 	.inspect-List-success-header {
@@ -143,19 +154,6 @@
 		font-size: 28upx;
 		color: #5D5D5D;
 		padding-left: 48upx;
-	}
-
-	.inspect-List-success-conter view:nth-of-type(5) {
-		width: 320upx;
-		height: 179upx;
-		padding-top: 30upx;
-		color: #5D5D5D;
-		padding-left: 48upx;
-	}
-
-	.inspect-List-success-conter view:nth-of-type(5) image {
-		width: 100%;
-		height: 100%;
 	}
 
 	.inspect-List-success-fotter {

@@ -26,7 +26,7 @@
 				<view>所属领域</view>
 				<view>
 					<picker @change="Finanarry" :value="index" :range="arry" range-key='name'>
-						<view class="ziti">{{pickerarry? pickerarry : '请选择'}}</view>
+						<view class="ziti" :class="{'tou':tou}">{{pickerarry? pickerarry : '请选择'}}</view>
 					</picker>
 				</view>
 				<view>
@@ -96,6 +96,7 @@
 	export default {
 		data() {
 			return {
+				tou:false,
 				logo: '',
 				xin: this.Static + 'mbcImg/common/xing.png',
 				right: this.Static + 'mbcImg/my/right.png',
@@ -230,6 +231,9 @@
 			Finanarry: function(e) {
 				this.arry.map((items, index) => {
 					if (String(index) === String(e.target.value)) {
+						if(this.pickerarry!=='请选择'){
+							this.tou=true
+						}
 						this.pickerarry = items.name;
 						this.id1=items.id
 						console.log(this.pickerarry, this.id1)
@@ -316,6 +320,9 @@
 							console.log(this.arry, '融资数组');
 							this.arry.map((items, index) => {
 								if (String(FainId) === String(items.id)) {
+									if(this.pickerarry!=='请选择'){
+										this.tou=true
+									}
 									this.pickerarry = items.name;
 									this.id1=items.id
 								}
@@ -371,6 +378,9 @@
 </script>
 
 <style>
+	.tou{
+		color: black;
+	}
 	.BI-items{
 		position: relative;
 		width: 100%;
@@ -440,9 +450,6 @@
 		height: 100%;
 	}
 
-	input {
-		color: #D2D2D2;
-	}
 	.img{
 		position: absolute;
 		top: 0;

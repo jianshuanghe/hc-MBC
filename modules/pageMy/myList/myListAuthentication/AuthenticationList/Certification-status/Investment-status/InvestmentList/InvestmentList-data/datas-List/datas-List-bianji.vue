@@ -82,6 +82,7 @@
 	export default {
 		data() {
 			return {
+				tou:false,
 				logo: '',
 				xin: this.Static + 'mbcImg/common/xing.png',
 				right: this.Static + 'mbcImg/my/right.png',
@@ -318,6 +319,9 @@
 				console.log('picker发送选择改变，携带值为', e.target.value);
 				this.array.map((items, index) => {
 					if (index == e.target.value) {
+						if(this.pickerValue!=='请选择'){
+							this.tou=true
+						}
 						this.pickerValue = items;
 						this.pick = e.target.value
 						console.log(this.pick)
@@ -339,19 +343,17 @@
 </script>
 
 <style>
+	.tou{
+		color: black;
+	}
+	input{
+		color: black!important;
+	}
 	.BI-items {
 		position: relative;
 		width: 100%;
 		margin: 0 auto;
 		background: #FFFFFF;
-	}
-	.zitia {
-		position: absolute;
-		right: 50upx !important;
-		height: 30upx;
-		top: 30upx;
-		font-size: 30upx !important;
-		color: #D2D2D2
 	}
 	.BI-items-left {
 		position: relative;
@@ -479,6 +481,7 @@
 		height: 80upx;
 		top: -30upx;
 		font-size: 30upx !important;
+		color: black;
 	}
 	.ziti1 {
 		position: absolute;

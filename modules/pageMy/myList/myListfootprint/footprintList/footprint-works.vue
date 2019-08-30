@@ -5,7 +5,7 @@
 			<view class="footprint-works-fist" v-for="(item,index) in List" :key="index" @tap="gotoxiangmuxiang(item.projId)">
 				<view><image :src="item.projLogo"></image></view>
 				<view>
-					<span>{{item.projName}}</span>
+					<span class="projNAme">{{item.projName}}</span>
 					<span>{{item.fieldName}}</span>
 				</view>
 				<view>
@@ -222,15 +222,21 @@
 		height: 80upx;
 		left: 110upx;
 		padding-top: 40upx;
-		/* background: red; */
 	}
-	.footprint-works-fist span:nth-of-type(1){
+	.projNAme{
+		
+	}
+	.footprint-works-fist view:nth-of-type(2) span:nth-of-type(1){
 		width: 300upx;
 		font-size: 32upx;
 		margin-top: -10upx;
 		display: block;
+		height: 45upx;
+		overflow: hidden;
+		text-overflow:ellipsis;
+		white-space: nowrap;
 	}
-	.footprint-works-fist span:nth-of-type(2){
+	.footprint-works-fist view:nth-of-type(2) span:nth-of-type(2){
 		/* position: absolute; */
 		display: block;
 		font-size: 24upx;

@@ -436,7 +436,6 @@
 		width: 100%;
 		height: 100%;
 		background: #FFFFFF;
-		color: #D2D2D2;
 	}
 	.numberV{
 		font-size: 28upx;
