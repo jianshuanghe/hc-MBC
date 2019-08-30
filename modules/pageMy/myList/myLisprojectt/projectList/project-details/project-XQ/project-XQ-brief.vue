@@ -145,10 +145,17 @@
 				e.allImages.map((items,index)=>{
 					this.images.push(items.imgName)
 				})
-				console.log(this.images)
-					this.logo = (e.allImages[0].imgName);
-					this.logo2=(e.allImages[1].imgName);
-					this.logo3=(e.allImages[2].imgName);
+				console.log(this.images, '--------------------------------this.images-------------------------')
+					if (e.allImages.length === 1) {
+						this.logo = (e.allImages[0].imgName);
+					} else if (e.allImages.length === 2) {
+						this.logo = (e.allImages[0].imgName);
+						this.logo2=(e.allImages[1].imgName);
+					} else if (e.allImages.length === 3) {
+						this.logo = (e.allImages[0].imgName);
+						this.logo2=(e.allImages[1].imgName);
+						this.logo3=(e.allImages[2].imgName);
+					}
 					console.log(this.logo,this.logo2,this.logo3)
 				}
 			},
@@ -176,7 +183,16 @@
 							this.conentData=response.data.content.conentData
 							this.conentCore=response.data.content.conentCore
 							this.conentPortrait=response.data.content.conentPortrait
-							this.imageData=response.data.content.imgs
+							let imgs = response.data.content.imgs;
+							let imgList = [];
+							imgs.map((items, index) => {
+								let imgObj = {
+									imgUrl: items,
+									imgName: items
+								};
+								imgList.push(imgObj);
+							})
+							this.imageData=imgList;
 							console.log(this.imageData)
 							this.descInput()
 							this.descInput2()
@@ -266,8 +282,8 @@
 		border-bottom: 2upx solid #F5F5F5;
 	}
 	.project-XQ-brief-image view:nth-of-type(1){
-		font-size: 28upx;
-		color: #2E2E30;
+		/* font-size: 28upx; */
+		/* color: #2E2E30; */
 		padding-top: 10upx;
 	}
 	.ziti{

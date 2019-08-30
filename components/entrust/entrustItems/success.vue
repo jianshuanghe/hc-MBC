@@ -8,12 +8,13 @@
 				<view class="En-title">申请提交成功</view>
 				<view class="En-ins">您提交的信息正在处理，请耐心等待</view>
 				<view class="l" v-if='entrust.type === 1'>
-					<view class="En-more" @tap='clickLookMore()'> {{entrust.params.applyeType === 0 ? '查看其它投资人' : '查看其他投资机构'}}</view>
+					<view class="En-more" @tap='clickLookMore()' v-if="entrust.params.applyeType === 0"> 查看其它投资人</view>
+					<view class="En-more" @tap='clickLookMore()' v-if="entrust.params.applyeType === 1"> 查看其它投资人</view>
+					<view class="En-more" @tap='clickLookMore()' v-if="entrust.params.applyeType === 2"> 查看其他项目</view>
 				</view>
 				<view class="k" v-else>
 					<view class="En-more" @tap='clickLookMore()'>查看其他服务</view>
 				</view>
-				
 			</view>
 			<view class="input-box">
 				<view class="En-my-other">

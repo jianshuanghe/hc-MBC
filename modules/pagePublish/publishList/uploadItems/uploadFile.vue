@@ -31,7 +31,12 @@
 	    methods: {
 			...mapMutations({
 				setIsUploadFileSuccess: 'setIsUploadFileSuccess',
-				setIsUploadFileContent: 'setIsUploadFileContent'
+				setIsUploadFileContent: 'setIsUploadFileContent',
+				setPublishParams: 'setPublishParams',
+				setPublishTitleIndex: 'setPublishTitleIndex',
+				setIsUploadFileIsFileSuccess: 'setIsUploadFileIsFileSuccess',
+				setScanLandSuccess: 'setScanLandSuccess',
+				setAuthShow: 'setAuthShow'
 			}),
 			isFileUpload () {
 				console.log('点击触发确完成组件');
@@ -65,6 +70,68 @@
 								this.$store.commit('setIsUploadFileSuccess', true); // 更新setIsUploadFileSuccess
 								this.$store.commit('setIsUploadFileContent', this.isUpLoadFile.content); // 更新setIsUploadFileContent
 								uni.navigateBack({delta: 1});
+								let isUpLoadFileParams =  JSON.parse(uni.getStorageSync('isUpLoadFileParams'));
+								if (isUpLoadFileParams.sourceProList === true) {
+									this.$store.commit('setScanLandSuccess', false); // 更新setScanLandSuccess
+									if (uni.getStorageSync('landRegist')) {
+										let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+										console.log(landRegistLG.user.id);
+										// let params = {}; // 请求总数居时 参数为空
+										uni.showLoading({ // 展示loading
+											title: '加载中'
+										});
+										uni.request({
+											url: this.api2 + '/proj/' + isUpLoadFileParams.id, //接口地址。
+											// data: this.endParams(params),
+											method: 'GET',
+											header: {
+												Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+											},
+											success: (response) => {
+												uni.hideLoading();
+												console.log(response.data);
+												this.$store.commit('setCompany', response.data.content);
+												let params = {
+													sourceProList: false,
+													id: 0
+												} // 判断链接上有参数
+												uni.setStorageSync('isUpLoadFileParams', params);
+												uni.setStorageSync('clickItemsIndexPublish', 1);
+												console.log('切换上传BP和基本信息');
+												this.$store.commit('setPublishTitleIndex', 1); // 更新setPublishTitleIndex
+												this.$store.commit('setIsUploadFileSuccess', false); // 更新setIsUploadFileSuccess
+												this.$store.commit('setScanLandSuccess', false); // 更新setScanLandSuccess
+												this.$store.commit('setIsUploadFileIsFileSuccess', 9); // 更新setIsUploadFileIsFileSuccess
+												let publishParams = {
+													userId: 0, //用户ID
+													projName: "", //项目名称
+													projSlogan: "", //项目口号
+													fieldCode: "", //领域Code
+													pcode: "", //省市
+													ccode: "",
+													projLogo: "", //项目logo
+													compName: "", //公司名称
+													compUrl: "", //公司官网
+													encloToken: "" //token
+												};
+												this.listData = publishParams;
+												uni.removeStorageSync('isUpLoadFile'); // 确认上传成功清空isUpLoadFile
+												uni.removeStorageSync('SacnToken'); // 确认上传成功清空token
+												uni.removeStorageSync('publishListData'); // 确认上传成功清空publishListData
+												this.$store.commit('setAuthShow', true); // 更新setAuthShow
+											},
+											fail: (error) => {
+												uni.hideLoading(); // 隐藏 loading
+												uni.showToast({
+													title: '网络繁忙，请稍后',
+													icon: 'none',
+													duration: 1000
+												});
+												console.log(error, '网络繁忙，请稍后');
+											}
+										});
+									}
+								}
 							} else {
 								uni.showToast({
 									title: response.data.message,

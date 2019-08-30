@@ -2,7 +2,7 @@
 	<view class="imageUploadContainer">
 		<view class="imageUploadList">
 			<view class="imageItem" v-bind:key="index" v-for="(path,index) in imageList">
-				<image :src="path.imgUrl" :class="{'dragging':isDragging(index)}" draggable="true" @tap="previewImage" :data-index="index" @touchstart="start" @touchmove.stop.prevent="move" @touchend="stop"></image>
+				<image :src="path" :class="{'dragging':isDragging(index)}" draggable="true" @tap="previewImage" :data-index="index" @touchstart="start" @touchmove.stop.prevent="move" @touchend="stop"></image>
 				<view v-if="isShowDel" class="imageDel" @tap="deleteImage" :data-index="index">x</view>
 			</view>
 			<view v-if="isShowAdd" class="imageUpload" @tap="selectImage">+</view>
@@ -16,7 +16,7 @@
 	
 	export default {
 		name:'robby-image-upload',
-		props: ['value','enableDel','enableAdd','enableDrag','serverUrl','formData','limit','fileKeyName','showUploadProgress'],
+		props: ['value','enableDel','enableAdd','enableDrag','serverUrl','formData','limit','fileKeyName','showUploadProgress','serverUrlDeleteImage'],
 		data() {
 			return {
 				imageBasePos:{
@@ -123,13 +123,8 @@
 										name: 'file',
 										success: function(res){
 											if(res.statusCode === 200){
-												console.log(JSON.parse(res.data), '上传成功');
-												let imgObj = {
-													imgUrl: JSON.parse(res.data).httpUrl,
-													imgName: JSON.parse(res.data).name
-												};
-												_self.imageList[remoteUrlIndex] = imgObj;
-												console.log(_self.imageList, '_self.imageList');
+												_self.imageList[remoteUrlIndex] = res.data 
+												console.log(res.data, '----------------------------')
 												completeImages ++
 												
 												if(_self.showUploadProgress){
@@ -175,6 +170,20 @@
 				var imageIndex = e.currentTarget.dataset.index
 				var deletedImagePath = this.imageList[imageIndex]
 				this.imageList.splice(imageIndex, 1) 
+				
+				//检查删除图片的服务器地址是否设置，如果设置则调用API，在服务器端删除该图片
+				if(this.serverUrlDeleteImage){
+					uni.request({
+						url: this.serverUrlDeleteImage,
+						method: 'GET',
+						data: {
+							imagePath: deletedImagePath
+						},
+						success: res => {
+							console.log(res.data)
+						}
+					});
+				}
 				
 				this.$emit('delete',{
 					currentImage: deletedImagePath,
@@ -293,49 +302,38 @@
 	}
 	
 	.dragging{
-		transform: scale(0)
+		transform: scale(1.2)
 	}
 	
 	.imageUploadList{
-		width: 900upx;
-		height: 148upx;
 		display: flex;
-		/* flex-wrap: wrap; */
+		flex-wrap: wrap;
 	}
-	.imageUploadList view:nth-of-type(1){
-		margin-left: 0;
-	}
-	.imageItem{
-		width: 148upx;
-		width: 148upx;
-		margin-left: 115upx;
-	} 
-	.imageUpload{
-		width: 148upx;
-		width: 148upx;
-		margin-left: 20upx;
+	
+	.imageItem, .imageUpload{
+		width: 160upx;
+		height: 160upx;
+		margin: 10upx;
 	}
 	
 	.imageDel{
 		position: relative;
 		left: 120upx;
-		bottom: 185upx;
+		bottom: 165upx;
 		background-color: rgba(0,0,0,0.5);
 		width: 36upx;
-		height: 27upx;
 		text-align: center;
-		line-height: 14upx;
-		border-radius: 50%;
-		color: white!important;
+		line-height: 35upx;
+		border-radius: 17upx;
+		color: white;
 		font-size: 30upx;
 		padding-bottom: 2upx;
 	}
 	
 	.imageItem image, .moveImage{
-		width: 148upx;
-		height: 148upx;
+		width: 160upx;
+		height: 160upx;
 		border-radius: 8upx;
-		margin-top: -10upx;
 	}
 	
 	.imageUpload{
@@ -349,8 +347,5 @@
 	
 	.moveImage{
 		position: absolute;
-	}
-	.uni-swiper{
-		height: 100% !important;
 	}
 </style>

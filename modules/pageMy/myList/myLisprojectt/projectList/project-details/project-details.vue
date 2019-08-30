@@ -174,6 +174,17 @@
 
 			};
 		},
+		computed: {
+			...mapGetters(['GET_MY'])
+		},
+		watch: {
+		  GET_MY: {
+		    handler (a, b) {
+				this.arr = a.MyList.Company
+		    },
+		    deep: true
+		  }
+		},
 		filters: {
 			formatDate: function(value) {
 				let date = new Date(value);
@@ -221,18 +232,6 @@
 				return MM ;
 			}
 		},
-
-		watch: {
-			GET_MY: {
-				handler(a, b) {
-					// console.log(a,b)
-					// this.arr = a.MyList.Company;
-				},
-				deep: true
-			},
-
-		},
-		computed: {},
 		onLoad: function(options) {
 			this.id = options.id
 			console.log(this.id)
@@ -253,13 +252,17 @@
 			},
 			goToPutIn(e) {
 				console.log(e, '点击触发发布项目');
-				this.clickItems = e;
-				this.$store.commit('setHome', this.clickItems);
-				uni.setStorageSync('clickItems', e);
-				uni.navigateBack({
-					delta: 20,
-					animationType: 'pop-out',
-					animationDuration: 200
+				// this.clickItems = e;
+				// this.$store.commit('setHome', this.clickItems);
+				// uni.setStorageSync('clickItems', e);
+				// uni.navigateBack({
+				// 	delta: 20,
+				// 	animationType: 'pop-out',
+				// 	animationDuration: 200
+				// });
+				console.log('去扫码登录上传');
+				uni.navigateTo({
+					url: '/modules/pagePublish/publishList/publishUpload?projId=' + this.id
 				});
 			},
 			projectXQgsname() {

@@ -16,7 +16,7 @@
 					<div class="left Itm-right">
 						<div class="Itm-content-mm">
 							<div class="employ">金额: {{items.capiMoney}}万</div>
-							<div class="employ">在融伦次: {{items.levelCode}}</div>
+							<div class="employ">在融轮次: {{items.levelCode}}</div>
 							<div class="employ fT">{{items.capiInveCompName}}</div>
 						</div>
 					</div>

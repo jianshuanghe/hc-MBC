@@ -63,19 +63,19 @@
 			gotozhenduan(){
 				console.log('去BP诊断')
 				uni.navigateTo({
-					url:'/modules/pageHome/homeModules/lookServices/serviceDetails/BPD/serviceDetails?id='+1
+					url:'/modules/pageHome/homeModules/lookServices/serviceDetails/BPD/serviceDetails?serverId='+0
 				})
 			},
 			gotodamo(){
 				console.log('去BP打磨')
 				uni.navigateTo({
-					url:'/modules/pageHome/homeModules/lookServices/serviceDetails/Bp/serviceDetails?id='+2
+					url:'/modules/pageHome/homeModules/lookServices/serviceDetails/Bp/serviceDetails?serverId='+1
 				})
 			},
 			gotujiashu(){
 				console.log('去速融服务')
 				uni.navigateTo({
-					url:'/modules/pageHome/homeModules/lookServices/serviceDetails/quickMelt/serviceDetails?id='+3
+					url:'/modules/pageHome/homeModules/lookServices/serviceDetails/quickMelt/serviceDetails?serverId='+2
 				})
 			},
 			

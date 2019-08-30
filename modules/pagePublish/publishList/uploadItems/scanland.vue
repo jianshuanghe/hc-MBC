@@ -59,7 +59,7 @@
 							console.log(landRegistLG.user.id);
 							let url = '/pc/bindUserIdAndToken?token=' + _this.token + '&userId=' + landRegistLG.user.id;
 							if (_this.msgData.projId) { // 重新上传BP 需要穿项目id
-								url = '/pc/bindUserIdAndToken?token=' + _this.token + '&userId=' + landRegistLG.user.id + '&projId' + _this.msgData.projId;
+								url = '/pc/bindUserIdAndToken?token=' + _this.token + '&userId=' + landRegistLG.user.id + '&projId=' + _this.msgData.projId;
 							}
 							let params = {}; // 请求总数居时 参数为空
 							uni.showLoading({ // 展示loading
