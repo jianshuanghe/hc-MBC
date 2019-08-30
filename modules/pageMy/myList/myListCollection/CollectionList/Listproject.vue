@@ -2,7 +2,7 @@
 	<view class="Listproject">
 		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
 		@scroll="scroll">
-		<view class="Listprojectfist" v-for="(item,index) in CollectionList.rows" :key="index" @tap="gotoxiangmuxiang(item.id)" @longpress="deleat(item.id)">
+		<view class="Listprojectfist" v-for="(item,index) in CollectionList.rows" :key="index" @tap="gotoxiangmuxiang(item.id,item.title)" @longpress="deleat(item.id)">
 			<view><image :src="item.headImg"></image></view>
 			<view>
 				<span>{{item.title}}</span>
@@ -159,7 +159,15 @@
 					this.scrollTop = Number(this.scrollTop - 50)
 				});
 			},
-			gotoxiangmuxiang(e){
+			gotoxiangmuxiang(e,a){
+				if(a=='项目已被删除'){
+					uni.showToast({
+						title: '项目已被删除',
+						icon: 'none',
+						duration: 1000
+					});
+					return false;
+				}
 				uni.navigateTo({
 					url:'/modules/pageHome/homeList/FinancProject/FinancProject?id=' + e
 				})
@@ -330,11 +338,17 @@
 	}
 	.Listprojectfist view:nth-of-type(2){
 		position: absolute;
-		width: 300upx;
+		width: 250upx;
 		height: 80upx;
 		left: 110upx;
 		padding-top: 40upx;
+		
 		/* background: red; */
+	}
+	.Listprojectfist view:nth-of-type(2) span{
+		overflow: hidden; //超出的文本隐藏
+		text-overflow: ellipsis; //溢出用省略号显示
+		white-space: nowrap; //溢出不换行
 	}
 	.Listprojectfist span:nth-of-type(1){
 		font-size: 32upx;

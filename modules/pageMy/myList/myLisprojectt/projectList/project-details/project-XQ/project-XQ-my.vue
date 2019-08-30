@@ -15,7 +15,7 @@
 					<image :src="xin"></image>
 				</view>
 				<view>一句话介绍</view>
-				<view><input type="text" placeholder="请输入" placeholder-style="color:#D2D2D2" v-model="ntroduce"/></view>
+				<view><input type="text" placeholder="请输入" maxlength="30" placeholder-style="color:#D2D2D2" v-model="ntroduce"/></view>
 			</view>
 		</view>
 		<view class="Investor-field">
@@ -261,7 +261,10 @@
 						success: (response) => {
 							uni.hideLoading();
 							console.log(response.data);
-							uni.navigateBack({
+							// uni.navigateBack({
+							// })
+							uni.navigateTo({
+								url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-details?id='+this.peorid
 							})
 						},
 						fail: (error) => {

@@ -2,7 +2,7 @@
 	<view class="ListInvestor">
 		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
 		@scroll="scroll">
-		<view class="ListInvestorfist" v-for="(item,index) in CollectionList.rows" :key="index" @tap="gototouziren(item.id)" @longpress="deleat(item.id)">
+		<view class="ListInvestorfist" v-for="(item,index) in CollectionList" :key="index" @tap="gototouziren(item.id,item.userName)" @longpress="deleat(item.id)">
 			<view>
 				<image :src="item.headImg"></image>
 			</view>
@@ -170,7 +170,7 @@
 					this.scrollTop = Number(this.scrollTop - 50)
 				});
 			},
-			gototouziren(e){
+			gototouziren(e,a){
 				uni.navigateTo({
 					url:'/modules/pageHome/seekCapital/seekCapitalItems/investor/inverstorItems/itemsDetails/itemsDetails?userId=' + e
 				})
@@ -196,7 +196,7 @@
 						success: (response) => {
 							uni.hideLoading();
 							console.log(response.data);
-							this.CollectionList = response.data;
+							this.CollectionList = response.data.rows;
 							e.listData = response.data.rows; // 第一页返回的数据
 							e.search.pageNum = this.pageNums(response.data.total) // 总页数
 							// console.log(response.data.total, e.search.pageNum);

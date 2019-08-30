@@ -6,7 +6,7 @@
 					<image :src="xin"></image>
 				</view>
 				<view>融资金额</view>
-				<view><input type="text" placeholder="请输入" placeholder-style="color:#D2D2D2" style="color: #D2D2D2;" v-model="money"/></view>
+				<view><input type="text" placeholder="请输入" placeholder-style="color:#D2D2D2" v-model="money"/></view>
 				<view>万元</view>
 			</view>
 		</view>
@@ -18,7 +18,7 @@
 				<view>融资轮次</view>
 				<view>
 					<picker @change="bindPickerChange2" :value="index" :range="array2" range-key='name'>
-						<view class="ziti">{{pickerValue2? pickerValue2 : '请选择'}}</view>
+						<view class="ziti" :class="{'tou':tou}">{{pickerValue2? pickerValue2 : '请选择'}}</view>
 					</picker>
 				</view>
 				<view>
@@ -53,6 +53,7 @@
 				logo: '',
 				money:'',
 				List:[],
+				tou:false,
 				
 			};
 		},
@@ -99,6 +100,9 @@
 							let FainId=response.data.content.finanLevelCode
 							this.array2.map((items, index) => {
 								if (String(FainId) === String(items.id)) {
+									if(this.pickerValue2!=='请输入'){
+										this.tou=true
+									}
 									this.pickerValue2 = items.name;
 									this.lunid = items.id
 								}
@@ -231,6 +235,9 @@
 </script>
 
 <style>
+	.tou{
+		color: black;
+	}
 	.project-XQ-demand{
 		width: 100%;
 	}

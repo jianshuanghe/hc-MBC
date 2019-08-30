@@ -39,14 +39,10 @@
 				</view>
 			</view>
 		</view>
-		
-		
-		
-		
 		<view class="jianxi"></view>
 		<view class="project-details-data">
 			<view class="project-details-data-bianji">项目简介</view>
-			<view class="project-details-data-imges" v-if="arr.projImgs.length!==0">
+			<view class="project-details-data-imges" v-if="arr.projImgs.length!=='0'">
 				<view class="project-details-data-imges-one" v-for="(imang,index) in arr.projImgs" :key="index"><image :src="imang.imgName"></image></view>
 			</view>
 			<view class="project-details-data-two" v-if="arr.projContent!==''">
@@ -62,13 +58,10 @@
 				<view>{{arr.conentPortrait}}</view>
 			</view>
 			<view class="project-details-data-bian" @tap="gotobrief" v-if="arr.projImgs.length!==0||arr.projContent||arr.conentMarket||arr.conentPortrait !=='' ">编辑</view>
-			<view @tap="gotobrief" class="project-details-data-brief" v-if="arr.projImgs.length=='0'|arr.projContent|arr.conentMarket|arr.conentPortrait =='' ">
+			<view @tap="gotobrief" class="project-details-data-brief" v-if="arr.projImgs.length=='0'&&arr.projContent&&arr.conentMarket&&arr.conentPortrait =='' ">
 				填写项目简介
 			</view>
 		</view>
-		
-		
-		
 		
 		
 		<view class="jianxi"></view>
@@ -233,22 +226,20 @@
 			GET_MY: {
 				handler(a, b) {
 					// console.log(a,b)
-					this.arr = a.MyList.Company;
+					// this.arr = a.MyList.Company;
 				},
 				deep: true
 			},
 
 		},
 		computed: {},
-		created() {
+		onLoad: function(options) {
+			this.id = options.id
+			console.log(this.id)
 			//项目列表
 			this.shujuxiang();
 			//获取标签
 			this.Label();
-		},
-		onLoad: function(options) {
-			this.id = options.id
-			console.log(this.id)
 		},
 		methods: {
 			...mapMutations({
@@ -320,7 +311,7 @@
 			},
 			child() { //阻止事件冒泡
 			},
-			shujuxiang() { //项目列表
+			shujuxiang() { //项目详情
 				if (uni.getStorageSync('landRegist')) {
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 					console.log(landRegistLG.user.id);
@@ -472,6 +463,10 @@
 		display: block;
 		font-size: 40upx;
 		color: #2E2E30;
+		width: 300upx;
+		overflow: hidden; //超出的文本隐藏
+		text-overflow: ellipsis; //溢出用省略号显示
+		white-space: nowrap; //溢出不换行
 	}
 
 	.project-details-header-one view:nth-of-type(2) span:nth-of-type(2) {
@@ -486,7 +481,7 @@
 
 	.project-details-header-one view:nth-of-type(2) view:nth-of-type(1) {
 		display: flex;
-		width: 400upx;
+		width: 200upx;
 		height: 25upx;
 		margin-top: 10upx;
 		margin-left: 10upx;
@@ -511,7 +506,7 @@
 		border-left: 2upx solid #9B9B9B;
 		display: block;
 		line-height: 25upx;
-		padding-left: 10upx;
+		padding-left: 25upx;
 		margin-left: 10upx;
 	}
 
@@ -729,7 +724,7 @@
 		font-size: 28upx;
 		color: #5D5D5D;
 		line-height: 34upx;
-		padding-top: 20upx;
+		padding-top: 40upx;
 	}
 	.project-details-data-bian{
 		font-size: 26upx;
@@ -1061,8 +1056,12 @@
 	}
 
 	.history-cheng view:nth-of-type(2) span:nth-of-type(3) {
+		width: 500upx;
 		font-size: 26upx;
 		color: #FAB100;
+		overflow: hidden; //超出的文本隐藏
+		text-overflow: ellipsis; //溢出用省略号显示
+		white-space: nowrap; //溢出不换行
 	}
 
 	.history-cheng view:nth-of-type(3) {

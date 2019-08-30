@@ -207,7 +207,10 @@
 								let setLvliData = this.GET_MY.MyList.Lvli;
 								setLvliData.unshift(params);
 								this.$store.commit('setLvli', setLvliData);
-								uni.navigateBack({})
+								// uni.navigateBack({})
+								uni.navigateTo({
+									'url':'../../InvestmentList-data/InvestmentList-data'
+								})
 							},
 							fail: (error) => {
 								uni.hideLoading(); // 隐藏 loading

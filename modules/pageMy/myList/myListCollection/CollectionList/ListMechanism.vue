@@ -2,7 +2,7 @@
 	<view class="ListMechanism">
 		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
 		@scroll="scroll">
-		<view class="ListMechanismfist" v-for="(items,index) in List.rows" :key="index" @tap="gotojiguo(items.id)" @longpress="deleat(items.id)">
+		<view class="ListMechanismfist" v-for="(items,index) in List.rows" :key="index" @tap="gotojiguo(items.id,items.title)" @longpress="deleat(items.id)">
 			<view>
 				<image :src="items.headImg"></image>
 			</view>
@@ -161,7 +161,15 @@
 					this.scrollTop = Number(this.scrollTop - 50)
 				});
 			},
-			gotojiguo(e){
+			gotojiguo(e,a){
+				if(a=='投资机构已被删除'){
+					uni.showToast({
+						title: '投资机构已被删除',
+						icon: 'none',
+						duration: 1000
+					});
+					return false;
+				}
 				uni.navigateTo({
 					url:'/modules/pageHome/seekCapital/seekCapitalItems/investInstitution/investInstitutionItems/itemsDetails/itemsDetails?id=' + e
 				})
