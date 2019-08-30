@@ -91,6 +91,14 @@ const mutations = {
     console.log(info, 'setInvest');
     state.home.HomeList.invest = info;
   },
+  setPutBpShow (state, info) { // 投递bp
+    console.log(info, 'setPutBpShow');
+    state.home.putInBp.show = info;
+  },
+  setPutBpModelId (state, info) { // 投递BpModelId
+    console.log(info, 'setPutBpModelId');
+    state.home.putInBp.modelId = info;
+  },
   // 发现模块
   setFindTabItems (state, info) { // 头责任列表
     console.log(info, 'setFindTabItems');
@@ -128,6 +136,10 @@ const mutations = {
   setIsUploadFileSuccess (state, info) { //  默认没有确认上传
     console.log(info, 'setIsUploadFileSuccess');
     state.publish.isUpLoadFile.isSuccess = info;
+  },
+  setIsUploadFileIsFileSuccess (state, info) { //  判断用户是否上传了bp且回调成功
+    console.log(info, 'setIsUploadFileIsFileSuccess');
+    state.publish.isUpLoadFile.isFileSuccess = info;
   },
   setIsUploadFileContent (state, info) { //  确认上传之后返回的数据
     console.log(info, 'setIsUploadFileContent');

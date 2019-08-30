@@ -45,7 +45,12 @@
 				  name: ''
 				},
 				pageNum: 0, // 数据总页数
-				pageList: [] // 后台返回数据
+				pageList: [] ,// 后台返回数据
+				items: { // 记录用户收藏功能 ----投资机构
+					id: 0, // id
+					love: false // 收藏
+				},
+				clickRecordsInFor: [] // 记录用户收藏行为 ----资讯
 			};
 		},
 		components: {
@@ -66,6 +71,7 @@
 		created() {
 			console.log('在组件中并不能使用页面生命周期函数');
 			this.getList(this.information);
+			this.getClickRecordsInFor(); // 获取缓冲的用户行为数据
 		},
 		mounted() {
 		},
@@ -73,6 +79,12 @@
 			...mapMutations({
 				setInformation: 'setInformation' // 资讯
 			}),
+			getClickRecordsInFor () { // 获取缓冲的用户行为数据
+				// 投资机构
+				if (uni.getStorageSync('clickRecordsInFor')) {
+				  this.clickRecordsInFor = JSON.parse(uni.getStorageSync('clickRecordsInFor')); // 获取缓存中的用户点击行为数组记录
+				}
+			},
 			upper: function(e) {
 				console.log(e)
 			},
@@ -138,6 +150,47 @@
 						success: (response) => {
 							console.log(response.data);
 							e.listData = response.data.rows; // 第一页返回的数据
+							let pageList = [...response.data.rows];
+							if (this.clickRecordsInFor.length < this.pageList.length) { // 缓存中的数据小于缓存的
+								console.log('缓存中的数据小于缓存的');
+								for (let i = 0; i < this.pageList.length; i++) { // 用户行为数据
+									console.log(this.pageList[i]);
+										let items = { // 用户缓存用户行为的子项
+											id: 0, // id
+											love: false // 收藏
+										};
+									items.id = this.pageList[i].id; // 赋值id
+									this.clickRecordsInFor.push(items);
+									console.log(this.clickRecordsInFor, '用户行为数据');
+								}
+								uni.setStorageSync('clickRecordsInFor', JSON.stringify(this.clickRecordsInFor));// 缓存用户点击行为数组记录
+							} else if (this.clickRecordsInFor.length >= this.pageList.length) { // 缓存中的数据大于等于接口每次返回的数据
+								console.log('缓存中的数据大于等于接口每次返回的数据');
+								this.clickRecordsInFor.map((item, index) => {
+									console.log(item.id, '打印缓存中的id');
+									pageList.map((item1, index) => {
+										if (item1) {
+											console.log(item1.id, '打印接口中的id');
+											if (item1.id === item.id) { // 二次校验，如果缓存中的存在该id，则不需要再次缓存，之缓存不存在的
+												pageList.splice(index, 1); // 将接口返回的数据去重
+											}
+										};
+									});
+									console.log(pageList, '去重后的数据');
+								});
+								if (pageList.length > 0) {
+									console.log('去重后剩余数据');
+									pageList.map((item, index) => {
+										let items = { // 用户缓存用户行为的子项
+											id: 0, // id
+											love: false // 收藏
+										};
+										items.id = item.id; // 赋值id
+										this.clickRecordsInFor.push(items);
+										uni.setStorageSync('clickRecordsInFor', JSON.stringify(this.clickRecordsInFor));// 缓存用户点击行为数组记录
+									});
+								}
+							}
 							e.search.pageNum = this.pageNums(response.data.total) // 总页数
 							console.log(response.data.total, e.search.pageNum);
 							if (e.search.pageNum === 1) { // 总页数为1时，显示没有数据了
@@ -182,6 +235,32 @@
 						success: (response) => {
 							console.log(response.data);
 							e.listData = e.listData.concat(response.data.rows);
+							let pageList = [...response.data.rows];
+							console.log('缓存中的数据大于等于接口每次返回的数据');
+							this.clickRecordsInFor.map((item, index) => {
+								console.log(item.id, '打印缓存中的id');
+								pageList.map((item1, index) => {
+									if (item1) {
+										console.log(item1.instId, '打印接口中的id');
+										if (item1.id === item.id) { // 二次校验，如果缓存中的存在该id，则不需要再次缓存，之缓存不存在的
+											pageList.splice(index, 1); // 将接口返回的数据去重
+										}
+									};
+								});
+								console.log(pageList, '去重后的数据');
+							  });
+							  if (pageList.length > 0) {
+								console.log(pageList, '去重后剩余数据');
+								pageList.map((item, index) => {
+									let items = { // 用户缓存用户行为的子项
+										id: 0, // id
+										love: false // 收藏
+									};
+									items.id = item.id; // 赋值id
+									this.clickRecordsInFor.push(items);
+									uni.setStorageSync('clickRecordsInFor', JSON.stringify(this.clickRecordsInFor));// 缓存用户点击行为数组记录
+								});
+							}
 							uni.hideLoading(); // 隐藏 loading
 							this.$store.commit('setInformation', e); // 更新setInformation
 							this.goScrollTop(); // 页面触底之后调取loadMore方法，为了让用户再次调用此方法，需要自動将scroll向上滚动一些位置，这样下次滑动才会触发loadMore方法，详细需要看API

@@ -13,7 +13,7 @@
 			</view>
 		</view>
 		<tipsBox v-if='AUTH.show'>
-			<div class="" v-if='GET_PUBLISH.isUpLoadFile.isSuccess === false'>
+			<div class="" v-if='GET_PUBLISH.isUpLoadFile.isFileSuccess === false'>
 				<image class="TIPS-img" :src="close"  @tap="clickClose()"></image>
 				<div class="content">
 					<div class="TIPS-isnt">认证成为创业者，可发布项目</div>
@@ -21,7 +21,7 @@
 					<div class="TIPS-btn" @tap='goToAuth'>立即认证</div>
 				</div>
 			</div>
-			<div class="content" v-if='GET_PUBLISH.isUpLoadFile.isSuccess === true'>
+			<div class="content" v-if='GET_PUBLISH.isUpLoadFile.isFileSuccess === true'>
 				<div class="TIPS-isnt">发布成功</div>
 				<div class="line"></div>
 				<div class="TIPS-btn" @tap='goToBp'>确定</div>
@@ -38,7 +38,8 @@
 export default {
 	data() {
 		return {
-			areaData: {}
+			areaData: {},
+			close: this.Static + 'mbcImg/home/seekCapital/close.png'
 		};
 	},
 	components: {
@@ -68,7 +69,8 @@ export default {
 	mounted() {
 	},
 	beforeDestroy () {
-		console.log('页面销毁之前缓存数据')
+		console.log('页面销毁之前缓存数据');
+		this.$store.commit('setIsUploadFileIsFileSuccess', false); // 更新setIsUploadFileIsFileSuccess
 		this.$store.commit('setAuthShow', false); // 更新setAuthShow
 	},
 	methods: {
@@ -117,7 +119,8 @@ export default {
 			});
 		},
 		goToBp () {
-			console.log('触发确定，我的bp')
+			console.log('触发确定，我的bp');
+			this.$store.commit('setIsUploadFileIsFileSuccess', false); // 更新setIsUploadFileIsFileSuccess
 			uni.navigateTo({
 				url: '/modules/pageMy/myList/myLisprojectt/myproject'
 			});

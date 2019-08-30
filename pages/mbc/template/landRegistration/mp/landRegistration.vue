@@ -125,6 +125,8 @@
 											});
 										} else if (String(response.data.code) === '500') {
 											uni.hideLoading(); // 隐藏 loading
+											console.log(response.data, '---------------------response.data---------------------')
+											console.log('------------------------5000-----------------------')
 											_this.getWxMiniLogin(params);
 										} else {
 											uni.hideLoading(); // 隐藏 loading
@@ -151,6 +153,7 @@
 				});  
 			},
 			getWxMiniLogin (params) {
+				let _this = this;
 				uni.request({
 					url: _this.api2 + '/wechat/portal/wxMiniLogin', //接口地址。
 					data: params,

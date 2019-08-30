@@ -14,9 +14,9 @@
             </view>
             <view class="mbc">
 				<view class="left mbc-text" v-if="msgData.userType === '1'">投资人</view>
-				<view class="left mbc-text"  v-if="msgData.userType === '2'">{{msgData.comp || '投资机构'}}</view>
+				<view class="left mbc-text"  v-if="msgData.userType === '2'">{{msgData.mechName}}</view>
 				<view class="IIline-Y left"></view>
-				<view class="left mbc-text">{{msgData.position || '无'}}</view>
+				<view class="left mbc-text">{{msgData.position}}</view>
 				<view class="clear"></view>
             </view>
           </view>

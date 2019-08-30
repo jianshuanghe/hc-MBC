@@ -13,6 +13,7 @@ let params = {
 	serverId: '', // 服务ID
 	time: '', // 提交成功时间
 };
+
 if (uni.getStorageSync('UserData')) {
 	UserData = JSON.parse(uni.getStorageSync('UserData')); // 读取缓存的用户信息
 	params.phone = UserData.userPhone;
@@ -190,6 +191,10 @@ const state = {
 		activity: { // 活动
 			dataList: [] // 列表数据
 		},
+	},
+	putInBp: { // 发送BP
+		show: false,
+		modelId: 0
 	}
   },
   find: { // 发现
@@ -239,6 +244,7 @@ const state = {
 	scanLandSuccess: false, // 判断是否扫码登录成功
 	isUpLoadFile: {
 		isSuccess: false, // 默认没有确认上传
+		isFileSuccess: false, // 判断用户是否上传了bp且回调成功
 		content:{} // 确认上传之后返回的数据
 	}
   },

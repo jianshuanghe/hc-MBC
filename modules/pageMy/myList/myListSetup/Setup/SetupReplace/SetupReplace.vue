@@ -429,6 +429,7 @@
     position: relative;
     width: 100%;
     background: #ffffff;
+	height: 140upx;
   }
   .input-PB-box{
     position: relative;

@@ -55,7 +55,6 @@
 </template>
 
 <script>
-	import yuan from '@/static/mbcImg/home/seekCapital/yuan.png';
 	export default {
 	    data () {
 			return {

@@ -38,14 +38,11 @@
 </template>
 
 <script>
-	import iiImg from '@/static/mbcImg/home/banner1.png';
-	import yuan from '@/static/mbcImg/home/seekCapital/yuan.png';
 	import date from '@/static/mbcJs/dateTime.js';
 	export default {
 	    data () {
 			return {
-				iiImg: iiImg,
-				yuan: yuan,
+				yuan: this.Static + 'mbcImg/home/seekCapital/yuan.png',
 				isShow: false // 默认不展开全部
 			};
 	    },

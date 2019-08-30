@@ -6,7 +6,8 @@
 			</view>
 			<view class="left iT-text">
 				<view class="iT-type">{{msgData.user.userName}}</view>
-				<view class="iT-company">{{msgData.user.compName}}路{{msgData.user.position}}</view>
+				<view class="iT-company"  v-if="msgData.userType === '2'">{{msgData.user.mechName}}路{{msgData.user.position}}</view>
+				<view class="iT-company" v-else>投资人</view>
 				<view class="iT-city">{{msgData.user.city}}</view>
 			</view>
 			<view class="clear"></view>
@@ -24,6 +25,9 @@
 			msgData: {
 				type: Object
 			}
+		},
+		mounted () {
+			console.log(this.msgData, '------------------------top-----------------')
 		},
 	    methods: {
 	    }

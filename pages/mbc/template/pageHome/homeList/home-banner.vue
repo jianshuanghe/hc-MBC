@@ -44,6 +44,7 @@ export default {
 			let type = e.split('_')[0];
 			let id = Number(e.split('_')[1]);
 			console.log(type, id);
+			uni.setStorageSync('BannerItemsType', type); // 缓存点击的barnner的图片类型
 			if (type === 'server') { // 服务类
 				this.goToServiceDetails(id);
 			}

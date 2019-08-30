@@ -41,6 +41,7 @@
 		data() {
 			return {
 				dataList: {},
+				close: this.Static + 'mbcImg/home/seekCapital/close.png',
 				data: {
 					userId: 0, // 投资人id
 					serverId: 1000, // 服务ID

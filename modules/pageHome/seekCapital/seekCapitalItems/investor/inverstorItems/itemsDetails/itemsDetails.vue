@@ -38,6 +38,7 @@
 		data() {
 			return {
 				dataList: {},
+				close: this.Static + 'mbcImg/home/seekCapital/close.png',
 				data: {
 					userId: 0, // 投资人id
 					content: 1000 // 记录用户是否申请过 1申请过，0未申请
@@ -69,6 +70,9 @@
 			this.data.userId = option.userId;
 			this.getList(option.userId);
 			this.getUserApply(option.userId);
+		},
+		onShareAppMessage(res) {
+		    uni.hideShareMenu()
 		},
 		methods: {
 			...mapMutations({
@@ -195,4 +199,7 @@
 </script>
 
 <style>
+	.itemsDetails-content{
+		margin-bottom: 200upx;
+	}
 </style>

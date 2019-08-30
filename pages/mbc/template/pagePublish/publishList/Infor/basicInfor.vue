@@ -273,6 +273,7 @@
 				setPublishParams: 'setPublishParams',
 				setPublishTitleIndex: 'setPublishTitleIndex',
 				setIsUploadFileSuccess: 'setIsUploadFileSuccess',
+				setIsUploadFileIsFileSuccess: 'setIsUploadFileIsFileSuccess',
 				setScanLandSuccess: 'setScanLandSuccess',
 				setAuthShow: 'setAuthShow'
 			}),
@@ -455,6 +456,7 @@
 								this.$store.commit('setPublishTitleIndex', 1); // 更新setPublishTitleIndex
 								this.$store.commit('setIsUploadFileSuccess', false); // 更新setIsUploadFileSuccess
 								this.$store.commit('setScanLandSuccess', false); // 更新setScanLandSuccess
+								this.$store.commit('setIsUploadFileIsFileSuccess', true); // 更新setIsUploadFileIsFileSuccess
 								let publishParams = {
 									userId: 0, //用户ID
 									projName: "", //项目名称

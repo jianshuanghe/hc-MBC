@@ -1,5 +1,5 @@
 <template>
-	<view class="personalProfile-contnet">
+	<view class="personalProfile-contnet" v-if="msgData.inveList.length > 0">
 		<view class="personalProfile">
 			<view class="pP-title">
 				投资案例

@@ -8,7 +8,7 @@
 				<view :class="itemsInv.love ? 'text1' : 'text'">收藏</view>
 			</view>
 			<view class="left submit-box">
-				<view class="TD-box left">投递BP</view>
+				<view class="TD-box left" @tap="ApplyBp()">投递BP</view>
 				<view :class="msgData.content === 0 ? 'WL-box left' : 'WL-box1 left'" @tap='Apply()'> {{msgData.content === 0 ? '投递委托联系' : '已委托'}}</view>
 				<!-- <view class="WL-box left" @tap='Apply()'>投递委托联系</view> -->
 				<view class="clear"></view>
@@ -17,15 +17,18 @@
 		</view>
 		<!-- 全局设置申请组件 -->
 		<entrust v-if="entrust.entrustShow"></entrust>
+		<putInBp :msg='putInBp' v-if='GET_HOME.putInBp.show'></putInBp>
 	</view>
 </template>
 
 <script>
 	import { mapMutations, mapGetters } from 'vuex';
 	import entrust from "@/components/entrust/entrust.vue";
+	import putInBp from "./putInBp/putInBp.vue";
 	export default {
 		components: {
-			entrust
+			entrust,
+			putInBp
 		},
 	    data () {
 			return {
@@ -52,7 +55,11 @@
 				},
 				clickRecordsInvArr: [] ,// 记录用户收藏行为 ----投资人
 				userType: '99', // 用户类型  -1 未认证 0 创业者 1 个人投资人 2 机构投资人
-				authState: '99' // -1 未认证 0 待审核 1审核通过 2 审核失败
+				authState: '99' ,// -1 未认证 0 待审核 1审核通过 2 审核失败
+				putInBp: { // 发送BP
+					show: true,
+					modelId: 0
+				}
 			};
 	    },
 		props: {
@@ -61,9 +68,15 @@
 			}
 		},
 		computed: {
-			 ...mapGetters(['ENTRUSSHOW', 'ENTRUST'])
+			 ...mapGetters(['ENTRUSSHOW', 'ENTRUST', 'GET_HOME'])
 		},
 		watch: {
+			GET_HOME: {
+				handler (a, b) {
+				  this.putInBp = a.putInBp; 
+				},
+				deep: true
+		  },
 		  ENTRUSSHOW: {
 		    handler (a, b) {
 		      this.entrust.entrustShow = a; // 申请组件
@@ -82,13 +95,16 @@
 			console.log('页面销毁之前缓存数据')
 			this.$store.commit('setEnTrustShow', false); // 更新setEntrustSignUp
 			this.$store.commit('setAuthShow', false); // 更新setAuthShow
+			this.$store.commit('setPutBpShow', false); // 更新setPutBpShow
 		},
 		methods: {
 			...mapMutations({
 				setEnTrustShow: 'setEnTrustShow',
 				setEntrustType: 'setEntrustType',
 				setEntrustParams: 'setEntrustParams',
-				setAuthShow: 'setAuthShow'
+				setAuthShow: 'setAuthShow',
+				setPutBpShow: 'setPutBpShow',
+				setPutBpModelId: 'setPutBpModelId'
 			}),
 			getUserType () {
 				console.log('判断用户是否认证');
@@ -197,6 +213,23 @@
 				uni.makePhoneCall({
 					phoneNumber: '010-61723026' // 拨打电话
 				});
+			},
+			ApplyBp () {
+				console.log('触发发BP');
+				if (this.userType === '0') { // 创业者
+					if (this.authState !== '1') { // 没有认证.或者认证没通过
+						this.$store.commit('setAuthShow', true); // 更新setAuthShow
+						return
+					} else {
+						console.log('认证创业者');
+						this.$store.commit('setAuthShow', false); // 更新setAuthShow
+					}
+				} else { // 不是创业者
+					this.$store.commit('setAuthShow', true); // 更新setAuthShow
+					return
+				};
+				this.$store.commit('setPutBpModelId', this.msgData.modelId); // 更新setPutBpModelId
+				this.$store.commit('setPutBpShow', true); // 更新setPutBpShow
 			},
 			Apply () {
 				console.log('触发申请');

@@ -50,7 +50,6 @@
 </template>
 
 <script>
-	import yuan from '@/static/mbcImg/home/seekCapital/yuan.png';
 	import { mapMutations, mapGetters } from 'vuex';
 	import date from '@/static/mbcJs/dateTime.js';
 	export default {
@@ -58,6 +57,7 @@
 			return {
 				success: this.Static + 'mbcImg/home/entrust/success.png',
 				yuan: this.Static + 'mbcImg/home/seekCapital/yuan.png',
+				BannerItemsType: '', // 来源类型
 				entrust: {}
 			};
 	    },
@@ -88,7 +88,12 @@
 		},
 		created() {
 			this.entrust = this.ENTRUST;
-			console.log(this.ENTRUST, 'ENTRUST')
+			console.log(this.ENTRUST, 'ENTRUST');
+		},
+		beforeDestroy () {
+			console.log('页面销毁之前缓存数据');
+			this.$store.commit('setIsUploadFileIsFileSuccess', false); // 更新setIsUploadFileIsFileSuccess
+			this.$store.commit('setAuthShow', false); // 更新setAuthShow
 		},
 	    methods: {
 			...mapMutations({
@@ -98,11 +103,21 @@
 				console.log('触发查看更多');
 				this.$store.commit('setEnTrustShow', false); // 更新setEnTrustShow
 				this.$store.commit('setEntrustSuccess', false); // 更新setEntrustSuccess
-				uni.navigateBack({
-					delta: 1,
-					animationType: 'pop-out',
-					animationDuration: 200
-				});
+				if(uni.getStorageSync('BannerItemsType')) { // 来源banner
+					this.BannerItemsType = uni.getStorageSync('BannerItemsType');
+					if (this.BannerItemsType === 'server') { // 服务
+						uni.navigateTo({
+							url: '/modules/pageHome/homeModules/lookServices/lookServices'
+						});
+						uni.removeStorageSync('BannerItemsType'); // 清除来源
+					}
+				} else {
+					uni.navigateBack({
+						delta: 1,
+						animationType: 'pop-out',
+						animationDuration: 200
+					});
+				}
 			}
 	    }
 	};
@@ -111,7 +126,7 @@
 <style>
 	.entrust-content{
 		position: relative;
-		width: 750upx;
+		width: 690upx;
 		padding: 30upx;
 		background: #FFf;
 		height: 100vh;
