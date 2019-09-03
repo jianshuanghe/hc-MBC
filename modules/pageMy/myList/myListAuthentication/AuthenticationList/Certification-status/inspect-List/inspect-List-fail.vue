@@ -10,13 +10,14 @@
 			<view>{{Listdata.userName}}</view>
 			<view v-if="Listdata.userPosition!==''">职位:{{Listdata.userPosition}}</view>
 			<view>邮箱:{{Listdata.userEmail}}</view>
-			<view v-if="Listdata.mechIdStr.compName!==''">机构名称:{{Listdata.mechIdStr.compName}}</view>
+			<view v-if="Listdata.compName!==''">公司名称:{{Listdata.compName}}</view>
+			<view v-if="Listdata.mechIdStr!==''">机构名称:{{Listdata.mechIdStr}}</view>
 			<view class="conter-img">
 				<img :src="Listdata.img"></img>
 			</view>
 		</view>
 		<view class="fail-yuanying">
-			失败原因:{{Listdata.userAuthInfos[0].authContent}}爱是掉进阿斯加德哈师大哈师大哈沙试胆大会
+			失败原因:{{Listdata.userAuthInfos[0].authContent}}
 		</view>
 		<view class="inspect-List-fail-fotter">
 			<view>
@@ -237,13 +238,14 @@
 		color: #9B9B9B;
 	}
 	.fail-yuanying{
-		width: 90%;
+		width: 93%;
 		min-height: 50upx;
 		font-size: 28upx;
 		color: #FF6C84;
 		margin-top: 30upx;
 		background: #FFFFFF;
-		padding-left:50upx ;
+		/* padding-left:50upx ; */
 		padding-top: 40upx;
+		padding: 30upx 30upx 30upx 30upx;
 	}
 </style>
