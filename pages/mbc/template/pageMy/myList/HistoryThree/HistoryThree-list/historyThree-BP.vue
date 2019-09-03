@@ -1,7 +1,7 @@
 <template>
 	<view class="historyThree-BP" @tap="gotomyListreceive">
-		<span>{{ListNum}}</span>
-		<span>以收到</span>
+		<span>{{List.sendBpCount}}</span>
+		<span>已收到</span>
 	</view>
 </template>
 
@@ -16,12 +16,12 @@
 		computed: {
 			...mapGetters(['GET_MY'])
 		},
-		
+
 		mounted() {
 			this.getHeader();
 		},
 		methods: {
-			gotomyListreceive(e) {   
+			gotomyListreceive(e) {
 				console.log(e)
 			    uni.navigateTo({
 			        url: '/modules/pageMy/myList/myListreceive/receive',

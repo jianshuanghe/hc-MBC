@@ -2,9 +2,17 @@
 	<view class="Message">
 		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
 		@scroll="scroll">
-			<view class="Message-Tips" v-for="(item,index) in active.listData" :key="index">
+			<view class="Message-Tips" v-for="(item,index) in active.listData" :key="index" @longpress="deleat(item.id)">
 				<view>{{item.title}}<span>{{item.createTime|formatDate}}</span></view>
 				<view>{{item.content}}</view>
+			</view>
+			<view class="maske" :class="{'zhe':hiden}">
+				<view class="maske-box">
+					<view>提示</view>
+					<view @tap="out">x</view>
+					<view>是否删除?</view>
+					<view @tap="queding">确定</view>
+				</view>
 			</view>
 		</scroll-view>
 	</view>
@@ -13,11 +21,12 @@
 <script>
 	import { mapMutations, mapGetters } from 'vuex';
 	export default {
-		props:['Newdata'],
 		data () {
 			return {
+				hiden:true,
 				Listdata:[],
 				arr:[],
+				id:'',
 				scrollTop: 0,
 				old: {
 					scrollTop: 0
@@ -43,6 +52,46 @@
 			this.news(this.active);
 		},
 		methods:{
+			deleat(e){
+				this.hiden=false
+				this.id=e
+				console.log(this.id)
+			},
+			out(){
+				this.hiden=true
+			},
+			queding(){
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/noticeInfo/delByIds?ids='+this.id, //接口地址。
+						// data: this.endParams(params),
+						method: 'GET',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							console.log(response.data);
+							uni.hideLoading();
+							this.news(this.active);
+							this.hiden=true
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
 			upper: function(e) {
 				console.log(e)
 			},
@@ -142,7 +191,7 @@
 					uni.request({
 						url: this.api2 + '/noticeInfo/list?userId='+landRegistLG.user.id +'&page=' + e.search.searchCondition.page, //接口地址。
 						data: this.endParams(params),
-						method: 'GET',
+						method: 'POST',
 						header: {
 							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
 						},
@@ -187,6 +236,60 @@
 </script>
 
 <style>
+	.zhe {
+		display: none;
+	}
+	.maske{
+		position: fixed;
+		top: 0upx;
+		width: 100%;
+		height: 100%;
+		background: #000000;
+		background-color: rgba(000, 000, 0, 0.2);
+		z-index: 10;
+	}
+	.maske-box{
+		width: 75%;
+		height: 26%;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		position: absolute;
+		margin: auto;
+		background: #FFFFFF;
+		border-radius: 10upx;
+	}
+	.maske-box>view:nth-of-type(1){
+		width: 100upx;
+		font-size: 40upx;
+		margin: 0 auto;
+		margin-top: 40upx;
+		text-align: center;
+	}
+	.maske-box>view:nth-of-type(2){
+		font-size: 40upx;
+		position: absolute;
+		right: 20upx;
+		top: 0upx;
+	}
+	.maske-box>view:nth-of-type(3){
+		width: 200upx;
+		height: 50upx;
+		font-size: 32upx;
+		color:#5D5D5D;
+		margin: 40upx auto;
+		text-align: center;
+	}
+	.maske-box>view:nth-of-type(4){
+		width: 100%;
+		height: 40upx;
+		font-size: 32upx;
+		text-align: center;
+		line-height: 60upx;
+		border-top: 2upx solid  #F5F5F5;
+		color: #02C2A2;
+	}
 	.Message{
 		width: 100%;
 		height: 100%;

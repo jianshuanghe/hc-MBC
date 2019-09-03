@@ -15,6 +15,10 @@
 			</view>
 			<view class="clear"></view>
 		</view>
+		<view class="meirenkanwo" v-if="List!==undefined &&List.length==0">
+			<image :src="kong" mode=""></image>
+			您还没有收到BP！
+		</view>
 	</view>
 </template>
 
@@ -24,6 +28,7 @@
 	export default {
 	    data () {
 	      return {
+			kong:this.Static + 'mbcImg/my/kong.png',
 			scanLogo: this.Static + 'mbcImg/publish/scanLogo.png',
 	        rightArrow: this.Static + 'mbcImg/publish/rightArrow.png',
 			List:[]
@@ -107,6 +112,7 @@
 		width: 100%;
 		min-height: 100%;
 		background: #FFFFFF;
+		padding:2upx;
 	}
 	.SUI-tent{
 		position: relative;
@@ -188,7 +194,21 @@
 		font-size: 26upx;
 		color: #02C2A2;
 		position: absolute;
-		right: -100upx;
-		top: 50upx;
+		right: -110upx;
+		top: 20upx;
+	}
+	.meirenkanwo {
+		width: 284upx;
+		height: 280upx;
+		display: block;
+		margin: 120upx auto auto auto;
+		font-size: 28upx;
+		text-align: center;
+		color: #9B9B9B;
+	}
+	
+	.meirenkanwo image {
+		width: 100%;
+		height: 85%;
 	}
 </style>
