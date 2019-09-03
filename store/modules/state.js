@@ -254,6 +254,7 @@ const state = {
 		Collection:[],
 		Authentication:[],
 		Lvli:[],
+		ListCase: [],
 		Time:[],
 		Company:[],
 		Times:[],

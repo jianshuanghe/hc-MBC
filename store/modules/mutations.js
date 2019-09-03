@@ -169,6 +169,10 @@ const mutations = {
   setLvli(state, info){
 	  console.log(info,'setLvli')
 	  state.my.MyList.Lvli=info
+  },
+  setListCase (state, info){ // 投资案例
+	  console.log(info,'setListCase')
+	  state.my.MyList.ListCase = info
   },  
   //我的 公司信息
   setCompany(state, info){

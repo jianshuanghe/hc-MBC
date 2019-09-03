@@ -138,12 +138,96 @@
 					console.log(this.Listdata, '-----------------this.Listdata---------------')
 					this.Listdata.unshift(a.MyList.Time[0])
 					console.log(this.Listdata)
+					// console.log(a,b)
+					this.time=a.MyList.Times;
+					console.log(this.time, '-----------------this.time-----------------')
+					let paramsTime = [...this.time];
+					paramsTime.map((items, index) =>{
+						let objItems = {
+							levelCode: items.levelCode,
+							startTime: items.startTime+'-01'
+						};
+						this.userInveLevelList.push(objItems);
+					})
 				},
 				deep: true
 			},
 		
 		},
 		methods: {
+			...mapMutations({
+				setCase: 'setCase',
+				setListCase: 'setListCase',
+				setCollection: 'setCollection'
+			}),
+			dataheader() { //个人信息
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					// let params = {}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/user/' + landRegistLG.user.id, //接口地址。
+						// data: this.endParams(params),
+						method: 'GET',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							uni.hideLoading();
+							// console.log(response.data);
+							let List = response.data.content;
+							this.$store.commit('setCollection', List);
+							this.dataconter();
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
+			dataconter() { //任职履历
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					// let params = {}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/user/subsInfo/' + landRegistLG.user.id, //接口地址。
+						// data: this.endParams(params),
+						method: 'GET',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							uni.hideLoading();
+							console.log(response.data);
+							let Listcase = response.data.content.userInves;
+							this.$store.commit('setListCase', Listcase);
+							uni.navigateBack({delta: 1});
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
 			xiangqing(){
 				if (uni.getStorageSync('landRegist')) {
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
@@ -189,6 +273,28 @@
 				}
 			},
 			caseadd() {
+				if(this.projName==''){
+					uni.showToast({
+						title: '项目名称不能为空,请重填',
+						icon: 'none',
+						duration: 1000
+					});
+					return false;
+				}else if(this.time.length === 0){
+					uni.showToast({
+						title: '投资时间和轮数不能为空,请重填',
+						icon: 'none',
+						duration: 1000
+					});
+					return false;
+				}else if(this.logo==''){
+					uni.showToast({
+						title: '名片不能为空,请重填',
+						icon: 'none',
+						duration: 1000
+					});
+					return false;
+				}
 				if (uni.getStorageSync('landRegist')) {
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 					console.log(landRegistLG.user.id);
@@ -218,9 +324,10 @@
 							// this.$store.commit('setCollection', this.list);
 							// this.List=response.data
 							// console.log(this.List,'asdasd')
-							uni.navigateTo({
-								'url':'../../InvestmentList-data/InvestmentList-data'
-							})
+							// uni.navigateTo({
+							// 	'url':'../../InvestmentList-data/InvestmentList-data'
+							// })
+							this.dataheader();
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -256,9 +363,10 @@
 						success: (response) => {
 							uni.hideLoading();
 							console.log(response.data);
-							uni.navigateTo({
-								'url':'../../InvestmentList-data/InvestmentList-data'
-							})
+							// uni.navigateTo({
+							// 	'url':'../../InvestmentList-data/InvestmentList-data'
+							// })
+							this.dataheader();
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading

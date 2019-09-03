@@ -104,8 +104,77 @@
 		mounted() {},
 		methods: {
 			...mapMutations({
-				setLvli: 'setLvli'
+				setLvli: 'setLvli',
+				setCollection: 'setCollection'
 			}),
+			dataheader() { //个人信息
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					// let params = {}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/user/' + landRegistLG.user.id, //接口地址。
+						// data: this.endParams(params),
+						method: 'GET',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							uni.hideLoading();
+							// console.log(response.data);
+							let List = response.data.content;
+							this.$store.commit('setCollection', List);
+							this.dataconter();
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
+			dataconter() { //任职履历
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					// let params = {}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/user/subsInfo/' + landRegistLG.user.id, //接口地址。
+						// data: this.endParams(params),
+						method: 'GET',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							uni.hideLoading();
+							console.log(response.data);
+							let Listdata = response.data.content.userExpes
+							this.$store.commit('setLvli', Listdata);
+							uni.navigateBack({delta: 1});
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
 			lvli() {
 				if(this.compName===''){
 					uni.showToast({
@@ -161,9 +230,8 @@
 								// console.log(params, '--------------params---------------')
 								// setLvliData.unshift(params);
 								// this.$store.commit('setLvli', setLvliData);
-								uni.navigateTo({
-									'url':'../../InvestmentList-data/InvestmentList-data'
-								})
+								
+								this.dataheader();
 								// uni.navigateBack({
 								// 	
 								// })
@@ -209,9 +277,10 @@
 								setLvliData.unshift(params);
 								this.$store.commit('setLvli', setLvliData);
 								// uni.navigateBack({})
-								uni.navigateTo({
-									'url':'../../InvestmentList-data/InvestmentList-data'
-								})
+								// uni.navigateTo({
+								// 	'url':'../../InvestmentList-data/InvestmentList-data'
+								// })
+								this.dataheader();
 							},
 							fail: (error) => {
 								uni.hideLoading(); // 隐藏 loading

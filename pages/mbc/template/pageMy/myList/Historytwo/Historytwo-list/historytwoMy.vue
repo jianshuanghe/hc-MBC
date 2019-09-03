@@ -30,9 +30,7 @@
 		},
 		methods: {
 			
-			gotomyproject(e) {   
-				
-				console.log(e+'ȥ���ҵ���Ŀ')
+			gotomyproject() {
 			    uni.navigateTo({
 			        url: '/modules/pageMy/myList/myLisprojectt/myproject',
 			    });

@@ -2,7 +2,7 @@
 	<view class="imageUploadContainer">
 		<view class="imageUploadList">
 			<view class="imageItem" v-bind:key="index" v-for="(path,index) in imageList">
-				<image :src="path.imgUrl" :class="{'dragging':isDragging(index)}" draggable="true" @tap="previewImage" :data-index="index" @touchstart="start" @touchmove.stop.prevent="move" @touchend="stop"></image>
+				<image :src="path.imgUrl || path" :class="{'dragging':isDragging(index)}" draggable="false" @tap="previewImage" :data-index="index" @touchstart="start" @touchmove.stop.prevent="move" @touchend="stop"></image>
 				<view v-if="isShowDel" class="imageDel" @tap="deleteImage" :data-index="index">x</view>
 			</view>
 			<view v-if="isShowAdd" class="imageUpload" @tap="selectImage">+</view>
@@ -36,8 +36,9 @@
 				imageList: []
 			}
 		},
-		onLoad: function(){
-			this.imageList = this.value
+		mounted: function(){
+			this.imageList = this.value;
+			console.log(this.imageList, '-------------------this.imageList--mounted------------------')
 		},
 		computed:{
 			posMoveImageLeft: function(){ 
@@ -70,6 +71,14 @@
 				}else{
 					return true
 				}
+			}
+		},
+		watch:{
+			imageList: {
+			  handler (a, b) {
+				this.imageData = JSON.parse(JSON.stringify(a));
+			  },
+			  deep: true
 			}
 		},
 		methods:{
@@ -114,7 +123,10 @@
 							
 							for(let i=0; i<imagePathArr.length;i++){
 								promiseWorkList.push(new Promise((resolve, reject)=>{
-									let remoteUrlIndex = remoteIndexStart + i
+									let remoteUrlIndex = remoteIndexStart + i;
+									uni.showLoading({ // 展示loading
+										title: '加载中'
+									});
 									uni.uploadFile({
 										url:_self.serverUrl,
 										fileType: 'image',
@@ -122,12 +134,14 @@
 										filePath: imagePathArr[i], 
 										name: 'file',
 										success: function(res){
+											uni.hideLoading(); // 隐藏 loading
 											if(res.statusCode === 200){
 												console.log(JSON.parse(res.data), '上传成功');
 												let imgObj = {
 													imgUrl: JSON.parse(res.data).httpUrl,
 													imgName: JSON.parse(res.data).name
 												};
+												console.log(typeof(imgObj));
 												_self.imageList[remoteUrlIndex] = imgObj;
 												console.log(_self.imageList, '_self.imageList');
 												completeImages ++
@@ -143,11 +157,13 @@
 												console.log('success to upload image: ' + res.data)
 												resolve('success to upload image:' + remoteUrlIndex)
 											}else{
+												uni.hideLoading(); // 隐藏 loading
 												console.log('fail to upload image:'+res.data)
 												reject('failt to upload image:' + remoteUrlIndex)
 											}
 										},
 										fail: function(res){
+											uni.hideLoading(); // 隐藏 loading
 											console.log('fail to upload image:'+res)
 											reject('failt to upload image:' + remoteUrlIndex)
 										}
@@ -157,7 +173,7 @@
 							Promise.all(promiseWorkList).then((result)=>{
 								_self.$emit('add', {
 									currentImages: imagePathArr,
-									allImages: _self.imageList
+									allImages: JSON.parse(JSON.stringify(_self.imageList))
 								})
 								_self.$emit('input', _self.imageList)
 							})
@@ -178,17 +194,22 @@
 				
 				this.$emit('delete',{
 					currentImage: deletedImagePath,
-					allImages: this.imageList
+					allImages: JSON.parse(JSON.stringify(this.imageList))
 				})
 				this.$emit('input', this.imageList)
 			},
 			previewImage: function(e){
 				var imageIndex = e.currentTarget.dataset.index
+				console.log(this.imageList, '预览的img');
+				let imgList = []; // 预览数组
+				this.imageList.map((itms, index) => {
+					imgList.push(itms.imgUrl);
+				})
 				uni.previewImage({
-					current: this.imageList[imageIndex],
+					current: imgList[imageIndex],
 					indicator: "number",
 					loop: "true",
-					urls:this.imageList
+					urls:imgList
 				})
 			},
 			initImageBasePos: function(){
@@ -353,4 +374,16 @@
 	.uni-swiper{
 		height: 100% !important;
 	}
+	.imageDel{
+		width: 30upx;
+		height: 30upx;
+		border-radius: 50%;
+		line-height: 22upx;
+	}
+	.imageUpload {
+		height: 148upx;
+		margin-left: 115upx;
+		margin-top: -10upx;
+	}
+
 </style>

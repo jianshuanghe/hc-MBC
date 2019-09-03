@@ -82,7 +82,7 @@
 					// console.log(a,b)
 					this.List = a.MyList.Collection;
 					this.Listdata = a.MyList.Lvli;
-					// this.Listcase=a.MyList.
+					this.Listcase = a.MyList.ListCase
 				},
 				deep: true
 			},
@@ -115,7 +115,8 @@
 		methods: {
 			...mapMutations({
 				setCollection: 'setCollection',
-				setLvli: 'setLvli'
+				setLvli: 'setLvli',
+				setListCase: 'setListCase'
 			}),
 			dataheader() { //个人信息
 				if (uni.getStorageSync('landRegist')) {
@@ -171,7 +172,8 @@
 							console.log(response.data);
 							this.Listdata = response.data.content.userExpes
 							this.Listcase = response.data.content.userInves
-							console.log(this.Listcase, '333')
+							console.log(this.Listcase, '333');
+							this.$store.commit('setListCase', this.Listcase);
 							this.$store.commit('setLvli', this.Listdata);
 						},
 						fail: (error) => {

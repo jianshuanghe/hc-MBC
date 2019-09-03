@@ -235,7 +235,9 @@
 			},
 
 		},
-		computed: {},
+		computed: {
+			...mapGetters(['GET_MY'])
+		},
 		onLoad: function(options) {
 			this.id = options.id
 			console.log(this.id)
@@ -257,14 +259,18 @@
 			},
 			goToPutIn(e) {
 				console.log(e, '点击触发发布项目');
-				this.clickItems = e;
-				this.$store.commit('setHome', this.clickItems);
-				uni.setStorageSync('clickItems', e);
-				uni.navigateBack({
-					delta: 20,
-					animationType: 'pop-out',
-					animationDuration: 200
-				});
+				// this.clickItems = e;
+				// this.$store.commit('setHome', this.clickItems);
+				// uni.setStorageSync('clickItems', e);
+				// uni.navigateBack({
+				// 	delta: 20,
+				// 	animationType: 'pop-out',
+				// 	animationDuration: 200
+				// });
+				console.log('去扫码登录上传');
+				    uni.navigateTo({
+				     url: '/modules/pagePublish/publishList/publishUpload?projId=' + this.id
+				    });
 			},
 			projectXQgsname() {
 				console.log('公司信息')

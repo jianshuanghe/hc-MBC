@@ -5,7 +5,7 @@
 				<view>
 					<image :src="xin"></image>
 				</view>
-				<view>真实姓名</view>
+				<view>公司全称</view>
 				<view><input type="text" placeholder="请输入" placeholder-style="color:#D2D2D2" v-model="List.compName"/></view>
 			</view>
 		</view>

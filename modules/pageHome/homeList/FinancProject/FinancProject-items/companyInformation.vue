@@ -15,7 +15,7 @@
 			<div class="pP-content-box">
 				<div class="titel-pP">公司地址</div>
 				<div class="pP-content">
-					{{msgData.pcode}}{{msgData.ccode}}{{msgData.compAddr}}
+					{{msgData.compAddr}}
 				</div>
 				<div class="line"></div>
 			</div>

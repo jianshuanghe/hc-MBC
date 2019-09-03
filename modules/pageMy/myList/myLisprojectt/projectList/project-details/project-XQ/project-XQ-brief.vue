@@ -7,10 +7,10 @@
 				<image class="ziti" :src="img[1]">点击上传</image>
 				<image class="ziti" :src="img[2]">点击上传</image>
 			</view> -->
-			<view class="Img-Upload">
+			<view class="Img-Upload" v-if="isImgShow">
 				<imageUploadMore
 				 class="imhae"
-					:value="imageData"
+					v-model="imageData"
 					:server-url="serverUrl" 
 					limit=3
 					@delete="deleteImage" 
@@ -46,10 +46,19 @@
 		<view class="projectXQteam-resume">
 			<view>商业模式</view>
 			<view>
+				<textarea placeholder="你的产品通过什么方式实现盈利？" maxlength="500" @input="descInput4" v-model="conentData" placeholder-style="color:#D2D2D2" />
+				<span class="numberV">{{remnane6}}/500</span>
+			</view>
+		</view>
+		<view class="jiange"></view>
+		<view class="projectXQteam-resume">
+			<view>运营数据</view>
+			<view>
 				<textarea placeholder="产品的用户规模及财务数据等" maxlength="500" @input="descInput4" v-model="conentModel" placeholder-style="color:#D2D2D2" />
 				<span class="numberV">{{remnane4}}/500</span>
 			</view>
 		</view>
+		<view class="jiange"></view>
 		<view class="jiange"></view>
 		<view class="projectXQteam-resume">
 			<view>核心资源</view>
@@ -69,7 +78,8 @@
 </template>
 
 <script>
-	import imageUploadMore from '@/components/imageUpload/imageUploadMore.vue'
+	import imageUploadMore from '@/components/imageUpload/imageUploadMore.vue';
+	import { mapMutations } from 'vuex';
 	export default {
 		data() {
 			return {
@@ -85,6 +95,7 @@
 				remnane3:0,
 				remnane4:0,
 				remnane5:0,
+				remnane6: 0,
 				desc:'',
 				id:'',
 				projContent:'',
@@ -92,9 +103,12 @@
 				conentModel:'',
 				conentCore:'',
 				conentPortrait:'',
+				conentData: '',
 				img:[],
 				array2:[],
-				images:[]
+				images:[],
+				isImgShow: false, // 等接口放回数据之后再显示
+				imgList: [] // 附件数组
 			};
 		},
 		components: {
@@ -102,15 +116,18 @@
 		},
 		computed: {},
 		mounted() {
-			
+			this.Getinto();
 		},
 		onLoad:function(options){
 			this.id = options.id
 			console.log(this.id)
-			this.Getinto();
 			
 		},
 		methods: {
+			...mapMutations({
+				setCompany: 'setCompany',
+				setHistory:'setHistory'
+			}),
 			descInput(){
 				setTimeout(() => { 
 					var txtVal = this.projContent.length;
@@ -133,11 +150,22 @@
 				var txtVal5 = this.conentCore.length;
 				this.remnane5 = 0 + txtVal5;
 			},
+			descInput6(){
+				var txtVal6 = this.conentData.length;
+				this.remnane6 = 0 + txtVal6;
+			},
 			deleteImage: function(e) {
 				console.log(e, '删除图片')
-				this.logo = ''; // 清空数据
-				this.logo1 = '';
-				this.logo2 = '';
+				if (e.allImages.length === 1) {
+					this.logo = (e.allImages[0].imgName);
+				} else if (e.allImages.length === 2) {
+					this.logo = (e.allImages[0].imgName);
+					this.logo2=(e.allImages[1].imgName);
+				} else if (e.allImages.length === 3) {
+					this.logo = (e.allImages[0].imgName);
+					this.logo2=(e.allImages[1].imgName);
+					this.logo3=(e.allImages[2].imgName);
+				};
 			},
 			addImage: function(e) {
 				console.log(e, '添加图片')
@@ -183,23 +211,28 @@
 							this.conentData=response.data.content.conentData
 							this.conentCore=response.data.content.conentCore
 							this.conentPortrait=response.data.content.conentPortrait
+							this.conentData = response.data.content.conentData;
 							let imgs = response.data.content.imgs;
 							let imgList = [];
 							imgs.map((items, index) => {
-								let imgObj = {
-									imgUrl: items,
-									imgName: items
-								};
-								imgList.push(imgObj);
+								if (items) {
+									// let imgName = items.split('/');
+									let imgObj = {
+										imgUrl: items,
+										imgName: items
+									};
+									imgList.push(imgObj);
+								}
 							})
 							this.imageData=imgList;
-							console.log(this.imageData)
-							this.descInput()
-							this.descInput2()
-							this.descInput3()
-							this.descInput4()
-							this.descInput5()
-							
+							this.isImgShow = true;
+							console.log(this.imageData);
+							this.descInput();
+							this.descInput2();
+							this.descInput3();
+							this.descInput4();
+							this.descInput5();
+							this.descInput6();
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -247,9 +280,44 @@
 							console.log(response.data.content);
 							// this.array2 = response.data.content
 							console.log(params)
-							uni.navigateTo({
-								url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-details?id='+this.id
-							})
+							this.shujuxiang();
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
+			shujuxiang() { //项目详情
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					// let params = {}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/proj/' + this.id, //接口地址。
+						// data: this.endParams(params),
+						method: 'GET',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							uni.hideLoading();
+							console.log(response.data);
+							this.arr = response.data.content
+							this.$store.commit('setCompany', this.arr);
+							this.$store.commit('setHistory', this.arr);
+							uni.navigateBack({delta: 1});
+							console.log(this.arr)
+							
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -284,7 +352,7 @@
 	.project-XQ-brief-image view:nth-of-type(1){
 		/* font-size: 28upx; */
 		/* color: #2E2E30; */
-		padding-top: 10upx;
+		/* padding-top: 10upx; */
 	}
 	.ziti{
 		margin-top: 50upx;

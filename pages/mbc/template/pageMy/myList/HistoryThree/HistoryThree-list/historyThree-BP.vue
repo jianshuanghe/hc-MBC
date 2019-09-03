@@ -1,6 +1,6 @@
 <template>
 	<view class="historyThree-BP" @tap="gotomyListreceive">
-		<span>{{List.sendBpCount}}</span>
+		<span>{{ListNum}}</span>
 		<span>以收到</span>
 	</view>
 </template>
@@ -10,24 +10,15 @@
 	export default {
 		data() {
 			return {
-				List: []
+				ListNum: 0
 			};
 		},
 		computed: {
 			...mapGetters(['GET_MY'])
 		},
 		
-		created() {
-		},
-		watch: {
-			GET_MY: {
-				handler(a, b) {
-					// console.log(a, b, '--------------------------------------------------------------------');
-					this.List=a.MyList.header
-					console.log(this.List,'-----------')
-				},
-				deep: true
-			}
+		mounted() {
+			this.getHeader();
 		},
 		methods: {
 			gotomyListreceive(e) {   
@@ -35,6 +26,38 @@
 			    uni.navigateTo({
 			        url: '/modules/pageMy/myList/myListreceive/receive',
 			    });
+			},
+			getHeader() {
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					// let params = {}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/bp/list?userId='+landRegistLG.user.id, //接口地址。
+						// data: this.endParams(params),
+						method: 'GET',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							uni.hideLoading();
+							console.log(response.data);
+							this.ListNum = response.data.total
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
 			}
 		}
 	};
