@@ -86,12 +86,12 @@
 		width: 33.333%;
 	}
 	.active-tap{
-		font-size: 28upx !important;
+		font-size: 32upx !important;
 		color: #02C2A2 !important;
 	}
 	.RT-box-top{
 		font-family: PingFang-SC-Bold;
-		font-size: 28upx;
+		font-size: 32upx;
 		color: #2E2E30;
 		letter-spacing: 0;
 		text-align: center;

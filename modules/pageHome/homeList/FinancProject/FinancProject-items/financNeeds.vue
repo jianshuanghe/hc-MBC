@@ -1,15 +1,15 @@
 <template>
-	<div class="personalProfile-contnet">
-		<div class="personalProfile">
-			<div class="pP-title">
+	<view class="personalProfile-contnet">
+		<view class="personalProfile">
+			<view class="pP-title">
 				融资需求
 				<text class="pP-text-right"  @tap="goToOpinion()">纠错</text>
-			</div>
-			<div class="pP-content">
+			</view>
+			<view class="pP-content">
 				{{msgData.finanLevelCode}} {{msgData.finanMoney}}万人民币
-			</div>
-		</div>
-	</div>
+			</view>
+		</view>
+	</view>
 </template>
 
 <script>
@@ -37,13 +37,11 @@
 <style>
 	.personalProfile-contnet{
 		position: relative;
-		width: 750upx;
 		background: #fff;
 		margin-bottom: 20upx;
 	}
 	.personalProfile{
 		position: relative;
-		width: 100%;
 		padding: 30upx 30upx 0 30upx;
 	}
 	.pP-title{

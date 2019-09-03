@@ -261,6 +261,49 @@
 				});
 			}
           },
+		  getUserData () {
+		  	console.log('获取用户信息，全部');
+		  	let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+		  	console.log(landRegistLG.user.id);
+		  	uni.request({
+		  		url: this.api2 + '/user/' + landRegistLG.user.id, //接口地址。
+		  		data: {},
+		  		header: {
+		  			Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
+		  		},
+		  		success: (response) => {
+		  			console.log(response.data);
+		  			if (String(response.data.code) === '200') {
+		  				let UserData = response.data.content;
+		  				uni.setStorageSync('UserData', JSON.stringify(UserData)); // 缓存用户信息
+		  				uni.showToast({
+		  					title: '更新成功',
+		  					icon: 'none',
+		  					duration: 500
+		  				});
+		  				setTimeout(() => {
+		  					uni.navigateBack({delta: 1});
+		  				}, 500);
+		  			} else {
+		  				uni.hideLoading(); // 隐藏 loading
+		  				uni.showToast({
+		  					title: response.data.msg,
+		  					icon: 'none',
+		  					duration: 500
+		  				});
+		  			}
+		  		},
+		  		fail: (error) => {
+		  			uni.hideLoading(); // 隐藏 loading
+		  			uni.showToast({
+		  				title: '网络繁忙，请稍后',
+		  				icon: 'none',
+		  				duration: 1000
+		  			});
+		  			console.log(error, '网络繁忙，请稍后');
+		  		}
+		  	});
+		  },
           upDataUser (e) {
             console.log('更新手机号数据');
 			if (uni.getStorageSync('landRegist')) {
@@ -279,15 +322,16 @@
 					},
 					success: (response) => {
 						console.log(response.data);
-						uni.showToast({
-							title: '跟新成功',
-							icon: 'none',
-							duration: 500
-						});
-						setTimeout(() => {
-							uni.navigateBack({delta: 1});
-						}, 500);
 						uni.hideLoading(); // 隐藏 loading
+						if (response.data.code === 200) {
+							this.getUserData();
+						} else {
+							uni.showToast({
+								title: response.data.message,
+								icon: 'none',
+								duration: 1000
+							});
+						}
 					},
 					fail: (error) => {
 						uni.hideLoading(); // 隐藏 loading

@@ -1,30 +1,30 @@
 <template>
-	<div class="personalProfile-contnet" v-if='msgData.projUsers.length > 0'>
-		<div class="personalProfile">
-			<div class="pP-title">
+	<view class="personalProfile-contnet" v-if='msgData.projUsers.length > 0'>
+		<view class="personalProfile">
+			<view class="pP-title">
 				团队成员
 				<text class="pP-text-right" @tap="goToOpinion()">纠错</text>
-			</div>
-			<div class="ITM-box">
-				<div class="ITM-content" v-for="(items,index) in msgData.projUsers" :key="index">
-					<div class="left Itm-left">
+			</view>
+			<view class="ITM-box">
+				<view class="ITM-content" v-for="(items,index) in msgData.projUsers" :key="index">
+					<view class="left Itm-left">
 						<image :src="items.projUserImg || this.dImg"></image>
-					</div>
-					<div class="left Itm-right">
-						<div class="Itm-content-mm">
-							<div class="title">
+					</view>
+					<view class="left Itm-right">
+						<view class="Itm-content-mm">
+							<view class="title">
 								{{items.projUserName}}
 								<text class="text">| {{items.projUserPosition}}</text>
-							</div>
-							<div class="employ">{{items.projUserContent}}</div>
-						</div>
-					</div>
-					<div class="clear"></div>
-					<div class="line" v-if='msgData.projUsers.length > 1 && msgData.projUsers.length - 1 > index'></div>
-				</div>
-			</div>
-		</div>
-	</div>
+							</view>
+							<view class="employ">{{items.projUserContent}}</view>
+						</view>
+					</view>
+					<view class="clear"></view>
+					<view class="line" v-if='msgData.projUsers.length > 1 && msgData.projUsers.length - 1 > index'></view>
+				</view>
+			</view>
+		</view>
+	</view>
 </template>
 
 <script>
@@ -52,13 +52,11 @@
 <style>
 	.personalProfile-contnet{
 		position: relative;
-		width: 750upx;
 		background: #fff;
 		margin-bottom: 20upx;
 	}
 	.personalProfile{
 		position: relative;
-		width: 100%;
 		padding: 30upx;
 	}
 	.pP-title{

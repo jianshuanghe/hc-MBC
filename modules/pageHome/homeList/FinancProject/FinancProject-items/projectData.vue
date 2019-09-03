@@ -1,57 +1,57 @@
 <template>
-	<div class="personalProfile-contnet" v-if='msgData.projLinks.length > 0'>
-		<div class="personalProfile">
-			<div class="pP-title">
+	<view class="personalProfile-contnet" v-if='msgData.projLinks.length > 0'>
+		<view class="personalProfile">
+			<view class="pP-title">
 				项目数据
 				<text class="pP-text-right"  @tap="goToOpinion()">纠错</text>
-			</div>
-			<div class="IC-content">
-				<div class="IC-box">
-					<div class="title">相关链接</div>
-					<div class="IC-items-list">
-						<div class="IC-items left" v-for="(items,index) in msgData.projLinks" :key="index">{{items.linkName}}</div>
-						<div class="clear"></div>
-					</div>
-				</div>
-			</div>
-			<!-- <div class="IC-content">
-				<div class="IC-box">
-					<div class="title">相关竞品</div>
-					<div class="IC-items-list">
-						<div class="ITM-box">
-							<div class="ITM-content">
-								<div class="left Itm-left">
+			</view>
+			<view class="IC-content">
+				<view class="IC-box">
+					<view class="title">相关链接</view>
+					<view class="IC-items-list">
+						<view class="IC-items left" v-for="(items,index) in msgData.projLinks" :key="index">{{items.linkName}}</view>
+						<view class="clear"></view>
+					</view>
+				</view>
+			</view>
+			<!-- <view class="IC-content">
+				<view class="IC-box">
+					<view class="title">相关竞品</view>
+					<view class="IC-items-list">
+						<view class="ITM-box">
+							<view class="ITM-content">
+								<view class="left Itm-left">
 									<image :src="iiImg"></image>
-								</div>
-								<div class="left Itm-right">
-									<div class="Itm-content-mm">
-										<div class="title">
+								</view>
+								<view class="left Itm-right">
+									<view class="Itm-content-mm">
+										<view class="title">
 											红杉资本
-										</div>
-										<div class="employ">在线教育付费平台</div>
-										<div class="C-type">
-											<div class="items-C-T left">
+										</view>
+										<view class="employ">在线教育付费平台</view>
+										<view class="C-type">
+											<view class="items-C-T left">
 												教育
 												<text class="y-c-t"> |</text>
-											</div>
-											<div class="clear"></div>
-										</div>
-									</div>
-								</div>
-								<div class="clear"></div>
-							</div>
-							<div class="line"></div>
-						</div>
-						<div class="openOrClose">
-							<div class="line"></div>
+											</view>
+											<view class="clear"></view>
+										</view>
+									</view>
+								</view>
+								<view class="clear"></view>
+							</view>
+							<view class="line"></view>
+						</view>
+						<view class="openOrClose">
+							<view class="line"></view>
 							查看更多竞品
 							<text class="num">(10)</text>
-						</div>
-					</div>
-				</div>
-			</div> -->
-		</div>
-	</div>
+						</view>
+					</view>
+				</view>
+			</view> -->
+		</view>
+	</view>
 </template>
 
 <script>
@@ -80,13 +80,11 @@
 <style>
 	.personalProfile-contnet{
 		position: relative;
-		width: 750upx;
 		background: #fff;
 		margin-bottom: 200upx;
 	}
 	.personalProfile{
 		position: relative;
-		width: 100%;
 		padding: 30upx 30upx 0 30upx;
 	}
 	.pP-title{

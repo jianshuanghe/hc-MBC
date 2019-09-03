@@ -29,18 +29,18 @@
 				</view> -->
 				<view class="FI-cont" v-if="msgDatas.imgs.length === 1">
 					<view class="ImageBox1">
-						<image :src="msgDatas.imgs[0].imgName"></image>
+						<image :src="msgDatas.imgs[0].imgName"  mode='widthFix'></image>
 					</view>
 				</view>
 				<view class="FI-cont-imgMoreTwo" v-if="msgDatas.imgs.length === 2" >
 					<view class="imageBox left" v-for="(items,index) in msgDatas.imgs" :key="index">
-						<image :src="items.imgName" v-if="index < 3"></image>
+						<image :src="items.imgName" v-if="index < 3"  mode='widthFix'></image>
 					</view>
 					<view class="clear"></view>
 				</view>
 				<view class="FI-cont-imgMore" v-if="msgDatas.imgs.length > 2" >
 					<view class="imageBox left" v-for="(items,index) in msgDatas.imgs" :key="index" v-if="index < 3">
-						<image :src="items.imgName"></image>
+						<image :src="items.imgName" mode='widthFix'></image>
 					</view>
 					<view class="clear"></view>
 				</view>
@@ -391,16 +391,18 @@
 		height: 340upx;
 	},
 	.FI-cont-imgMore .imageBox>image{
-		max-width: 100%;
-		max-height: 100%;
-		display: table-cell;
-		vertical-align: middle;
-		margin: 0;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		-webkit-transform: translate(-50%, -50%);
+		position: relative;
+		    max-width: 100%;
+		    max-height: 100%;
+		    display: table-cell;
+		    vertical-align: middle;
+		    position: relative;
+		    margin: 0;
+		    position: absolute;
+		    top: 50%;
+		    left: 50%;
+		    transform: translate(-50%, -50%);
+		    -webkit-transform: translate(-50%, -50%);
 	},
 	.FI-cont-imgMoreTwo{
 		position: relative;

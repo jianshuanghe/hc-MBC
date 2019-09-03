@@ -1,31 +1,31 @@
 <template>
-	<div class="personalProfile-contnet" v-if='msgData.projCapis.length > 0'>
-		<div class="personalProfile">
-			<div class="pP-title">
+	<view class="personalProfile-contnet" v-if='msgData.projCapis.length > 0'>
+		<view class="personalProfile">
+			<view class="pP-title">
 				融资历史
 				<text class="pP-text-right">纠错</text>
-			</div>
-			<div class="ITM-box">
-				<div class="ITM-content" v-for="(items,index) in msgData.projCapis" :key="index">
-					<div class="left Itm-left">
-						<div class='dateBox'>
-							<div class="date-M">{{items.capiStartime | dateTimeM}}月</div>
-							<div class="date-Y">{{items.capiStartime | dateTimeY}}</div>
-						</div>
-					</div>
-					<div class="left Itm-right">
-						<div class="Itm-content-mm">
-							<div class="employ">金额: {{items.capiMoney}}万</div>
-							<div class="employ">在融轮次: {{items.levelCode}}</div>
-							<div class="employ fT">{{items.capiInveCompName}}</div>
-						</div>
-					</div>
-					<div class="clear"></div>
-					<div class="line" v-if='msgData.projCapis.length > 1 && msgData.projCapis.length - 1 > index'></div>
-				</div>
-			</div>
-		</div>
-	</div>
+			</view>
+			<view class="ITM-box">
+				<view class="ITM-content" v-for="(items,index) in msgData.projCapis" :key="index">
+					<view class="left Itm-left">
+						<view class='dateBox'>
+							<view class="date-M">{{items.capiStartime | dateTimeM}}月</view>
+							<view class="date-Y">{{items.capiStartime | dateTimeY}}</view>
+						</view>
+					</view>
+					<view class="left Itm-right">
+						<view class="Itm-content-mm">
+							<view class="employ">金额: {{items.capiMoney}}万</view>
+							<view class="employ">在融轮次: {{items.levelCode}}</view>
+							<view class="employ fT">{{items.capiInveCompName}}</view>
+						</view>
+					</view>
+					<view class="clear"></view>
+					<view class="line" v-if='msgData.projCapis.length > 1 && msgData.projCapis.length - 1 > index'></view>
+				</view>
+			</view>
+		</view>
+	</view>
 </template>
 
 <script>
@@ -62,13 +62,11 @@
 <style>
 	.personalProfile-contnet{
 		position: relative;
-		width: 750upx;
 		background: #fff;
 		margin-bottom: 20upx;
 	}
 	.personalProfile{
 		position: relative;
-		width: 100%;
 		padding: 30upx;
 	}
 	.pP-title{

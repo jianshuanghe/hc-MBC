@@ -12,12 +12,12 @@
 			<view>邮箱:{{Listdata.userEmail}}</view>
 			<view v-if="Listdata.mechIdStr.compName!==''">机构名称:{{Listdata.mechIdStr.compName}}</view>
 			<view class="conter-img">
-				<img :src="Listdata.img"></img>
+				<img :src="Listdata.img" @tap="previewImage(Listdata.img, 0)"></img>
 			</view>
 		</view>
 		<view class="inspect-List-success-fotter">
 			<view>
-				<image :src="Image4"></image>
+				<image :src="Image4" ></image>
 			</view>
 			<view>
 				<view>审核通过</view>
@@ -74,7 +74,17 @@
 			console.log(this.Listdata, '4544464564645656465');
 		},
 		methods: {
-			
+			previewImage (e, key) {
+				console.log(e, '附件地址');
+				let imgList = [];
+				imgList.push(e)
+				uni.previewImage({
+					current: imgList[key],
+					indicator: "number",
+					loop: "true",
+					urls:imgList
+				})
+			},
 		}
 	};
 </script>

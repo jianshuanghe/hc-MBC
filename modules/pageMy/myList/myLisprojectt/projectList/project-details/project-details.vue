@@ -44,7 +44,7 @@
 			<view class="project-details-data-bianji">项目简介</view>
 			<view class="project-details-data-imges" v-if="arr.projImgs.length!==0">
 				<view class="project-details-data-imges-one" v-for="(imang,index) in arr.projImgs" :key="index">
-					<image :src="imang.imgName"></image>
+					<image :src="imang.imgName" mode='widthFix'></image>
 				</view>
 			</view>
 			<view class="project-details-data-two" v-if="arr.projContent!==''">
@@ -58,6 +58,18 @@
 			<view class="project-details-data-thre" v-if="arr.conentPortrait!==''">
 				<view>用户画像</view>
 				<view>{{arr.conentPortrait}}</view>
+			</view>
+			<view class="project-details-data-thre" v-if="arr.conentModel!==''">
+				<view>商业模式</view>
+				<view>{{arr.conentModel}}</view>
+			</view>
+			<view class="project-details-data-two" v-if="arr.conentData!==''">
+				<view>运营数据</view>
+				<view>{{arr.conentData}}</view>
+			</view>
+			<view class="project-details-data-thre" v-if="arr.conentCore!==''">
+				<view>核心资源</view>
+				<view>{{arr.conentCore}}</view>
 			</view>
 			<view class="project-details-data-bian" @tap="gotobrief" v-if="arr.projImgs.length !== 0 || arr.projContent!=='' || arr.conentMarket!=='' || arr.conentPortrait!==''">编辑</view>
 			<view @tap="gotobrief" class="project-details-data-brief" v-if="arr.projImgs.length == 0 && arr.projContent=='' && arr.conentMarket==''&& arr.conentPortrait==''">
