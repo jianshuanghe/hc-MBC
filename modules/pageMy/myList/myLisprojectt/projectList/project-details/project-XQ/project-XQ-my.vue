@@ -267,9 +267,43 @@
 							console.log(response.data);
 							// uni.navigateBack({
 							// })
-							uni.navigateTo({
-								url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-details?id='+this.id
-							})
+							this.shujuxiang();
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
+			shujuxiang() { //项目详情
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					// let params = {}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/proj/' + this.id, //接口地址。
+						// data: this.endParams(params),
+						method: 'GET',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							uni.hideLoading();
+							console.log(response.data);
+							this.arr = response.data.content
+							this.$store.commit('setCompany', this.arr);
+							this.$store.commit('setHistory', this.arr);
+							uni.navigateBack({delta: 1});
+							console.log(this.arr)
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading

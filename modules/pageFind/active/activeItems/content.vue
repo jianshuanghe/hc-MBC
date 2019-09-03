@@ -170,25 +170,25 @@
 	.marg2{
 		margin-left: 60upx;
 	}
-	.marg4{
+	.marg3{
 		margin-left: 90upx;
 	}
-	.marg5{
+	.marg4{
 		margin-left: 120upx;
 	}
-	.marg6{
+	.marg5{
 		margin-left: 150upx;
 	}
-	.marg7{
+	.marg6{
 		margin-left: 180upx;
 	}
-	.marg8{
+	.marg7{
 		margin-left: 210upx;
 	}
-	.marg9{
+	.marg8{
 		margin-left: 240upx;
 	}
-	.marg10{
+	.marg9{
 		margin-left: 270upx;
 	}
 	.AD-items-text{

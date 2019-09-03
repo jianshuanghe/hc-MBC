@@ -23,6 +23,7 @@
 	export default {
 		data() {
 			return {
+				editarr: [], // 标签数组
 				compName:'',
 				id:''
 			};
@@ -33,6 +34,17 @@
 		computed: {
 			...mapGetters(['GET_MY'])
 		},
+		watch: {
+			GET_MY: {
+				handler(a, b) {
+					console.log(a.MyList.Edit, '--------------a.MyList.Edit--------------')
+				},
+				deep: true
+			},
+		},
+		created () {
+			this.editarr = this.GET_MY.MyList.Edit;
+		},
 		onLoad:function(options){
 			this.id = options.id
 			console.log(this.id)
@@ -42,9 +54,42 @@
 				setEdit: 'setEdit'
 			}),
 			Submission(){
-				this.$store.commit('setEdit', this.compName);
+				if (this.compName === '') {
+					uni.showToast({
+						title: '标签不能为空',
+						icon: 'none',
+						duration: 1000
+					});
+					return;
+				}
+				let editItems = {
+					name: '',
+					value: '',
+					checked: true
+				};
+				for(let items of this.editarr){
+				    console.log(items.name, this.compName, 'this.compName === items.name')
+				    if(this.compName === items.name) {
+				    	console.log('------------------------------------------>>>>')
+				    	uni.showToast({
+				    		title: '该标签已存在，请勿重复添加！',
+				    		icon: 'none',
+				    		duration: 1000
+				    	});
+				    	return false
+				    } else {
+				    	editItems = {
+				    		name: this.compName,
+				    		value: this.editarr.length,
+				    		checked: true
+				    	};
+				    }
+				}
+				this.editarr.push(editItems);
+				this.$store.commit('setEdit', this.editarr);
 				uni.navigateBack({
 				})
+				
 			}
 		},
 		mounted() {},

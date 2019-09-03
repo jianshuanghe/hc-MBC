@@ -30,6 +30,7 @@
 					<view class="tb-text">
 						<text :class="clickItems === 3 ? 'class-a' : ''">消息</text>
 					</view>
+					<view class="noticeCount" v-if="List.noticeCount !== 0">{{List.noticeCount}}</view>
 				</view>
 				<view class="left tb-box" @tap="tabBarItems(4)">
 					<view class="tb-img">
@@ -55,14 +56,15 @@
 				find: this.Static + 'mbcImg/tabBar/find.png', // 发现
 				published: this.Static + 'mbcImg/tabBar/published.png', // 发布
 				news: this.Static + 'mbcImg/tabBar/news.png', // 消息
-				my: this.Static + 'mbcImg/tabBar/my.png' // 我的
+				my: this.Static + 'mbcImg/tabBar/my.png' ,// 我的
+				List: []
 			}
 		},
 		components: {
 		},
 		
 		computed: {
-			...mapGetters(['GET_HOME'])
+			...mapGetters(['GET_HOME', 'GET_MY'])
 		},
 		
 		watch: {
@@ -72,6 +74,14 @@
 			  this.tabBarItems(this.clickItems);
 		    },
 		    deep: true
+		  },
+		  GET_MY: {
+		  	handler(a, b) {
+		  		console.log(a, b);
+		  		this.List=a.MyList.header
+		  		console.log(this.List)
+		  	},
+		  	deep: true
 		  }
 		},
 		created() {
@@ -81,6 +91,7 @@
 			}
 		},
 		mounted() {
+			this.getHeader();
 		},
 		methods: {
 			...mapMutations({
@@ -117,6 +128,38 @@
 				  this.news = this.Static + 'mbcImg/tabBar/news.png';
 				  this.my = this.Static + 'mbcImg/tabBar/my.png';
 				};
+			},
+			getHeader(){
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					// let params = {}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/user/' + landRegistLG.user.id, //接口地址。
+						// data: this.endParams(params),
+						method: 'GET',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							console.log(response.data);
+							this.Listdata=response.data.content
+							this.$store.commit('setheader', this.Listdata);
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
 			}
 		}
 		
@@ -186,5 +229,18 @@
 	}
 	.class-a{
 		color: #02C2A2 !important;
+	}
+	.noticeCount{
+		position: absolute;
+		top: 6upx;
+		right: 30upx;
+		width: 36upx;
+		height: 36upx;
+		background: #FF3A2E;
+		font-size: 26upx;
+		color: #FFFFFF;
+		border-radius: 50%;
+		text-align: center;
+		line-height: 36upx;
 	}
 </style>

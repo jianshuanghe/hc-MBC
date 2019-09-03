@@ -237,7 +237,9 @@
 			},
 
 		},
-		computed: {},
+		computed: {
+			...mapGetters(['GET_MY'])
+		},
 		onLoad: function(options) {
 			this.id = options.id
 			console.log(this.id)

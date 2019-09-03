@@ -4,7 +4,7 @@
 			<view>添加标签</view>
 			<view>
 				<checkbox-group @change="checkboxChange1">
-				  <label @click="labelBtn1(item.value,index)"  v-for="(item,index) in editarr" :key="index" v-if="(index > 100 && isAll[1].allShow === false) ? false : true" >
+				  <label @click="labelBtn1(item.value,index)"  v-for="(item,index) in editarr" :key="index">
 				    <checkbox :value="item.value" :checked="item.checked" v-show="false"/>
 					<view class="left MIL-item items">
 						<view :class="[item.checked ? 'edit' : '', 'MIL-item-text']">{{item.name}}</view>
@@ -33,7 +33,31 @@
 			return {
 				del: this.Static + 'mbcImg/common/searchClose.png',
 				id:'',
-				editarr:['平台用户超2000万','大数据服务','消费生活','高新技术企业','天使轮融资2000万'],
+				editarr:[{
+					name: '平台用户超2000万',
+					value: 0,
+					checked: false
+				},
+				{
+					name: '大数据服务',
+					value: 1,
+					checked: false
+				},
+				{
+					name: '消费生活',
+					value: 2,
+					checked: false
+				},
+				{
+					name: '高新技术企业',
+					value: 3,
+					checked: false
+				},
+				{
+					name: '天使轮融资2000万',
+					value: 4,
+					checked: false
+				}],
 				fieldsDataList:[],
 				editnew:[],
 				editshu:[],
@@ -44,44 +68,43 @@
 			...mapGetters(['GET_MY'])
 		},
 		created() {
+			console.log(this.GET_MY.MyList.Company.projLabels, '用户已选择的标签双向绑定');
+			// let editData = this.GET_MY.MyList.Company.projLabels; // 用户已选择的
+			// editData.map((item, index) => { // 对用户已选择的便利
+			// 	let editItems = {
+			// 		name: item.labelName,
+			// 		value: item.id,
+			// 		checked: true
+			// 	};
+			// 	this.editarr.push(editItems);
+			// 	this.editadd.push(editItems);
+			// })
 			//获取标签
-			this.edits();
+			// this.edits();
 			console.log(...new Set(this.editarr))
 		},
 		watch: {
 			GET_MY: {
 				handler(a, b) {
-					console.log(a.MyList.Edit)
-					let items = {
-						name: a.MyList.Edit,
-						value: this.editarr.length + 1,
-						checked: true
-					}
-					this.editadd.push(items);
-					this.editarr.push(items);
+					console.log(a.MyList.Edit, '----------------------------')
+					this.editarr = a.MyList.Edit;
+					// this.labelBtn1();
 				},
 				deep: true
 			},
 		},
 		onLoad:function(options){
 			this.id = options.id
-			console.log(this.id)
+			console.log(this.id);
+			//获取标签
+			this.edits();
 		},
 		methods: {
-			resetDate (e) {
-				let edit = [];
-				[...new Set(e)].map((items, index) => {
-					console.log(items)
-					let editItems = {
-						name: items,
-						value: index,
-						checked: false
-					};
-					edit.push(editItems);
-				})
-				this.editarr = edit;
-				console.log(this.editarr)
-			},
+			...mapMutations({
+				setCompany: 'setCompany',
+				setHistory:'setHistory',
+				setEdit: 'setEdit'
+			}),
 			labelBtn1(name,index){
 			  console.log(name,index,"nameindex")
 			  if(this.fieldsDataList.join(',').indexOf(name) >-1){
@@ -107,6 +130,18 @@
 					url:'./project-XQ-edit-bianji?id='+this.id,
 				})
 			},
+			newArr(e){ 
+			    var arr = e;
+				console.log(e, '-----------------e-----------')
+			    var hash = {};
+			    arr = arr.reduce(function(item, next) {
+			        hash[next.name] ? '' : hash[next.name] = true && item.push(next);
+			        return item
+			    }, []);
+				this.editarr = arr;
+				this.$store.commit('setEdit', this.editarr);
+			    console.log(arr, '----------------------去除e---------------------');
+			},
 			edits(){
 				if (uni.getStorageSync('landRegist')) {
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
@@ -123,13 +158,29 @@
 						},
 						success: (response) => {
 							uni.hideLoading();
-							console.log(response.data.content);
+							console.log(response.data.content, '接口返回的标签数据');
 							let editnew=response.data.content;
-							editnew.map((items, index) => {
-								items.checked=true
-								this.editarr.push(items.labelName);
-							})
-							this.resetDate(this.editarr);
+							let zidingyiData =[]; // 自定义数组
+							this.editarr.map((item, key) => {
+								editnew.map((items, index) => {
+									if (items.labelName === item.name) { // 如果存在接口返回的，则认为是选择的数据
+										console.log(item, '如果存在接口返回的，则认为是选择的数据');
+										item.checked = true;
+										this.editadd.push(item);
+									} else { // 在默认中不存在数据标签，认为是用户自定义的
+										let editItems = {
+											name: items.labelName,
+											value: this.editarr.length,
+											checked: true
+										};
+										console.log(editItems, '在默认中不存在数据标签，认为是用户自定义的');
+										zidingyiData.push(editItems);
+									}
+								})
+							});
+							console.log(zidingyiData instanceof Array)
+							this.newArr(this.editarr.concat(zidingyiData));
+							// this.resetDate(this.editarr);
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -147,7 +198,13 @@
 				if (uni.getStorageSync('landRegist')) {
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 					console.log(landRegistLG.user.id);
-					let params = this.editadd // 请求总数居时 参数为空
+					let editEd = [];
+					this.editarr.map((items, index) => {
+						if (items.checked === true) {
+							editEd.push(items)
+						}
+					})
+					let params = editEd // 请求总数居时 参数为空
 					uni.showLoading({ // 展示loading
 						title: '加载中'
 					});
@@ -164,9 +221,44 @@
 							uni.hideLoading();
 							console.log(response.data);
 							// uni.navigateBack({})
-							uni.navigateTo({
-								url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-details?id='+this.id
-							})
+							this.shujuxiang();
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
+			shujuxiang() { //项目详情
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					// let params = {}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/proj/' + this.id, //接口地址。
+						// data: this.endParams(params),
+						method: 'GET',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							uni.hideLoading();
+							console.log(response.data);
+							this.arr = response.data.content
+							this.$store.commit('setCompany', this.arr);
+							this.$store.commit('setHistory', this.arr);
+							uni.navigateBack({delta: 1});
+							console.log(this.arr)
+							
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
