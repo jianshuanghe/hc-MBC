@@ -267,7 +267,6 @@
 							console.log(response.data);
 							// uni.navigateBack({
 							// })
-<<<<<<< HEAD
 							this.shujuxiang();
 						},
 						fail: (error) => {
@@ -305,12 +304,6 @@
 							this.$store.commit('setHistory', this.arr);
 							uni.navigateBack({delta: 1});
 							console.log(this.arr)
-							
-=======
-							uni.navigateTo({
-								url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-details?id='+this.id
-							})
->>>>>>> d5d3bf2ff831a0894e3335aba58269033488ed10
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading

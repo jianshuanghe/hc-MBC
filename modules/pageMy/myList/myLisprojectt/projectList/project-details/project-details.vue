@@ -270,15 +270,9 @@
 				// 	animationDuration: 200
 				// });
 				console.log('去扫码登录上传');
-<<<<<<< HEAD
-				    uni.navigateTo({
-				     url: '/modules/pagePublish/publishList/publishUpload?projId=' + this.id
-				    });
-=======
 				uni.navigateTo({
 					url: '/modules/pagePublish/publishList/publishUpload?projId=' + this.id
 				});
->>>>>>> d5d3bf2ff831a0894e3335aba58269033488ed10
 			},
 			projectXQgsname() {
 				console.log('公司信息')
