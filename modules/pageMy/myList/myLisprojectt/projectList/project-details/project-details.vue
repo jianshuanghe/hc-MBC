@@ -43,17 +43,19 @@
 		<view class="project-details-data">
 			<view class="project-details-data-bianji">项目简介</view>
 			<view class="project-details-data-imges" v-if="arr.projImgs.length!==0">
-				<view class="project-details-data-imges-one" v-for="(imang,index) in arr.projImgs" :key="index"><image :src="imang.imgName"></image></view>
+				<view class="project-details-data-imges-one" v-for="(imang,index) in arr.projImgs" :key="index">
+					<image :src="imang.imgName"></image>
+				</view>
 			</view>
 			<view class="project-details-data-two" v-if="arr.projContent!==''">
 				<view>项目介绍</view>
 				<view>{{arr.projContent}}</view>
 			</view>
-			<view class="project-details-data-two"  v-if="arr.conentMarket!==''">
+			<view class="project-details-data-two" v-if="arr.conentMarket!==''">
 				<view>市场需求</view>
 				<view>{{arr.conentMarket}}</view>
 			</view>
-			<view class="project-details-data-thre"  v-if="arr.conentPortrait!==''">
+			<view class="project-details-data-thre" v-if="arr.conentPortrait!==''">
 				<view>用户画像</view>
 				<view>{{arr.conentPortrait}}</view>
 			</view>
@@ -62,8 +64,8 @@
 				填写项目简介
 			</view>
 		</view>
-		
-		
+
+
 		<view class="jianxi"></view>
 		<view class="demand">
 			<view>融资需求</view>
@@ -161,7 +163,7 @@
 	export default {
 		data() {
 			return {
-				tou:false,
+				tou: false,
 				num: 0,
 				hiden: true,
 				linkname: '',
@@ -171,8 +173,8 @@
 				Labelarr: [],
 				id: '',
 				pdf: this.Static + 'mbcImg/my/pdf.png',
-				keji:this.Static + 'mbcImg/my/keji.png',
-				history:[]
+				keji: this.Static + 'mbcImg/my/keji.png',
+				history: []
 			};
 		},
 		filters: {
@@ -204,7 +206,7 @@
 				m = m < 10 ? ('0' + m) : m;
 				let s = date.getSeconds();
 				s = s < 10 ? ('0' + s) : s;
-				return y ;
+				return y;
 			},
 			DAta: function(value) {
 				let date = new Date(value);
@@ -219,7 +221,7 @@
 				m = m < 10 ? ('0' + m) : m;
 				let s = date.getSeconds();
 				s = s < 10 ? ('0' + s) : s;
-				return MM ;
+				return MM;
 			}
 		},
 
@@ -247,7 +249,7 @@
 		methods: {
 			...mapMutations({
 				setCompany: 'setCompany',
-				setHistory:'setHistory'
+				setHistory: 'setHistory'
 			}),
 			addlianjie() {
 				this.hiden = false
@@ -257,13 +259,17 @@
 			},
 			goToPutIn(e) {
 				console.log(e, '点击触发发布项目');
-				this.clickItems = e;
-				this.$store.commit('setHome', this.clickItems);
-				uni.setStorageSync('clickItems', e);
-				uni.navigateBack({
-					delta: 20,
-					animationType: 'pop-out',
-					animationDuration: 200
+				// this.clickItems = e;
+				// this.$store.commit('setHome', this.clickItems);
+				// uni.setStorageSync('clickItems', e);
+				// uni.navigateBack({
+				// 	delta: 20,
+				// 	animationType: 'pop-out',
+				// 	animationDuration: 200
+				// });
+				console.log('去扫码登录上传');
+				uni.navigateTo({
+					url: '/modules/pagePublish/publishList/publishUpload?projId=' + this.id
 				});
 			},
 			projectXQgsname() {
@@ -286,42 +292,42 @@
 				})
 			},
 			teambianji(e) {
-				console.log(e+'团队成员编辑')
+				console.log(e + '团队成员编辑')
 				uni.navigateTo({
 					url: '/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-team-bianji?id=' +
 						e
 				})
 			},
 			historybianji(e) {
-				console.log(e+'融资历史编辑')
+				console.log(e + '融资历史编辑')
 				uni.navigateTo({
 					url: '/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-history-bianji?id=' +
 						e
 				})
 			},
-			gotodatasdemand(e){
-				console.log(e+'融资需求')
+			gotodatasdemand(e) {
+				console.log(e + '融资需求')
 				uni.navigateTo({
-					url: '/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-demand?id='+ this
+					url: '/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-demand?id=' + this
 						.id
 				})
 			},
-			gotobrief(e){
-				console.log(e+'融资需求')
+			gotobrief(e) {
+				console.log(e + '融资需求')
 				uni.navigateTo({
-					url: '/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-brief?id='+this.id
+					url: '/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-brief?id=' + this.id
 				})
 			},
-			gotomy(e){
-				console.log(e+'基本信息')
+			gotomy(e) {
+				console.log(e + '基本信息')
 				uni.navigateTo({
-					url: '/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-my?id='+this.id
+					url: '/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-my?id=' + this.id
 				})
 			},
-			gotoedit(e){
-				console.log(e+'标签编辑')
+			gotoedit(e) {
+				console.log(e + '标签编辑')
 				uni.navigateTo({
-					url: '/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-edit?id='+this.id
+					url: '/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-XQ/project-XQ-edit?id=' + this.id
 				})
 			},
 			child() { //阻止事件冒泡
@@ -349,7 +355,7 @@
 							this.$store.commit('setHistory', this.arr);
 
 							console.log(this.arr)
-							
+
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -428,15 +434,17 @@
 </script>
 
 <style>
-	.tou{
+	.tou {
 		display: none;
 	}
+
 	.project-details {
 		width: 100%;
 		min-height: 100%;
 		background: #FFFFFF;
 		padding: 2upx;
 	}
+
 	.project-details-header {
 		width: 90%;
 		min-height: 304upx;
@@ -451,7 +459,7 @@
 	.project-details-header-one {
 		margin: 0 auto;
 		width: 90%;
-		height:200upx;
+		height: 200upx;
 		border-bottom: 2upx solid #F5F5F5;
 		padding: 2upx;
 		display: flex;
@@ -552,8 +560,8 @@
 	}
 
 	.project-details-header-two span {
-		/* padding: 8upx 12upx 8upx 12upx; */
-		padding: 0 20upx;
+		padding: 8upx 12upx 8upx 12upx;
+		/* padding: 0 20upx; */
 		font-size: 20upx;
 		color: #FE9D08;
 		background: #FFF7E5;
@@ -693,7 +701,8 @@
 		padding-left: 30upx;
 		font-weight: 700;
 	}
-	.project-details-data-imges{
+
+	.project-details-data-imges {
 		width: 90%;
 		height: 200upx;
 		margin: 0 auto;
@@ -702,24 +711,28 @@
 		justify-content: space-between;
 		border-bottom: 2upx solid #E2E2E2;
 	}
-	.project-details-data-imges-one image{
+
+	.project-details-data-imges-one image {
 		width: 200upx;
 		height: 150upx;
 	}
-	.project-details-data-two{
+
+	.project-details-data-two {
 		width: 90%;
 		min-height: 150upx;
 		margin: 0 auto;
 		padding-bottom: 20upx;
 		border-bottom: 2upx solid #E2E2E2;
 	}
-	.project-details-data-thre{
+
+	.project-details-data-thre {
 		width: 90%;
 		min-height: 150upx;
 		margin: 0 auto;
 		padding-bottom: 20upx;
 	}
-	.project-details-data-thre view:nth-of-type(1){
+
+	.project-details-data-thre view:nth-of-type(1) {
 		width: 100%;
 		height: 30upx;
 		font-size: 28upx;
@@ -727,7 +740,8 @@
 		padding-top: 20upx;
 		font-weight: 700;
 	}
-	.project-details-data-thre view:nth-of-type(2){
+
+	.project-details-data-thre view:nth-of-type(2) {
 		width: 100%;
 		min-height: 30upx;
 		font-size: 28upx;
@@ -735,7 +749,8 @@
 		line-height: 34upx;
 		padding-top: 20upx;
 	}
-	.project-details-data-two view:nth-of-type(1){
+
+	.project-details-data-two view:nth-of-type(1) {
 		width: 100%;
 		height: 30upx;
 		font-size: 28upx;
@@ -743,7 +758,8 @@
 		padding-top: 20upx;
 		font-weight: 700;
 	}
-	.project-details-data-two view:nth-of-type(2){
+
+	.project-details-data-two view:nth-of-type(2) {
 		width: 100%;
 		min-height: 30upx;
 		font-size: 28upx;
@@ -751,7 +767,8 @@
 		line-height: 34upx;
 		padding-top: 40upx;
 	}
-	.project-details-data-bian{
+
+	.project-details-data-bian {
 		font-size: 26upx;
 		color: #02C2A2;
 		position: absolute;
@@ -759,6 +776,7 @@
 		top: 52upx;
 		font-weight: 700;
 	}
+
 	.project-details-data-brief {
 		margin: 40upx auto 0 auto;
 		width: 300upx;
@@ -770,6 +788,7 @@
 		font-size: 28upx;
 		color: #02C2A2;
 	}
+
 	.demand {
 		width: 100%;
 		min-height: 200upx;
@@ -777,7 +796,7 @@
 		position: relative;
 		padding-bottom: 40upx;
 	}
-	
+
 	.demand view:nth-of-type(1) {
 		font-size: 34upx;
 		color: #2E2E30;
@@ -785,14 +804,15 @@
 		padding-left: 30upx;
 		font-weight: 700;
 	}
-	
+
 	.demand-two {
 		font-size: 28upx;
 		color: #5D5D5D;
 		padding-top: 20upx;
 		padding-left: 40upx;
 	}
-	.demand-bian{
+
+	.demand-bian {
 		font-size: 26upx;
 		color: #02C2A2;
 		position: absolute;
@@ -800,7 +820,8 @@
 		top: 52upx;
 		font-weight: 700;
 	}
-	.demand-an{
+
+	.demand-an {
 		margin: 40upx auto 0 auto;
 		width: 300upx;
 		height: 80upx;
@@ -811,6 +832,7 @@
 		font-size: 28upx;
 		color: #02C2A2;
 	}
+
 	.project-details-company {
 		width: 100%;
 		min-height: 300upx;

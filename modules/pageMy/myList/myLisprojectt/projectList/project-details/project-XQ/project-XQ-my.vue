@@ -268,7 +268,7 @@
 							// uni.navigateBack({
 							// })
 							uni.navigateTo({
-								url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-details?id='+this.peorid
+								url:'/modules/pageMy/myList/myLisprojectt/projectList/project-details/project-details?id='+this.id
 							})
 						},
 						fail: (error) => {

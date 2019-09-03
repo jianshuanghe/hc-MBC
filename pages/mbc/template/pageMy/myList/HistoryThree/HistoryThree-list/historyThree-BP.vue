@@ -1,7 +1,7 @@
 <template>
 	<view class="historyThree-BP" @tap="gotomyListreceive">
 		<span>{{List.sendBpCount}}</span>
-		<span>以收到</span>
+		<span>已收到</span>
 	</view>
 </template>
 

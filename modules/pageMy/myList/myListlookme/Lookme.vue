@@ -1,14 +1,16 @@
 <template>
 	<view class="Lookme">
-		<view class="Lookmefist" v-for="(item,index) in CollectionList">
+		<view class="Lookmefist" v-for="(item,index) in CollectionList" @tap="gotoxiang(item.userId)">
 			<view>
 				<image :src="item.headImg"></image>
 			</view>
 			<view>
-				<view>{{item.userName}}</view>
+				<view class="Lookone"><span>{{item.userName}}</span></view>
 				<view class="LookmeLast">
-					<span>{{item.compName}}</span>
-					<span>{{item.compPosi}}</span>
+					<span v-if="item.compName !== ''">{{item.compName}}</span>
+					<span v-if="item.compName == ''">无</span>
+					<span v-if="item.compPosi !== ''">{{item.compPosi}}</span>
+					<span v-if="item.compPosi == ''">无</span>
 				</view>
 			</view>
 			<view>
@@ -31,7 +33,7 @@
 		data() {
 			return {
 				yong: this.Static + 'mbcImg/my/yong.png',
-				kong:this.Static + 'mbcImg/my/kong.png',
+				kong: this.Static + 'mbcImg/my/kong.png',
 				CollectionList: [],
 			};
 		},
@@ -41,7 +43,7 @@
 		created() {
 			console.log('在组件中并不能使用页面生命周期函数');
 			this.getConcang();
-	
+
 		},
 		filters: {
 			formatDate: function(value) {
@@ -57,7 +59,7 @@
 				m = m < 10 ? ('0' + m) : m;
 				let s = date.getSeconds();
 				s = s < 10 ? ('0' + s) : s;
-				return y + '-' + MM + '-' + d ;
+				return y + '-' + MM + '-' + d;
 			}
 		},
 		mounted() {},
@@ -65,6 +67,11 @@
 			...mapMutations({
 				setCollectionr: 'setCollection'
 			}),
+			gotoxiang(e){
+				uni.navigateTo({
+					url:'/modules/pageHome/seekCapital/seekCapitalItems/investor/inverstorItems/itemsDetails/itemsDetails?userId='+e
+				})
+			},
 			getConcang() {
 				if (uni.getStorageSync('landRegist')) {
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
@@ -74,7 +81,7 @@
 						title: '加载中'
 					});
 					uni.request({
-						url: this.api2 + '/user/lookUserList?userId='+landRegistLG.user.id, //接口地址。
+						url: this.api2 + '/user/lookUserList?userId=' + landRegistLG.user.id, //接口地址。
 						// data: this.endParams(params),
 						method: 'GET',
 						header: {
@@ -108,7 +115,7 @@
 		background: #FFFFFF;
 		padding: 2upx;
 	}
-	
+
 	.Lookmefist {
 		width: 90%;
 		height: 140upx;
@@ -117,48 +124,57 @@
 		display: flex;
 		position: relative;
 	}
-	
+
 	.Lookmefist view:nth-of-type(1) {
 		width: 80upx;
 		height: 80upx;
 		border-radius: 50%;
 		margin-top: 30upx;
 	}
-	
+
 	.Lookmefist view:nth-of-type(1) image {
 		width: 100%;
 		height: 100%;
 		border-radius: 50%;
 	}
-	
+
 	.Lookmefist view:nth-of-type(2) {
-		width: 400upx;
-		height: 160upx;
+		width: 410upx;
+		height: 50upx;
 		margin-top: 30upx;
 		margin-left: 30upx;
 	}
-	
+
 	.Lookmefist view:nth-of-type(2) view:nth-of-type(1) {
-		width: 200upx;
+		width: 250upx;
 		height: 50upx;
 		font-size: 32upx;
 		color: #2E2E30;
 		margin-top: 0;
+		margin-left: 10upx;
+	}
+
+	.Lookone>span {
+		display: block;
+		width: 100%;
+		height: 100%;
 		overflow: hidden;
-		text-overflow:ellipsis;
+		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
-	.LookmeLast{
-		width: 200upx;
+
+	.LookmeLast {
+		width: 250upx;
 		height: 20upx;
 		font-size: 24upx;
 		color: #5D5D5D;
 		top: 60upx;
-		left:70upx;
+		left: 70upx;
 		position: absolute;
 		display: flex;
 	}
-	.LookmeLast span:nth-of-type(1){
+
+	.LookmeLast span:nth-of-type(1) {
 		display: block;
 		/* width: 120upx; */
 		padding: 0 20upx;
@@ -167,22 +183,24 @@
 		line-height: 30upx;
 		border-right: 4upx solid #D2D2D2;
 	}
-	.LookmeLast span:nth-of-type(2){
+
+	.LookmeLast span:nth-of-type(2) {
 		display: block;
-		width: 100upx;
-		height: 30upx;
+		padding: 0 20upx;
 		text-align: center;
-		margin-left: 20upx;
+		/* margin-left: 20upx; */
 		line-height: 30upx;
 	}
-	.Lookmefist view:nth-of-type(3){
+
+	.Lookmefist view:nth-of-type(3) {
 		margin-top: 30upx;
 		font-size: 20upx;
 		color: #9B9B9B;
 		position: absolute;
 		right: 0;
 	}
-	.meirenkanwo{
+
+	.meirenkanwo {
 		width: 284upx;
 		height: 280upx;
 		display: block;
@@ -191,7 +209,8 @@
 		text-align: center;
 		color: #9B9B9B;
 	}
-	.meirenkanwo image{
+
+	.meirenkanwo image {
 		width: 100%;
 		height: 85%;
 	}

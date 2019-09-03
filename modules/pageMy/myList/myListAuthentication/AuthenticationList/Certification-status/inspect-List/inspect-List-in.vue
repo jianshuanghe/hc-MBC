@@ -10,6 +10,7 @@
 			<view>{{Listdata.userName}}</view>
 			<view v-if="Listdata.userPosition!==''">职位:{{Listdata.userPosition}}</view>
 			<view>邮箱:{{Listdata.userEmail}}</view>
+			<view v-if="Listdata.compName!==''">公司名称:{{Listdata.compName}}</view>
 			<view v-if="Listdata.mechIdStr.compName!==''">机构名称:{{Listdata.mechIdStr.compName}}</view>
 			<view class="conter-img">
 				<img :src="Listdata.img"></img>
@@ -69,7 +70,7 @@
 		},
 		created() {
 			this.Listdata = this.GET_MY.MyList.Authentication;
-			console.log(this.Listdata, '454446454564645656465');
+			console.log(this.Listdata, '4');
 		},
 		methods: {
 			
