@@ -160,7 +160,7 @@
 				});
 			},
 			gotoxiangmuxiang(e,a){
-				if(a=='项目已被删除'){
+				if(a=='项目已删除'){
 					uni.showToast({
 						title: '项目已被删除',
 						icon: 'none',

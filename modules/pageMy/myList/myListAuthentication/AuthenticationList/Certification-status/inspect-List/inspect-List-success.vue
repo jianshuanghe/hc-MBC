@@ -10,7 +10,8 @@
 			<view>{{Listdata.userName}}</view>
 			<view v-if="Listdata.userPosition!==''">职位:{{Listdata.userPosition}}</view>
 			<view>邮箱:{{Listdata.userEmail}}</view>
-			<view v-if="Listdata.mechIdStr.compName!==''">机构名称:{{Listdata.mechIdStr.compName}}</view>
+			<view v-if="Listdata.compName!==''">公司名称:{{Listdata.compName}}</view>
+			<view v-if="Listdata.mechIdStr!==''">机构名称:{{Listdata.mechIdStr}}</view>
 			<view class="conter-img">
 				<img :src="Listdata.img"></img>
 			</view>
