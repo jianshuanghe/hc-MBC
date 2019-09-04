@@ -6,7 +6,7 @@
 					<image :src="xin"></image>
 				</view>
 				<view>项目名称</view>
-				<view><input type="text" placeholder="请输入" placeholder-style="color:#D2D2D2" v-model="name"/></view>
+				<view><input type="text" placeholder="请输入" maxlength="8" placeholder-style="color:#D2D2D2" v-model="name"/></view>
 			</view>
 		</view>
 		<view class="Investor-wx">
@@ -217,7 +217,7 @@
 			addImage: function(e) {
 				console.log(e, '添加图片')
 				if (e.allImages) { // 上传成功
-					this.logo = (e.allImages[0]);
+					this.logo = (e.allImages[0].imgName);
 				}
 			},
 			bindPickerChange: function(e) {
@@ -524,7 +524,7 @@
 	}
 
 	.Investor-name-box view:nth-of-type(3) {
-		width: 200upx;
+		width: 300upx;
 		height: 35upx;
 		position: absolute;
 		right: 0;

@@ -263,6 +263,9 @@ const state = {
 		Edit:[],
 		History:[],
 	}  
+  },
+  news:{//消息
+	  newsList:[]
   }
 };
 export default state;

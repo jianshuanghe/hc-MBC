@@ -194,6 +194,11 @@ const mutations = {
 	  console.log(info,'setHistory')
 	  state.my.MyList.History=info
   },
+  //消息
+  setNews(state, info){
+  	  console.log(info,'setNews')
+  	  state.news.newsList=info
+  },
   setTimes(state, info){
 	  console.log(info,'setTimes')
 	  state.my.MyList.Times=info

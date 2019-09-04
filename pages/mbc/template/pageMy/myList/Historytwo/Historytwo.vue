@@ -3,7 +3,8 @@
 		<!-- 创业者 收藏 -->
 		<historytwoCollection></historytwoCollection>
 		<!-- 创业者 看过我 -->
-		<historytwoLook></historytwoLook>
+		<!-- <historytwoLook></historytwoLook> -->
+		<historytwoseenme></historytwoseenme>
 		<!-- 创业者 足迹 -->
 		<historytwoFootprint></historytwoFootprint>
 		<!-- 创业者 我的项目 -->
@@ -16,6 +17,7 @@
 	import historytwoFootprint from './Historytwo-list/historytwoFootprint.vue'
 	import historytwoLook from './Historytwo-list/historytwoLookme.vue'
 	import historytwoMy from './Historytwo-list/historytwoMy.vue'
+	import historytwoseenme from './Historytwo-list/historytwoseenme.vue'
 	export default {
 		data() {
 			return {
@@ -25,8 +27,9 @@
 		components: {
 			historytwoCollection,
 			historytwoFootprint,
-			historytwoLook,
-			historytwoMy
+			// historytwoLook,
+			historytwoMy,
+			historytwoseenme
 		},
 		computed: {},
 		created() {
