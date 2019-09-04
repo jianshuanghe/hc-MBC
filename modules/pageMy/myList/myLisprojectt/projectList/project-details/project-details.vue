@@ -12,6 +12,13 @@
 						<span>{{arr.fieldCode}}</span>
 						<span>{{arr.pcode}}</span>
 					</view>
+					<view class="shanglun">
+						上轮获投情况
+						<view class="shanglun-lunshu">{{history.projCapis[0].levelCode}}</view>
+						<view v-if="history.projCapis[0].capiMoney!==''" class="shanglun-lunshu2">{{history.projCapis[0].capiMoney}}万元</view>
+						<view v-if="history.projCapis[0].capiMoney==''" class="shanglun-lunshu2">金额未披露</view>
+					</view>
+					
 					<view class="bianji" @tap="gotomy">编辑</view>
 				</view>
 			</view>
@@ -243,7 +250,7 @@
 					// console.log(a,b)
 					this.arr = a.MyList.Company;
 					this.history = a.MyList.History
-					console.log(this.history)
+					console.log(this.history,'lian')
 				},
 				deep: true
 			},
@@ -473,7 +480,7 @@
 	.project-details-header-one {
 		margin: 0 auto;
 		width: 90%;
-		height: 200upx;
+		min-height: 250upx;
 		border-bottom: 2upx solid #F5F5F5;
 		padding: 2upx;
 		display: flex;
@@ -486,6 +493,8 @@
 		margin-left: 10upx;
 		margin-top: 62upx;
 		border-radius: 50%;
+		position: absolute;
+		right: 0;
 	}
 
 	.project-details-header-one view:nth-of-type(1) image {
@@ -495,10 +504,10 @@
 	}
 
 	.project-details-header-one view:nth-of-type(2) {
-		width: 50%;
-		height: 150upx;
-		margin-top: 30upx;
-		margin-left: 50upx;
+		/* width: 50%; */
+		/* height: 150upx; */
+		/* margin-top: 30upx; */
+		/* margin-left: 50upx; */
 		position: relative;
 	}
 
@@ -524,18 +533,18 @@
 
 	.project-details-header-one view:nth-of-type(2) view:nth-of-type(1) {
 		display: flex;
-		width: 200upx;
+		width: 300upx;
 		height: 25upx;
 		margin-top: 10upx;
-		margin-left: 10upx;
+		margin-left: -20upx;
 	}
 
 	.project-details-header-one view:nth-of-type(2) view:nth-of-type(1) span:nth-of-type(1) {
-		margin-left: -20upx;
+		margin-left: -10upx;
 		font-size: 24upx;
 		color: #9B9B9B;
 		display: block;
-		min-width: 100upx;
+		width: 220upx;
 		height: 30upx;
 		text-align: left;
 		line-height: 25upx;
@@ -552,13 +561,43 @@
 		padding-left: 25upx;
 		margin-left: 10upx;
 	}
-
+	.shanglun{
+		width: 300upx;
+		height: 100upx;
+		margin-top: 50upx;
+		font-size: 24upx;
+		color: #9B9B9B;
+	}
+	.shanglun-lunshu{
+		position: absolute;
+		top: 30upx;
+		left: 25upx;
+		height: 30upx;
+		width: 100upx;
+		font-size: 24upx;
+		color: black;
+		line-height: 30upx;
+		
+		border-radius: 0;
+	}
+	.shanglun-lunshu2{
+		position: absolute;
+		top: 0upx;
+		left: 120upx;
+		height: 25upx;
+		width: 200upx;
+		font-size: 24upx;
+		color: black;
+		line-height: 25upx;
+		border-left: 2upx solid #9B9B9B;
+		padding-left: 20upx;
+	}
 	.bianji {
 		font-size: 26upx;
 		color: #02C2A2;
 		position: absolute;
-		right: -360upx;
-		top: -65upx;
+		right: -290upx;
+		top: 190upx;
 		font-weight: 700;
 	}
 

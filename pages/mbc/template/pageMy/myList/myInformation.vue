@@ -2,7 +2,7 @@
 	<view class="myInformation" @tap="gotomyListdata">
 		<view class="Informationname">
 			<view>
-				<view>{{List.userName}}</view>
+				<view><span>{{List.userName}}</span></view>
 				<view>
 					<!-- 未认证 -->
 					<image :src="Uncertified" :class="{'xian':hideen}"></image>
@@ -161,11 +161,16 @@
 	.Informationname view:nth-of-type(1) view:nth-of-type(1) {
 		font-size: 40upx;
 		width: 60%;
+		height: 80upx;
+		
+	}
+	.Informationname view:nth-of-type(1) view:nth-of-type(1)>span{
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
-		/* font-weight: 700; */
-		/* width: 200upx; */
+		display: block;
+		width: 100%;
+		height: 100%;
 	}
 
 	.Informationname view:nth-of-type(1) view:nth-of-type(2) {
