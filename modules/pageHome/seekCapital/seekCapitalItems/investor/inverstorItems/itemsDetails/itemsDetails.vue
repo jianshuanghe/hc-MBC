@@ -147,6 +147,7 @@
 								dataM.user.compName = '投资人'
 							};
 							this.dataList = dataM;
+							console.log(dataM, '-----------------------------------dataM---------------------------')
 							this.data.projectName = this.dataList.user.userName;
 							this.data.modelId = this.dataList.user.userId;
 							uni.hideLoading(); // 隐藏 loading

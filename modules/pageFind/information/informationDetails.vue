@@ -10,7 +10,7 @@
 						{{dataList.activity.activityAbstract || ''}}
 					</view>
 					<view class="AD-details-img">
-						<image :src="dataList.activity.activityImg || this.dImg"></image>
+						<image :src="dataList.activity.activityImg || this.dImg" mode='widthFix'></image>
 					</view>
 					<view class="AD-details-text" v-html='dataList.activity.activityContent'></view>
 					<div class="loveBg-box">
@@ -51,13 +51,6 @@
 		  /* 格式图片 */
 		  dataImg (val) {
 			  return 'https://' + val;
-		  },
-		  htmlImg (val) {
-			  // let str = htmlText.replace(/<img[^>]*>/gi, function (match, capture) {
-			  //    return match.replace(/style\s*?=\s*?([‘"])[\s\S]*?\1/ig, 'style="max-width:100%;height:auto;"') // 替换style
-			var regex2 = new RegExp("(i?)(\<img.*?style=['\"])([^\>]+\>)","gmi");
-			//在img标签的style里面增加css样式(这里增加的样式：display:block;max-width:100%;height:auto;border:5px solid red;)
-			return val.replace(regex2, "$2max-width:100%;$3");
 		  }
 		  
 		},
@@ -85,7 +78,9 @@
 						},
 						success: (response) => {
 							console.log(response.data.content);
-							this.dataList = response.data.content;
+							let data = response.data.content;
+							data.activity.activityContent = data.activity.activityContent.replace(/\<img/gi, '<img style="max-width:100%;height:auto" ');
+							this.dataList = data;
 							uni.hideLoading(); // 隐藏 loading
 						},
 						fail: (error) => {
@@ -296,5 +291,8 @@
 		position: relative;
 		width: 100%;
 		height: 384upx;
+	}
+	rich-text /deep/ img,p,span {
+	  width: 100% !important;
 	}
 </style>

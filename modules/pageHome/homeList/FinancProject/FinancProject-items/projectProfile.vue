@@ -1,40 +1,42 @@
 <template>
-	<div class="personalProfile-contnet">
-		<div class="personalProfile">
-			<div class="pP-title">
+	<view class="personalProfile-contnet">
+		<view class="personalProfile">
+			<view class="pP-title">
 				项目简介
 				<text class="pP-text-right"  @tap="goToOpinion()">纠错</text>
-			</div>
-			<div class="pP-img" >
-				<div class="img-list">
-					<image class="items-img left" :src="items.imgName" v-for="(items,index) in msgData.projImgs" :key="index"></image>
-					<div class="clear"></div>
-				</div>
-				<div class="line"></div>
-			</div>
-			<div class="pP-content-box" v-if="msgData.projContent !== ''">
-				<div class="titel-pP">项目介绍</div>
-				<div class="pP-content">
+			</view>
+			<view class="pP-img" >
+				<view class="img-list">
+					<view class="img-box left" v-for="(items,index) in msgData.projImgs" :key="index" @tap="previewImage(msgData.projImgs, index)">
+						<image class="items-img" mode='widthFix' :src="items.imgName"></image>
+					</view>
+					<view class="clear"></view>
+				</view>
+				<view class="line"></view>
+			</view>
+			<view class="pP-content-box" v-if="msgData.projContent !== ''">
+				<view class="titel-pP">项目介绍</view>
+				<view class="pP-content">
 					{{msgData.projContent}}
-				</div>
-				<div class="line"></div>
-			</div>
-			<div class="pP-content-box" v-if="msgData.conentMarket !== ''">
-				<div class="titel-pP">市场需求</div>
-				<div class="pP-content">
+				</view>
+				<view class="line"></view>
+			</view>
+			<view class="pP-content-box" v-if="msgData.conentMarket !== ''">
+				<view class="titel-pP">市场需求</view>
+				<view class="pP-content">
 					{{msgData.conentMarket}}
-				</div>
-				<div class="line"></div>
-			</div>
-			<div class="pP-content-box" v-if="msgData.conentPortrait !== ''">
-				<div class="titel-pP">用户画像</div>
-				<div class="pP-content">
+				</view>
+				<view class="line"></view>
+			</view>
+			<view class="pP-content-box" v-if="msgData.conentPortrait !== ''">
+				<view class="titel-pP">用户画像</view>
+				<view class="pP-content">
 					{{msgData.conentPortrait}}
-				</div>
-				<div class="line"></div>
-			</div>
-		</div>
-	</div>
+				</view>
+				<view class="line"></view>
+			</view>
+		</view>
+	</view>
 </template>
 
 <script>
@@ -50,6 +52,19 @@
 			}
 		},
 	    methods: {
+			previewImage (e, key) {
+				console.log(e, '附件地址');
+				let imgList = [];
+				e.map((items, index) => {
+					imgList.push(items.imgName)
+				})
+				uni.previewImage({
+					current: imgList[key],
+					indicator: "number",
+					loop: "true",
+					urls:imgList
+				})
+			},
 			goToOpinion (e){
 				console.log('to意见反馈');
 				uni.navigateTo({
@@ -63,13 +78,11 @@
 <style>
 	.personalProfile-contnet{
 		position: relative;
-		width: 750upx;
 		background: #fff;
 		margin-bottom: 20upx;
 	}
 	.personalProfile{
 		position: relative;
-		width: 100%;
 		padding: 30upx 30upx 0 30upx;
 	}
 	.pP-title{
@@ -100,14 +113,29 @@
 		width: 100%;
 		position: relative;
 		width: 100%;
-		margin: 15px 0;
+		margin: 40upx 0;
 	}
-	.items-img{
+	.img-box{
 		position: relative;
 		width: 210upx;
 		height: 150upx;
 		margin-right: 30upx;
-		margin-bottom: 30upx;
+		margin-top: 30upx;
+		min-height: 300upx;
+	}
+	.items-img{
+		position: relative;
+		max-width: 100%;
+		max-height: 100%;
+		display: table-cell;
+		vertical-align: middle;
+		position: relative;
+		margin: 0;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		-webkit-transform: translate(-50%, -50%);
 	}
 	.pP-content-box{
 		position: relative;

@@ -2,7 +2,7 @@
 	<view class="content-content">
 		<view class="activeDetails">
 			<view class="AD-img">
-				<image :src="msgData.activity.activityImg"></image>
+				<image :src="msgData.activity.activityImg" mode='widthFix'></image>
 			</view>
 			<view class="AD-content">
 				<view class="AD-title">{{msgData.activity.activityTitel}}</view>
@@ -252,5 +252,8 @@
 		position: relative;
 		width: 100%;
 		height: 384upx;
+	}
+	.AD-details-text /deep/ img,p,span {
+	  width: 100%;
 	}
 </style>

@@ -1,26 +1,26 @@
 <template>
-	<div class="projectTop-content">
-		<div class="projectTop">
-			<div class="projectTop-top">
-				<div class="left img-projectTop">
+	<view class="projectTop-content">
+		<view class="projectTop">
+			<view class="projectTop-top">
+				<view class="left img-projectTop">
 					<image class="img" :src="msgData.projLogo"></image>
-				</div>
-				<div class="left text-projectTop">
-					<div class="title">{{msgData.projName}}</div>
-					<div class="ins">{{msgData.projSlogan}}</div>
-					<div class="ins">{{msgData.fieldCode}} | {{msgData.pcode}}</div>
-				</div>
-				<div class="clear"></div>
-			</div>
-			<div class="projectTop-bot">
-				<div class="line"></div>
-				<div class="bot-box">
-					<div class="items left" v-for="(items,index) in msgData.projLabels" :key="index">{{items.labelName}}</div>
-					<div class="clear"></div>
-				</div>
-			</div>
-		</div>
-	</div>
+				</view>
+				<view class="left text-projectTop">
+					<view class="title">{{msgData.projName}}</view>
+					<view class="ins">{{msgData.projSlogan}}</view>
+					<view class="ins">{{msgData.fieldCode}} | {{msgData.pcode}}</view>
+				</view>
+				<view class="clear"></view>
+			</view>
+			<view class="projectTop-bot">
+				<view class="line"></view>
+				<view class="bot-box">
+					<view class="items left" v-for="(items,index) in msgData.projLabels" :key="index">{{items.labelName}}</view>
+					<view class="clear"></view>
+				</view>
+			</view>
+		</view>
+	</view>
 </template>
 
 <script>
@@ -45,13 +45,11 @@
 <style>
 	.projectTop-content{
 		position: relative;
-		width: 750upx;
 		background: #fff;
 		padding: 30upx;
 	}
 	.projectTop{
 		position: relative;
-		width: 100%;
 		background: rgba(255,255,255,0.90);
 		border: 1px solid rgba(226,226,226,0.50);
 		box-shadow: 0 1px 8px 0 #EBEBEB;

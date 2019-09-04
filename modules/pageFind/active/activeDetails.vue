@@ -61,6 +61,7 @@
 						success: (response) => {
 							console.log(response.data.content);
 							this.dataList = response.data.content;
+							this.data.isEndTime = response.data.content.isEndTime; //是否过期 1 活动过期 0 未过期可以报名
 							uni.hideLoading(); // 隐藏 loading
 						},
 						fail: (error) => {
@@ -91,6 +92,9 @@
 						},
 						success: (response) => {
 							console.log(response.data);
+							let data = response.data.content;
+							data.activity.activityContent = data.activity.activityContent.replace(/\<img/gi, '<img style="max-width:100%;height:auto" ');
+							this.dataList = data;
 							this.data.content = response.data.content;
 							uni.hideLoading(); // 隐藏 loading
 						},
