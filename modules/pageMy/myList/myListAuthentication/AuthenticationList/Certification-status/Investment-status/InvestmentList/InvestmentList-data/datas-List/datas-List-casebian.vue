@@ -25,7 +25,7 @@
 				</view>
 				<view>机构logo</view>
 				<view>
-					<image :src="List.projLogo" v-if="!logo" class="ziti"></image>
+					<image :src="List.projLogo" v-if="logo && imageData.length === 0" class="ziti"></image>
 					<div class="Img-Upload">
 						<imageUploadOne class="img" v-model="imageData" :server-url="serverUrl" limit=1 @delete="deleteImage" @add="addImage">
 						</imageUploadOne>
@@ -139,16 +139,6 @@
 					this.Listdata.unshift(a.MyList.Time[0])
 					console.log(this.Listdata)
 					// console.log(a,b)
-					this.time=a.MyList.Times;
-					console.log(this.time, '-----------------this.time-----------------')
-					let paramsTime = [...this.time];
-					paramsTime.map((items, index) =>{
-						let objItems = {
-							levelCode: items.levelCode,
-							startTime: items.startTime+'-01'
-						};
-						this.userInveLevelList.push(objItems);
-					})
 				},
 				deep: true
 			},
@@ -245,7 +235,8 @@
 						success: (response) => {
 							uni.hideLoading();
 							console.log(response.data);
-							this.List=response.data.content
+							this.List=response.data.content;
+							this.logo = this.List.projLogo;
 							this.projName=response.data.content.projName
 							this.projContent=response.data.content.projContent
 							this.Listdata=response.data.content.userInveLevelList
@@ -273,21 +264,21 @@
 				}
 			},
 			caseadd() {
-				if(this.projName==''){
+				if(this.projName===''){
 					uni.showToast({
 						title: '项目名称不能为空,请重填',
 						icon: 'none',
 						duration: 1000
 					});
 					return false;
-				}else if(this.time.length === 0){
+				}else if(this.Listdata.length === 0){
 					uni.showToast({
 						title: '投资时间和轮数不能为空,请重填',
 						icon: 'none',
 						duration: 1000
 					});
 					return false;
-				}else if(this.logo==''){
+				}else if(this.logo===''){
 					uni.showToast({
 						title: '名片不能为空,请重填',
 						icon: 'none',
@@ -516,12 +507,12 @@
 	}
 
 	.Img-Upload {
-		width: 120upx !important;
-		height: 80upx;
+		width: 120rpx !important;
+		height: 80rpx;
 		position: absolute;
-		right: 58upx;
-		top: -45upx;
-		font-size: 226upx;
+		right: 0rpx;
+		top: -20rpx;
+		font-size: 226rpx;
 	}
 
 	.imageUpload {
@@ -544,9 +535,10 @@
 	}
 
 	.datas-List-case-logo-box view:nth-of-type(1) {
-		width: 20upx;
-		height: 20upx;
-		padding-top: 26upx;
+		/* width: 80rpx;
+		height: 80rpx;
+		padding-top: 26rpx;
+ */
 	}
 
 	.datas-List-case-logo-box view:nth-of-type(1) image {

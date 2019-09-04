@@ -126,8 +126,16 @@
 						this.$store.commit('setAuthShow', false); // 更新setAuthShow
 						console.log('认证投资人或者投资机构')
 					}
-				} else {
+				} else if (this.userType ==='-1') {
 					this.$store.commit('setAuthShow', true); // 更新setAuthShow
+					return
+				} else if (this.userType ==='0') {
+					this.$store.commit('setAuthShow', false); // 更新setAuthShow
+					uni.showToast({
+						title: '您已成为创业者身份，无法委托联系项目',
+						icon: 'none',
+						duration: 1000
+					});
 					return
 				}
 				uni.showLoading({ // 展示loading
@@ -150,7 +158,7 @@
 			},
 			Apply () {
 				console.log('触发申请');
-				if (this.userType === '1' || this.userType === '2') { // 1 个人投资人 2 机构投资人
+				if (this.userType ==='1' || this.userType === '2') { // 1 个人投资人 2 机构投资人
 					if (this.authState !== '1') { // 没有认证.或者认证没通过
 						
 						console.log(UserData.userType, '------------UserData.userType----------');
@@ -160,8 +168,16 @@
 						this.$store.commit('setAuthShow', false); // 更新setAuthShow
 						console.log('认证投资人或者投资机构')
 					}
-				} else {
+				} else if (this.userType ==='-1') {
 					this.$store.commit('setAuthShow', true); // 更新setAuthShow
+					return
+				} else if (this.userType ==='0') {
+					this.$store.commit('setAuthShow', false); // 更新setAuthShow
+					uni.showToast({
+						title: '您已成为创业者身份，无法委托联系项目',
+						icon: 'none',
+						duration: 1000
+					});
 					return
 				}
 				if (this.msgData.content === 1) {
@@ -320,7 +336,7 @@
 	.img-box>image{
 		position: relative;
 		width: 40upx;
-		height: 36upx;
+		height: 38upx;
 		margin: auto;
 	}
 	.const-box .text{

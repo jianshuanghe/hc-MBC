@@ -25,6 +25,7 @@
 </template>
 
 <script>
+	import { mapGetters } from 'vuex';
 	export default {
 		data() {
 			return {
@@ -52,7 +53,18 @@
 			};
 		},
 		
+		watch: {
+			GET_MY: {
+				handler(a, b) {
+					// console.log(a,b)
+					this.xiangqing(this.active);
+				},
+				deep: true
+			},
+		
+		},
 		computed: {
+			...mapGetters(['GET_MY'])
 		},
 		created() {
 			//详情列表

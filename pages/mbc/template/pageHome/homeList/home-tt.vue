@@ -5,7 +5,7 @@
 				<view class="uni-swiper-msg-icon Tt-img">
 					<image :src="tt"></image>
 				</view>
-				<swiper vertical="true" autoplay="true" circular="true" interval="1000">
+				<swiper vertical="true" autoplay="true" circular="true" interval="2000">
 					<swiper-item v-for="(item, index) in msg" :key="index" @tap='goToMeltTt(2)'>
 						<view class="textTT" @tap='goToMeltTt(2)'>{{item.title || '暂时没有'}}</view>
 					</swiper-item>
@@ -117,6 +117,6 @@
 		width: 100%;
 		font-size: 24upx;
 		color: #2E2E30;
-		line-height: 50upx;
+		line-height: 44upx;
 	}
 </style>

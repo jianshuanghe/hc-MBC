@@ -55,11 +55,11 @@
 				<view>市场需求</view>
 				<view>{{arr.conentMarket}}</view>
 			</view>
-			<view class="project-details-data-thre" v-if="arr.conentPortrait!==''">
+			<view class="project-details-data-two" v-if="arr.conentPortrait!==''">
 				<view>用户画像</view>
 				<view>{{arr.conentPortrait}}</view>
 			</view>
-			<view class="project-details-data-thre" v-if="arr.conentModel!==''">
+			<view class="project-details-data-two" v-if="arr.conentModel!==''">
 				<view>商业模式</view>
 				<view>{{arr.conentModel}}</view>
 			</view>

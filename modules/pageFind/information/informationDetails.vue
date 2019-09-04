@@ -14,8 +14,8 @@
 					</view>
 					<view class="AD-details-text" v-html='dataList.activity.activityContent'></view>
 					<div class="loveBg-box">
-						<div class="loveBg">
-							<view class="img-box" @tap="setClickRecord('love', items, dataList.activity)">
+						<div class="loveBg" @tap="setClickRecord('love', items, dataList.activity)">
+							<view class="img-box">
 								<image class="img"  :src="items.love ? loved : love"></image>
 							</view>
 						</div>
@@ -205,8 +205,8 @@
 	}
 	.loveBg{
 		position: relative;
-		width: 162upx;
-		height: 162upx;
+		width: 120upx;
+		height: 120upx;
 		background: #FFFFFF;
 		box-shadow: 0 2px 8px 0 #EBEBEB;
 		border-radius: 50%;
@@ -219,9 +219,9 @@
 	}
 	.img-box .img{
 		position: relative;
-		width: 46upx;
-		height: 46upx;
-		margin: 58upx;
+		width: 40upx;
+		height: 40upx;
+		margin: 40upx;
 	}
 	.img-box-text{
 		font-family: PingFangSC-Regular;

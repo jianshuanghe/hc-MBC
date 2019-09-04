@@ -436,7 +436,7 @@
 	}
 
 	.lunshu-shu image {
-		width: 22upx;
+		width: 35upx;
 		height: 22upx;
 		border-radius: 50%;
 	}

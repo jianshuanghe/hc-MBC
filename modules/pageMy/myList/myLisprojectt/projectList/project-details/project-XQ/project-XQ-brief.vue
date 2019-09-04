@@ -116,12 +116,12 @@
 		},
 		computed: {},
 		mounted() {
-			this.Getinto();
+			
 		},
 		onLoad:function(options){
 			this.id = options.id
 			console.log(this.id)
-			
+			this.Getinto();
 		},
 		methods: {
 			...mapMutations({
@@ -224,6 +224,18 @@
 									imgList.push(imgObj);
 								}
 							})
+							// 对附件赋值S用于接口传参数
+							if (imgs.length === 1) {
+								this.logo = (imgs[0]);
+							} else if (imgs.length === 2) {
+								this.logo = (imgs[0]);
+								this.logo2=(imgs[1]);
+							} else if (imgs.length === 3) {
+								this.logo = (imgs[0]);
+								this.logo2=(imgs[1]);
+								this.logo3=(imgs[2]);
+							}
+							// 对附件赋值E用于接口传参数
 							this.imageData=imgList;
 							this.isImgShow = true;
 							console.log(this.imageData);

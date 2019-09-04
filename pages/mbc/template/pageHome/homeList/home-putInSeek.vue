@@ -73,13 +73,13 @@
 	.putInSeek-box{
     position: relative;
     width: 750upx;
-    padding: 14upx 30upx;
+	padding: 14upx 30upx 4upx 30upx;
     background: #fff;
   }
   .cent-line{
 	    position: absolute;
 		margin: 22upx 340upx;
-		width: 4upx;
+		width: 2upx;
 		height: 74upx;
   }
   .gadget-box{

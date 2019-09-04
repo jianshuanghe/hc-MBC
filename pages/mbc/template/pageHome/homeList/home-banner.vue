@@ -106,7 +106,7 @@ export default {
 	.homeBanner{
 		position: relative;
 		width: 670upx;
-		height: 330upx;
+		height: 304upx;
 		margin-left: 40upx;
 		margin-top: 20upx;
 		border-radius: 10upx;
@@ -116,13 +116,13 @@ export default {
 		border-radius: 10upx;
 	}
 	.swiper-box{
-		height: 330upx !important;
+		height: 304upx !important;
 		border-radius: 10upx;
 	}
 	.bannerImg{
 		position: relative;
 		width: 100%;
-		height: 330upx;
+		height: 304upx;
 		border-radius: 10upx;
 	}
 	.uni-swiper-msg{

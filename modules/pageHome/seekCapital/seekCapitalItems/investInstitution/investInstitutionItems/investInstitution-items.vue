@@ -4,7 +4,7 @@
       <view class="II-top">
         <view class="left II-user-img">
           <view class="II-img">
-            <image :src='msgData.compLogo'></image>
+            <image :src='msgData.compLogo || dImg'></image>
           </view>
         </view>
         <view class="left II-suer-insr">
@@ -42,7 +42,7 @@
 	export default {
 	    data () {
 			return {
-				iiImg: this.dImg
+				dImg: this.dImg
 			};
 	    },
 		props: {
@@ -53,6 +53,7 @@
 	    methods: {
 			goToItemsDetails (e){
 				console.log('to投资机构详情页面');
+				uni.setStorageSync('isListSource', 1); // 根据类型判断用户在提交委托之后返回的地址的来源
 				uni.navigateTo({
 					url: '/modules/pageHome/seekCapital/seekCapitalItems/investInstitution/investInstitutionItems/itemsDetails/itemsDetails?id=' + e
 				});
