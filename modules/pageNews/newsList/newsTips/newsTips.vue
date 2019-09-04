@@ -79,6 +79,7 @@
 							uni.hideLoading();
 							this.news(this.active);
 							this.hiden=true
+							this.$store.commit('setNews', this.active.listData);
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading

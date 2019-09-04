@@ -1,6 +1,6 @@
 <template>
 	<view class="newsList">
-		<newsTips :Newdata="datas"></newsTips>
+		<newsTips></newsTips>
 	</view>
 </template>
 
@@ -26,11 +26,6 @@
 		methods: {
 			
 		},
-		 onLoad(options) {
-            var data = JSON.parse(options.index); // 字符串转对象
-            console.log(data)
-			this.datas=data
-        }
  
 	};
 </script>

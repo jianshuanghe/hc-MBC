@@ -132,7 +132,7 @@
 				}
 				if(!/^[0-9]+$/.test(this.money)){
 					uni.showToast({
-						title: '融资金额必须为数字',
+						title: '融资金额必须为整数',
 						icon: 'none',
 						duration: 1000
 					});

@@ -7,7 +7,7 @@
 				<image :src="items.headImg"></image>
 			</view>
 			<view>
-				<view>{{items.title}}</view>
+				<view><span>{{items.title}}</span></view>
 				<view class="ListMechanismtrees">
 					<span  v-for="(item,index) in items.fields" :key="index">{{item}}</span>
 				</view>
@@ -356,7 +356,14 @@
 		color: #2E2E30;
 		margin-top: 0;
 	}
-
+	.ListMechanismfist view:nth-of-type(2) view:nth-of-type(1)>span{
+		display: block;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
 	.ListMechanismtrees {
 		width: 700upx;
 		height: 30upx;

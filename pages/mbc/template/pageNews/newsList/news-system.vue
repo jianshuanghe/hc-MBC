@@ -4,8 +4,8 @@
 			<image :src='xiaoxo'></image>
 		</view>
 		<view class="system-notice">
-			<view>系统通知<span v-for="(items,index) in Innum.rows" v-if="index<1" :key="index">{{items.createTime|formatDate}}</span></view>
-			<view v-for="(item,index) in Innum.rows" v-if="index<1" :key="index">{{item.content}}
+			<view>系统通知<span v-for="(items,index) in num" v-if="index<1" :key="index">{{items.createTime|formatDate}}</span></view>
+			<view v-for="(item,index) in num" v-if="index<1" :key="index">{{item.content}}
 				<view v-if="List.noticeCount !== 0">{{List.noticeCount}}</view>
 			</view>
 		</view>
@@ -15,12 +15,12 @@
 <script>
 	import { mapMutations,mapGetters } from 'vuex';
 	export default {
-		props: ['Innum'],
 		data() {
 			return {
 				xiaoxo: this.Static + 'mbcImg/news/xiaoxo.png',
 				Listdata:[],
 				List:[],
+				num:[]
 				
 			};
 		},
@@ -32,10 +32,17 @@
 					console.log(this.List)
 				},
 				deep: true
-			}
+			},
+			GET_NEWS: {
+				handler(a, b) {
+					console.log(a, b,'12312318498165449816149841644');
+					this.num=a.newsList.rows
+				},
+				deep: true
+			},
 		},
 		computed: {
-			...mapGetters(['GET_MY'])
+			...mapGetters(['GET_MY','GET_NEWS'])
 		},
 		created() {
 			this.getHeader();
@@ -79,6 +86,7 @@
 						},
 						success: (response) => {
 							console.log(response.data);
+							uni.hideLoading();
 							this.getHeader();
 						},
 						fail: (error) => {

@@ -13,8 +13,7 @@
 					<view class="Img-logo">
 						<!-- 图片上传 -->
 						<view class="Img-Upload">
-							<imageUploadOne 
-								v-model="imageData" :server-url="serverUrl" limit=1 @delete="deleteImage" @add="addImage">
+							<imageUploadOne v-model="imageData" :server-url="serverUrl" limit=1 @delete="deleteImage" @add="addImage">
 							</imageUploadOne>
 						</view>
 					</view>
@@ -26,7 +25,7 @@
 		<view class="dataname">
 			<view>
 				<view>名字</view>
-				<view><input v-model="name" placeholder="请填写" /></view>
+				<view><input v-model="name" placeholder="请填写" maxlength="8" @tap="bbb()" :disabled="Listdata.authState == '1'||Listdata.authState == '0'"/></view>
 				<view>
 					<image :src="right"></image>
 				</view>
@@ -84,8 +83,8 @@
 				Listdata: [],
 				imageData: '',
 				serverUrl: 'https://img01.iambuyer.com/imgup/upLoad/fileUpload',
-				logo2:'',
-				wx:''
+				logo2: '',
+				wx: ''
 			};
 		},
 		components: {
@@ -98,7 +97,7 @@
 			this.Listdata = this.GET_MY.MyList.header;
 			this.name = this.Listdata.userName
 			this.mail = this.Listdata.userEmail
-			this.wx=this.Listdata.userWx
+			this.wx = this.Listdata.userWx
 			console.log(this.Listdata, 'this.Listdata');
 			console.log(this.logo, 'this.Listdata');
 			if (uni.getStorageSync('DataList')) {
@@ -107,16 +106,36 @@
 				this.ListData = DataList;
 			};
 		},
-		beforeDestroy () {
+		beforeDestroy() {
 			console.log('页面销毁之前缓存数据')
 			// if (this.Listdata.isPostSucccess === false) { // 如果用户没有提交数据之前用户切换页面,需要缓存数据
-				uni.setStorageSync('DataList', JSON.stringify(this.ListData));// 缓存确认成功的数据
+			uni.setStorageSync('DataList', JSON.stringify(this.ListData)); // 缓存确认成功的数据
 			// }
 		},
 		methods: {
+			bbb: function() {
+				if (this.Listdata.authState == 0) {
+					uni.showToast({
+						title: '您已提交认证，无法修改名字',
+						icon: 'none',
+						duration: 1000
+					});
+					return false;
+					
+				}
+				if (this.Listdata.authState == 1) {
+					uni.showToast({
+						title: '您已认证成功，无法修改名字',
+						icon: 'none',
+						duration: 1000
+					});
+					return false;
+				}
+			},
+			
 			...mapMutations({
 				setheader: 'setheader',
-				setMation:'setMation'
+				setMation: 'setMation'
 			}),
 			deleteImage: function(e) {
 				console.log(e, '删除图片')
@@ -126,7 +145,7 @@
 				console.log(e, '添加图片')
 				if (e.allImages) { // 上传成功
 					this.logo = (e.allImages[0].imgName);
-					this.logo2=(e.allImages[0].imgUrl)
+					this.logo2 = (e.allImages[0].imgUrl)
 				}
 			},
 			subminsdata() {
@@ -139,7 +158,7 @@
 						headImg: this.logo,
 						userName: this.name,
 						email: this.mail,
-						wxCode:this.wx
+						wxCode: this.wx
 					}; // 请求总数居时 参数为空
 					console.log(landRegistLG.user.id, this.logo, this.name, this.mail)
 					uni.showLoading({ // 展示loading
@@ -160,9 +179,8 @@
 							}
 							// let muabout=this.GET_MY.MyList.header
 							// muabout=params
-							this.$store.commit('setMation',params)
-							wx.navigateBack({
-							})
+							this.$store.commit('setMation', params)
+							wx.navigateBack({})
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -198,7 +216,7 @@
 							console.log(this.List)
 							this.$store.commit('setheader', this.List); // 更新vuex
 							this.$store.commit('setMation', this.List); // 更新vuex
-							
+
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -217,17 +235,19 @@
 </script>
 
 <style>
-	.BI-items{
+	.BI-items {
 		position: relative;
 		width: 100%;
 		height: 120upx;
 		background: #FFFFFF;
 	}
-	.BI-items-left{
+
+	.BI-items-left {
 		position: relative;
 		width: 36%;
 	}
-	.BI-text-left{
+
+	.BI-text-left {
 		position: relative;
 		font-family: PingFang-SC-Medium;
 		font-size: 28upx;
@@ -239,17 +259,20 @@
 		line-height: 36upx;
 		margin-left: 40upx
 	}
-	.BI-items-right{
+
+	.BI-items-right {
 		position: relative;
 		width: 64%;
 	}
-	.BI-text-right{
+
+	.BI-text-right {
 		position: relative;
 		width: 100%;
 		margin-top: 44upx;
 		margin-bottom: 44upx
 	}
-	.BI-picker{
+
+	.BI-picker {
 		position: relative;
 		font-family: PingFang-SC-Medium;
 		font-size: 28upx;
@@ -273,10 +296,12 @@
 		padding-right: 24upx;
 		margin-left: 0px;
 	}
-	.BI-pickered{
+
+	.BI-pickered {
 		color: #2E2E30 !important;
 	}
-	.Img-Upload{
+
+	.Img-Upload {
 		width: 120upx;
 		height: 80upx;
 		position: absolute;
@@ -284,32 +309,38 @@
 		right: 80upx;
 		top: -20upx;
 	}
-	.BI-picker-Img{
+
+	.BI-picker-Img {
 		width: 80upx;
 		height: 80upx;
 		position: absolute;
 		right: 28upx;
 		top: -20upx;
 	}
-	.mustFill{
+
+	.mustFill {
 		position: absolute;
 		left: 0;
 	}
-	.mustFill>image{
+
+	.mustFill>image {
 		position: relative;
 		width: 14upx;
 		height: 14upx;
 	}
-	.uni-input-wrapper{
+
+	.uni-input-wrapper {
 		text-align: right;
 	}
-	.BI-rightArrow{
+
+	.BI-rightArrow {
 		position: absolute;
 		width: 25upx;
 		height: 18upx;
 		right: 40upx;
 		top: 6upx;
 	}
+
 	.ziti {
 		position: absolute;
 		right: 80upx;
@@ -387,7 +418,7 @@
 	}
 
 	.dataname view:nth-of-type(1) view:nth-of-type(2) {
-		width: 300upx;
+		width: 350upx;
 		height: 100%;
 		font-size: 28upx;
 		text-align: right;
@@ -409,7 +440,7 @@
 		width: 100%;
 		height: 100%;
 	}
-	
+
 	.dataname-two {
 		width: 100%;
 		height: 120upx;

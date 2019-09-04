@@ -2,7 +2,7 @@
 	<view class="ListArticle">
 		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
 		@scroll="scroll">
-		<view class="ListArticlefist" v-for="(item,index) in CollectionList" :key="index" @longpress="deleat(item.id)">
+		<view class="ListArticlefist" v-for="(item,index) in CollectionList" :key="index" @longpress="deleat(item.id)" @tap="gotowenzhang(item.id)">
 			<view>
 				<view>{{item.title}}</view>
 				<span class="ListArticlefist-times">{{item.createTime|formatDate}}</span>
@@ -87,6 +87,11 @@
 		},
 		mounted() {},
 		methods: {
+			gotowenzhang(e){
+				uni.navigateTo({
+					url:'/modules/pageFind/information/informationDetails?id='+e
+				})
+			},
 			deleat(e){
 				this.hiden=false
 				this.id=e
@@ -312,7 +317,7 @@
 		height: 40upx;
 		font-size: 32upx;
 		text-align: center;
-		line-height: 60upx;
+		line-height: 40upx;
 		border-top: 2upx solid  #F5F5F5;
 		color: #02C2A2;
 	}

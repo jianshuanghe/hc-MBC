@@ -44,7 +44,8 @@
 					success: (response) => {
 						console.log(response.data);
 						this.num = response.data
-						
+						console.log(this.num)
+						this.$store.commit('setNews', this.num);
 						uni.hideLoading(); // 隐藏 loading
 					},
 					fail: (error) => {

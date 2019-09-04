@@ -19,26 +19,29 @@
 			</view>
 		</view>
 		<view class="Informationportrait">
-			<image :src="List.headImg || images" ></image>
+			<image :src="List.headImg || images"></image>
 		</view>
 	</view>
 </template>
 
 <script>
-	import { mapMutations,mapGetters } from 'vuex';
+	import {
+		mapMutations,
+		mapGetters
+	} from 'vuex';
 	export default {
 		data() {
 			return {
 				Investor: this.Static + 'mbcImg/my/Investor.png',
 				Uncertified: this.Static + 'mbcImg/my/Uncertified.png',
 				Entrepreneurs: this.Static + 'mbcImg/my/Entrepreneurs.png',
-				images:this.Static + 'mbcImg/my/images.png',
+				images: this.Static + 'mbcImg/my/images.png',
 				right: this.Static + 'mbcImg/my/right.png',
 				green: this.Static + 'mbcImg/my/green.png',
-				List:[],
-				hideen:true,
-				tou:true,
-				chuang:true,
+				List: [],
+				hideen: true,
+				tou: true,
+				chuang: true,
 			};
 		},
 		computed: {
@@ -50,31 +53,31 @@
 		watch: {
 			GET_MY: {
 				handler(a, b) {
-					console.log(a,b)
+					console.log(a, b)
 					this.List = a.MyList.Mation;
-					if(this.List.authState==-1){
-						this.hideen=false;
-					}else if(this.List.authState==0){
-						this.hideen=false;
-					}else if(this.List.authState==1){
-						if(this.List.userType==1){
-							this.tou=false
+					if (this.List.authState == -1) {
+						this.hideen = false;
+					} else if (this.List.authState == 0) {
+						this.hideen = false;
+					} else if (this.List.authState == 1) {
+						if (this.List.userType == 1) {
+							this.tou = false
 						}
-						if(this.List.userType==2){
-							this.tou=false
+						if (this.List.userType == 2) {
+							this.tou = false
 						}
-						if(this.List.userType==0){
-							this.chuang=false
+						if (this.List.userType == 0) {
+							this.chuang = false
 						}
-					}else if(this.List.authState==1){
-						this.hideen=false;
-					}else if(this.List.authState==2){
-						this.hideen=false;
+					} else if (this.List.authState == 1) {
+						this.hideen = false;
+					} else if (this.List.authState == 2) {
+						this.hideen = false;
 					}
 				},
 				deep: true
 			},
-		
+
 		},
 		methods: {
 			gotomyListdata(e) {
@@ -122,15 +125,18 @@
 </script>
 
 <style>
-	.xian{
+	.xian {
 		display: none;
 	}
-	.tou{
+
+	.tou {
 		display: none;
 	}
-	.chuang{
+
+	.chuang {
 		display: none;
 	}
+
 	.myInformation {
 		width: 100%;
 		height: 280upx;
@@ -154,6 +160,10 @@
 
 	.Informationname view:nth-of-type(1) view:nth-of-type(1) {
 		font-size: 40upx;
+		width: 60%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 		/* font-weight: 700; */
 		/* width: 200upx; */
 	}
@@ -194,6 +204,6 @@
 	.Informationportrait image {
 		width: 100%;
 		height: 100%;
-		border-radius:50% ;
+		border-radius: 50%;
 	}
 </style>
