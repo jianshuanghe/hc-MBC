@@ -156,6 +156,9 @@
 			},
 			deleteImage: function(e) {
 				console.log(e, '删除图片')
+				this.logo = '';
+				this.logo2 ='';
+				this.logo3 ='';
 				if (e.allImages.length === 1) {
 					this.logo = (e.allImages[0].imgName);
 				} else if (e.allImages.length === 2) {
@@ -169,6 +172,9 @@
 			},
 			addImage: function(e) {
 				console.log(e, '添加图片')
+				this.logo = '';
+				this.logo2 ='';
+				this.logo3 ='';
 				if (e.allImages) { // 上传成功
 				e.allImages.map((items,index)=>{
 					this.images.push(items.imgName)

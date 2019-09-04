@@ -757,7 +757,7 @@
 
 	.project-details-data-imges {
 		width: 90%;
-		height: 200upx;
+		/* height: 200upx; */
 		margin: 0 auto;
 		margin-top: 40upx;
 		display: flex;
