@@ -1,180 +1,183 @@
 <template>
 	<view class="project-details">
-		<view class="project-details-header">
-			<view class="project-details-header-one">
-				<view>
-					<image :src="arr.projLogo"></image>
-				</view>
-				<view>
-					<span>{{arr.projName}}</span>
-					<span>{{arr.projSlogan}}</span>
+		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
+		@scroll="scroll">
+			<view class="project-details-header">
+				<view class="project-details-header-one">
 					<view>
-						<span>{{arr.fieldCode}}</span>
-						<span>{{arr.pcode}}</span>
+						<image :src="arr.projLogo"></image>
 					</view>
-					<view class="shanglun" v-if="history.projCapis.length!==0">
-						上轮获投情况
-						<view class="shanglun-lunshu">{{history.projCapis[0].levelCode}}</view>
-						<view v-if="history.projCapis[0].capiMoney!==''" class="shanglun-lunshu2">{{history.projCapis[0].capiMoney}}万元</view>
-						<view v-if="history.projCapis[0].capiMoney==''" class="shanglun-lunshu2">金额未披露</view>
+					<view>
+						<span>{{arr.projName}}</span>
+						<span>{{arr.projSlogan}}</span>
+						<view>
+							<span>{{arr.fieldCode}}</span>
+							<span>{{arr.pcode}}</span>
+						</view>
+						<view class="shanglun" v-if="history.projCapis.length!==0">
+							上轮获投情况
+							<view class="shanglun-lunshu">{{history.projCapis[0].levelCode}}</view>
+							<view v-if="history.projCapis[0].capiMoney!==''" class="shanglun-lunshu2">{{history.projCapis[0].capiMoney}}万元</view>
+							<view v-if="history.projCapis[0].capiMoney==''" class="shanglun-lunshu2">金额未披露</view>
+						</view>
+						<view class="shanglun" v-if="history.projCapis.length==0">
+							上轮获投情况
+							<view class="shanglun-lunshu4">无</view>
+							<view class="shanglun-lunshu5">无</view>
+						</view>
 					</view>
-					<view class="shanglun" v-if="history.projCapis.length==0">
-						上轮获投情况
-						<view class="shanglun-lunshu4">无</view>
-						<view class="shanglun-lunshu5">无</view>
+					<view class="bianji" @tap="gotomy">编辑</view>
+				</view>
+				<view class="project-details-header-two" v-if="Labelarr.length!==0">
+					<span v-for="(items,index) in arr.projLabels" :key="index">{{items.labelName}}</span>
+					<view @tap="gotoedit">编辑</view>
+				</view>
+				<view class="project-details-header-twos" v-if="Labelarr.length==0">
+					<span>暂未添加标签</span>
+					<view class="gotoedit" @tap="gotoedit">编辑</view>
+				</view>
+			</view>
+			<view class="project-details-BP">
+				<view class="project-details-BP-one">
+					<view>BP/商业计划书</view>
+					<view @tap="goToPutIn(5)">重新上传</view>
+				</view>
+				<view class="project-details-BP-two">
+					<view>
+						<image :src="pdf" mode=""></image>
+					</view>
+					<view>
+						<span>{{arr.projFile.enclosureName}}</span>
+						<span>{{arr.projFile.enclosureSize}} &nbsp;&nbsp; {{arr.projFile.createTime | formatDate}}上传</span>
 					</view>
 				</view>
-				<view class="bianji" @tap="gotomy">编辑</view>
 			</view>
-			<view class="project-details-header-two" v-if="Labelarr.length!==0">
-				<span v-for="(items,index) in arr.projLabels" :key="index">{{items.labelName}}</span>
-				<view @tap="gotoedit">编辑</view>
-			</view>
-			<view class="project-details-header-twos" v-if="Labelarr.length==0">
-				<span>暂未添加标签</span>
-				<view class="gotoedit" @tap="gotoedit">编辑</view>
-			</view>
-		</view>
-		<view class="project-details-BP">
-			<view class="project-details-BP-one">
-				<view>BP/商业计划书</view>
-				<view @tap="goToPutIn(5)">重新上传</view>
-			</view>
-			<view class="project-details-BP-two">
-				<view>
-					<image :src="pdf" mode=""></image>
+			<view class="jianxi"></view>
+			<view class="project-details-data">
+				<view class="project-details-data-bianji">项目简介</view>
+				<view class="project-details-data-imges" v-if="arr.projImgs.length!==0">
+					<view class="project-details-data-imges-one" v-for="(imang,index) in arr.projImgs" :key="index">
+						<image :src="imang.imgName" mode='widthFix'></image>
+					</view>
 				</view>
-				<view>
-					<span>{{arr.projFile.enclosureName}}</span>
-					<span>{{arr.projFile.enclosureSize}} &nbsp;&nbsp; {{arr.projFile.createTime | formatDate}}上传</span>
+				<view class="project-details-data-two" v-if="arr.projContent!==''">
+					<view>项目介绍</view>
+					<view>{{arr.projContent}}</view>
+				</view>
+				<view class="project-details-data-two" v-if="arr.conentMarket!==''">
+					<view>市场需求</view>
+					<view>{{arr.conentMarket}}</view>
+				</view>
+				<view class="project-details-data-two" v-if="arr.conentPortrait!==''">
+					<view>用户画像</view>
+					<view>{{arr.conentPortrait}}</view>
+				</view>
+				<view class="project-details-data-two" v-if="arr.conentModel!==''">
+					<view>商业模式</view>
+					<view>{{arr.conentModel}}</view>
+				</view>
+				<view class="project-details-data-two" v-if="arr.conentData!==''">
+					<view>运营数据</view>
+					<view>{{arr.conentData}}</view>
+				</view>
+				<view class="project-details-data-thre" v-if="arr.conentCore!==''">
+					<view>核心资源</view>
+					<view>{{arr.conentCore}}</view>
+				</view>
+				<view class="project-details-data-bian" @tap="gotobrief" v-if="arr.projImgs.length !== 0 || arr.projContent!=='' || arr.conentMarket!=='' || arr.conentPortrait!==''">编辑</view>
+				<view @tap="gotobrief" class="project-details-data-brief" v-if="arr.projImgs.length == 0 && arr.projContent=='' && arr.conentMarket==''&& arr.conentPortrait==''">
+					填写项目简介
 				</view>
 			</view>
-		</view>
-		<view class="jianxi"></view>
-		<view class="project-details-data">
-			<view class="project-details-data-bianji">项目简介</view>
-			<view class="project-details-data-imges" v-if="arr.projImgs.length!==0">
-				<view class="project-details-data-imges-one" v-for="(imang,index) in arr.projImgs" :key="index">
-					<image :src="imang.imgName" mode='widthFix'></image>
-				</view>
-			</view>
-			<view class="project-details-data-two" v-if="arr.projContent!==''">
-				<view>项目介绍</view>
-				<view>{{arr.projContent}}</view>
-			</view>
-			<view class="project-details-data-two" v-if="arr.conentMarket!==''">
-				<view>市场需求</view>
-				<view>{{arr.conentMarket}}</view>
-			</view>
-			<view class="project-details-data-two" v-if="arr.conentPortrait!==''">
-				<view>用户画像</view>
-				<view>{{arr.conentPortrait}}</view>
-			</view>
-			<view class="project-details-data-two" v-if="arr.conentModel!==''">
-				<view>商业模式</view>
-				<view>{{arr.conentModel}}</view>
-			</view>
-			<view class="project-details-data-two" v-if="arr.conentData!==''">
-				<view>运营数据</view>
-				<view>{{arr.conentData}}</view>
-			</view>
-			<view class="project-details-data-thre" v-if="arr.conentCore!==''">
-				<view>核心资源</view>
-				<view>{{arr.conentCore}}</view>
-			</view>
-			<view class="project-details-data-bian" @tap="gotobrief" v-if="arr.projImgs.length !== 0 || arr.projContent!=='' || arr.conentMarket!=='' || arr.conentPortrait!==''">编辑</view>
-			<view @tap="gotobrief" class="project-details-data-brief" v-if="arr.projImgs.length == 0 && arr.projContent=='' && arr.conentMarket==''&& arr.conentPortrait==''">
-				填写项目简介
-			</view>
-		</view>
 
 
-		<view class="jianxi"></view>
-		<view class="demand">
-			<view>融资需求</view>
-			<view class="demand-two" v-if="arr.finanLevelCode||arr.finanMoney !=='' ">{{arr.finanLevelCode}}&nbsp;&nbsp;&nbsp;&nbsp;{{arr.finanMoney}}万人民币</view>
-			<view @tap="gotodatasdemand" class="demand-an" v-if="arr.finanLevelCode|arr.finanMoney =='' ">
-				填写融资需求
-			</view>
-			<view class="demand-bian" @tap="gotodatasdemand" v-if="arr.finanLevelCode||arr.finanMoney !=='' ">编辑</view>
-		</view>
-		<view class="jianxi"></view>
-		<view class="history">
-			<view>融资历史</view>
-			<view class="history-cheng" v-for="(inss ,index) in arr.projCapis" :key="index">
-				<view>
-					<span>{{inss.capiStartime|DAta}}月</span>
-					<span>{{inss.capiStartime|forma}}</span>
+			<view class="jianxi"></view>
+			<view class="demand">
+				<view>融资需求</view>
+				<view class="demand-two" v-if="arr.finanLevelCode||arr.finanMoney !=='' ">{{arr.finanLevelCode}}&nbsp;&nbsp;&nbsp;&nbsp;{{arr.finanMoney}}万人民币</view>
+				<view @tap="gotodatasdemand" class="demand-an" v-if="arr.finanLevelCode|arr.finanMoney =='' ">
+					填写融资需求
 				</view>
-				<view>
-					<span>金额：{{inss.capiMoney}}万</span>
-					<span>在融轮次：{{inss.levelCode}}</span>
-					<span>{{inss.capiInveCompName}}</span>
-				</view>
-				<view @tap="historybianji(inss.id)">编辑</view>
+				<view class="demand-bian" @tap="gotodatasdemand" v-if="arr.finanLevelCode||arr.finanMoney !=='' ">编辑</view>
 			</view>
-			<view @tap="gotodatahistory" class="button-an">
-				填写融资历史
-			</view>
-		</view>
-		<view class="jianxi"></view>
-		<view class="team">
-			<view>团队成员</view>
-			<view class="team-cheng" v-for="(ite,index) in arr.projUsers" :key="index">
-				<view>
-					<image :src="ite.projUserImg" mode=""></image>
-				</view>
-				<view>
-					<span>{{ite.projUserName}}</span><span>{{ite.projUserPosition}}</span>
-					<span>{{ite.projUserContent}}</span>
-				</view>
-				<view @tap="teambianji(ite.id)">编辑</view>
-			</view>
-			<view @tap="gotodatasteam" class="button-an">
-				填写团队成员
-			</view>
-		</view>
-		<view class="jianxi"></view>
-		<view class="project-details-company">
-			<view>公司信息</view>
-			<view class="project-details-company-two" v-if="arr.compName !==''">公司全称</view>
-			<view class="project-details-company-thre" v-if="arr.compName !==''">{{arr.compName}}</view>
-			<view class="project-details-company-one" v-if="arr.compAddr !==''">
-				<view>公司地址</view>
-				<view>{{arr.compAddr}}</view>
-			</view>
-			<view class="gongsi" @tap="projectXQgsname" v-if="arr.compName||arr.compAddr !=='' ">编辑</view>
-			<view @tap="projectXQgsname" class="button-an" v-if="arr.compName&arr.compAddr =='' ">
-				填写公司信息
-			</view>
-		</view>
-		<view class="jianxi"></view>
-		<!-- <view class="project-details-link">
-			<view>项目数据</view>
-			<view>相关链接</view>
-			<view class="add">
-				<span @tap="addlianjie">添加链接</span>
-			</view>
-		</view> -->
-		<!-- <view class="Mask" :class="{'zhe':hiden}" @tap="cancel">
-			<view class="Mask-box" v-on:click.stop='child'>
-				<view class="Mask-box-header">
-					<view @tap="cancel">取消</view>
-					<view>添加链接</view>
-					<view @tap="Preservation">保存</view>
-				</view>
-				<view class="Mask-box-content">
+			<view class="jianxi"></view>
+			<view class="history">
+				<view>融资历史</view>
+				<view class="history-cheng" v-for="(inss ,index) in arr.projCapis" :key="index">
 					<view>
-						<span>链接名称</span>
-						<input type="text" placeholder="请输入" v-model="linkname" />
+						<span>{{inss.capiStartime|DAta}}月</span>
+						<span>{{inss.capiStartime|forma}}</span>
 					</view>
 					<view>
-						<span>链接地址</span>
-						<input type="text" placeholder="请输入" v-model="linkaddress" />
+						<span>金额：{{inss.capiMoney}}万</span>
+						<span>在融轮次：{{inss.levelCode}}</span>
+						<span>{{inss.capiInveCompName}}</span>
 					</view>
+					<view @tap="historybianji(inss.id)">编辑</view>
+				</view>
+				<view @tap="gotodatahistory" class="button-an">
+					填写融资历史
 				</view>
 			</view>
-		</view> -->
+			<view class="jianxi"></view>
+			<view class="team">
+				<view>团队成员</view>
+				<view class="team-cheng" v-for="(ite,index) in arr.projUsers" :key="index">
+					<view>
+						<image :src="ite.projUserImg" mode=""></image>
+					</view>
+					<view>
+						<span>{{ite.projUserName}}</span><span>{{ite.projUserPosition}}</span>
+						<span>{{ite.projUserContent}}</span>
+					</view>
+					<view @tap="teambianji(ite.id)">编辑</view>
+				</view>
+				<view @tap="gotodatasteam" class="button-an">
+					填写团队成员
+				</view>
+			</view>
+			<view class="jianxi"></view>
+			<view class="project-details-company">
+				<view>公司信息</view>
+				<view class="project-details-company-two" v-if="arr.compName !==''">公司全称</view>
+				<view class="project-details-company-thre" v-if="arr.compName !==''">{{arr.compName}}</view>
+				<view class="project-details-company-one" v-if="arr.compAddr !==''">
+					<view>公司地址</view>
+					<view>{{arr.compAddr}}</view>
+				</view>
+				<view class="gongsi" @tap="projectXQgsname" v-if="arr.compName||arr.compAddr !=='' ">编辑</view>
+				<view @tap="projectXQgsname" class="button-an" v-if="arr.compName&arr.compAddr =='' ">
+					填写公司信息
+				</view>
+			</view>
+			<view class="jianxi"></view>
+			<!-- <view class="project-details-link">
+				<view>项目数据</view>
+				<view>相关链接</view>
+				<view class="add">
+					<span @tap="addlianjie">添加链接</span>
+				</view>
+			</view> -->
+			<!-- <view class="Mask" :class="{'zhe':hiden}" @tap="cancel">
+				<view class="Mask-box" v-on:click.stop='child'>
+					<view class="Mask-box-header">
+						<view @tap="cancel">取消</view>
+						<view>添加链接</view>
+						<view @tap="Preservation">保存</view>
+					</view>
+					<view class="Mask-box-content">
+						<view>
+							<span>链接名称</span>
+							<input type="text" placeholder="请输入" v-model="linkname" />
+						</view>
+						<view>
+							<span>链接地址</span>
+							<input type="text" placeholder="请输入" v-model="linkaddress" />
+						</view>
+					</view>
+				</view>
+			</view> -->
+		</scroll-view>
 	</view>
 </template>
 

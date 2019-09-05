@@ -1,5 +1,9 @@
 <template>
 	<view class="content-content">
+		<!-- <scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
+		@scroll="scroll">
+			
+		</scroll-view> -->
 		<view class="activeDetails">
 			<view class="AD-img">
 				<image :src="msgData.activity.activityImg" mode='widthFix'></image>

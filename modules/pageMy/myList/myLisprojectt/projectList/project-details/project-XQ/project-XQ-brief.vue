@@ -1,79 +1,82 @@
 <template>
 	<view class="project-XQ-brief">
-		<view class="project-XQ-brief-image">
-			<view>添加图片</view>
-			<!--<view class="images-thr" v-if="img.length!==0">
-				<image class="ziti" :src="img[0]">点击上传</image>
-				<image class="ziti" :src="img[1]">点击上传</image>
-				<image class="ziti" :src="img[2]">点击上传</image>
-			</view> -->
-			<view class="Img-Upload" v-if="isImgShow">
-				<imageUploadMore
-				 class="imhae"
-					v-model="imageData"
-					:server-url="serverUrl" 
-					limit=3
-					@delete="deleteImage" 
-					@add="addImage">
-				</imageUploadMore>
+		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
+		@scroll="scroll">
+			<view class="project-XQ-brief-image">
+				<view>添加图片</view>
+				<!--<view class="images-thr" v-if="img.length!==0">
+					<image class="ziti" :src="img[0]">点击上传</image>
+					<image class="ziti" :src="img[1]">点击上传</image>
+					<image class="ziti" :src="img[2]">点击上传</image>
+				</view> -->
+				<view class="Img-Upload" v-if="isImgShow">
+					<imageUploadMore
+					 class="imhae"
+						v-model="imageData"
+						:server-url="serverUrl" 
+						limit=3
+						@delete="deleteImage" 
+						@add="addImage">
+					</imageUploadMore>
+				</view>
+				<view class="zhuyi">注：最多只能上传3张图片</view>
 			</view>
-			<view class="zhuyi">注：最多只能上传3张图片</view>
-		</view>
-		<view class="projectXQteam-resume">
-			<view><image :src="xin"></image>项目简介</view>
-			<view>
-				<textarea placeholder="请描述你的项目提供哪些产品与服务" maxlength="500" @input="descInput" v-model="projContent" placeholder-style="color:#D2D2D2" />
-				<span class="numberV">{{remnane}}/500</span>
-			</view>
-		</view>
-		<view class="jiange"></view>
-		<view class="projectXQteam-resume">
-			<view>市场需求</view>
-			<view>
-				<textarea placeholder="你的产品解决了什么问题" maxlength="500" @input="descInput2" v-model="conentMarket" placeholder-style="color:#D2D2D2" />
-				<span class="numberV">{{remnane2}}/500</span>
-			</view>
-		</view>
-		<view class="jiange"></view>
-		<view class="projectXQteam-resume">
-			<view>用户画像</view>
-			<view>
-				<textarea placeholder="产品面向的用户有什么样的特征,如何获取用户" maxlength="500" @input="descInput3" v-model="conentPortrait" placeholder-style="color:#D2D2D2" />
-				<span class="numberV">{{remnane3}}/500</span>
-			</view>
-		</view>
-		<view class="jiange"></view>
-		<view class="projectXQteam-resume">
-			<view>商业模式</view>
-			<view>
-				<textarea placeholder="你的产品通过什么方式实现盈利？" maxlength="500" @input="descInput4" v-model="conentData" placeholder-style="color:#D2D2D2" />
-				<span class="numberV">{{remnane6}}/500</span>
-			</view>
-		</view>
-		<view class="jiange"></view>
-		<view class="projectXQteam-resume">
-			<view>运营数据</view>
-			<view>
-				<textarea placeholder="产品的用户规模及财务数据等" maxlength="500" @input="descInput4" v-model="conentModel" placeholder-style="color:#D2D2D2" />
-				<span class="numberV">{{remnane4}}/500</span>
-			</view>
-		</view>
-		<view class="jiange"></view>
-		<view class="jiange"></view>
-		<view class="projectXQteam-resume">
-			<view>核心资源</view>
-			<view>
-				<textarea placeholder="产品的核心资源是什么" maxlength="500" @input="descInput5" v-model="conentCore" placeholder-style="color:#D2D2D2" />
-				<span class="numberV">{{remnane5}}/500</span>
-			</view>
-		</view>
-		<view class="datas-List-case-bao">
-			<view>
-				<view  @tap="updata">
-					保存
+			<view class="projectXQteam-resume">
+				<view><image :src="xin"></image>项目简介</view>
+				<view>
+					<textarea placeholder="请描述你的项目提供哪些产品与服务" maxlength="500" @input="descInput" v-model="projContent" placeholder-style="color:#D2D2D2" />
+					<span class="numberV">{{remnane}}/500</span>
 				</view>
 			</view>
-		</view>
+			<view class="jiange"></view>
+			<view class="projectXQteam-resume">
+				<view>市场需求</view>
+				<view>
+					<textarea placeholder="你的产品解决了什么问题" maxlength="500" @input="descInput2" v-model="conentMarket" placeholder-style="color:#D2D2D2" />
+					<span class="numberV">{{remnane2}}/500</span>
+				</view>
+			</view>
+			<view class="jiange"></view>
+			<view class="projectXQteam-resume">
+				<view>用户画像</view>
+				<view>
+					<textarea placeholder="产品面向的用户有什么样的特征,如何获取用户" maxlength="500" @input="descInput3" v-model="conentPortrait" placeholder-style="color:#D2D2D2" />
+					<span class="numberV">{{remnane3}}/500</span>
+				</view>
+			</view>
+			<view class="jiange"></view>
+			<view class="projectXQteam-resume">
+				<view>商业模式</view>
+				<view>
+					<textarea placeholder="你的产品通过什么方式实现盈利？" maxlength="500" @input="descInput4" v-model="conentData" placeholder-style="color:#D2D2D2" />
+					<span class="numberV">{{remnane6}}/500</span>
+				</view>
+			</view>
+			<view class="jiange"></view>
+			<view class="projectXQteam-resume">
+				<view>运营数据</view>
+				<view>
+					<textarea placeholder="产品的用户规模及财务数据等" maxlength="500" @input="descInput4" v-model="conentModel" placeholder-style="color:#D2D2D2" />
+					<span class="numberV">{{remnane4}}/500</span>
+				</view>
+			</view>
+			<view class="jiange"></view>
+			<view class="jiange"></view>
+			<view class="projectXQteam-resume">
+				<view>核心资源</view>
+				<view>
+					<textarea placeholder="产品的核心资源是什么" maxlength="500" @input="descInput5" v-model="conentCore" placeholder-style="color:#D2D2D2" />
+					<span class="numberV">{{remnane5}}/500</span>
+				</view>
+			</view>
+			<view class="datas-List-case-bao">
+				<view>
+					<view  @tap="updata">
+						保存
+					</view>
+				</view>
+			</view>
+		</scroll-view>
 	</view>
 </template>
 

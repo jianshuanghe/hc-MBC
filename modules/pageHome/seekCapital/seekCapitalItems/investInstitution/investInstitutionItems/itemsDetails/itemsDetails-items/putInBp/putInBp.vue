@@ -1,36 +1,39 @@
 <template>
-	<div class="putInBp-content">
-		<div class="putInBp">
-			<div class="itemsPutInBp">
-				<checkbox-group @change="checkboxChange">
-				  <label @click="labelBtn(item.id,index)"  v-for="(item,index) in listData" :key="index">
-				    <checkbox :value="item.id" :checked="item.checked" v-show="false"/>
-					<view class="SUI-tent">
-						<view class="left SUI-left-img">
-							<view class="SUI-File">
-								<image class="file" :src="scanLogo"></image>
+	<div class="k">
+		<div class="putInBp-content" v-if='listData.length > 0'>
+			<div class="putInBp">
+				<div class="itemsPutInBp">
+					<checkbox-group @change="checkboxChange">
+					  <label @click="labelBtn(item.id,index)"  v-for="(item,index) in listData" :key="index">
+						<checkbox :value="item.id" :checked="item.checked" v-show="false"/>
+						<view class="SUI-tent">
+							<view class="left SUI-left-img">
+								<view class="SUI-File">
+									<image class="file" :src="scanLogo"></image>
+								</view>
 							</view>
+							<view class="left SUI-cont-text">
+								<view class="SUI-text-top">{{item.enclosureName}}</view>
+								<view class="SUI-text-bot1">{{item.enclosureSize }}  {{ item.createTime | dateTime}}上传</view>
+							</view>
+							<view class="right SUI-right-img">
+								<image class="rignt-arrow" :src='item.checked ? checked : check'></image>
+							</view>
+							<view class="clear"></view>
+							<div class="line"></div>
 						</view>
-						<view class="left SUI-cont-text">
-							<view class="SUI-text-top">{{item.enclosureName}}</view>
-							<view class="SUI-text-bot1">{{item.enclosureSize }}  {{ item.createTime | dateTime}}上传</view>
-						</view>
-						<view class="right SUI-right-img">
-							<image class="rignt-arrow" :src='item.checked ? checked : check'></image>
-						</view>
-						<view class="clear"></view>
-						<div class="line"></div>
-					</view>
-				  </label>
-				</checkbox-group>
-				
-			</div>
-			<div class="btnPutIn">
-				<div class="btn1 left" @tap='clickCal()'>取消</div>
-				<div class="btn left" @tap='clickPutBp()'>立即投递</div>
-				<div class="clear"></div>
+					  </label>
+					</checkbox-group>
+					
+				</div>
+				<div class="btnPutIn">
+					<div class="btn1 left" @tap='clickCal()'>取消</div>
+					<div class="btn left" @tap='clickPutBp()'>立即投递</div>
+					<div class="clear"></div>
+				</div>
 			</div>
 		</div>
+		<empty v-else>抱歉，没有投递的BP~</empty>
 	</div>
 </template>
 
@@ -119,6 +122,14 @@
 						userType: '1',
 						fileInfo: [...new Set(this.fileInfo)]
 					}; // 请求总数居时 参数为空
+					if (params.fileInfo.length === 0) {
+						uni.showToast({
+							title: '请勾选需要投递的BP',
+							icon: 'none',
+							duration: 500
+						});
+						return;
+					}
 					uni.showLoading({ // 展示loading
 						title: '加载中'
 					});

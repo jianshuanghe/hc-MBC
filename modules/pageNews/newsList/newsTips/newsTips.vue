@@ -1,25 +1,29 @@
 <template>
-	<view class="Message">
-		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
-		@scroll="scroll">
-			<view class="Message-Tips" v-for="(item,index) in active.listData" :key="index" @longpress="deleat(item.id)">
-				<view>{{item.title}}<span>{{item.createTime|formatDate}}</span></view>
-				<view>{{item.content}}</view>
-			</view>
-			<view class="maske" :class="{'zhe':hiden}">
-				<view class="maske-box">
-					<view>提示</view>
-					<view @tap="out">x</view>
-					<view>是否删除?</view>
-					<view @tap="queding">确定</view>
+	<div class="k">
+		<view class="Message" v-if="active.listData.length > 0">
+			<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
+			@scroll="scroll">
+				<view class="Message-Tips" v-for="(item,index) in active.listData" :key="index" @longpress="deleat(item.id)">
+					<view>{{item.title}}<span>{{item.createTime|formatDate}}</span></view>
+					<view>{{item.content}}</view>
 				</view>
-			</view>
-		</scroll-view>
-	</view>
+				<view class="maske" :class="{'zhe':hiden}">
+					<view class="maske-box">
+						<view>提示</view>
+						<view @tap="out">x</view>
+						<view>是否删除?</view>
+						<view @tap="queding">确定</view>
+					</view>
+				</view>
+			</scroll-view>
+		</view>
+		<empty v-else>抱歉，没有消息！</empty>
+	</div>
 </template>
 
 <script>
 	import { mapMutations, mapGetters } from 'vuex';
+	import empty from "@/components/empty/empty.vue";
 	export default {
 		data () {
 			return {
@@ -49,9 +53,39 @@
 			};
 		},
 		created() {
+			// 重新定义消息的参数 目的是方便消息列表上啦刷新S
+			let active = { // 消息
+				loadingText: '加载更多...',
+				search: { // 搜索
+					pageNum: 0, // 总页数
+					searchCondition: {  // 分页属性
+						page: '1'
+					}
+				},
+				listData: '' // 列表数据
+			}
+			this.$store.commit('setNewsDate', active);
+			// 重新定义消息的参数 目的是方便消息列表上啦刷新E
 			this.news(this.active);
 		},
+		components: {
+			empty
+		},
+		computed: {
+		  ...mapGetters(['GET_NEWS'])
+		},
+		watch: {
+		  GET_NEWS: {
+		    handler (a, b) {
+		      this.active = a.newsData; // 侦听消息
+		    },
+		    deep: true
+		  }
+		},
 		methods:{
+			...mapMutations({
+				setNewsDate: 'setNewsDate'
+			}),
 			deleat(e){
 				this.hiden=false
 				this.id=e
@@ -77,11 +111,19 @@
 						success: (response) => {
 							console.log(response.data);
 							uni.hideLoading();
-							this.news(this.active);
-							this.hiden=true
-							// console.log(this.news())
-							let parmas={}
-							this.$store.commit('setNews', parmas);
+							// this.news(this.active);
+							// this.hiden=true
+							// // console.log(this.news())
+							// let parmas={}
+							// this.$store.commit('setNews', parmas);
+							let arr = this.active;
+							for( let i in arr.listData) {
+								if (this.id === arr.listData[i].id) {
+									arr.listData.splice(i, 1)
+								}
+							}
+							this.$store.commit('setNewsDate', arr);
+							this.hiden=true;
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -164,7 +206,8 @@
 							if (e.search.pageNum === 1) { // 总页数为1时，显示没有数据了
 								this.loadingText = '已经没有数据了';
 								e.loadingText = '已经没有数据了!';
-							}
+							};
+							this.$store.commit('setNewsDate', e);
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -202,7 +245,7 @@
 							console.log(response.data);
 							e.listData = e.listData.concat(response.data.rows);
 							uni.hideLoading(); // 隐藏 loading
-							this.$store.commit('setActive', e); // 更新setActive
+							this.$store.commit('setNewsDate', e);
 							this.goScrollTop(); // 页面触底之后调取loadMore方法，为了让用户再次调用此方法，需要自動将scroll向上滚动一些位置，这样下次滑动才会触发loadMore方法，详细需要看API
 						},
 						fail: (error) => {

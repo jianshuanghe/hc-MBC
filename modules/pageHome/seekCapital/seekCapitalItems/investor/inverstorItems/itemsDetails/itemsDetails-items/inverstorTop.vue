@@ -44,7 +44,7 @@
 	}
 	.inverstorTop{
 		position: relative;
-		width: 100%;
+		width: 690upx;
 		padding: 30upx;
 	}
 	.iT-img{

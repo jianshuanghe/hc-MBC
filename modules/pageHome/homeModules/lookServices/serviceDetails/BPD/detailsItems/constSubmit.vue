@@ -34,7 +34,7 @@
 						modelId: 0, // 0 代表投资人ID  1代表投资机构ID 2代表项目ID
 						projectName: '', // 委托项目
 						userId: '', // 申请人ID
-						applyeType: 0 ,// 创业者联系投资人 1创业者联系投资机构
+						applyeType: 104 ,// 104代表是服务
 						phone: 0, // 电话
 						name: '', // 姓名
 						serverId: '', // 服务ID
@@ -91,6 +91,7 @@
 					});
 				} else {
 					this.entrust.params.serverId = this.msgData.serverId;
+					this.entrust.params.applyeType = 104;
 					this.$store.commit('setEntrustType', 0); // 更新setEntrustType
 					this.$store.commit('setEntrustParams', this.entrust.params); // 更新setEntrustParams
 					this.$store.commit('setEnTrustShow', true); // 更新setEnTrustShow
