@@ -5,7 +5,7 @@
 				<view class="mustFill">
 					<image :src='xin'></image>
 				</view>
-				<view class="BI-text-left">机构logo</view>
+				<view class="BI-text-left">上传照片</view>
 			</view>
 			<view class="right BI-items-right">
 				<view class="BI-text-right">
@@ -43,7 +43,7 @@
 		<view class="projectXQteam-one">
 			<view>简介</view>
 			<view>
-				<textarea placeholder="请详细描述一下您想要的服务" maxlength="150" @input="descInput" v-model="desc" placeholder-style="color:#D2D2D2" />
+				<textarea placeholder="请描述" maxlength="150" @input="descInput" v-model="desc" placeholder-style="color:#D2D2D2" />
 				<span class="numberV">{{remnane}}/150</span>
 			</view>
 		</view>

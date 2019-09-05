@@ -11,7 +11,7 @@
 			<view v-if="Listdata.userPosition!==''">职位:{{Listdata.userPosition}}</view>
 			<view>邮箱:{{Listdata.userEmail}}</view>
 			<view v-if="Listdata.compName!==''">公司名称:{{Listdata.compName}}</view>
-			<view v-if="Listdata.mechIdStr!==''">机构名称:{{Listdata.mechIdStr}}</view>
+			<view v-if="Listdata.mechIdStr!==''" :class="{'hiden':hiden}">机构名称:{{Listdata.mechIdStr}}</view>
 			<view class="conter-img">
 				<img :src="Listdata.img"></img>
 			</view>
@@ -38,6 +38,7 @@
 				Listdata: [],
 				Image2:this.Static + 'mbcImg/my/Image2.png',
 				Image3:this.Static + 'mbcImg/my/Image3.png',
+				hiden:false
 			};
 		},
 		computed: {
@@ -71,6 +72,9 @@
 		created() {
 			this.Listdata = this.GET_MY.MyList.Authentication;
 			console.log(this.Listdata, '4');
+			if(this.Listdata.userType=='0'){
+				this.hiden=true
+			}
 		},
 		methods: {
 			
@@ -83,7 +87,9 @@
 		width: 100%;
 		/* max-height: 100%; */
 	}
-
+	.hiden{
+		display: none;
+	}
 	.inspect-List-in-header {
 		width: 100%;
 		height: 60upx;
