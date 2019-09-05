@@ -224,7 +224,7 @@
 		padding-top: 40upx;
 	}
 	.projNAme{
-		
+		font-weight: bold;
 	}
 	.footprint-works-fist view:nth-of-type(2) span:nth-of-type(1){
 		width: 300upx;
