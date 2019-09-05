@@ -121,7 +121,7 @@
 	.items{
 		position: relative;
 		font-family: FZLTHJW--GB1-0;
-		font-size: 20upx;
+		font-size: 18upx;
 		background: #FFF7E5;
 		color: #FE9D08;
 		letter-spacing: 0;

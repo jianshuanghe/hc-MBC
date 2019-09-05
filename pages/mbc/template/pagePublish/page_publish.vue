@@ -120,6 +120,7 @@ export default {
 		},
 		goToBp () {
 			console.log('触发确定，我的bp');
+			this.$store.commit('setAuthShow', false); // 更新setAuthShow
 			this.$store.commit('setIsUploadFileIsFileSuccess', false); // 更新setIsUploadFileIsFileSuccess
 			uni.navigateTo({
 				url: '/modules/pageMy/myList/myLisprojectt/myproject'

@@ -40,7 +40,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="dataNumber">
+		<view class="dataNumber" @tap='gotoReplace'>
 			<view>
 				<view>手机号</view>
 				<view>{{Listdata.userPhone}}</view>
@@ -93,6 +93,16 @@
 		computed: {
 			...mapGetters(['GET_MY'])
 		},
+		watch: {
+			GET_MY: {
+				handler(a, b) {
+					// console.log(a,b)
+					this.Listdata = a.MyList.header;
+				},
+				deep: true
+			},
+		
+		},
 		created() {
 			this.Listdata = this.GET_MY.MyList.header;
 			this.name = this.Listdata.userName
@@ -137,6 +147,12 @@
 				setheader: 'setheader',
 				setMation: 'setMation'
 			}),
+			gotoReplace(){
+				console.log('去往更换手机号')
+				uni.navigateTo({
+					url:'/modules/pageMy/myList/myListSetup/Setup/SetupReplace/SetupReplace'
+				})
+			},
 			deleteImage: function(e) {
 				console.log(e, '删除图片')
 				this.logo = ''; // 清空数据

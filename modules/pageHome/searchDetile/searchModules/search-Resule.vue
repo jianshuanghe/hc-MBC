@@ -61,6 +61,10 @@
 			  deep: true
 			}
 		},
+		beforeDestroy () {
+			console.log('页面销毁之前缓存数据');
+			this.$store.commit('setSearchItemsIndex', 1); // 更新setSearchItemsIndex
+		},
 		created() {
 			console.log('在组件中并不能使用页面生命周期函数');
 		},
@@ -68,6 +72,7 @@
 		},
 		methods: {
 			...mapMutations({
+				setSearchItemsIndex: 'setSearchItemsIndex',
 				setIsSearch: 'setIsSearch', // 判断用户是否在搜索状态
 				setSeachProject: 'setSeachProject',
 				setSeachInvestor: 'setSeachInvestor',

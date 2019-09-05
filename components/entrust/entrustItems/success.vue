@@ -9,7 +9,7 @@
 				<view class="En-ins">您提交的信息正在处理，请耐心等待</view>
 				<view class="l" v-if='entrust.type === 1'>
 					<view class="En-more" @tap='clickLookMore()' v-if="entrust.params.applyeType === 0"> 查看其它投资人</view>
-					<view class="En-more" @tap='clickLookMore()' v-if="entrust.params.applyeType === 1"> 查看其它投资人</view>
+					<view class="En-more" @tap='clickLookMore()' v-if="entrust.params.applyeType === 1"> 查看其它投资机构</view>
 					<view class="En-more" @tap='clickLookMore()' v-if="entrust.params.applyeType === 2"> 查看其他项目</view>
 				</view>
 				<view class="k" v-else>
@@ -95,11 +95,21 @@
 			console.log('页面销毁之前缓存数据');
 			this.$store.commit('setIsUploadFileIsFileSuccess', false); // 更新setIsUploadFileIsFileSuccess
 			this.$store.commit('setAuthShow', false); // 更新setAuthShow
+			uni.removeStorageSync('BannerItemsType'); // 清除来源
+			uni.removeStorageSync('isListSource'); // 清除来源
 		},
 	    methods: {
 			...mapMutations({
-				setEnTrustShow: 'setEnTrustShow'
+				setEnTrustShow: 'setEnTrustShow',
+				clickItemsIndex: 'clickItemsIndex',
+				setSeekCapitalTitleIndex: 'setSeekCapitalTitleIndex'
 			}),
+			clickSeekCapitalTitle (e) {
+				this.clickItemsIndex = e;
+				uni.setStorageSync('clickItemsIndex', e);
+				console.log(e, '投资人BP和投资机构');
+				this.$store.commit('setSeekCapitalTitleIndex', this.clickItemsIndex); // 更新setSeekCapitalTitleIndex
+			},
 			clickLookMore() {
 				console.log('触发查看更多');
 				this.$store.commit('setEnTrustShow', false); // 更新setEnTrustShow
@@ -107,17 +117,40 @@
 				if(uni.getStorageSync('BannerItemsType')) { // 来源banner
 					this.BannerItemsType = uni.getStorageSync('BannerItemsType');
 					if (this.BannerItemsType === 'server') { // 服务
-						uni.navigateTo({
+						uni.redirectTo({
 							url: '/modules/pageHome/homeModules/lookServices/lookServices'
 						});
 						uni.removeStorageSync('BannerItemsType'); // 清除来源
 					}
+				} else if (uni.getStorageSync('isListSource')) {
+					if (uni.getStorageSync('isListSource') === 1) {
+						console.log('来源于列表');
+						uni.removeStorageSync('isListSource'); // 清除来源
+						uni.navigateBack({
+							delta: 1,
+							animationType: 'pop-out',
+							animationDuration: 200
+						});
+					}
 				} else {
-					uni.navigateBack({
-						delta: 1,
-						animationType: 'pop-out',
-						animationDuration: 200
-					});
+					if (this.entrust.params.applyeType === 0) {
+						console.log('投资人');
+						this.clickSeekCapitalTitle(1);
+						uni.redirectTo({
+							url: '/modules/pageHome/seekCapital/seekCapital'
+						});
+					} else if (this.entrust.params.applyeType === 1) {
+						console.log('投资机构');
+						this.clickSeekCapitalTitle(2);
+						uni.redirectTo({
+							url: '/modules/pageHome/seekCapital/seekCapital'
+						});
+					} else if (this.entrust.params.applyeType === 2) {
+						console.log('项目')
+						uni.redirectTo({
+							url: '/modules/pageHome/homeModules/lookProject/lookProject'
+						});
+					}
 				}
 			}
 	    }

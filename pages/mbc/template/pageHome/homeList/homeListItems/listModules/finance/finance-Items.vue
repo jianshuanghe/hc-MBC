@@ -8,14 +8,15 @@
 					</view>
 					<view class="left FI-t-cont">
 						<view class="FI-t-title">
-							<text class="title">{{msgDatas.projName}}</text>
-							<text class="inst">{{msgDatas.fieldCode}}</text>
+							<view class="title left">{{msgDatas.projName}}</view>
+							<view class="inst left">{{msgDatas.fieldCode}}</view>
+							<view class="clear"></view>
 						</view>
 						<view class="FI-t-ins">{{msgDatas.projSlogan}}</view>
 					</view>
 					<view class="right FI-t-right">
 						<view class="FI-t-money">
-							￥<text class="money">{{msgDatas.finanMoney}}</text>万
+							￥<text class="money">{{msgDatas.finanMoney | moneyInt}}</text>万
 						</view>
 						<view class="FI-t-ins2">融资轮次: {{msgDatas.finanLevelCode}}</view>
 					</view>
@@ -27,20 +28,20 @@
 				<!-- <view class="FI-insCd">
 					<view class="FI-C-text">{{msgDatas.infoCount}}</view>
 				</view> -->
-				<view class="FI-cont" v-if="msgDatas.imgs.length === 1">
+				<view class="FI-cont" v-if="msgDatas.imgs.length === 1 || msgDatas.imgs.length === 2">
 					<view class="ImageBox1">
-						<image :src="msgDatas.imgs[0].imgName"  mode='widthFix'></image>
+						<image :src="msgDatas.imgs[0].imgName"  mode='center'></image>
 					</view>
 				</view>
-				<view class="FI-cont-imgMoreTwo" v-if="msgDatas.imgs.length === 2" >
+				<!-- <view class="FI-cont-imgMoreTwo" v-if="msgDatas.imgs.length === 2" >
 					<view class="imageBox left" v-for="(items,index) in msgDatas.imgs" :key="index">
-						<image :src="items.imgName" v-if="index < 3"  mode='widthFix'></image>
+						<image :src="items.imgName" v-if="index < 3"  mode='center'></image>
 					</view>
 					<view class="clear"></view>
-				</view>
+				</view> -->
 				<view class="FI-cont-imgMore" v-if="msgDatas.imgs.length > 2" >
 					<view class="imageBox left" v-for="(items,index) in msgDatas.imgs" :key="index" v-if="index < 3">
-						<image :src="items.imgName" mode='widthFix'></image>
+						<image :src="items.imgName" mode='center'></image>
 					</view>
 					<view class="clear"></view>
 				</view>
@@ -126,6 +127,11 @@
 				type: Object
 			}
 		},
+		filters:{
+			moneyInt(val) {
+				return val.split('.')[0]
+			}
+		},
 		created() {
 			this.msgDatas = this.msgData;
 			console.log(this.msgData, this.msgDatas, '************************************************子组件获取的数据***********************************************');
@@ -172,7 +178,11 @@
 						this.resetClickRecord(items);
 					} else if (this.items.love === true) {
 						this.items.love = false; // 点击之后状态变化
-						this.msgDatas.followCount = Number(this.msgDatas.followCount) - 1;
+						if (Number(this.msgDatas.followCount) === 0) {
+							this.msgDatas.followCount = this.msgDatas.followCount;
+						} else {
+							this.msgDatas.followCount = Number(this.msgDatas.followCount) - 1;
+						}
 						this.upDataIsLove(evn); // 取消收藏
 						this.resetClickRecord(items);
 					}
@@ -268,6 +278,7 @@
 				this.items.find = true; // 点击之后状态变化
 				this.msgDatas.infoCount = Number(this.msgDatas.infoCount) + 1;
 				this.resetClickRecord(this.items);
+				uni.setStorageSync('isListSource', 1); // 根据类型判断用户在提交委托之后返回的地址的来源
 				uni.navigateTo({
 					url: '/modules/pageHome/homeList/FinancProject/FinancProject?id=' + e.id
 				});
@@ -295,16 +306,17 @@
 		position: relative;
 		width: 80upx;
 		height: 80upx;
-		margin-right: 10upx;
+		margin-right: 20upx;
 	}
 	.FI-t-left>image{
 		position: relative;
 		width: 80upx;
 		height: 80upx;
+		border-radius: 6upx;
 	}
 	.FI-t-cont{
 		position: relative;
-		width: 400upx;
+		max-width: 370upx;
 	}
 	.FI-t-title{
 		position: relative;
@@ -316,23 +328,33 @@
 		color: #2E2E30;
 		letter-spacing: 0;
 		line-height: 32upx;
+		max-width: 252upx;
+		overflow: hidden;
+		text-overflow:ellipsis;
+		white-space: nowrap;
 	}
 	.inst{
 		background: #DDFFF9;
 		border-radius: 2upx;
 		font-family: PingFangSC-Regular;
-		font-size: 24upx;
+		font-size: 18upx;
 		color: #00AF92;
 		letter-spacing: 0;
-		line-height: 24upx;
-		padding: 4upx 8upx;
-		margin-left: 6upx;
+		line-height: 27upx;
+		padding: 4upx 8upx 6upx 4upx;
+		margin-left: 10upx;
+		top: 2upx;
+		/* transform: scale(.8); */
 	}
 	.FI-t-ins{
 		font-family: PingFangSC-Regular;
 		font-size: 24upx;
 		color: #9B9B9B;
 		line-height: 24upx;
+		overflow: hidden;
+		text-overflow:ellipsis;
+		white-space: nowrap;
+		margin-top: 20upx;
 	}
 	.FI-t-right{
 		position: absolute;
@@ -341,7 +363,7 @@
 	.FI-t-money{
 		position: relative;
 		font-family: PingFangSC-Semibold;
-		font-size: 24upx;
+		font-size: 18upx;
 		color: #FAB100;
 		line-height: 24upx;
 		text-align: right;
@@ -358,6 +380,7 @@
 		color: #9B9B9B;
 		line-height: 48upx;
 		text-align: right;
+		margin-top: 6upx;
 	}
 	.FI-cont{
 		position: relative;
@@ -386,9 +409,9 @@
 	}
 	.FI-cont-imgMore .imageBox{
 		position: relative;
-		width: 210upx;
-		margin-right: 14upx;
-		height: 340upx;
+		width: 226upx;
+		margin-right: 6upx;
+		height: 150upx;
 	},
 	.FI-cont-imgMore .imageBox>image{
 		position: relative;
@@ -429,7 +452,7 @@
 	.FI-modules{
 		position: relative;
 		width: 100%;
-		margin: 20upx 0 20upx 0;
+		margin: 20upx 0 14upx 0;
 		height: 32upx;
 		overflow: hidden;
 	}
@@ -437,7 +460,7 @@
 		background: #FFF7E5;
 		border-radius: 4upx;
 		font-family: PingFangSC-Regular;
-		font-size: 24upx;
+		font-size: 18upx;
 		color: #FE9D08;
 		letter-spacing: 0;
 		line-height: 24upx;
@@ -538,7 +561,7 @@
 		position: relative;
 		width: 100%;
 		font-size: 22upx;
-		color: #9B9B9B;
+		color: #2E2E30;
 		line-height: 40upx;
 	}
 </style>

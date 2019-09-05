@@ -52,6 +52,7 @@
 	    methods: {
 			goToInvestDetail (e){
 				console.log('去' + e + '投资人详情页面');
+				uni.setStorageSync('isListSource', 1); // 根据类型判断用户在提交委托之后返回的地址的来源
 				uni.navigateTo({
 					url: '/modules/pageHome/seekCapital/seekCapitalItems/investor/inverstorItems/itemsDetails/itemsDetails?userId=' + e
 				});

@@ -28,7 +28,7 @@
 					<view class="clear"></view>
 					<view class="line" v-if='msgData.capitalCompInves.length > 1 && msgData.capitalCompInves.length - 1 > index'></view>
 				</view>
-				<div class="openOrClose" @tap='isShowAll()'>
+				<div class="openOrClose" @tap='isShowAll()' v-if='msgData.capitalCompInves.length > 3'>
 					<div class="line"></div>
 					{{ !isShow ? '展开' : '收起'}}
 				</div>

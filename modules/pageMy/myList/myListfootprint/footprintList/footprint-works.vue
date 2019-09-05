@@ -2,7 +2,7 @@
 	<view class="footprint-works">
 		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
 		@scroll="scroll">
-			<view class="footprint-works-fist" v-for="(item,index) in List" :key="index" @tap="gotoxiangmuxiang(item.projId)">
+			<view class="footprint-works-fist" v-for="(item,index) in List" :key="index" @tap="gotoxiangmuxiang(item.projId, 'footPrint')">
 				<view><image :src="item.projLogo"></image></view>
 				<view>
 					<span class="projNAme">{{item.projName}}</span>
@@ -58,9 +58,9 @@
 		},
 		mounted() {},
 		methods: {
-			gotoxiangmuxiang(e){
+			gotoxiangmuxiang(e, type){
 				uni.navigateTo({
-					url:'/modules/pageHome/homeList/FinancProject/FinancProject?id=' + e
+					url:'/modules/pageHome/homeList/FinancProject/FinancProject?id=' + e + '&type=' + type
 				})
 			},
 			...mapMutations({

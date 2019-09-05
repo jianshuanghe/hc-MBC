@@ -70,6 +70,7 @@
 
 <script>
 	import wInput from '@/components/watch-login/watch-input.vue';
+	import { mapMutations } from 'vuex';
     export default {
         name: 'phoneBind',
         data () {
@@ -99,6 +100,10 @@
         },
         mounted () {},
         methods: {
+			...mapMutations({
+				setheader: 'setheader',
+				setMation:'setMation'
+			}),
           clickStep (e) {
             console.log('触发步进器');
             if (e === 1) {
@@ -275,6 +280,8 @@
 		  			console.log(response.data);
 		  			if (String(response.data.code) === '200') {
 		  				let UserData = response.data.content;
+						this.$store.commit('setheader', UserData); // 更新vuex
+						this.$store.commit('setMation', UserData); // 更新vuex
 		  				uni.setStorageSync('UserData', JSON.stringify(UserData)); // 缓存用户信息
 		  				uni.showToast({
 		  					title: '更新成功',

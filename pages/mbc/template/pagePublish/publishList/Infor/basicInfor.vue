@@ -16,6 +16,7 @@
 								<wInput
 									v-model="listData.publishParams.projName"
 									placeholder="请输入"
+									maxlength='8'
 								></wInput>
 							</view>
 						</view>

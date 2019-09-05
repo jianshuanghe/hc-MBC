@@ -175,11 +175,11 @@
 	}
 
 	.Informationname view:nth-of-type(1) view:nth-of-type(2) {
-		width: 160upx;
-		height: 50upx;
+		width: 132upx;
+		height: 40upx;
 		border-radius: 20upx;
-		padding-top: 10upx;
-		padding-left: 20upx;
+		padding-top: 18upx;
+		padding-left: 10upx;
 	}
 
 	.Informationname view:nth-of-type(1) view:nth-of-type(2) image {

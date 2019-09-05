@@ -35,6 +35,26 @@
 				</view>
 				<view class="line"></view>
 			</view>
+			<view class="pP-content-box" v-if="msgData.conentModel !== ''">
+				<view class="titel-pP">商业模式</view>
+				<view class="pP-content">
+					{{msgData.conentModel}}
+				</view>
+				<view class="line"></view>
+			</view>
+			<view class="pP-content-box" v-if="msgData.conentData !== ''">
+				<view class="titel-pP">运营数据</view>
+				<view class="pP-content">
+					{{msgData.conentData}}
+				</view>
+				<view class="line"></view>
+			</view>
+			<view class="pP-content-box" v-if="msgData.conentCore !== ''">
+				<view class="titel-pP">核心资源</view>
+				<view class="pP-content">
+					{{msgData.conentCore}}
+				</view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -83,7 +103,7 @@
 	}
 	.personalProfile{
 		position: relative;
-		padding: 30upx 30upx 0 30upx;
+		padding: 30upx 30upx 20upx 30upx;
 	}
 	.pP-title{
 		position: relative;

@@ -116,12 +116,12 @@
 		},
 		computed: {},
 		mounted() {
-			this.Getinto();
+			
 		},
 		onLoad:function(options){
 			this.id = options.id
 			console.log(this.id)
-			
+			this.Getinto();
 		},
 		methods: {
 			...mapMutations({
@@ -156,6 +156,9 @@
 			},
 			deleteImage: function(e) {
 				console.log(e, '删除图片')
+				this.logo = '';
+				this.logo2 ='';
+				this.logo3 ='';
 				if (e.allImages.length === 1) {
 					this.logo = (e.allImages[0].imgName);
 				} else if (e.allImages.length === 2) {
@@ -169,6 +172,9 @@
 			},
 			addImage: function(e) {
 				console.log(e, '添加图片')
+				this.logo = '';
+				this.logo2 ='';
+				this.logo3 ='';
 				if (e.allImages) { // 上传成功
 				e.allImages.map((items,index)=>{
 					this.images.push(items.imgName)
@@ -224,6 +230,18 @@
 									imgList.push(imgObj);
 								}
 							})
+							// 对附件赋值S用于接口传参数
+							if (imgs.length === 1) {
+								this.logo = (imgs[0]);
+							} else if (imgs.length === 2) {
+								this.logo = (imgs[0]);
+								this.logo2=(imgs[1]);
+							} else if (imgs.length === 3) {
+								this.logo = (imgs[0]);
+								this.logo2=(imgs[1]);
+								this.logo3=(imgs[2]);
+							}
+							// 对附件赋值E用于接口传参数
 							this.imageData=imgList;
 							this.isImgShow = true;
 							console.log(this.imageData);

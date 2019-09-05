@@ -115,5 +115,6 @@
 		letter-spacing: 0.28upx;
 		text-align: center;
 		line-height: 34upx;
+		margin-bottom: 8upx;
 	}
 </style>

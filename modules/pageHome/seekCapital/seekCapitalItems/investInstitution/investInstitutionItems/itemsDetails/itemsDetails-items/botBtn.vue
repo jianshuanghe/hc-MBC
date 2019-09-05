@@ -222,10 +222,18 @@
 						console.log('认证创业者');
 						this.$store.commit('setAuthShow', false); // 更新setAuthShow
 					}
-				} else { // 不是创业者
+				} else if (this.userType === '-1') { // 不是创业者
 					this.$store.commit('setAuthShow', true); // 更新setAuthShow
 					return
-				};
+				} else if (this.userType === '1' || this.userType === '2') {
+					this.$store.commit('setAuthShow', false); // 更新setAuthShow
+					uni.showToast({
+						title: '您已成为投资人身份，无法委托联系',
+						icon: 'none',
+						duration: 1000
+					});
+					return
+				}
 				this.$store.commit('setPutBpModelId', this.msgData.modelId); // 更新setPutBpModelId
 				this.$store.commit('setPutBpShow', true); // 更新setPutBpShow
 			},
@@ -239,8 +247,16 @@
 						console.log('认证创业者');
 						this.$store.commit('setAuthShow', false); // 更新setAuthShow
 					}
-				} else { // 不是创业者
+				} else if (this.userType === '-1') { // 不是创业者
 					this.$store.commit('setAuthShow', true); // 更新setAuthShow
+					return
+				} else if (this.userType === '1' || this.userType === '2') {
+					this.$store.commit('setAuthShow', false); // 更新setAuthShow
+					uni.showToast({
+						title: '您已成为投资人身份，无法委托联系',
+						icon: 'none',
+						duration: 1000
+					});
 					return
 				}
 				if (this.msgData.content === 1) {
