@@ -587,6 +587,7 @@
 		height: 30upx;
 		top: -30upx;
 		font-size: 30upx !important;
+		color: black;
 	}
 	.zitia {
 		position: absolute;
