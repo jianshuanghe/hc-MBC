@@ -265,8 +265,8 @@
 		position: relative;
 		width: 100%;
 		font-family: PingFangSC-Regular;
-		font-size: 28upx;
-		color: #5D5D5D;
+		font-size: 24upx;
+		color: #9B9B9B;
 		line-height: 110upx;
 	}
 	

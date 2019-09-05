@@ -11,6 +11,10 @@ const mutations = {
     console.log(info, 'setEmptyShow');
     state.empty.emptyShow = info;
   },
+  setUserActive (state, info) {
+    console.log(info, 'setUserActive');
+    state.userActive = info;
+  },
   setAreaData (state, info) { // 地区
     console.log(info, 'setAreaData');
     state.areaData = info;

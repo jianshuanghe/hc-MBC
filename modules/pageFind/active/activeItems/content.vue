@@ -14,7 +14,7 @@
 					<view class="line"></view>
 				</view>
 				<view class="AD-items-list">
-					<view class="AD-items">
+					<view class="AD-items disAD">
 						活动地点
 						<view :class=" isAll ? 'AD-text1 AD2' : 'AD-text AD2'">{{msgData.activity.activityAddress}}</view>
 						<text class="zhankai right" @tap="clickAllShow">{{isAll ? '收起' : '展开'}}</text>
@@ -70,22 +70,7 @@
 		  /* 格式图片 */
 		  dataImg (val) {
 			  return 'https://' + val;
-		  },
-		  // htmlImg (val) {
-			 //  //正则匹配所有img标签
-				// //var regex0 = new RegExp("(i?)(\<img)([^\>]+\>)","gmi");
-				// //正则匹配不含style="" 或 style='' 的img标签
-				// var regex1 = new RegExp("(i?)(\<img)(?!(.*?style=['\"](.*)['\"])[^\>]+\>)","gmi");
-				// //给不含style="" 或 style='' 的img标签加上style=""
-				// htmlstr = htmlstr.replace(regex1, "$2 style=\"\"$3");
-				// console.log("增加style=\"\"后的html字符串："+htmlstr);
-				// //正则匹配含有style的img标签
-				// var regex2 = new RegExp("(i?)(\<img.*?style=['\"])([^\>]+\>)","gmi");
-				// //在img标签的style里面增加css样式(这里增加的样式：display:block;max-width:100%;height:auto;border:5px solid red;)
-				// htmlstr = htmlstr.replace(regex2, "$2display:block;max-width:100%;height:auto;border:5px solid red;$3");
-				// console.log("在img标签的style里面增加样式后的html字符串："+htmlstr);
-				// return htmlstr;
-		  // }
+		  }
 		},
 		computed: {},
 		watch: {},
@@ -93,7 +78,7 @@
 		},
 	    methods: {
 			clickAllShow () {
-				console.log('展示全部')
+				console.log('展示全部');
 				this.isAll = !this.isAll;
 			}
 	    }
@@ -145,6 +130,9 @@
 		font-size: 28upx;
 		color: #5D5D5D;
 		line-height: 110upx;
+	}
+	.disAD{
+		display: flex;
 	}
 	.AD-text{
 		float: right;
@@ -204,7 +192,7 @@
 	.zhankai{
 		position: absolute;
 		font-size: 28upx;
-		color: red;
+		color: #02C2A2;
 		text-align: right;
 		line-height: 110upx;
 		right: 0;
@@ -220,16 +208,18 @@
 	}
 	.AD2{
 		max-width: 66% !important;
-		margin-right: 8% !important;
+		margin-left: 8% !important;
 		display: inline-block;
+		text-align: right;
 	}
 	.AD-text1{
-		position: absolute;
+		position: relative;
 		color: #5D5D5D;
 		line-height: 34upx !important;
 		max-width: 66% !important;
 		margin-left: 60upx;
-		top: 34upx;
+		padding-top: 30upx;
+		padding-bottom: 30upx;
 	}
 	.AD-details-title{
 		font-family: PingFangSC-Semibold;

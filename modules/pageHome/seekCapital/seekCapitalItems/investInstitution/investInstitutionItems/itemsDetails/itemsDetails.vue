@@ -20,7 +20,6 @@
 			<image class="TIPS-img" :src="close"  @tap="clickClose()"></image>
 			<view class="content">
 				<view class="TIPS-isnt">认证创业者可见全部内容</view>
-				<view class="line"></view>
 				<view class="TIPS-btn" @tap='goToAuth'>立即认证</view>
 			</view>
 		</tipsBox>
@@ -68,6 +67,12 @@
 		created() {
 			console.log('在组件中并不能使用页面生命周期函数');
 			this.getUserData();
+		},
+		beforeDestroy () {
+			console.log('页面销毁之前缓存数据');
+			if (uni.getStorageSync('isListSource')) {
+				uni.removeStorageSync('isListSource'); // 清除来源
+			}
 		},
 		mounted() {
 		},
@@ -198,4 +203,7 @@
 </script>
 
 <style>
+	.itemsDetails-content{
+		margin-bottom: 200upx;
+	}
 </style>

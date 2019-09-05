@@ -37,6 +37,16 @@
 				loved: this.Static + 'mbcImg/home/seekCapital/liked.png',
 				text: this.Static + 'mbcImg/home/seekCapital/text.png',
 				texted: this.Static + 'mbcImg/home/seekCapital/texted.png',
+				finance: {
+					loadingText: '加载更多...',
+					search: { // 搜索
+						pageNum: 0, // 总页数
+						searchCondition: {  // 分页属性
+							page: '1'
+						}
+					},
+					listData: '' // 主页在融项目列表数据
+				},
 				items: { // 用户缓存用户行为的子项
 					id: '', // id
 					doc: false, // 留言
@@ -99,7 +109,9 @@
 				setEnTrustShow: 'setEnTrustShow',
 				setEntrustType: 'setEntrustType',
 				setEntrustParams: 'setEntrustParams',
-				setAuthShow: 'setAuthShow'
+				setAuthShow: 'setAuthShow',
+				setUserActive: 'setUserActive',
+				setFinance: 'setFinance'
 			}),
 			message() {
 				
@@ -118,8 +130,6 @@
 				// this.isBPshow = true;
 				if (this.userType ==='1' || this.userType === '2') { // 1 个人投资人 2 机构投资人
 					if (this.authState !== '1') { // 没有认证.或者认证没通过
-						
-						console.log(UserData.userType, '------------UserData.userType----------');
 						this.$store.commit('setAuthShow', true); // 更新setAuthShow
 						return
 					} else {
@@ -160,8 +170,6 @@
 				console.log('触发申请');
 				if (this.userType ==='1' || this.userType === '2') { // 1 个人投资人 2 机构投资人
 					if (this.authState !== '1') { // 没有认证.或者认证没通过
-						
-						console.log(UserData.userType, '------------UserData.userType----------');
 						this.$store.commit('setAuthShow', true); // 更新setAuthShow
 						return
 					} else {
@@ -214,10 +222,14 @@
 				console.log(e, items, evn, '记录用户行为');
 				if (e === 'love') { // 收藏
 					if (this.items.love === false) {
+						this.$store.commit('setUserActive', 0); // 更新setUserActive
+						this.$store.commit('setFinance', this.finance); // 更新setFinance
 						this.items.love = true; // 点击之后状态变化
 						this.upDataIsLoved(evn); // 收藏
 						this.resetClickRecord(items);
 					} else {
+						this.$store.commit('setUserActive', 2); // 更新setUserActive
+						this.$store.commit('setFinance', this.finance); // 更新setFinance
 						this.items.love = false; // 点击之后状态变化
 						this.upDataIsLove(evn); // 收藏
 						this.resetClickRecord(items);

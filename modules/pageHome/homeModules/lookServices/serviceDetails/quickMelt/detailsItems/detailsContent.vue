@@ -102,6 +102,7 @@
 	}
 	.img1{
 		padding-top: 60upx;
+		height: 400upx;
 	}
 	.img2{
 		padding-top: 25upx;

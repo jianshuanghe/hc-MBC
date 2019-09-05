@@ -65,13 +65,12 @@
 	.investItems-content{
 		position: relative;
 		width: 690upx;
-		margin-top: 26upx;
 		background: #fff;
 	}
 	.II-content{
 		position: relative;
 		width: 100%;
-		padding: 22upx 0;
+		padding: 26upx 0;
 	}
 	.II-top{
 		position: relative;

@@ -96,7 +96,7 @@ export default {
 		homeList
 	},
 	computed: {
-		...mapGetters(['GET_HOME'])
+		...mapGetters(['GET_HOME', 'USERACTIVE'])
 	},
 	watch: {
 		GET_HOME: {
@@ -109,6 +109,12 @@ export default {
 					this.paramsList = this.HomeList.finance; // 参数为在融项目模块 
 					this.loadingText = this.HomeList.invest.loadingText; // 底部加载提示显示
 				}
+			},
+			deep: true
+		},
+		USERACTIVE: {
+			handler (a, b) {
+				this.getFinanceList(this.HomeList.finance); // 首页初始化时，默认显示在融项目，参数为在融项目模块
 			},
 			deep: true
 		}

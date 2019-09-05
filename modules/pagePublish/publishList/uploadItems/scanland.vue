@@ -3,7 +3,7 @@
 		<view class="scan-cont">
 			<view class="scanLand-box">
 				<view class="SL-title">第1步</view>
-				<view class="SL-strc">在电脑浏览器中输入“iambuyer.com”</view>
+				<view class="SL-strc">在电脑浏览器中输入“bp.iambuyer.com”</view>
 				<view class="SL-imgBoxOne">
 					<image class="SL-img" :src="scanTapOne"></image>
 				</view>
@@ -23,11 +23,11 @@
 </template>
 
 <script>
+	import scanTapOne from '@/static/mbcImg/publish/scanTapOne.png'
 	import { mapMutations } from 'vuex';
 	export default {
 	    data () {
 	      return {
-			scanTapOne: this.Static + 'mbcImg/publish/scanTapOne.png',
 	        scanTapTwo: this.Static + 'mbcImg/publish/scanTapTwo.png',
 			token: 0,
 	      };

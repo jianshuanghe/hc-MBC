@@ -91,7 +91,7 @@
 		font-size: 40upx;
 		color: #2E2E30;
 		text-align: center;
-		line-height: 140upx;
+		line-height: 110upx;
 	}
 	
 </style>

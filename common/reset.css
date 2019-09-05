@@ -422,6 +422,10 @@ padding-right: 0rpx;
 	color: #02C2A2;
 	text-align: center;
 	line-height: 100upx;
+	position: absolute;
+	width: 100%;
+	border-top: 1px solid #F5F5F5;
+	bottom:0;
 }
 .Posied{
 	position: fixed !important; 
