@@ -12,15 +12,19 @@
 						<span>{{arr.fieldCode}}</span>
 						<span>{{arr.pcode}}</span>
 					</view>
-					<view class="shanglun">
+					<view class="shanglun" v-if="history.projCapis.length!==0">
 						上轮获投情况
 						<view class="shanglun-lunshu">{{history.projCapis[0].levelCode}}</view>
 						<view v-if="history.projCapis[0].capiMoney!==''" class="shanglun-lunshu2">{{history.projCapis[0].capiMoney}}万元</view>
 						<view v-if="history.projCapis[0].capiMoney==''" class="shanglun-lunshu2">金额未披露</view>
 					</view>
-					
-					<view class="bianji" @tap="gotomy">编辑</view>
+					<view class="shanglun" v-if="history.projCapis.length==0">
+						上轮获投情况
+						<view class="shanglun-lunshu4">无</view>
+						<view class="shanglun-lunshu5">无</view>
+					</view>
 				</view>
+				<view class="bianji" @tap="gotomy">编辑</view>
 			</view>
 			<view class="project-details-header-two" v-if="Labelarr.length!==0">
 				<span v-for="(items,index) in arr.projLabels" :key="index">{{items.labelName}}</span>
@@ -458,7 +462,6 @@
 	.tou {
 		display: none;
 	}
-
 	.project-details {
 		width: 100%;
 		min-height: 100%;
@@ -504,11 +507,14 @@
 	}
 
 	.project-details-header-one view:nth-of-type(2) {
-		/* width: 50%; */
+		width: 80%;
 		/* height: 150upx; */
 		/* margin-top: 30upx; */
 		/* margin-left: 50upx; */
 		position: relative;
+		overflow: hidden; //超出的文本隐藏
+		text-overflow: ellipsis; //溢出用省略号显示
+		white-space: nowrap; //溢出不换行
 	}
 
 	.project-details-header-one view:nth-of-type(2) span:nth-of-type(1) {
@@ -533,18 +539,18 @@
 
 	.project-details-header-one view:nth-of-type(2) view:nth-of-type(1) {
 		display: flex;
-		width: 300upx;
+		width: 470upx;
 		height: 25upx;
 		margin-top: 10upx;
 		margin-left: -20upx;
 	}
 
 	.project-details-header-one view:nth-of-type(2) view:nth-of-type(1) span:nth-of-type(1) {
-		margin-left: -10upx;
+		margin-left: -15upx;
 		font-size: 24upx;
 		color: #9B9B9B;
 		display: block;
-		width: 220upx;
+		width: 150upx;
 		height: 30upx;
 		text-align: left;
 		line-height: 25upx;
@@ -564,7 +570,7 @@
 	.shanglun{
 		width: 300upx;
 		height: 100upx;
-		margin-top: 50upx;
+		margin-top: 40upx;
 		font-size: 24upx;
 		color: #9B9B9B;
 	}
@@ -577,7 +583,6 @@
 		font-size: 24upx;
 		color: black;
 		line-height: 30upx;
-		
 		border-radius: 0;
 	}
 	.shanglun-lunshu2{
@@ -592,11 +597,34 @@
 		border-left: 2upx solid #9B9B9B;
 		padding-left: 20upx;
 	}
+	.shanglun-lunshu4{
+		position: absolute;
+		top: 30upx;
+		left: 25upx;
+		height: 30upx;
+		width: 50upx;
+		font-size: 24upx;
+		color: black;
+		line-height: 30upx;
+		border-radius: 0;
+	}
+	.shanglun-lunshu5{
+		position: absolute;
+		top: 0upx;
+		left: 50upx;
+		height: 25upx;
+		width: 50upx;
+		font-size: 24upx;
+		color: black;
+		line-height: 25upx;
+		border-left: 2upx solid #9B9B9B;
+		padding-left: 20upx;
+	}
 	.bianji {
 		font-size: 26upx;
 		color: #02C2A2;
 		position: absolute;
-		right: -290upx;
+		right: 0upx;
 		top: 190upx;
 		font-weight: 700;
 	}
@@ -775,7 +803,7 @@
 		min-height: 150upx;
 		margin: 0 auto;
 		padding-bottom: 20upx;
-		border-bottom: 2upx solid #E2E2E2;
+		border-bottom: 2upx solid #F5F5F5;
 	}
 
 	.project-details-data-thre {
@@ -783,6 +811,7 @@
 		min-height: 150upx;
 		margin: 0 auto;
 		padding-bottom: 20upx;
+		border-bottom: 2upx solid #F5F5F5;
 	}
 
 	.project-details-data-thre view:nth-of-type(1) {

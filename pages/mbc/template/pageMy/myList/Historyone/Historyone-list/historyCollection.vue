@@ -56,7 +56,7 @@
 		font-size: 36upx;
 		color: #2E2E30;
 		font-weight: 700;
-		padding-top: 2.5%;
+		margin-top: 15upx;
 		display: block;
 	}
 

@@ -3,7 +3,7 @@
 		<!-- 联系人组件 -->
 		<!-- <newsContacts></newsContacts> -->
 		<!-- 系统通知 -->
-		<system :Innum="num" :Inarr="arr"></system>
+		<system></system>
 	</view>
 </template>
 <script>

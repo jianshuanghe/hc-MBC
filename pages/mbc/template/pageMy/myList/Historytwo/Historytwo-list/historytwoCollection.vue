@@ -43,7 +43,6 @@
 	.history2Collection{
 		width: 187upx;
 		height: 100%;
-		/* background: red; */
 		text-align: center;
 		float: left;
 	}
@@ -51,11 +50,11 @@
 		font-size: 36upx;
 		color: #2E2E30;
 		font-weight: 700;
-		padding-top: 2.5%;
+		margin-top: 15upx;
 		display: block;
 	}.history2Collection span:nth-of-type(2){
 		font-size: 26upx;
-			color: #2E2E30;
-			display: block;
+		color: #2E2E30;
+		display: block;
 	}
 </style>

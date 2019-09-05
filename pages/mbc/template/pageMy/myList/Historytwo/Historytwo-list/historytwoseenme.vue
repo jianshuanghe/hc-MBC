@@ -1,7 +1,7 @@
 <template>
 	<view class="history2My" @tap="gotomyproject">
-		<span>{{List.projCount}}</span>
-		<span>已收到</span>
+		<span>{{List.lookUserCount}}</span>
+		<span>看过我</span>
 	</view>
 </template>
 
@@ -32,7 +32,7 @@
 			
 			gotomyproject() {
 			    uni.navigateTo({
-			        url: '/modules/pageMy/myList/myLisprojectt/myproject',
+			        url: '/modules/pageMy/myList/myListlookme/Lookme',
 			    });
 			}
 		}
@@ -50,7 +50,8 @@
 		font-size: 36upx;
 		color: #2E2E30;
 		font-weight: 700;
-		padding-top: 2.5%;
+		/* padding-top: 3.5%; */
+		margin-top: 15upx;
 		display: block;
 	}.history2My span:nth-of-type(2){
 		font-size: 26upx;
