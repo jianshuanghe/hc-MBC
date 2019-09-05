@@ -88,6 +88,7 @@
 	.active-tap{
 		font-size: 34upx !important;
 		color: #2E2E30 !important;
+		font-weight: bold;
 	}
 	.RT-box-top{
 		font-family: PingFang-SC-Bold;

@@ -70,6 +70,7 @@
 		color: #2E2E30;
 		letter-spacing: 0;
 		line-height: 60upx;
+		font-weight: bold;
 	}
 	.iT-company{
 		font-family: PingFangSC-Regular;

@@ -93,6 +93,8 @@
 	.content-content{
 		position: relative;
 		width: 750upx;
+		padding-bottom: 200upx;
+
 	}
 	.activeDetails{
 		position: relative;
@@ -122,6 +124,7 @@
 		color: #2E2E30;
 		line-height: 50upx;
 		margin: 20upx 0;
+		font-weight: bold;
 	}
 	.AD-items-list{
 		position: relative;

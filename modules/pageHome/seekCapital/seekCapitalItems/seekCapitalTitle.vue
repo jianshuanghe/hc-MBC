@@ -116,7 +116,8 @@
 	margin-bottom: 8upx;
   }
   .Tb-checked>p{
-    font-family: PingFangSC-Medium;
-	color: #02C2A2 !important;
+    font-size: 32upx !important;
+    color: #2E2E30 !important;
+    font-weight: bold;
   }
 </style>

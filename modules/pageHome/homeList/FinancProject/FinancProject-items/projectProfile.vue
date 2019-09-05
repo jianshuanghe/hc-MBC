@@ -1,5 +1,5 @@
 <template>
-	<view class="personalProfile-contnet">
+	<view class="personalProfile-contnet" v-if="msgData.projImgs.legth > 0 || msgData.projContent !== '' || msgData.conentMarket !== '' || msgData.conentPortrait !== '' || msgData.conentModel !== '' || msgData.conentData !== '' || msgData.conentCore !== ''">
 		<view class="personalProfile">
 			<view class="pP-title">
 				项目简介
@@ -113,6 +113,7 @@
 		color: #2E2E30;
 		letter-spacing: 0;
 		line-height: 68upx;
+		font-weight: bold;
 	}
 	.pP-text-right{
 		position: relative;
@@ -169,6 +170,7 @@
 		color: #2E2E30;
 		letter-spacing: 0;
 		line-height: 100upx;
+		font-weight: bold;
 	}
 	.pP-content{
 		font-family: PingFangSC-Regular;

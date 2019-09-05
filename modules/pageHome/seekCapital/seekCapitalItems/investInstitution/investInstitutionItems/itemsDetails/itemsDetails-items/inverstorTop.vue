@@ -128,6 +128,7 @@
 		color: #2E2E30;
 		letter-spacing: 0;
 		line-height: 140upx;
+		font-weight: bold;
 	}
 	.Authentication-type{
 		position: absolute;
