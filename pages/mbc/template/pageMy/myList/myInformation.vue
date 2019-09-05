@@ -160,7 +160,7 @@
 
 	.Informationname view:nth-of-type(1) view:nth-of-type(1) {
 		font-size: 40upx;
-		width: 40%;
+		/* width: 40%; */
 		max-width: 60%;
 		height: 80upx;
 		

@@ -4,8 +4,8 @@
 			<image :src='xiaoxo'></image>
 		</view>
 		<view class="system-notice">
-			<view>系统通知<span v-for="(items,index) in num.rows" v-if="index<1" :key="index">{{items.createTime|formatDate}}</span></view>
-			<view v-for="(item,index) in num.rows" v-if="index<1" :key="index">{{item.content}}
+			<view>系统通知<span v-for="(items,index) in num" v-if="index<1" :key="index">{{items.createTime|formatDate}}</span></view>
+			<view v-for="(item,index) in num" v-if="index<1" :key="index">{{item.content}}
 				<view v-if="List.noticeCount !== 0">{{List.noticeCount}}</view>
 			</view>
 		</view>
@@ -36,8 +36,8 @@
 			GET_NEWS: {
 				handler(a, b) {
 					console.log(a, b,'12312318498165449816149841644');
-					this.num=a.newsList
-					console.log(this.num.rows)
+					this.num=a.newsList.rows
+					console.log(this.num)
 				},
 				deep: true
 			},

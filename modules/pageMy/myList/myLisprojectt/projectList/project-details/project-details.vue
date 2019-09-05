@@ -790,7 +790,7 @@
 		margin-top: 40upx;
 		display: flex;
 		justify-content: space-between;
-		border-bottom: 2upx solid #E2E2E2;
+		border-bottom: 2upx solid #F5F5F5;
 	}
 
 	.project-details-data-imges-one image {
@@ -1001,7 +1001,7 @@
 	}
 
 	.button-an {
-		margin: 40upx auto 0 auto;
+		margin: 30upx auto 0 auto;
 		width: 300upx;
 		height: 80upx;
 		border: 2upx solid #02C2A2;
@@ -1050,7 +1050,7 @@
 	.team-cheng {
 		width: 90%;
 		height: 176upx;
-		border-bottom: 2upx solid #E2E2E2;
+		border-bottom: 2upx solid #F5F5F5;
 		margin: 0 auto;
 		display: flex;
 	}
@@ -1132,7 +1132,7 @@
 	.history-cheng {
 		width: 90%;
 		height: 176upx;
-		border-bottom: 2upx solid #E2E2E2;
+		border-bottom: 2upx solid #F5F5F5;
 		margin: 0 auto;
 		display: flex;
 	}
@@ -1228,7 +1228,7 @@
 	.Mask-box-header {
 		width: 100%;
 		height: 112upx;
-		border-bottom: 2upx solid #E2E2E2;
+		border-bottom: 2upx solid #F5F5F5;
 		display: flex;
 		justify-content: space-between;
 	}
@@ -1271,7 +1271,7 @@
 	.Mask-box-content view:nth-of-type(1) {
 		width: 90%;
 		height: 186upx;
-		border-bottom: 2upx solid #E2E2E2;
+		border-bottom: 2upx solid #F5F5F5;
 		margin: 0 auto;
 	}
 
@@ -1292,7 +1292,7 @@
 	.Mask-box-content view:nth-of-type(2) {
 		width: 90%;
 		height: 186upx;
-		border-bottom: 2upx solid #E2E2E2;
+		border-bottom: 2upx solid #F5F5F5;
 		margin: 0 auto;
 	}
 

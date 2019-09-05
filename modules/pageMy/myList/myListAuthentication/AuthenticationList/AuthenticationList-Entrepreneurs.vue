@@ -57,6 +57,12 @@
 						duration: 1000
 					});
 					console.log('您已经认证投资人 无法认证创业者')
+				}else if(this.Listdata.authState=='2'){
+					console.log('去' + e + '创业者认证');
+					this.status++
+					uni.navigateTo({
+						url: '/modules/pageMy/myList/myListAuthentication/AuthenticationList/EntrepreneursCertification/EntrepreneursCertification',
+					});
 				}
 			}
 		}

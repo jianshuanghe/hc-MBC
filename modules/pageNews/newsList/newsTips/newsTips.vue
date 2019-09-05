@@ -79,9 +79,9 @@
 							uni.hideLoading();
 							this.news(this.active);
 							this.hiden=true
-							// console.log(this.news())
-							let parmas={}
-							this.$store.commit('setNews', parmas);
+							console.log(this.active.listData )
+							// let parmas={}
+							this.$store.commit('setNews',this.active.listData );
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading

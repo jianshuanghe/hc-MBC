@@ -599,7 +599,7 @@
 	}
 
 	.datatijiao view:nth-of-type(1) {
-		width: 90%;
+		width: 92%;
 		height: 80%;
 		background: #02C2A2;
 		margin: 15upx auto 10upx auto;

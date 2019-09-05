@@ -1275,7 +1275,7 @@
 	.Investor-Tips {
 		width: 90%;
 		height: 25upx;
-		margin: 0 auto;
+		margin: 20upx auto;
 		font-size: 24upx;
 		color: #9B9B9B;
 	}
