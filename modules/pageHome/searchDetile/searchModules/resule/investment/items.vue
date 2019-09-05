@@ -1,31 +1,37 @@
 <template>
-  <view class="investItems-content" @tap="goToItemsDetails(msgData.id)">
-    <view class="II-content">
+  <view class="investItems-content">
+    <view class="II-content" @tap="goToItemsDetails(msgData.id)">
       <view class="II-top">
         <view class="left II-user-img">
           <view class="II-img">
-            <image :src='msgData.compLogo'></image>
+            <image :src='msgData.compLogo || dImg'></image>
           </view>
         </view>
         <view class="left II-suer-insr">
           <view class="II-insr">
             <view class="user">
-              {{msgData.compName || '无'}}
+              {{msgData.compName}}
             </view>
             <view class="mbc">
 				<view class="II-mod" >
-				  <view class="mod-items left" v-for="(items,index) in msgData.fields" :key="index">{{items}}</view>
+				  <view class="mod-items left" v-for="(items,index) in msgData.fields" :key="index" v-if="index < 3">{{items}}</view>
 				  <view class="clear"></view>
 				</view>
             </view>
           </view>
         </view>
       </view>
-      <view class="II-bot">
-		 <view class="II-mod1" >
-		   <view class="mod1-items left" v-for="(items,index) in msgData.inves" :key="index">{{items}}</view>
-		   <view class="clear"></view>
-		 </view>
+      <view class="II-bot" v-if="msgData.inves.length > 0">
+		  <div class="title left">
+			 最近投资:
+		  </div>
+		  <view class="left mbc-text">
+			<text class="items"  v-for="(items,index) in msgData.inves" :key="index"  v-if="index < 3">
+				{{items}}
+				<text class="dian" v-if="msgData.inves.length - 1 > index">、</text>
+			</text>
+		  </view>
+		  <view class="clear"></view>
       </view>
     </view>
     <view class="line"></view>
@@ -36,7 +42,7 @@
 	export default {
 	    data () {
 			return {
-				iiImg: this.dImg
+				dImg: this.dImg
 			};
 	    },
 		props: {
@@ -45,20 +51,12 @@
 			}
 		},
 	    methods: {
-			goToFinanceDetail (e){
-				console.log('去' + e + '详情页面');
-				uni.navigateTo({
-					url: '/modules/pageHome/homeList/homeList'
-				});
-			},
 			goToItemsDetails (e){
 				console.log('to投资机构详情页面');
+				uni.setStorageSync('isListSource', 1); // 根据类型判断用户在提交委托之后返回的地址的来源
 				uni.navigateTo({
 					url: '/modules/pageHome/seekCapital/seekCapitalItems/investInstitution/investInstitutionItems/itemsDetails/itemsDetails?id=' + e
 				});
-			},
-			goToSeek () {
-				console.log('点击触发寻找资本');
 			}
 	    }
 	};
@@ -76,11 +74,12 @@
 		position: relative;
 		width: 100%;
 		padding: 22upx 0;
-		height: 128upx;
+		height: 140upx;
 	}
 	.II-top{
 		position: relative;
 		width: 100%;
+		height: 86upx;
 	}
 	.II-user-img{
 		position: relative;
@@ -97,7 +96,6 @@
 		position: relative;
 		width: 80upx;
 		height: 80upx;
-		border-radius: 50%;
 	}
 	.II-suer-insr{
 		position: relative;
@@ -153,7 +151,7 @@
 	}
 	.II-mod{
 		position: relative;
-		margin: 12upx 0 0 0upx;
+		margin: 0upx 0 0 0upx;
 	}
 	.mod-items{
 		background: #F5F5F5;
@@ -167,29 +165,29 @@
 		padding: 2upx 12upx;
 		margin-right: 10upx;
 	}
-	.II-mod1{
+	.title{
 		position: relative;
-		margin: 12upx 0 0 110upx;
-	}
-	.mod1-items{
-		background: #F5F5F5;
-		border-radius: 4upx;
-		font-family: FZLTHJW--GB1-0;
-		font-size: 20upx;
-		color: #9B9B9B;
-		letter-spacing: 0;
-		line-height: 30upx;
-		text-align: center;
-		padding: 2upx 12upx;
-		margin-right: 10upx;
-		margin-top: 10upx;
+		width: 30%;
+		text-align: right;
+		font-family: PingFangSC-Regular;
+		font-size: 24upx;
+		color: #5D5D5D;
+		line-height: 28upx;
+		margin-top: 8upx;
 	}
 	.mbc-text{
+		position: relative;
+		width: 70%;
 		font-family: FZLTHJW--GB1-0;
 		font-size: 24upx;
-		color: #9B9B9B;
+		color: #5D5D5D;
 		letter-spacing: 0;
-		line-height: 40upx;
-		margin: 12upx 0 0 110upx;
+		line-height: 28upx;
+		margin-top: 8upx;
+		overflow:hidden;
+		text-overflow:ellipsis;
+		display:-webkit-box;
+		-webkit-box-orient:vertical;
+		-webkit-line-clamp:2;
 	}
 </style>

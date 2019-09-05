@@ -103,7 +103,8 @@
 			...mapMutations({
 				setCompany: 'setCompany',
 				setHistory:'setHistory',
-				setEdit: 'setEdit'
+				setEdit: 'setEdit',
+				setLabelarr: 'setLabelarr'
 			}),
 			labelBtn1(name,index){
 			  console.log(name,index,"nameindex")
@@ -222,6 +223,41 @@
 							console.log(response.data);
 							// uni.navigateBack({})
 							this.shujuxiang();
+							this.Label();
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
+			Label() { //标签
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					// let params = {}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/proj/label/getProjLabel?projId=' + this.id, //接口地址。
+						// data: this.endParams(params),
+						method: 'GET',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							uni.hideLoading();
+							console.log(response.data);
+							this.Labelarr = response.data.content;
+							this.$store.commit('setLabelarr', this.Labelarr);
+							console.log(this.Labelarr)
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading

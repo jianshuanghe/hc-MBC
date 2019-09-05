@@ -103,11 +103,9 @@
 		font-family: PingFangSC-Regular;
 		font-size: 24upx;
 		color: #9B9B9B;
-		line-height: 40upx;
+		line-height: 30upx;
+		margin-bottom: 10upx;
 		margin-top: -15upx;
-		overflow: hidden; //超出的文本隐藏
-		text-overflow: ellipsis; //溢出用省略号显示
-		white-space: nowrap; //溢出不换行
 	}
 	.inss{
 		position: relative;

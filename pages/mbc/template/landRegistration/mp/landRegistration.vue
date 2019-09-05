@@ -5,8 +5,9 @@
         <!--账号登陆-->
         <view class="passWord-LR">
           <view class="top-PWLR">
-            <image :src="logo" alt="" class=""></image>
+            <image :src="logo" alt="" class="" mode='widthFix'></image>
           </view>
+		  <div class="nameLand">欢迎登录</div>
         </view>
         <!--登录按钮-->
         <view class="landBtn">
@@ -23,13 +24,14 @@
 </template>
 
 <script>
+	import logo from '@/static/mbcImg/landRegistration/logo.png'
     export default {
         name: '',
         components: {
         },
         data () {
           return {
-            logo: this.Static + 'mbcImg/landRegistration/logo.png',
+            logo: logo,
 			phoneIsGet: true // 判断用户是否再平台注册过，默认是注册过，如果没有注册需要获取用户手机号
           };
         },
@@ -351,41 +353,54 @@
   }
   .top-PWLR{
     position: relative;
-    width: 33.6vw;
+    width: 150upx;
     margin-top: 6vw;
     margin: auto;
   }
   .top-PWLR>image{
     position: relative;
+    width: 150upx;
     width: 100%;
-	height: 84upx;
+  }
+  .nameLand{
+	 font-family: PingFang-SC-Medium;
+	 font-size: 36upx;
+	 color: #5D5D5D;
+	 letter-spacing: 0;
+	 text-align: center;
+	 line-height: 40upx; 
+	 margin-top: 30upx;
   }
   .landBtn{
     position: relative;
     width: 100%;
-    margin-top: 8vw;
+    margin-top: 100upx;
   }
   .land-btn-box{
     position: relative;
-    width: 100%;
-    height: 12vw;
+    width: 550upx;
+    height: 90upx;
     margin-bottom: 6vw;
-	margin-top: 30vw;
-	font-size: 4.266vw;
+	margin-top: 100upx;
+	font-size: 32upx;
 	color: #FFFFFF;
 	letter-spacing: 0;
 	text-align: center;
-	line-height: 12vw;
+	line-height: 90upx;
 	background: #02C2A2;
+	margin: auto;
+	border: none;
+	border-radius: 0;
   }
   .land-btn-box>p{
     font-family: PingFangSC-Regular;
-    font-size: 4.266vw;
+    font-size: 32upx;
     color: #FFFFFF;
     letter-spacing: 0;
     text-align: center;
-    line-height: 12vw;
+   line-height: 90upx;
     background: #02C2A2;
+	border-radius: 0;
   }
   .wx-land{
     font-family: PingFangSC-Regular;

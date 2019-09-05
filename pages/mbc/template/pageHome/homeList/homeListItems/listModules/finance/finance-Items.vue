@@ -335,7 +335,7 @@
 		width: 100%;
 	}
 	.title{
-		font-family: PingFangSC-Medium;
+		font-family: simhei !important;
 		font-size: 32upx;
 		color: #2E2E30;
 		letter-spacing: 0;
@@ -344,6 +344,7 @@
 		overflow: hidden;
 		text-overflow:ellipsis;
 		white-space: nowrap;
+		font-weight: bold;
 	}
 	.inst{
 		background: #DDFFF9;

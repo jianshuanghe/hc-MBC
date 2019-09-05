@@ -263,6 +263,8 @@
 					// console.log(a,b)
 					this.arr = a.MyList.Company;
 					this.history = a.MyList.History
+					this.Labelarr = a.MyList.Labelarr;
+					console.log('-----------------------this.Labelarr------------------------')
 					console.log(this.history, 'lian')
 				},
 				deep: true
@@ -282,7 +284,8 @@
 		methods: {
 			...mapMutations({
 				setCompany: 'setCompany',
-				setHistory: 'setHistory'
+				setHistory: 'setHistory',
+				setLabelarr: 'setLabelarr'
 			}),
 			addlianjie() {
 				this.hiden = false
@@ -418,7 +421,8 @@
 						success: (response) => {
 							uni.hideLoading();
 							console.log(response.data);
-							this.Labelarr = response.data.content
+							this.Labelarr = response.data.content;
+							this.$store.commit('setLabelarr', this.Labelarr);
 							console.log(this.Labelarr)
 						},
 						fail: (error) => {

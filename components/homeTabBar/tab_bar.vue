@@ -30,7 +30,7 @@
 					<view class="tb-text">
 						<text :class="clickItems === 3 ? 'class-a' : ''">消息</text>
 					</view>
-					<view class="noticeCount" v-if="List.noticeCount !== 0">{{List.noticeCount}}</view>
+					<view class="noticeCount" v-if="Number(List.noticeCount) !== 0">{{List.noticeCount}}</view>
 				</view>
 				<view class="left tb-box" @tap="tabBarItems(4)">
 					<view class="tb-img">
@@ -232,12 +232,12 @@
 	}
 	.noticeCount{
 		position: absolute;
-		top: 6upx;
-		right: 30upx;
+		top: 1upx;
+		right: 29upx;
 		width: 36upx;
 		height: 36upx;
 		background: #FF3A2E;
-		font-size: 26upx;
+		font-size: 20upx;
 		color: #FFFFFF;
 		border-radius: 50%;
 		text-align: center;

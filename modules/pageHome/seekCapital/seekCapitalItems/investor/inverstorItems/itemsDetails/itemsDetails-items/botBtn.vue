@@ -214,6 +214,51 @@
 					phoneNumber: '010-61723026' // 拨打电话
 				});
 			},
+			getputInBpList(){
+				console.log('获取用户的BP列表');
+				if (uni.getStorageSync('landRegist')) {
+				    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+				    console.log(landRegistLG.user.id);
+					let params = {
+						userId: landRegistLG.user.id
+					}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/proj/list?page=1', //接口地址。
+						data: this.endParams(params),
+						method: 'POST',
+						header: {
+							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
+						},
+						success: (response) => {
+							console.log(response.data.total);
+							let dataM = response.data.total;
+							if (Number(dataM) > 0) {
+								this.$store.commit('setPutBpShow', true); // 更新setPutBpShow
+							} else {
+								uni.showToast({
+									title: '暂无BP，快去发布项目吧！',
+									icon: 'none',
+									duration: 1000
+								});
+								this.$store.commit('setPutBpShow', false); // 更新setPutBpShow
+							}
+							uni.hideLoading(); // 隐藏 loading
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
 			ApplyBp () {
 				console.log('触发发BP');
 				if (this.userType === '0') { // 创业者
@@ -241,7 +286,7 @@
 					return
 				}
 				this.$store.commit('setPutBpModelId', this.msgData.modelId); // 更新setPutBpModelId
-				this.$store.commit('setPutBpShow', true); // 更新setPutBpShow
+				this.getputInBpList();
 			},
 			Apply () {
 				console.log('触发申请');

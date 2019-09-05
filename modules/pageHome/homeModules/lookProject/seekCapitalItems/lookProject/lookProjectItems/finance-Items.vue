@@ -335,7 +335,7 @@
 		width: 100%;
 	}
 	.title{
-		font-family: PingFangSC-Medium;
+		font-family: simhei !important;
 		font-size: 32upx;
 		color: #2E2E30;
 		letter-spacing: 0;
@@ -344,6 +344,7 @@
 		overflow: hidden;
 		text-overflow:ellipsis;
 		white-space: nowrap;
+		font-weight: bold;
 	}
 	.inst{
 		background: #DDFFF9;
@@ -352,11 +353,11 @@
 		font-size: 18upx;
 		color: #00AF92;
 		letter-spacing: 0;
-		line-height: 32upx;
-		padding: 4upx 8upx 4upx 4upx;
+		line-height: 27upx;
+		padding: 4upx 8upx 6upx 4upx;
 		margin-left: 10upx;
-		margin-top: - 3upx;
-		transform: scale(.8);
+		top: 2upx;
+		/* transform: scale(.8); */
 	}
 	.FI-t-ins{
 		font-family: PingFangSC-Regular;
@@ -366,7 +367,7 @@
 		overflow: hidden;
 		text-overflow:ellipsis;
 		white-space: nowrap;
-		margin-top: 14upx;
+		margin-top: 20upx;
 	}
 	.FI-t-right{
 		position: absolute;

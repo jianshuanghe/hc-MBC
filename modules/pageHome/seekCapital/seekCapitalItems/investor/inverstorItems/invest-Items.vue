@@ -113,6 +113,7 @@
 		color: #2E2E30;
 		letter-spacing: 0;
 		line-height: 40upx;
+		font-weight: bold;
 	}
 	.II-insr .mbc{
 		font-family: PingFangSC-Regular;
@@ -152,7 +153,7 @@
 	}
 	.II-mod{
 		position: relative;
-		margin: 12upx 0 0 110upx;
+		margin: 0upx 0 0 110upx;
 	}
 	.mod-items{
 		background: #F5F5F5;

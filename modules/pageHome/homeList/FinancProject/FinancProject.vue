@@ -74,11 +74,15 @@
 			if (uni.getStorageSync('isListSource')) {
 				uni.removeStorageSync('isListSource'); // 清除来源
 			}
+			if (uni.getStorageSync('modelId')) {
+				uni.removeStorageSync('modelId'); // 清除来源
+			}
 		},
 		onLoad(option) {
 			this.project.id = option.id;
 			this.getList(option.id);
 			this.getUserApply(option.id);
+			uni.setStorageSync('modelId', option.id); // 缓存option.id
 			if (option.type) {
 				
 			}
@@ -210,5 +214,6 @@
 <style>
 	.itemsDetails-content{
 		margin-bottom: 200upx;
+		padding-bottom: 200upx;
 	}
 </style>

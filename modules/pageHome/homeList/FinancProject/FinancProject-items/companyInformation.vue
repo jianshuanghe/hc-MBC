@@ -12,7 +12,7 @@
 				</view>
 				<view class="line"></view>
 			</view>
-			<view class="pP-content-box">
+			<view class="pP-content-box" v-if="msgData.compAddr">
 				<view class="titel-pP">公司地址</view>
 				<view class="pP-content">
 					{{msgData.compAddr}}
