@@ -228,6 +228,10 @@
 					this.$store.commit('setAuthShow', true); // 更新setAuthShow
 					return
 				} else if (this.userType === '1' || this.userType === '2') {
+					if (this.authState === '0' || this.authState === '2') { // 没有认证.或者认证没通过
+						this.$store.commit('setAuthShow', true); // 更新setAuthShow
+						return
+					}
 					this.$store.commit('setAuthShow', false); // 更新setAuthShow
 					uni.showToast({
 						title: '您已成为投资人身份，无法委托联系',
@@ -253,6 +257,10 @@
 					this.$store.commit('setAuthShow', true); // 更新setAuthShow
 					return
 				} else if (this.userType === '1' || this.userType === '2') {
+					if (this.authState === '0' || this.authState === '2') { // 没有认证.或者认证没通过
+						this.$store.commit('setAuthShow', true); // 更新setAuthShow
+						return
+					}
 					this.$store.commit('setAuthShow', false); // 更新setAuthShow
 					uni.showToast({
 						title: '您已成为投资人身份，无法委托联系',

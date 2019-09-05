@@ -8,6 +8,8 @@ const getters = {
 	EMPTY: state => state.empty,
 	// 认证提示组件
 	AUTH: state => state.auth,
+	// 判断用户点击行为变化
+	USERACTIVE: state => state.userActive,
 	// 申请组件
 	ENTRUSSHOW: state => state.entrust.entrustShow,
 	ENTRUST: state => state.entrust,

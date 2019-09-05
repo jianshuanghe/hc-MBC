@@ -125,8 +125,8 @@
 	}
 	.img-box>image{
 		position: relative;
-		width: 32upx;
-		height: 32upx;
+		width: 35upx;
+		height: 40upx;
 		margin: auto;
 	}
 	.const-box .text{
@@ -134,7 +134,7 @@
 		font-size: 20upx;
 		color: #9B9B9B;
 		text-align: center;
-		line-height: 20upx;
+		line-height: 24upx;
 	}
 	.submit-box{
 		position: relative;

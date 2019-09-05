@@ -124,7 +124,7 @@
   .text{
     position: relative;
     width: 200upx;
-	margin: 20upx 0upx 20upx 24upx;
+	margin: 22upx 0upx 20upx 24upx;
   }
   .title{
     font-family: PingFangSC-Medium;

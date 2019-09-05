@@ -98,6 +98,7 @@
 </template>
 
 <script>
+	import { mapGetters } from 'vuex';
 	export default {
 	    data () {
 			return {
@@ -125,6 +126,17 @@
 		props: {
 			msgData: {
 				type: Object
+			}
+		},
+		computed: {
+			...mapGetters(['USERACTIVE'])
+		},
+		watch: {
+			USERACTIVE: {
+				handler (a, b) {
+					this.getClickRecord();
+				},
+				deep: true
 			}
 		},
 		filters:{

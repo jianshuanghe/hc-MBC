@@ -22,7 +22,6 @@
 			<image class="TIPS-img" :src="close" @tap="clickClose()"></image>
 			<view class="content">
 				<view class="TIPS-isnt">认证投资人可见全部内容</view>
-				<view class="line"></view>
 				<view class="TIPS-btn" @tap='goToAuth'>立即认证</view>
 			</view>
 		</tipsBox>
@@ -70,10 +69,19 @@
 		created () {
 			this.getUserData();
 		},
+		beforeDestroy () {
+			console.log('页面销毁之前缓存数据');
+			if (uni.getStorageSync('isListSource')) {
+				uni.removeStorageSync('isListSource'); // 清除来源
+			}
+		},
 		onLoad(option) {
 			this.project.id = option.id;
 			this.getList(option.id);
 			this.getUserApply(option.id);
+			if (option.type) {
+				
+			}
 		},
 		mounted() {
 			

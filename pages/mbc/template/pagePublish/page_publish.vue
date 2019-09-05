@@ -17,13 +17,11 @@
 				<image class="TIPS-img" :src="close"  @tap="clickClose()"></image>
 				<div class="content">
 					<div class="TIPS-isnt">认证成为创业者，可发布项目</div>
-					<div class="line"></div>
 					<div class="TIPS-btn" @tap='goToAuth'>立即认证</div>
 				</div>
 			</div>
 			<div class="content" v-if='GET_PUBLISH.isUpLoadFile.isFileSuccess === true'>
 				<div class="TIPS-isnt">发布成功</div>
-				<div class="line"></div>
 				<div class="TIPS-btn" @tap='goToBp'>确定</div>
 			</div>
 		</tipsBox>

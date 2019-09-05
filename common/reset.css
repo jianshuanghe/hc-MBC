@@ -404,10 +404,10 @@ padding-right: 0rpx;
 }
 .TIPS-img{
 	position: absolute;
-	right: 10upx;
-	top: 10upx;
-	height: 40upx;
-	width: 40upx;
+	right: 24upx;
+	top: 24upx;
+	height: 24upx;
+	width: 24upx;
 }
 .TIPS-isnt{
 	font-family: PingFangSC-Light;
@@ -422,6 +422,10 @@ padding-right: 0rpx;
 	color: #02C2A2;
 	text-align: center;
 	line-height: 100upx;
+	position: absolute;
+	width: 100%;
+	border-top: 1px solid #F5F5F5;
+	bottom:0;
 }
 .Posied{
 	position: fixed !important; 
