@@ -8,20 +8,25 @@
 				<view>
 					<span>{{arr.projName}}</span>
 					<span>{{arr.projSlogan}}</span>
-					<view>
+					<view class="eirongs">
 						<span>{{arr.fieldCode}}</span>
 						<span>{{arr.pcode}}</span>
 					</view>
 					<view class="shanglun" v-if="history.projCapis.length!==0">
 						上轮获投情况
-						<view class="shanglun-lunshu">{{history.projCapis[0].levelCode}}</view>
-						<view v-if="history.projCapis[0].capiMoney!==''" class="shanglun-lunshu2">{{history.projCapis[0].capiMoney}}万元</view>
-						<view v-if="history.projCapis[0].capiMoney==''" class="shanglun-lunshu2">金额未披露</view>
+						<view>
+							<view class="shanglun-lunshu">{{history.projCapis[0].levelCode}}</view>
+							<view v-if="history.projCapis[0].capiMoney!==''" class="shanglun-lunshu2">{{history.projCapis[0].capiMoney}}万元</view>
+							<view v-if="history.projCapis[0].capiMoney==''" class="shanglun-lunshu2">金额未披露</view>
+						</view>
+
 					</view>
 					<view class="shanglun" v-if="history.projCapis.length==0">
 						上轮获投情况
-						<view class="shanglun-lunshu4">无</view>
-						<view class="shanglun-lunshu5">无</view>
+						<view>
+							<view class="shanglun-lunshu4">无</view>
+							<view class="shanglun-lunshu5">无</view>
+						</view>
 					</view>
 				</view>
 				<view class="bianji" @tap="gotomy">编辑</view>
@@ -107,7 +112,8 @@
 					<span>{{inss.capiStartime|forma}}</span>
 				</view>
 				<view>
-					<span>金额：{{inss.capiMoney}}万</span>
+					<span v-if="inss.capiMoney!==''">金额：{{inss.capiMoney}}万</span>
+					<span v-if="inss.capiMoney==''">无</span>
 					<span>在融轮次：{{inss.levelCode}}</span>
 					<span>{{inss.capiInveCompName}}</span>
 				</view>
@@ -254,7 +260,7 @@
 					// console.log(a,b)
 					this.arr = a.MyList.Company;
 					this.history = a.MyList.History
-					console.log(this.history,'lian')
+					console.log(this.history, 'lian')
 				},
 				deep: true
 			},
@@ -459,9 +465,14 @@
 </script>
 
 <style>
+	.eirongs {
+		margin-top: 50upx;
+	}
+
 	.tou {
 		display: none;
 	}
+
 	.project-details {
 		width: 100%;
 		min-height: 100%;
@@ -490,23 +501,23 @@
 		position: relative;
 	}
 
-	.project-details-header-one view:nth-of-type(1) {
+	.project-details-header-one>view:nth-of-type(1) {
 		width: 84upx;
 		height: 84upx;
-		margin-left: 10upx;
-		margin-top: 62upx;
-		border-radius: 50%;
+		margin-top: 25upx;
+		border-radius: 2upx;
 		position: absolute;
-		right: 0;
+		right: -5upx;
+		border: 2upx solid #F5F5F5;
 	}
 
 	.project-details-header-one view:nth-of-type(1) image {
 		width: 100%;
 		height: 100%;
-		border-radius: 50%;
+		border-radius: 2upx;
 	}
 
-	.project-details-header-one view:nth-of-type(2) {
+	.project-details-header-one>view:nth-of-type(2) {
 		width: 80%;
 		/* height: 150upx; */
 		/* margin-top: 30upx; */
@@ -517,27 +528,27 @@
 		white-space: nowrap; //溢出不换行
 	}
 
-	.project-details-header-one view:nth-of-type(2) span:nth-of-type(1) {
+	.project-details-header-one>view:nth-of-type(2)>span:nth-of-type(1) {
 		display: block;
 		font-size: 40upx;
 		color: #2E2E30;
 		width: 300upx;
-		overflow: hidden; //超出的文本隐藏
-		text-overflow: ellipsis; //溢出用省略号显示
-		white-space: nowrap; //溢出不换行
+		margin-top: 15upx;
+
 	}
 
-	.project-details-header-one view:nth-of-type(2) span:nth-of-type(2) {
+	.project-details-header-one>view:nth-of-type(2)>span:nth-of-type(2) {
 		display: block;
 		font-size: 24upx;
 		color: #9B9B9B;
 		width: 100%;
+		margin-top: -10upx;
 		overflow: hidden; //超出的文本隐藏
 		text-overflow: ellipsis; //溢出用省略号显示
 		white-space: nowrap; //溢出不换行
 	}
 
-	.project-details-header-one view:nth-of-type(2) view:nth-of-type(1) {
+	.project-details-header-one>view:nth-of-type(2)>view:nth-of-type(1) {
 		display: flex;
 		width: 470upx;
 		height: 25upx;
@@ -545,50 +556,60 @@
 		margin-left: -20upx;
 	}
 
-	.project-details-header-one view:nth-of-type(2) view:nth-of-type(1) span:nth-of-type(1) {
-		margin-left: -15upx;
+	.project-details-header-one>view:nth-of-type(2)>view:nth-of-type(1)>span:nth-of-type(1) {
+		margin-left: 22upx;
 		font-size: 24upx;
 		color: #9B9B9B;
-		display: block;
-		width: 150upx;
+		/* display: block; */
+		/* width: 150upx; */
 		height: 30upx;
 		text-align: left;
 		line-height: 25upx;
 		border: 0;
+		margin-top: 4upx;
 	}
 
-	.project-details-header-one view:nth-of-type(2) view:nth-of-type(1) span:nth-of-type(2) {
+	.project-details-header-one>view:nth-of-type(2)>view:nth-of-type(1)>span:nth-of-type(2) {
 		margin-left: 10upx;
 		font-size: 24upx;
 		color: #9B9B9B;
 		border-left: 2upx solid #9B9B9B;
 		display: block;
 		line-height: 25upx;
-		padding-left: 25upx;
-		margin-left: 10upx;
+		padding-left: 15upx;
+		margin-top: 4upx;
 	}
-	.shanglun{
+
+	.shanglun {
 		width: 300upx;
 		height: 100upx;
-		margin-top: 40upx;
+		margin-top: 20upx;
 		font-size: 24upx;
 		color: #9B9B9B;
 	}
-	.shanglun-lunshu{
-		position: absolute;
-		top: 30upx;
-		left: 25upx;
+
+	.shanglun>view:nth-of-type(1) {
+		display: flex;
+		margin-top: 3upx;
+		margin-left: 5upx;
+	}
+
+	.shanglun-lunshu {
+		/* position: absolute; */
+		margin-top: 0upx;
+		margin-left: 0upx;
 		height: 30upx;
-		width: 100upx;
+		/* 		width: 100upx; */
 		font-size: 24upx;
 		color: black;
 		line-height: 30upx;
 		border-radius: 0;
 	}
-	.shanglun-lunshu2{
-		position: absolute;
-		top: 0upx;
-		left: 120upx;
+
+	.shanglun-lunshu2 {
+		/* position: absolute; */
+		margin-top: 0upx;
+		margin-left: 20upx;
 		height: 25upx;
 		width: 200upx;
 		font-size: 24upx;
@@ -597,34 +618,35 @@
 		border-left: 2upx solid #9B9B9B;
 		padding-left: 20upx;
 	}
-	.shanglun-lunshu4{
-		position: absolute;
-		top: 30upx;
-		left: 25upx;
+
+	.shanglun-lunshu4 {
+		margin-top: 0upx;
+		margin-left: 0upx;
 		height: 30upx;
-		width: 50upx;
+		width: 25upx;
 		font-size: 24upx;
 		color: black;
 		line-height: 30upx;
 		border-radius: 0;
 	}
-	.shanglun-lunshu5{
-		position: absolute;
-		top: 0upx;
-		left: 50upx;
+
+	.shanglun-lunshu5 {
+		margin-top: 0upx;
+		margin-left: 20upx;
 		height: 25upx;
-		width: 50upx;
+		width: 100upx;
 		font-size: 24upx;
 		color: black;
 		line-height: 25upx;
 		border-left: 2upx solid #9B9B9B;
 		padding-left: 20upx;
 	}
+
 	.bianji {
 		font-size: 26upx;
 		color: #02C2A2;
 		position: absolute;
-		right: 0upx;
+		right: 5upx;
 		top: 190upx;
 		font-weight: 700;
 	}
@@ -712,6 +734,7 @@
 	.project-details-BP-one view:nth-of-type(1) {
 		font-size: 34upx;
 		color: #2E2E30;
+		font-weight: bold;
 	}
 
 	.project-details-BP-one view:nth-of-type(2) {
