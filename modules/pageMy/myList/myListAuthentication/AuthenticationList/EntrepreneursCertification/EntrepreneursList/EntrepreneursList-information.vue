@@ -51,7 +51,8 @@
 			</view>
 			<view class="right BI-items-right">
 				<view class="BI-text-right">
-					<view class="zitia" v-if="!logo">点击上传</view>
+					<view class="zitia" v-if="logo==''">点击上传</view>
+					<image class="zitiaa" v-if="logo" :src="logo"></image>
 					<view class="Img-logo">
 						<!-- 图片上传 -->
 						<view class="Img-Upload">
@@ -92,6 +93,7 @@
 				xin:this.Static + 'mbcImg/common/xing.png',
 				right:this.Static + 'mbcImg/my/right.png',
 				imageData : [],
+				img:[],
 				serverUrl: 'https://img01.iambuyer.com/imgup/upLoad/fileUpload'
 			};
 		},
@@ -101,7 +103,7 @@
 		computed: {
 		},
 		created() {
-			console.log('在组件中并不能使用页面生命周期函数');
+			this.getUserxin();
 		},
 		mounted() {
 		},
@@ -126,6 +128,48 @@
 							console.log(response.data);
 							this.List=response.data.content
 							this.$store.commit('setheader', this.List); // 更新vuex
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
+			getUserxin() {
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					// let params = {}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/auth/dateil?userId=' + landRegistLG.user.id, //接口地址。
+						// data: this.endParams(params),
+						method: 'GET',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							uni.hideLoading();
+							console.log(response.data.content);
+							if(response.data.content.authState !=='-1'){
+								this.name=response.data.content.userName
+								this.wx=response.data.content.wxCode
+								this.mailbox=response.data.content.userEmail
+								this.project=response.data.content.projName
+								this.company=response.data.content.compName
+								this.position=response.data.content.userPosition
+								// this.imageData=response.data.content.img
+								this.logo=response.data.content.img
+								console.log(this.imageData)
+							}
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -270,6 +314,16 @@
 		top: 30upx;
 		font-size: 30upx !important;
 		color: #D2D2D2
+	}
+	.zitiaa{
+		position: absolute;
+		right: 50upx !important;
+		height: 30upx;
+		top: 20upx;
+		font-size: 30upx !important;
+		color:#D2D2D2;
+		width:80upx;
+		height: 80upx;
 	}
 	.BI-items {
 		position: relative;
