@@ -102,6 +102,7 @@
 		color: #2E2E30;
 		letter-spacing: 0;
 		line-height: 68upx;
+		font-weight: bold;
 	}
 	.pP-num{
 		position: relative;

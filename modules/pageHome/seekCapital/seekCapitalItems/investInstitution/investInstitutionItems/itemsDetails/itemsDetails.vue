@@ -210,4 +210,7 @@
 	.itemsDetails-content{
 		margin-bottom: 200upx;
 	}
+	.scroll-Y{
+		height: 100vh;
+	}
 </style>

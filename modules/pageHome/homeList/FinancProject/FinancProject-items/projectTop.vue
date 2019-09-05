@@ -75,17 +75,19 @@
 		margin-bottom: 20upx;
 	}
 	.img-projectTop{
-		position: relative;
+		position: absolute;
 		width: 25%;
+		right: 0;
+		top: 0;
 	}
 	.img-projectTop>image{
-		position: fixed;
+		position: absolute;
 		width: 90upx;
 		height: 90upx;
 		border-radius: 10upx;
 		margin: 0 auto;
-		top: 60upx;
-		right:60upx ;
+		top: 0upx;
+		right:0upx ;
 	}
 	.text-projectTop{
 		position: relative;
@@ -99,6 +101,7 @@
 		color: #2E2E30;
 		letter-spacing: 0;
 		line-height: 80upx;
+		font-weight: bold;
 	}
 	.ins{
 		position: relative;

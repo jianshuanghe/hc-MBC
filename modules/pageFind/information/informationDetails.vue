@@ -265,6 +265,7 @@
 		color: #2E2E30;
 		line-height: 50upx;
 		margin: 20upx 0;
+		font-weight: bold;
 	}
 	.AD-items{
 		position: relative;

@@ -82,11 +82,11 @@
 				type: Object
 			}
 		},
-		mounted() {
-			console.log(this.msgData, '子组件获取的数据2');
-			this.getClickRecord();
-			this.getUserType();
-		},
+		// mounted() {
+		// 	console.log(this.msgData, '子组件获取的数据2');
+		// 	this.getClickRecord();
+		// 	this.getUserType();
+		// },
 		computed: {
           ...mapGetters(['ENTRUSSHOW', 'ENTRUST'])
         },
@@ -103,10 +103,12 @@
 			console.log(this.ENTRUST, 'ENTRUST')
 		},
 		mounted () {
+			this.getClickRecord();
 			if (uni.getStorageSync('modelId')) {
 				this.msgData.modelId = uni.getStorageSync('modelId')
 			}
 			this.getUserApply(this.msgData.modelId);
+			this.getUserData();
 		},
 		beforeDestroy () {
 			console.log('页面销毁之前缓存数据')
@@ -164,6 +166,43 @@
 					this.authState = UserData.authState; // -1 未认证 0 待审核 1审核通过 2 审核失败
 					this.userType = UserData.userType; // 用户类型  -1 未认证 0 创业者 1 个人投资人 2 机构投资人
 				}
+			},
+			getUserData () {
+			  console.log('获取用户信息，全部');
+			  let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+			  console.log(landRegistLG.user.id);
+				uni.request({
+					url: this.api2 + '/user/' + landRegistLG.user.id, //接口地址。
+					data: {},
+					header: {
+						Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
+					},
+					success: (response) => {
+						console.log(response.data);
+						if (String(response.data.code) === '200') {
+						  let UserData = response.data.content;
+						  this.$store.commit('setheader', UserData); // 更新setheader
+						  uni.setStorageSync('UserData', JSON.stringify(UserData)); // 缓存用户信息
+						  this.getUserType();
+						} else {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: response.data.msg,
+								icon: 'none',
+								duration: 500
+							});
+						}
+					},
+					fail: (error) => {
+						uni.hideLoading(); // 隐藏 loading
+						uni.showToast({
+							title: '网络繁忙，请稍后',
+							icon: 'none',
+							duration: 1000
+						});
+						console.log(error, '网络繁忙，请稍后');
+					}
+				});
 			},
 			clickBPshow () {
 				console.log('触发预览BP');

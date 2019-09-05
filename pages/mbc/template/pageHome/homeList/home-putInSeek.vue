@@ -132,6 +132,7 @@
     color: #2E2E30;
     letter-spacing: 0.38upx;
     line-height: 38upx;
+	font-weight: bold;
   }
   .text-box{
     font-family: PingFangSC-Regular;

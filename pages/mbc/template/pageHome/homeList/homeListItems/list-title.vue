@@ -102,5 +102,6 @@
 	font-size: 34upx !important;
 	color: #2E2E30 !important;
 	line-height: 66upx !important;
+	font-weight: bold;
   }
 </style>
