@@ -172,6 +172,7 @@
 		display: block;
 		width: 100%;
 		height: 100%;
+		font-weight: bold;
 	}
 
 	.Informationname view:nth-of-type(1) view:nth-of-type(2) {

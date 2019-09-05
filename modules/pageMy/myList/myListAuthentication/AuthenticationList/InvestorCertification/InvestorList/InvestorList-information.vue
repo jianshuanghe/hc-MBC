@@ -281,7 +281,7 @@
 								if (this.picker !== '请输入') {
 									this.lunci = true
 								}
-								this.paramsPC.ptext = response.data.content.pCodeStr
+								this.paramsPC.ptext = response.data.content.pCodeStr+'-'+response.data.content.cCodeStr
 								if (response.data.content.userType == 1) {
 									this.pickerValue1 = '个人投资人'
 								}
@@ -401,6 +401,7 @@
 							this.province.index = indexPC; // 记录用户选择是省份index
 							this.province.text = item.name; // 省份 ----- 用户原则的省份
 							this.province.pcode = item.value; //code ----用户选择的省份code
+							
 						};
 					});
 					this.areaPorC.city.map((items, index) => {
@@ -615,7 +616,7 @@
 							fields: this.id1,
 							userCard: this.logo,
 							pCode: this.province.pcode,
-							cCode: this.province.ccode
+							cCode: this.city.ccode
 						}; // 请求总数居时 参数为空
 						uni.showLoading({ // 展示loading
 							title: '加载中'
@@ -660,7 +661,7 @@
 							fields: this.id1,
 							userCard: this.logo,
 							pCode: this.province.pcode,
-							cCode: this.province.ccode,
+							cCode: this.city.ccode,
 							position: this.position,
 							mechId: this.picid
 						}; // 请求总数居时 参数为空

@@ -5,7 +5,7 @@
 				<view class="mustFill">
 					<image :src='xin'></image>
 				</view>
-				<view class="BI-text-left">上传名片</view>
+				<view class="BI-text-left">上传照片</view>
 			</view>
 			<view class="right BI-items-right">
 				<view class="BI-text-right">
