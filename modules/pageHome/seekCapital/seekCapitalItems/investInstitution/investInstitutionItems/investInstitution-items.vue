@@ -118,6 +118,7 @@
 		font-size: 24upx;
 		color: #5D5D5D;
 		line-height: 40upx;
+		margin-top: 10upx;
 	}
 	.II-insr .mbc .mbc-text{
 		font-family: PingFangSC-Regular;

@@ -354,7 +354,7 @@
 		color: #00AF92;
 		letter-spacing: 0;
 		line-height: 27upx;
-		padding: 4upx 8upx 6upx 4upx;
+		padding: 4upx 8upx 6upx 6upx;
 		margin-left: 10upx;
 		top: 2upx;
 		/* transform: scale(.8); */
