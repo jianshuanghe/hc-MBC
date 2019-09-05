@@ -65,9 +65,9 @@
 
 <style>
 	.historyThree-BP{
-		width:250upx;
-		min-height: 100%;
-		background: #FFFFFF;
+		width: 250upx;
+		height: 100%;
+		/* background: red; */
 		text-align: center;
 	}
 	.historyThree-BP span:nth-of-type(1){

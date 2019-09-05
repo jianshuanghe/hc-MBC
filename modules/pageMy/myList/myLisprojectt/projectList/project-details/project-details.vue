@@ -1,7 +1,7 @@
 <template>
-	<view class="project-details">
-		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
-		@scroll="scroll">
+	<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
+	@scroll="scroll">
+		<view class="project-details">
 			<view class="project-details-header">
 				<view class="project-details-header-one">
 					<view>
@@ -10,20 +10,25 @@
 					<view>
 						<span>{{arr.projName}}</span>
 						<span>{{arr.projSlogan}}</span>
-						<view>
+						<view class="eirongs">
 							<span>{{arr.fieldCode}}</span>
 							<span>{{arr.pcode}}</span>
 						</view>
 						<view class="shanglun" v-if="history.projCapis.length!==0">
 							上轮获投情况
-							<view class="shanglun-lunshu">{{history.projCapis[0].levelCode}}</view>
-							<view v-if="history.projCapis[0].capiMoney!==''" class="shanglun-lunshu2">{{history.projCapis[0].capiMoney}}万元</view>
-							<view v-if="history.projCapis[0].capiMoney==''" class="shanglun-lunshu2">金额未披露</view>
+							<view>
+								<view class="shanglun-lunshu">{{history.projCapis[0].levelCode}}</view>
+								<view v-if="history.projCapis[0].capiMoney!==''" class="shanglun-lunshu2">{{history.projCapis[0].capiMoney}}万元</view>
+								<view v-if="history.projCapis[0].capiMoney==''" class="shanglun-lunshu2">金额未披露</view>
+							</view>
+
 						</view>
 						<view class="shanglun" v-if="history.projCapis.length==0">
 							上轮获投情况
-							<view class="shanglun-lunshu4">无</view>
-							<view class="shanglun-lunshu5">无</view>
+							<view>
+								<view class="shanglun-lunshu4">无</view>
+								<view class="shanglun-lunshu5">无</view>
+							</view>
 						</view>
 					</view>
 					<view class="bianji" @tap="gotomy">编辑</view>
@@ -109,7 +114,8 @@
 						<span>{{inss.capiStartime|forma}}</span>
 					</view>
 					<view>
-						<span>金额：{{inss.capiMoney}}万</span>
+						<span v-if="inss.capiMoney!==''">金额：{{inss.capiMoney}}万</span>
+						<span v-if="inss.capiMoney==''">无</span>
 						<span>在融轮次：{{inss.levelCode}}</span>
 						<span>{{inss.capiInveCompName}}</span>
 					</view>
@@ -177,8 +183,9 @@
 					</view>
 				</view>
 			</view> -->
-		</scroll-view>
-	</view>
+		</view>
+
+	</scroll-view>
 </template>
 
 <script>
@@ -250,18 +257,16 @@
 				return MM;
 			}
 		},
-
 		watch: {
 			GET_MY: {
 				handler(a, b) {
 					// console.log(a,b)
 					this.arr = a.MyList.Company;
 					this.history = a.MyList.History
-					console.log(this.history,'lian')
+					console.log(this.history, 'lian')
 				},
 				deep: true
 			},
-
 		},
 		computed: {
 			...mapGetters(['GET_MY'])
@@ -381,9 +386,7 @@
 							this.arr = response.data.content
 							this.$store.commit('setCompany', this.arr);
 							this.$store.commit('setHistory', this.arr);
-
 							console.log(this.arr)
-
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -462,6 +465,9 @@
 </script>
 
 <style>
+	.eirongs {
+		margin-top: 50upx;
+	}
 	.tou {
 		display: none;
 	}
@@ -471,7 +477,6 @@
 		background: #FFFFFF;
 		padding: 2upx;
 	}
-
 	.project-details-header {
 		width: 90%;
 		min-height: 304upx;
@@ -482,7 +487,6 @@
 		border-radius: 8upx;
 		padding-bottom: 20upx;
 	}
-
 	.project-details-header-one {
 		margin: 0 auto;
 		width: 90%;
@@ -492,24 +496,21 @@
 		display: flex;
 		position: relative;
 	}
-
-	.project-details-header-one view:nth-of-type(1) {
+	.project-details-header-one>view:nth-of-type(1) {
 		width: 84upx;
 		height: 84upx;
-		margin-left: 10upx;
-		margin-top: 62upx;
-		border-radius: 50%;
+		margin-top: 25upx;
+		border-radius: 2upx;
 		position: absolute;
-		right: 0;
+		right: -5upx;
+		border: 2upx solid #F5F5F5;
 	}
-
 	.project-details-header-one view:nth-of-type(1) image {
 		width: 100%;
 		height: 100%;
-		border-radius: 50%;
+		border-radius: 2upx;
 	}
-
-	.project-details-header-one view:nth-of-type(2) {
+	.project-details-header-one>view:nth-of-type(2) {
 		width: 80%;
 		/* height: 150upx; */
 		/* margin-top: 30upx; */
@@ -519,79 +520,79 @@
 		text-overflow: ellipsis; //溢出用省略号显示
 		white-space: nowrap; //溢出不换行
 	}
-
-	.project-details-header-one view:nth-of-type(2) span:nth-of-type(1) {
+	.project-details-header-one>view:nth-of-type(2)>span:nth-of-type(1) {
 		display: block;
 		font-size: 40upx;
 		color: #2E2E30;
 		width: 300upx;
-		overflow: hidden; //超出的文本隐藏
-		text-overflow: ellipsis; //溢出用省略号显示
-		white-space: nowrap; //溢出不换行
+		margin-top: 15upx;
 	}
-
-	.project-details-header-one view:nth-of-type(2) span:nth-of-type(2) {
+	.project-details-header-one>view:nth-of-type(2)>span:nth-of-type(2) {
 		display: block;
 		font-size: 24upx;
 		color: #9B9B9B;
 		width: 100%;
+		margin-top: -10upx;
 		overflow: hidden; //超出的文本隐藏
 		text-overflow: ellipsis; //溢出用省略号显示
 		white-space: nowrap; //溢出不换行
 	}
-
-	.project-details-header-one view:nth-of-type(2) view:nth-of-type(1) {
+	.project-details-header-one>view:nth-of-type(2)>view:nth-of-type(1) {
 		display: flex;
 		width: 470upx;
 		height: 25upx;
 		margin-top: 10upx;
 		margin-left: -20upx;
 	}
-
-	.project-details-header-one view:nth-of-type(2) view:nth-of-type(1) span:nth-of-type(1) {
-		margin-left: -15upx;
+	.project-details-header-one>view:nth-of-type(2)>view:nth-of-type(1)>span:nth-of-type(1) {
+		margin-left: 22upx;
 		font-size: 24upx;
 		color: #9B9B9B;
-		display: block;
-		width: 150upx;
+		/* display: block; */
+		/* width: 150upx; */
 		height: 30upx;
 		text-align: left;
 		line-height: 25upx;
 		border: 0;
+		margin-top: 4upx;
 	}
-
-	.project-details-header-one view:nth-of-type(2) view:nth-of-type(1) span:nth-of-type(2) {
+	.project-details-header-one>view:nth-of-type(2)>view:nth-of-type(1)>span:nth-of-type(2) {
 		margin-left: 10upx;
 		font-size: 24upx;
 		color: #9B9B9B;
 		border-left: 2upx solid #9B9B9B;
 		display: block;
 		line-height: 25upx;
-		padding-left: 25upx;
-		margin-left: 10upx;
+		padding-left: 15upx;
+		margin-top: 4upx;
 	}
-	.shanglun{
+	.shanglun {
 		width: 300upx;
 		height: 100upx;
-		margin-top: 40upx;
+		margin-top: 20upx;
 		font-size: 24upx;
 		color: #9B9B9B;
 	}
-	.shanglun-lunshu{
-		position: absolute;
-		top: 30upx;
-		left: 25upx;
+	.shanglun>view:nth-of-type(1) {
+		display: flex;
+		margin-top: 3upx;
+		margin-left: 5upx;
+	}
+	.shanglun-lunshu {
+		/* position: absolute; */
+		margin-top: 0upx;
+		margin-left: 0upx;
 		height: 30upx;
-		width: 100upx;
+		/* 		width: 100upx; */
 		font-size: 24upx;
 		color: black;
 		line-height: 30upx;
 		border-radius: 0;
 	}
-	.shanglun-lunshu2{
-		position: absolute;
-		top: 0upx;
-		left: 120upx;
+	.shanglun-lunshu2 {
+		/* position: absolute; */
+		margin-top: 0upx;
+		margin-left: 20upx;
 		height: 25upx;
 		width: 200upx;
 		font-size: 24upx;
@@ -600,23 +601,21 @@
 		border-left: 2upx solid #9B9B9B;
 		padding-left: 20upx;
 	}
-	.shanglun-lunshu4{
-		position: absolute;
-		top: 30upx;
-		left: 25upx;
+	.shanglun-lunshu4 {
+		margin-top: 0upx;
+		margin-left: 0upx;
 		height: 30upx;
-		width: 50upx;
+		width: 25upx;
 		font-size: 24upx;
 		color: black;
 		line-height: 30upx;
 		border-radius: 0;
 	}
-	.shanglun-lunshu5{
-		position: absolute;
-		top: 0upx;
-		left: 50upx;
+	.shanglun-lunshu5 {
+		margin-top: 0upx;
+		margin-left: 20upx;
 		height: 25upx;
-		width: 50upx;
+		width: 100upx;
 		font-size: 24upx;
 		color: black;
 		line-height: 25upx;
@@ -627,11 +626,10 @@
 		font-size: 26upx;
 		color: #02C2A2;
 		position: absolute;
-		right: 0upx;
+		right: 5upx;
 		top: 190upx;
 		font-weight: 700;
 	}
-
 	.project-details-header-two {
 		width: 80%;
 		min-height: 60upx;
@@ -642,7 +640,6 @@
 		flex-wrap: wrap;
 		/* background: red; */
 	}
-
 	.project-details-header-two span {
 		padding: 8upx 12upx 8upx 12upx;
 		/* padding: 0 20upx; */
@@ -655,11 +652,9 @@
 		display: block;
 		/* min-width: 100upx; */
 	}
-
 	.project-details-header-two span:nth-of-type(1) {
 		margin-left: 0upx;
 	}
-
 	.project-details-header-two view:nth-of-type(1) {
 		font-size: 26upx;
 		color: #02C2A2;
@@ -668,7 +663,6 @@
 		top: 0upx;
 		font-weight: 700;
 	}
-
 	.project-details-header-twos {
 		height: 60upx;
 		width: 80%;
@@ -678,7 +672,6 @@
 		position: relative;
 		/* background: red; */
 	}
-
 	.project-details-header-twos span {
 		padding: 8upx 12upx 8upx 12upx;
 		font-size: 20upx;
@@ -688,7 +681,6 @@
 		margin-top: 30upx;
 		/* min-width: 100upx; */
 	}
-
 	.project-details-header-twos view:nth-of-type(1) {
 		font-size: 26upx;
 		color: #02C2A2;
@@ -697,13 +689,11 @@
 		top: 0upx;
 		font-weight: 700;
 	}
-
 	.project-details-BP {
 		width: 90%;
 		height: 260upx;
 		margin: 60upx auto auto auto;
 	}
-
 	.project-details-BP-one {
 		width: 100%;
 		height: 60upx;
@@ -711,12 +701,11 @@
 		line-height: 60upx;
 		position: relative;
 	}
-
 	.project-details-BP-one view:nth-of-type(1) {
 		font-size: 34upx;
 		color: #2E2E30;
+		font-weight: bold;
 	}
-
 	.project-details-BP-one view:nth-of-type(2) {
 		font-size: 26upx;
 		color: #02C2A2;
@@ -724,52 +713,44 @@
 		top: 10upx;
 		position: absolute;
 	}
-
 	.project-details-BP-two {
 		width: 100%;
 		height: 240upx;
 		padding: 2upx;
 		display: flex;
 	}
-
 	.project-details-BP-two view:nth-of-type(1) {
 		width: 90upx;
 		height: 90upx;
 		margin-top: 30upx;
 	}
-
 	.project-details-BP-two view:nth-of-type(1) image {
 		width: 100%;
 		height: 100%;
 		border-radius: 50%;
 	}
-
 	.project-details-BP-two view:nth-of-type(2) {
 		width: 83%;
 		margin-left: 30upx;
 		height: 120upx;
 		margin-top: 30upx;
 	}
-
 	.project-details-BP-two view:nth-of-type(2) span:nth-of-type(1) {
 		font-size: 30upx;
 		color: #2E2E30;
 		display: block;
 		line-height: 40upx;
 	}
-
 	.project-details-BP-two view:nth-of-type(2) span:nth-of-type(2) {
 		font-size: 24upx;
 		color: #9B9B9B;
 		display: block;
 	}
-
 	.jianxi {
 		width: 100%;
 		height: 30upx;
 		background: #F9F9F9;
 	}
-
 	.project-details-data {
 		width: 100%;
 		min-height: 300upx;
@@ -777,7 +758,6 @@
 		background: #FFFFFF;
 		position: relative;
 	}
-
 	.project-details-data-bianji {
 		font-size: 34upx;
 		color: #2E2E30;
@@ -785,7 +765,6 @@
 		padding-left: 30upx;
 		font-weight: 700;
 	}
-
 	.project-details-data-imges {
 		width: 90%;
 		/* height: 200upx; */
@@ -793,14 +772,12 @@
 		margin-top: 40upx;
 		display: flex;
 		justify-content: space-between;
-		border-bottom: 2upx solid #E2E2E2;
+		border-bottom: 2upx solid #F5F5F5;
 	}
-
 	.project-details-data-imges-one image {
 		width: 200upx;
 		height: 150upx;
 	}
-
 	.project-details-data-two {
 		width: 90%;
 		min-height: 150upx;
@@ -808,7 +785,6 @@
 		padding-bottom: 20upx;
 		border-bottom: 2upx solid #F5F5F5;
 	}
-
 	.project-details-data-thre {
 		width: 90%;
 		min-height: 150upx;
@@ -816,7 +792,6 @@
 		padding-bottom: 20upx;
 		border-bottom: 2upx solid #F5F5F5;
 	}
-
 	.project-details-data-thre view:nth-of-type(1) {
 		width: 100%;
 		height: 30upx;
@@ -825,7 +800,6 @@
 		padding-top: 20upx;
 		font-weight: 700;
 	}
-
 	.project-details-data-thre view:nth-of-type(2) {
 		width: 100%;
 		min-height: 30upx;
@@ -834,7 +808,6 @@
 		line-height: 34upx;
 		padding-top: 20upx;
 	}
-
 	.project-details-data-two view:nth-of-type(1) {
 		width: 100%;
 		height: 30upx;
@@ -843,7 +816,6 @@
 		padding-top: 20upx;
 		font-weight: 700;
 	}
-
 	.project-details-data-two view:nth-of-type(2) {
 		width: 100%;
 		min-height: 30upx;
@@ -852,7 +824,6 @@
 		line-height: 34upx;
 		padding-top: 40upx;
 	}
-
 	.project-details-data-bian {
 		font-size: 26upx;
 		color: #02C2A2;
@@ -861,7 +832,6 @@
 		top: 52upx;
 		font-weight: 700;
 	}
-
 	.project-details-data-brief {
 		margin: 40upx auto 0 auto;
 		width: 300upx;
@@ -873,7 +843,6 @@
 		font-size: 28upx;
 		color: #02C2A2;
 	}
-
 	.demand {
 		width: 100%;
 		min-height: 200upx;
@@ -881,7 +850,6 @@
 		position: relative;
 		padding-bottom: 40upx;
 	}
-
 	.demand view:nth-of-type(1) {
 		font-size: 34upx;
 		color: #2E2E30;
@@ -889,14 +857,12 @@
 		padding-left: 30upx;
 		font-weight: 700;
 	}
-
 	.demand-two {
 		font-size: 28upx;
 		color: #5D5D5D;
 		padding-top: 20upx;
 		padding-left: 40upx;
 	}
-
 	.demand-bian {
 		font-size: 26upx;
 		color: #02C2A2;
@@ -905,7 +871,6 @@
 		top: 52upx;
 		font-weight: 700;
 	}
-
 	.demand-an {
 		margin: 40upx auto 0 auto;
 		width: 300upx;
@@ -917,13 +882,11 @@
 		font-size: 28upx;
 		color: #02C2A2;
 	}
-
 	.project-details-company {
 		width: 100%;
 		min-height: 300upx;
 		position: relative;
 	}
-
 	.project-details-company view:nth-of-type(1) {
 		font-size: 34upx;
 		font-weight: 700;
@@ -931,7 +894,6 @@
 		padding-top: 40upx;
 		padding-left: 30upx;
 	}
-
 	.project-details-company-two {
 		font-size: 28upx;
 		color: #2E2E30;
@@ -939,21 +901,18 @@
 		padding-top: 18upx;
 		padding-left: 30upx;
 	}
-
 	.project-details-company-thre {
 		font-size: 28upx;
 		color: #5D5D5D;
 		padding-top: 0upx;
 		padding-left: 35upx;
 	}
-
 	.project-details-company-one {
 		width: 90%;
 		border-top: 2upx solid #E2E2E2;
 		height: 120upx;
 		margin: 20upx auto auto auto;
 	}
-
 	.project-details-company-one view:nth-of-type(1) {
 		font-size: 28upx;
 		color: #2E2E30;
@@ -963,7 +922,6 @@
 		width: 100%;
 		height: 40upx;
 	}
-
 	.project-details-company-one view:nth-of-type(2) {
 		font-size: 28upx;
 		color: #5D5D5D;
@@ -973,7 +931,6 @@
 		text-overflow: ellipsis; //溢出用省略号显示
 		white-space: nowrap; //溢出不换行
 	}
-
 	.gongsi {
 		font-size: 26upx;
 		color: #02C2A2;
@@ -982,11 +939,9 @@
 		top: 52upx;
 		font-weight: 700;
 	}
-
 	.project-details-link {
 		width: 100%;
 	}
-
 	.project-details-link view:nth-of-type(1) {
 		font-size: 34upx;
 		color: #2E2E30;
@@ -994,7 +949,6 @@
 		padding-left: 30upx;
 		font-weight: 700;
 	}
-
 	.project-details-link view:nth-of-type(2) {
 		font-size: 28upx;
 		color: #2E2E30;
@@ -1002,9 +956,8 @@
 		padding-left: 30upx;
 		font-weight: 700;
 	}
-
 	.button-an {
-		margin: 40upx auto 0 auto;
+		margin: 30upx auto 0 auto;
 		width: 300upx;
 		height: 80upx;
 		border: 2upx solid #02C2A2;
@@ -1014,14 +967,12 @@
 		font-size: 28upx;
 		color: #02C2A2;
 	}
-
 	.add {
 		width: 90%;
 		margin: 0 auto;
 		margin-top: 10upx;
 		display: inline-block;
 	}
-
 	.add span {
 		height: 80upx;
 		font-size: 28upx;
@@ -1034,14 +985,12 @@
 		display: block;
 		margin-top: 20upx;
 	}
-
 	.team {
 		width: 100%;
 		min-height: 300upx;
 		background: #FFFFFF;
 		padding-bottom: 20upx;
 	}
-
 	.team view:nth-of-type(1) {
 		font-size: 34upx;
 		color: #2E2E30;
@@ -1049,28 +998,24 @@
 		padding-left: 30upx;
 		font-weight: 700;
 	}
-
 	.team-cheng {
 		width: 90%;
 		height: 176upx;
-		border-bottom: 2upx solid #E2E2E2;
+		border-bottom: 2upx solid #F5F5F5;
 		margin: 0 auto;
 		display: flex;
 	}
-
 	.team-cheng view:nth-of-type(1) {
 		width: 88upx;
 		height: 88upx;
 		border-radius: 50%;
 		margin-left: 0;
 	}
-
 	.team-cheng view:nth-of-type(1) image {
 		width: 100%;
 		height: 100%;
 		border-radius: 50%;
 	}
-
 	.team-cheng view:nth-of-type(2) {
 		width: 450upx;
 		height: 88upx;
@@ -1082,12 +1027,10 @@
 		text-overflow: ellipsis; //溢出用省略号显示
 		white-space: nowrap; //溢出不换行
 	}
-
 	.team-cheng view:nth-of-type(2) span:nth-of-type(1) {
 		font-size: 32upx;
 		color: #2E2E30;
 	}
-
 	.team-cheng view:nth-of-type(2) span:nth-of-type(2) {
 		font-size: 24upx;
 		color: #9B9B9B;
@@ -1099,14 +1042,12 @@
 		line-height: 7upx;
 		margin-top: 15upx;
 	}
-
 	.team-cheng view:nth-of-type(2) span:nth-of-type(3) {
 		font-size: 12px;
 		color: #5D5D5D;
 		position: absolute;
 		top: 50upx;
 	}
-
 	.team-cheng view:nth-of-type(3) {
 		width: 80upx;
 		text-align: right;
@@ -1116,14 +1057,12 @@
 		margin-right: 0;
 		font-weight: 700;
 	}
-
 	.history {
 		width: 100%;
 		min-height: 300upx;
 		background: #FFFFFF;
 		padding-bottom: 20upx;
 	}
-
 	.history view:nth-of-type(1) {
 		font-size: 34upx;
 		color: #2E2E30;
@@ -1131,15 +1070,13 @@
 		padding-left: 30upx;
 		font-weight: 700;
 	}
-
 	.history-cheng {
 		width: 90%;
 		height: 176upx;
-		border-bottom: 2upx solid #E2E2E2;
+		border-bottom: 2upx solid #F5F5F5;
 		margin: 0 auto;
 		display: flex;
 	}
-
 	.history-cheng view:nth-of-type(1) {
 		width: 70upx;
 		height: 70upx;
@@ -1149,7 +1086,6 @@
 		position: relative;
 		text-align: center;
 	}
-
 	.history-cheng view:nth-of-type(1) span:nth-of-type(1) {
 		font-size: 38upx;
 		color: #2E2E30;
@@ -1160,7 +1096,6 @@
 		width: 100%;
 		height: 50%;
 	}
-
 	.history-cheng view:nth-of-type(1) span:nth-of-type(2) {
 		font-size: 38upx;
 		color: #9B9B9B;
@@ -1170,23 +1105,19 @@
 		width: 100%;
 		height: 50%;
 	}
-
 	.history-cheng view:nth-of-type(2) {
 		width: 70%;
 		height: 100%;
 		margin-left: 20upx;
 	}
-
 	.history-cheng view:nth-of-type(2) span {
 		display: block;
 		font-size: 26upx;
 		color: #5D5D5D;
 	}
-
 	.history-cheng view:nth-of-type(2) span:nth-of-type(1) {
 		margin-top: 10upx;
 	}
-
 	.history-cheng view:nth-of-type(2) span:nth-of-type(3) {
 		width: 500upx;
 		font-size: 26upx;
@@ -1195,7 +1126,6 @@
 		text-overflow: ellipsis; //溢出用省略号显示
 		white-space: nowrap; //溢出不换行
 	}
-
 	.history-cheng view:nth-of-type(3) {
 		width: 80upx;
 		text-align: right;
@@ -1205,12 +1135,9 @@
 		margin-right: 0;
 		font-weight: 700;
 	}
-
-
 	.zhe {
 		display: none;
 	}
-
 	.Mask {
 		position: fixed;
 		top: 0;
@@ -1219,7 +1146,6 @@
 		background: #000000;
 		background-color: rgba(000, 000, 0, 0.2);
 	}
-
 	.Mask-box {
 		width: 100%;
 		height: 540upx;
@@ -1227,15 +1153,13 @@
 		bottom: 0;
 		background: #FFFFFF;
 	}
-
 	.Mask-box-header {
 		width: 100%;
 		height: 112upx;
-		border-bottom: 2upx solid #E2E2E2;
+		border-bottom: 2upx solid #F5F5F5;
 		display: flex;
 		justify-content: space-between;
 	}
-
 	.Mask-box-header view:nth-of-type(1) {
 		width: 150upx;
 		height: 50upx;
@@ -1245,7 +1169,6 @@
 		line-height: 50upx;
 		margin-top: 40upx;
 	}
-
 	.Mask-box-header view:nth-of-type(2) {
 		width: 200upx;
 		height: 50upx;
@@ -1255,7 +1178,6 @@
 		line-height: 50upx;
 		margin-top: 40upx;
 	}
-
 	.Mask-box-header view:nth-of-type(3) {
 		width: 150upx;
 		height: 50upx;
@@ -1265,19 +1187,16 @@
 		line-height: 50upx;
 		margin-top: 40upx;
 	}
-
 	.Mask-box-content {
 		width: 100%;
 		height: 500upx;
 	}
-
 	.Mask-box-content view:nth-of-type(1) {
 		width: 90%;
 		height: 186upx;
-		border-bottom: 2upx solid #E2E2E2;
+		border-bottom: 2upx solid #F5F5F5;
 		margin: 0 auto;
 	}
-
 	.Mask-box-content view:nth-of-type(1) span {
 		padding-top: 42upx;
 		display: block;
@@ -1285,20 +1204,17 @@
 		color: #2E2E30;
 		font-weight: 700;
 	}
-
 	.Mask-box-content view:nth-of-type(1) input {
 		border: 0;
 		width: 100%;
 		height: 100upx;
 	}
-
 	.Mask-box-content view:nth-of-type(2) {
 		width: 90%;
 		height: 186upx;
-		border-bottom: 2upx solid #E2E2E2;
+		border-bottom: 2upx solid #F5F5F5;
 		margin: 0 auto;
 	}
-
 	.Mask-box-content view:nth-of-type(2) span {
 		padding-top: 42upx;
 		display: block;
@@ -1306,7 +1222,6 @@
 		color: #2E2E30;
 		font-weight: 700;
 	}
-
 	.Mask-box-content view:nth-of-type(2) input {
 		border: 0;
 		width: 100%;

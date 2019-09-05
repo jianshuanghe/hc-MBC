@@ -228,12 +228,12 @@
 		width: 84upx;
 		height: 84upx;
 		margin-top: 32upx;
-		border-radius: 50%;
+		border-radius: 2upx;
 	}
 	.projectList-my-one view:nth-of-type(1) image{
 		width: 100%;
 		height: 100%;
-		border-radius: 50%;
+		border-radius: 2upx;
 	}
 	.projectList-my-one view:nth-of-type(2){
 		width: 60%;

@@ -16,17 +16,30 @@
 		computed: {
 			...mapGetters(['GET_MY'])
 		},
+		// watch: {
+		// 	GET_MY: {
+		// 		handler(a, b) {
+		// 			console.log(a, b);
+		// 			// this.Listdata = a.MyList.header;
+		// 			console.log(this.Listdata, '投资选择');
+		// 		},
+		// 		deep: true
+		// 	}
+		// },
 		watch: {
 			GET_MY: {
 				handler(a, b) {
-					console.log(a, b);
+					console.log(a, b)
+					this.Listdata = a.MyList.header;
+					
 				},
 				deep: true
-			}
+			},
+		
 		},
 		created() {
 			this.Listdata = this.GET_MY.MyList.header;
-			console.log(this.Listdata, '投资选择');
+			
 		},
 		methods: {
 			gotoInvestorCertification(e){
@@ -44,6 +57,12 @@
 					console.log('去' + e + '投资人详情');
 					uni.navigateTo({
 						url: '/modules/pageMy/myList/myListAuthentication/AuthenticationList/Certification-status/Certification-status',
+					});
+				}else if(this.Listdata.authState=='2'){
+					console.log('去' + e + '投资人认证');
+					this.status++
+					uni.navigateTo({
+						url: '/modules/pageMy/myList/myListAuthentication/AuthenticationList/InvestorCertification/InvestorCertification',
 					});
 				}else if(this.Listdata.userType=='0'){
 					console.log('您已认证创业者 无法认证投资人')

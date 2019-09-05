@@ -111,11 +111,6 @@
 						success: (response) => {
 							console.log(response.data);
 							uni.hideLoading();
-							// this.news(this.active);
-							// this.hiden=true
-							// // console.log(this.news())
-							// let parmas={}
-							// this.$store.commit('setNews', parmas);
 							let arr = this.active;
 							for( let i in arr.listData) {
 								if (this.id === arr.listData[i].id) {
