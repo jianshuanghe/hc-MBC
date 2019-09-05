@@ -34,8 +34,8 @@
 				</view>
 				<view>常住城市</view>
 				<view>
-					<picker :class="{'tou':tou}" mode="multiSelector" @columnchange="columnChange" @cancel='cancelPC' @change='clickPC' :value="multiIndex"
-					 :range="multiArray" range-key='name'>
+					<picker :class="{'tou':tou}" mode="multiSelector" @columnchange="columnChange" @cancel='cancelPC' @change='clickPC'
+					 :value="multiIndex" :range="multiArray" range-key='name'>
 						<view class="uni-input BI-picker ziti1" :class="paramsPC.ptext ? 'BI-pickered' : ''">{{paramsPC.ptext ? paramsPC.ptext + '-' + paramsPC.ctext : '请选择'}}</view>
 					</picker>
 				</view>
@@ -126,7 +126,8 @@
 			</view>
 			<view class="right BI-items-right">
 				<view class="BI-text-right">
-					<view class="zitia" v-if="!logo">点击上传</view>
+					<view class="zitia" v-if="logo==''">点击上传</view>
+					<image class="zitiaa" v-if="logo" :src="logo"></image>
 					<view class="Img-logo">
 						<!-- 图片上传 -->
 						<view class="Img-Upload">
@@ -160,10 +161,10 @@
 				position: '',
 				hideen: true,
 				logo: '',
-				tou:false,
-				peopo:false,
-				jigou1:false,
-				lunci:false,
+				tou: false,
+				peopo: false,
+				jigou1: false,
+				lunci: false,
 				xin: this.Static + 'mbcImg/common/xing.png',
 				right: this.Static + 'mbcImg/my/right.png',
 				imageData: [],
@@ -219,6 +220,8 @@
 			this.Financinfield()
 			//投资机构
 			this.Finanjigou()
+			//消息返现
+			this.getUserxin()
 			//城市
 			if (uni.getStorageSync('areaPorC')) {
 				this.areaPorC = JSON.parse(uni.getStorageSync('areaPorC'));
@@ -238,6 +241,110 @@
 		},
 		mounted() {},
 		methods: {
+			getUserxin() {
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					// let params = {}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/auth/dateil?userId=' + landRegistLG.user.id, //接口地址。
+						// data: this.endParams(params),
+						method: 'GET',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							uni.hideLoading();
+							console.log(response.data.content);
+							if (response.data.content.authState !== '-1') {
+								this.name = response.data.content.userName
+								this.weixin = response.data.content.wxCode
+								this.mailbox = response.data.content.userEmail
+								this.project = response.data.content.projName
+								this.company = response.data.content.compName
+								this.position = response.data.content.userPosition
+								this.pickerValue1 = response.data.content.mechIdStr
+
+								this.authState = response.data.content.authState;
+
+								// this.imageData=response.data.content.img
+								this.logo = response.data.content.img
+								this.pickerarry = response.data.content.userFieldList[0].name
+								this.pic = response.data.content.mechIdStr
+								if (this.pickerarry !== '请输入') {
+									this.tou = true
+								}
+								this.picker = response.data.content.userLevelList[0].name
+								if (this.picker !== '请输入') {
+									this.lunci = true
+								}
+								this.paramsPC.ptext = response.data.content.pCodeStr
+								if (response.data.content.userType == 1) {
+									this.pickerValue1 = '个人投资人'
+								}
+								if (response.data.content.userType == 2) {
+									this.pickerValue1 = '机构投资人'
+								}
+								if (this.pickerValue1 == '机构投资人') {
+									this.hideen = false
+								}
+								if (this.pickerValue1 !== '请输入') {
+									this.peopo = true
+								}
+								let FainId = response.data.content.userFieldList[0].code
+								console.log(FainId, '融资id');
+								this.arry.map((items, index) => {
+									if (String(FainId) === String(items.id)) {
+										this.pickerarry = items.name;
+										this.id1 = items.id
+										console.log(this.pickerarry, this.id1)
+										if (this.pickerarry !== '请输入') {
+											this.tou = true
+										}
+									}
+								})
+								let leavId = response.data.content.userLevelList[0].code
+								console.log(leavId, '融资id');
+								this.arr.map((items, index) => {
+									if (String(leavId) === String(items.id)) {
+										this.picker = items.name;
+										this.id2 = items.id
+										console.log(this.picker, this.id2)
+										if (this.picker !== '请输入') {
+											this.lunci = true
+										}
+									}
+								})
+								let jigouId = response.data.content.mechId
+								console.log(jigouId)
+								this.jigou.map((items, index) => {
+									console.log(items, index)
+									if (String(jigouId) === String(items.ID)) {
+										this.pic = items.COMP_NAME;
+										this.picid = items.ID
+										console.log(this.picid, this.pic)
+										if (this.pic !== '请输入') {
+											this.jigou1 = true
+										}
+									}
+								})
+							}
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
 			getHeader() {
 				if (uni.getStorageSync('landRegist')) {
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
@@ -256,7 +363,7 @@
 						success: (response) => {
 							uni.hideLoading();
 							console.log(response.data);
-							this.List=response.data.content
+							this.List = response.data.content
 							this.$store.commit('setheader', this.List); // 更新vuex
 						},
 						fail: (error) => {
@@ -342,8 +449,8 @@
 						this.pic = items.COMP_NAME;
 						this.picid = items.ID
 						console.log(this.picid, this.pic)
-						if(this.pic!=='请输入'){
-							this.jigou1=true
+						if (this.pic !== '请输入') {
+							this.jigou1 = true
 						}
 					}
 				})
@@ -353,12 +460,12 @@
 					if (String(index) === String(e.target.value)) {
 						this.pickerValue1 = items;
 						this.touziren = e.target.value
-						if(this.pickerValue1!=='请输入'){
-							this.peopo=true
+						if (this.pickerValue1 !== '请输入') {
+							this.peopo = true
 						}
 						if (this.pickerValue1 == '机构投资人') {
 							this.hideen = false
-						}else if(this.pickerValue1 == '个人投资人'){
+						} else if (this.pickerValue1 == '个人投资人') {
 							this.hideen = true
 						}
 						console.log(this.touziren)
@@ -372,8 +479,8 @@
 						this.picker = items.name;
 						this.id2 = items.id
 						console.log(this.picker, this.id2)
-						if(this.picker!=='请输入'){
-							this.lunci=true
+						if (this.picker !== '请输入') {
+							this.lunci = true
 						}
 					}
 				})
@@ -384,8 +491,8 @@
 						this.pickerarry = items.name;
 						this.id1 = items.id
 						console.log(this.pickerarry, this.id1)
-						if(this.pickerarry!=='请输入'){
-							this.tou=true
+						if (this.pickerarry !== '请输入') {
+							this.tou = true
 						}
 					}
 				})
@@ -588,7 +695,7 @@
 					}
 				}
 
-			
+
 			},
 			Finanjigou() { //投资机构
 				if (uni.getStorageSync('landRegist')) {
@@ -641,7 +748,7 @@
 						success: (response) => {
 							uni.hideLoading();
 							this.arr = response.data.content
-							
+
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -692,18 +799,22 @@
 </script>
 
 <style>
-	.tou{
+	.tou {
 		color: black;
 	}
-	.lunci{
+
+	.lunci {
 		color: black;
 	}
-	.jigou1{
+
+	.jigou1 {
 		color: black;
 	}
-	.peopo{
+
+	.peopo {
 		color: black;
 	}
+
 	.xian {
 		display: none;
 	}
@@ -789,7 +900,7 @@
 		padding-bottom: 200upx;
 	}
 
-	
+
 
 	.img {
 		position: absolute;
@@ -942,6 +1053,7 @@
 		top: -30upx;
 		font-size: 30upx !important;
 	}
+
 	.ziti1 {
 		position: absolute;
 		right: -20upx;
@@ -950,9 +1062,11 @@
 		top: -30upx;
 		font-size: 30upx !important;
 	}
-	.pic{
-		color: #000000!important;
+
+	.pic {
+		color: #000000 !important;
 	}
+
 	.zitia {
 		position: absolute;
 		right: 50upx !important;
@@ -960,6 +1074,17 @@
 		top: 30upx;
 		font-size: 30upx !important;
 		color: #D2D2D2;
+	}
+
+	.zitiaa {
+		position: absolute;
+		right: 50upx !important;
+		height: 30upx;
+		top: 20upx;
+		font-size: 30upx !important;
+		color: #D2D2D2;
+		width: 80upx;
+		height: 80upx;
 	}
 
 	.Investor-City {

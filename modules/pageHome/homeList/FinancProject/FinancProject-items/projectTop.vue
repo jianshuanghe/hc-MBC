@@ -2,9 +2,7 @@
 	<view class="projectTop-content">
 		<view class="projectTop">
 			<view class="projectTop-top">
-				<view class="left img-projectTop">
-					<image class="img" :src="msgData.projLogo"></image>
-				</view>
+				
 				<view class="left text-projectTop">
 					<view class="title">{{msgData.projName}}</view>
 					<view class="ins">{{msgData.projSlogan}}</view>
@@ -16,7 +14,9 @@
 					<view v-if="msgData.projCapis[0].capiMoney!==''">{{msgData.projCapis[0].capiMoney}}万元</view>
 					<view v-if="msgData.projCapis[0].capiMoney==''">金额未披露</view>
 				</view>
-				
+				<view class="left img-projectTop">
+					<image class="img" :src="msgData.projLogo"></image>
+				</view>
 				<view class="clear"></view>
 			</view>
 			<view class="projectTop-bot">
@@ -79,16 +79,19 @@
 		width: 25%;
 	}
 	.img-projectTop>image{
-		position: relative;
+		position: fixed;
 		width: 90upx;
 		height: 90upx;
 		border-radius: 10upx;
 		margin: 0 auto;
-		top: 40upx;
+		top: 60upx;
+		right:60upx ;
 	}
 	.text-projectTop{
 		position: relative;
 		width: 75%;
+		margin-top: -30rpx;
+
 	}
 	.title{
 		font-family: PingFang-SC-Bold;
@@ -105,9 +108,6 @@
 		color: #9B9B9B;
 		line-height: 40upx;
 		margin-top: -15upx;
-		overflow: hidden; //超出的文本隐藏
-		text-overflow: ellipsis; //溢出用省略号显示
-		white-space: nowrap; //溢出不换行
 	}
 	.inss{
 		position: relative;
@@ -149,10 +149,10 @@
 		/* height: 100upx; */
 		font-size: 24upx;
 		color: #9B9B9B;
-		margin-left: 140upx;
+		margin-left: -4upx;
 		position: relative;
 		margin-bottom: 50upx;
-		margin-top: 10upx;
+		margin-top: 0upx;
 	}
 	.projectTop-top-new>view:nth-of-type(1){
 		position: absolute;

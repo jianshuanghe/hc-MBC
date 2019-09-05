@@ -32,6 +32,9 @@
 				uni.navigateBack({
 					delta: 20
 				});
+				// uni.redirectTo({
+				// 	url: '/modules/pageMy/myList/myListAuthentication/AuthenticationList/Certification-status/inspect-List/inspect-List-in'
+				// });
 			}
 		}
 	};

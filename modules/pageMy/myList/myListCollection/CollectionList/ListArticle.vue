@@ -87,6 +87,41 @@
 		},
 		mounted() {},
 		methods: {
+			getHeader() {
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					// let params = {}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/user/' + landRegistLG.user.id, //接口地址。
+						// data: this.endParams(params),
+						method: 'GET',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							uni.hideLoading();
+							console.log(response.data);
+							this.List = response.data.content
+							console.log(this.List)
+							this.$store.commit('setheader', this.List); // 更新vuex
+							
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
 			gotowenzhang(e){
 				uni.navigateTo({
 					url:'/modules/pageFind/information/informationDetails?id='+e
@@ -123,6 +158,7 @@
 							console.log(response.data);
 							uni.hideLoading();
 							this.getConcang(this.active);
+							this.getHeader()
 							this.hiden=true
 						},
 						fail: (error) => {
@@ -314,10 +350,10 @@
 	}
 	.maske-box>view:nth-of-type(4){
 		width: 100%;
-		height: 40upx;
+		height: 60upx;
 		font-size: 32upx;
 		text-align: center;
-		line-height: 40upx;
+		line-height: 60upx;
 		border-top: 2upx solid  #F5F5F5;
 		color: #02C2A2;
 	}
@@ -346,8 +382,9 @@
 		font-size: 30upx;
 		width: 100%;
 		height: 84upx;
-		font-weight: 700;
 		color: #2E2E30;
+		line-height: 46upx;
+		font-weight: bold;
 	}
 
 	.ListArticlefist-times {
