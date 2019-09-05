@@ -191,5 +191,8 @@ export default {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
+.scroll-Y{
+	height: 100vh;
+}
 
 </style>

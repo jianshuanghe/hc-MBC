@@ -263,6 +263,7 @@ const state = {
 		Mation:[],
 		Edit:[],
 		History:[],
+		Labelarr: [] // 标签
 	}  
   },
   news:{//消息

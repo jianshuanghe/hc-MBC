@@ -2,9 +2,9 @@
 	<view class="servicesItems-content-items">
 		<view class="SICI-content" @tap="goToServiceDetails(msgData.serverId)">
 			<view class="SICI-img">
-				<image :src='msgData.img  || items1' v-if="msgData.serverId === 0"></image>
-				<image :src='msgData.img  || items2' v-if="msgData.serverId === 1"></image>
-				<image :src='msgData.img  || items3'  v-if="msgData.serverId === 2"></image>
+				<image :src='msgData.img  || items1' v-if="msgData.serverId === 0"  mode='widthFix'></image>
+				<image :src='msgData.img  || items2' v-if="msgData.serverId === 1"  mode='widthFix'></image>
+				<image :src='msgData.img  || items3'  v-if="msgData.serverId === 2"  mode='widthFix'></image>
 			</view>
 			<view class="SICI-title">{{msgData.name}}</view>
 			<view class="SICI-inrc">{{msgData.serverContent}}</view>

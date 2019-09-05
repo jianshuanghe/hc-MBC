@@ -14,19 +14,19 @@
             </view>
             <view class="mbc">
 				<view class="II-mod" >
-				  <view class="mod-items left" v-for="(items,index) in msgData.fields" :key="index">{{items}}</view>
+				  <view class="mod-items left" v-for="(items,index) in msgData.fields" :key="index" v-if="index < 3">{{items}}</view>
 				  <view class="clear"></view>
 				</view>
             </view>
           </view>
         </view>
       </view>
-      <view class="II-bot">
+      <view class="II-bot" v-if="msgData.inves.length > 0">
 		  <div class="title left">
 			 最近投资:
 		  </div>
 		  <view class="left mbc-text">
-			<text class="items"  v-for="(items,index) in msgData.inves" :key="index">
+			<text class="items"  v-for="(items,index) in msgData.inves" :key="index"  v-if="index < 3">
 				{{items}}
 				<text class="dian" v-if="msgData.inves.length - 1 > index">、</text>
 			</text>
@@ -79,6 +79,7 @@
 	.II-top{
 		position: relative;
 		width: 100%;
+		height: 86upx;
 	}
 	.II-user-img{
 		position: relative;
@@ -150,7 +151,7 @@
 	}
 	.II-mod{
 		position: relative;
-		margin: 12upx 0 0 0upx;
+		margin: 0upx 0 0 0upx;
 	}
 	.mod-items{
 		background: #F5F5F5;
@@ -183,5 +184,10 @@
 		letter-spacing: 0;
 		line-height: 28upx;
 		margin-top: 8upx;
+		overflow:hidden;
+		text-overflow:ellipsis;
+		display:-webkit-box;
+		-webkit-box-orient:vertical;
+		-webkit-line-clamp:2;
 	}
 </style>

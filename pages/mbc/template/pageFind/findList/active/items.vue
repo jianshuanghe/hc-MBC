@@ -1,7 +1,7 @@
 <template>
 	<view class="active-content-items">
 		<view class="active-box" @tap='goToActiveDetails(msgData.id)'>
-			<image class="img" :src="msgData.activityImg || this.dImg"></image>
+			<image class="img" :src="msgData.activityImg || this.dImg"  mode='center'></image>
 			<view class="title-active">{{msgData.activityTitel || '无'}}</view>
 			<view class="time-active">{{msgData.activityStartTime | dateTime}} - {{msgData.activityEndTime | dateTime}}</view>
 			<view class="sign-active">已报名{{msgData.signSum || '0'}}人</view>

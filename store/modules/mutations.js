@@ -193,6 +193,10 @@ const mutations = {
 	  console.log(info,'setEdit')
 	  state.my.MyList.Edit=info
   },
+  setLabelarr(state, info){
+	  console.log(info,'setLabelarr')
+	  state.my.MyList.Labelarr=info
+  },
   //我的 融资历史
   setHistory(state, info){
 	  console.log(info,'setHistory')

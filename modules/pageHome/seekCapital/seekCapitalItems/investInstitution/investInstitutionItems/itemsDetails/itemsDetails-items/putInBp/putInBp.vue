@@ -1,39 +1,37 @@
 <template>
-	<div class="k">
-		<div class="putInBp-content" v-if='listData.length > 0'>
-			<div class="putInBp">
-				<div class="itemsPutInBp">
-					<checkbox-group @change="checkboxChange">
-					  <label @click="labelBtn(item.id,index)"  v-for="(item,index) in listData" :key="index">
-						<checkbox :value="item.id" :checked="item.checked" v-show="false"/>
-						<view class="SUI-tent">
-							<view class="left SUI-left-img">
-								<view class="SUI-File">
-									<image class="file" :src="scanLogo"></image>
-								</view>
+	<div class="putInBp-content">
+		<div class="putInBp" v-if='listData.length > 0'>
+			<div class="itemsPutInBp">
+				<checkbox-group @change="checkboxChange">
+				  <label @click="labelBtn(item.id,index)"  v-for="(item,index) in listData" :key="index">
+					<checkbox :value="item.id" :checked="item.checked" v-show="false"/>
+					<view class="SUI-tent">
+						<view class="left SUI-left-img">
+							<view class="SUI-File">
+								<image class="file" :src="scanLogo"></image>
 							</view>
-							<view class="left SUI-cont-text">
-								<view class="SUI-text-top">{{item.enclosureName}}</view>
-								<view class="SUI-text-bot1">{{item.enclosureSize }}  {{ item.createTime | dateTime}}上传</view>
-							</view>
-							<view class="right SUI-right-img">
-								<image class="rignt-arrow" :src='item.checked ? checked : check'></image>
-							</view>
-							<view class="clear"></view>
-							<div class="line"></div>
 						</view>
-					  </label>
-					</checkbox-group>
-					
-				</div>
-				<div class="btnPutIn">
-					<div class="btn1 left" @tap='clickCal()'>取消</div>
-					<div class="btn left" @tap='clickPutBp()'>立即投递</div>
-					<div class="clear"></div>
-				</div>
+						<view class="left SUI-cont-text">
+							<view class="SUI-text-top">{{item.enclosureName}}</view>
+							<view class="SUI-text-bot1">{{item.enclosureSize }}  {{ item.createTime | dateTime}}上传</view>
+						</view>
+						<view class="right SUI-right-img">
+							<image class="rignt-arrow" :src='item.checked ? checked : check'></image>
+						</view>
+						<view class="clear"></view>
+						<div class="line"></div>
+					</view>
+				  </label>
+				</checkbox-group>
+				
+			</div>
+			<div class="btnPutIn">
+				<div class="btn1 left" @tap='clickCal()'>取消</div>
+				<div class="btn left" @tap='clickPutBp()'>立即投递</div>
+				<div class="clear"></div>
 			</div>
 		</div>
-		<empty v-else>抱歉，没有投递的BP~</empty>
+		<empty v-else>抱歉，没有可投递的BP~</empty>
 	</div>
 </template>
 

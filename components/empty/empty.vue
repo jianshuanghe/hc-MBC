@@ -31,7 +31,7 @@
 	}
   .empty-content{
     position: relative;
-    width: 690upx;
+    width: 750upx;
     padding-top: 24vw;
   }
   .empty{

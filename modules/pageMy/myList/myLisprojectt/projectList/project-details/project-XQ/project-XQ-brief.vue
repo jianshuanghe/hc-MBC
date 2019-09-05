@@ -62,13 +62,14 @@
 			</view>
 			<view class="jiange"></view>
 			<view class="jiange"></view>
-			<view class="projectXQteam-resume">
+			<view class="projectXQteam-resume Margin">
 				<view>核心资源</view>
 				<view>
 					<textarea placeholder="产品的核心资源是什么" maxlength="500" @input="descInput5" v-model="conentCore" placeholder-style="color:#D2D2D2" />
 					<span class="numberV">{{remnane5}}/500</span>
 				</view>
 			</view>
+		</scroll-view>
 			<view class="datas-List-case-bao">
 				<view>
 					<view  @tap="updata">
@@ -76,7 +77,6 @@
 					</view>
 				</view>
 			</view>
-		</scroll-view>
 	</view>
 </template>
 
@@ -374,6 +374,12 @@
 		/* font-size: 28upx; */
 		/* color: #2E2E30; */
 		/* padding-top: 10upx; */
+	}
+	.scroll-Y{
+		height: 100vh;
+	}
+	.Margin{
+		margin-bottom: 120upx;
 	}
 	.ziti{
 		margin-top: 50upx;

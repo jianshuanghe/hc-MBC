@@ -106,7 +106,8 @@
 		font-family: PingFangSC-Regular;
 		font-size: 24upx;
 		color: #9B9B9B;
-		line-height: 40upx;
+		line-height: 30upx;
+		margin-bottom: 10upx;
 		margin-top: -15upx;
 	}
 	.inss{

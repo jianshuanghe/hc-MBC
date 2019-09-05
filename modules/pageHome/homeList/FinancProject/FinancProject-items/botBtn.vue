@@ -16,7 +16,7 @@
 				</view>
 				<view class="clear"></view>
 			</view>
-			<view :class="msgData.content === 0 ? 'left submit-box' : 'left submit-box1'" @tap='Apply()'> {{msgData.content === 0 ? '委托联系' : '已委托'}}</view>
+			<view :class="project.content === 0 ? 'left submit-box' : 'left submit-box1'" @tap='Apply()'> {{project.content === 0 ? '委托联系' : '已委托'}}</view>
 			<view class="clear"></view>v>
 		</view>
 		<!-- 全局设置申请组件 -->
@@ -37,6 +37,9 @@
 				loved: this.Static + 'mbcImg/home/seekCapital/liked.png',
 				text: this.Static + 'mbcImg/home/seekCapital/text.png',
 				texted: this.Static + 'mbcImg/home/seekCapital/texted.png',
+				project: {
+					content: 1
+				},
 				finance: {
 					loadingText: '加载更多...',
 					search: { // 搜索
@@ -99,6 +102,12 @@
 			this.entrust = this.ENTRUST;
 			console.log(this.ENTRUST, 'ENTRUST')
 		},
+		mounted () {
+			if (uni.getStorageSync('modelId')) {
+				this.msgData.modelId = uni.getStorageSync('modelId')
+			}
+			this.getUserApply(this.msgData.modelId);
+		},
 		beforeDestroy () {
 			console.log('页面销毁之前缓存数据')
 			this.$store.commit('setEnTrustShow', false); // 更新setEntrustSignUp
@@ -115,6 +124,38 @@
 			}),
 			message() {
 				
+			},
+			getUserApply(e){
+				console.log(e, '--------------this.msgData.modelId---------------');
+				if (uni.getStorageSync('landRegist')) {
+				    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+				    console.log(landRegistLG.user.id);
+					let params = {}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/contact/is/apply?applyeType=2' + '&modelId=' + e + '&userId=' + landRegistLG.user.id, //接口地址。
+						data: this.endParams(params),
+						header: {
+							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
+						},
+						success: (response) => {
+							console.log(response.data);
+							this.project.content = response.data.content;
+							uni.hideLoading(); // 隐藏 loading
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
 			},
 			getUserType () {
 				console.log('判断用户是否认证');
@@ -193,7 +234,7 @@
 						return
 					}
 				}
-				if (this.msgData.content === 1) {
+				if (this.project.content === 1) {
 					uni.showToast({
 						title: '您已经申请过了！',
 						icon: 'none',

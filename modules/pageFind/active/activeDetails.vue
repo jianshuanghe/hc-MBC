@@ -40,7 +40,6 @@
 		onLoad(option) {
 			this.id = option.id;
 			this.data.id = option.id;
-			this.getList(option.id);
 			this.getUserApply(option.id);
 		},
 	    methods: {
@@ -98,6 +97,7 @@
 							let data = response.data.content;
 							this.dataList = data;
 							this.data.content = response.data.content;
+							this.getList(this.id);
 							uni.hideLoading(); // 隐藏 loading
 						},
 						fail: (error) => {
