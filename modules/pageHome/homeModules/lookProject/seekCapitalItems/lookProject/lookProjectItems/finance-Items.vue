@@ -354,7 +354,7 @@
 		color: #00AF92;
 		letter-spacing: 0;
 		line-height: 27upx;
-		padding: 4upx 8upx 6upx 4upx;
+		padding: 4upx 8upx 6upx 6upx;
 		margin-left: 10upx;
 		top: 2upx;
 		/* transform: scale(.8); */
@@ -428,17 +428,17 @@
 	},
 	.FI-cont-imgMore .imageBox>image{
 		position: relative;
-		max-width: 100%;
-		max-height: 100%;
-		display: table-cell;
-		vertical-align: middle;
-		position: relative;
-		margin: 0;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		-webkit-transform: translate(-50%, -50%);
+		    max-width: 100%;
+		    max-height: 100%;
+		    display: table-cell;
+		    vertical-align: middle;
+		    position: relative;
+		    margin: 0;
+		    position: absolute;
+		    top: 50%;
+		    left: 50%;
+		    transform: translate(-50%, -50%);
+		    -webkit-transform: translate(-50%, -50%);
 	},
 	.FI-cont-imgMoreTwo{
 		position: relative;

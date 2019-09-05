@@ -15,9 +15,9 @@
 				<teamMembers :msgData="dataList"></teamMembers>
 				<!-- 投资偏好 -->
 				<InvestmentCase :msgData="dataList"></InvestmentCase>
-				<!-- 底部提交 -->
-				<botBtn :msgData="data"></botBtn>
 			</scroll-view>
+			<!-- 底部提交 -->
+			<botBtn :msgData="data"></botBtn>
 		</view>
 		<tipsBox v-if='AUTH.show'>
 			<image class="TIPS-img" :src="close"  @tap="clickClose()"></image>

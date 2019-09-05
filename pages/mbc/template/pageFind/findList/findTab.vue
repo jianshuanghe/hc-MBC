@@ -80,6 +80,7 @@
 	.resuleTab-box{
 		position: relative;
 		width: 100%;
+		margin-top: 10upx;
 	}
 	.RT-box{
 		position: relative;
