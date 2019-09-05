@@ -1,187 +1,191 @@
 <template>
-	<view class="project-details">
-		<view class="project-details-header">
-			<view class="project-details-header-one">
-				<view>
-					<image :src="arr.projLogo"></image>
-				</view>
-				<view>
-					<span>{{arr.projName}}</span>
-					<span>{{arr.projSlogan}}</span>
-					<view class="eirongs">
-						<span>{{arr.fieldCode}}</span>
-						<span>{{arr.pcode}}</span>
-					</view>
-					<view class="shanglun" v-if="history.projCapis.length!==0">
-						上轮获投情况
-						<view>
-							<view class="shanglun-lunshu">{{history.projCapis[0].levelCode}}</view>
-							<view v-if="history.projCapis[0].capiMoney!==''" class="shanglun-lunshu2">{{history.projCapis[0].capiMoney}}万元</view>
-							<view v-if="history.projCapis[0].capiMoney==''" class="shanglun-lunshu2">金额未披露</view>
-						</view>
-
-					</view>
-					<view class="shanglun" v-if="history.projCapis.length==0">
-						上轮获投情况
-						<view>
-							<view class="shanglun-lunshu4">无</view>
-							<view class="shanglun-lunshu5">无</view>
-						</view>
-					</view>
-				</view>
-				<view class="bianji" @tap="gotomy">编辑</view>
-			</view>
-			<view class="project-details-header-two" v-if="Labelarr.length!==0">
-				<span v-for="(items,index) in arr.projLabels" :key="index">{{items.labelName}}</span>
-				<view @tap="gotoedit">编辑</view>
-			</view>
-			<view class="project-details-header-twos" v-if="Labelarr.length==0">
-				<span>暂未添加标签</span>
-				<view class="gotoedit" @tap="gotoedit">编辑</view>
-			</view>
-		</view>
-		<view class="project-details-BP">
-			<view class="project-details-BP-one">
-				<view>BP/商业计划书</view>
-				<view @tap="goToPutIn(5)">重新上传</view>
-			</view>
-			<view class="project-details-BP-two">
-				<view>
-					<image :src="pdf" mode=""></image>
-				</view>
-				<view>
-					<span>{{arr.projFile.enclosureName}}</span>
-					<span>{{arr.projFile.enclosureSize}} &nbsp;&nbsp; {{arr.projFile.createTime | formatDate}}上传</span>
-				</view>
-			</view>
-		</view>
-		<view class="jianxi"></view>
-		<view class="project-details-data">
-			<view class="project-details-data-bianji">项目简介</view>
-			<view class="project-details-data-imges" v-if="arr.projImgs.length!==0">
-				<view class="project-details-data-imges-one" v-for="(imang,index) in arr.projImgs" :key="index">
-					<image :src="imang.imgName" mode='widthFix'></image>
-				</view>
-			</view>
-			<view class="project-details-data-two" v-if="arr.projContent!==''">
-				<view>项目介绍</view>
-				<view>{{arr.projContent}}</view>
-			</view>
-			<view class="project-details-data-two" v-if="arr.conentMarket!==''">
-				<view>市场需求</view>
-				<view>{{arr.conentMarket}}</view>
-			</view>
-			<view class="project-details-data-two" v-if="arr.conentPortrait!==''">
-				<view>用户画像</view>
-				<view>{{arr.conentPortrait}}</view>
-			</view>
-			<view class="project-details-data-two" v-if="arr.conentModel!==''">
-				<view>商业模式</view>
-				<view>{{arr.conentModel}}</view>
-			</view>
-			<view class="project-details-data-two" v-if="arr.conentData!==''">
-				<view>运营数据</view>
-				<view>{{arr.conentData}}</view>
-			</view>
-			<view class="project-details-data-thre" v-if="arr.conentCore!==''">
-				<view>核心资源</view>
-				<view>{{arr.conentCore}}</view>
-			</view>
-			<view class="project-details-data-bian" @tap="gotobrief" v-if="arr.projImgs.length !== 0 || arr.projContent!=='' || arr.conentMarket!=='' || arr.conentPortrait!==''">编辑</view>
-			<view @tap="gotobrief" class="project-details-data-brief" v-if="arr.projImgs.length == 0 && arr.projContent=='' && arr.conentMarket==''&& arr.conentPortrait==''">
-				填写项目简介
-			</view>
-		</view>
-
-
-		<view class="jianxi"></view>
-		<view class="demand">
-			<view>融资需求</view>
-			<view class="demand-two" v-if="arr.finanLevelCode||arr.finanMoney !=='' ">{{arr.finanLevelCode}}&nbsp;&nbsp;&nbsp;&nbsp;{{arr.finanMoney}}万人民币</view>
-			<view @tap="gotodatasdemand" class="demand-an" v-if="arr.finanLevelCode|arr.finanMoney =='' ">
-				填写融资需求
-			</view>
-			<view class="demand-bian" @tap="gotodatasdemand" v-if="arr.finanLevelCode||arr.finanMoney !=='' ">编辑</view>
-		</view>
-		<view class="jianxi"></view>
-		<view class="history">
-			<view>融资历史</view>
-			<view class="history-cheng" v-for="(inss ,index) in arr.projCapis" :key="index">
-				<view>
-					<span>{{inss.capiStartime|DAta}}月</span>
-					<span>{{inss.capiStartime|forma}}</span>
-				</view>
-				<view>
-					<span v-if="inss.capiMoney!==''">金额：{{inss.capiMoney}}万</span>
-					<span v-if="inss.capiMoney==''">无</span>
-					<span>在融轮次：{{inss.levelCode}}</span>
-					<span>{{inss.capiInveCompName}}</span>
-				</view>
-				<view @tap="historybianji(inss.id)">编辑</view>
-			</view>
-			<view @tap="gotodatahistory" class="button-an">
-				填写融资历史
-			</view>
-		</view>
-		<view class="jianxi"></view>
-		<view class="team">
-			<view>团队成员</view>
-			<view class="team-cheng" v-for="(ite,index) in arr.projUsers" :key="index">
-				<view>
-					<image :src="ite.projUserImg" mode=""></image>
-				</view>
-				<view>
-					<span>{{ite.projUserName}}</span><span>{{ite.projUserPosition}}</span>
-					<span>{{ite.projUserContent}}</span>
-				</view>
-				<view @tap="teambianji(ite.id)">编辑</view>
-			</view>
-			<view @tap="gotodatasteam" class="button-an">
-				填写团队成员
-			</view>
-		</view>
-		<view class="jianxi"></view>
-		<view class="project-details-company">
-			<view>公司信息</view>
-			<view class="project-details-company-two" v-if="arr.compName !==''">公司全称</view>
-			<view class="project-details-company-thre" v-if="arr.compName !==''">{{arr.compName}}</view>
-			<view class="project-details-company-one" v-if="arr.compAddr !==''">
-				<view>公司地址</view>
-				<view>{{arr.compAddr}}</view>
-			</view>
-			<view class="gongsi" @tap="projectXQgsname" v-if="arr.compName||arr.compAddr !=='' ">编辑</view>
-			<view @tap="projectXQgsname" class="button-an" v-if="arr.compName&arr.compAddr =='' ">
-				填写公司信息
-			</view>
-		</view>
-		<view class="jianxi"></view>
-		<!-- <view class="project-details-link">
-			<view>项目数据</view>
-			<view>相关链接</view>
-			<view class="add">
-				<span @tap="addlianjie">添加链接</span>
-			</view>
-		</view> -->
-		<!-- <view class="Mask" :class="{'zhe':hiden}" @tap="cancel">
-			<view class="Mask-box" v-on:click.stop='child'>
-				<view class="Mask-box-header">
-					<view @tap="cancel">取消</view>
-					<view>添加链接</view>
-					<view @tap="Preservation">保存</view>
-				</view>
-				<view class="Mask-box-content">
+	<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
+	@scroll="scroll">
+		<view class="project-details">
+			<view class="project-details-header">
+				<view class="project-details-header-one">
 					<view>
-						<span>链接名称</span>
-						<input type="text" placeholder="请输入" v-model="linkname" />
+						<image :src="arr.projLogo"></image>
 					</view>
 					<view>
-						<span>链接地址</span>
-						<input type="text" placeholder="请输入" v-model="linkaddress" />
+						<span>{{arr.projName}}</span>
+						<span>{{arr.projSlogan}}</span>
+						<view class="eirongs">
+							<span>{{arr.fieldCode}}</span>
+							<span>{{arr.pcode}}</span>
+						</view>
+						<view class="shanglun" v-if="history.projCapis.length!==0">
+							上轮获投情况
+							<view>
+								<view class="shanglun-lunshu">{{history.projCapis[0].levelCode}}</view>
+								<view v-if="history.projCapis[0].capiMoney!==''" class="shanglun-lunshu2">{{history.projCapis[0].capiMoney}}万元</view>
+								<view v-if="history.projCapis[0].capiMoney==''" class="shanglun-lunshu2">金额未披露</view>
+							</view>
+
+						</view>
+						<view class="shanglun" v-if="history.projCapis.length==0">
+							上轮获投情况
+							<view>
+								<view class="shanglun-lunshu4">无</view>
+								<view class="shanglun-lunshu5">无</view>
+							</view>
+						</view>
+					</view>
+					<view class="bianji" @tap="gotomy">编辑</view>
+				</view>
+				<view class="project-details-header-two" v-if="Labelarr.length!==0">
+					<span v-for="(items,index) in arr.projLabels" :key="index">{{items.labelName}}</span>
+					<view @tap="gotoedit">编辑</view>
+				</view>
+				<view class="project-details-header-twos" v-if="Labelarr.length==0">
+					<span>暂未添加标签</span>
+					<view class="gotoedit" @tap="gotoedit">编辑</view>
+				</view>
+			</view>
+			<view class="project-details-BP">
+				<view class="project-details-BP-one">
+					<view>BP/商业计划书</view>
+					<view @tap="goToPutIn(5)">重新上传</view>
+				</view>
+				<view class="project-details-BP-two">
+					<view>
+						<image :src="pdf" mode=""></image>
+					</view>
+					<view>
+						<span>{{arr.projFile.enclosureName}}</span>
+						<span>{{arr.projFile.enclosureSize}} &nbsp;&nbsp; {{arr.projFile.createTime | formatDate}}上传</span>
 					</view>
 				</view>
 			</view>
-		</view> -->
-	</view>
+			<view class="jianxi"></view>
+			<view class="project-details-data">
+				<view class="project-details-data-bianji">项目简介</view>
+				<view class="project-details-data-imges" v-if="arr.projImgs.length!==0">
+					<view class="project-details-data-imges-one" v-for="(imang,index) in arr.projImgs" :key="index">
+						<image :src="imang.imgName" mode='widthFix'></image>
+					</view>
+				</view>
+				<view class="project-details-data-two" v-if="arr.projContent!==''">
+					<view>项目介绍</view>
+					<view>{{arr.projContent}}</view>
+				</view>
+				<view class="project-details-data-two" v-if="arr.conentMarket!==''">
+					<view>市场需求</view>
+					<view>{{arr.conentMarket}}</view>
+				</view>
+				<view class="project-details-data-two" v-if="arr.conentPortrait!==''">
+					<view>用户画像</view>
+					<view>{{arr.conentPortrait}}</view>
+				</view>
+				<view class="project-details-data-two" v-if="arr.conentModel!==''">
+					<view>商业模式</view>
+					<view>{{arr.conentModel}}</view>
+				</view>
+				<view class="project-details-data-two" v-if="arr.conentData!==''">
+					<view>运营数据</view>
+					<view>{{arr.conentData}}</view>
+				</view>
+				<view class="project-details-data-thre" v-if="arr.conentCore!==''">
+					<view>核心资源</view>
+					<view>{{arr.conentCore}}</view>
+				</view>
+				<view class="project-details-data-bian" @tap="gotobrief" v-if="arr.projImgs.length !== 0 || arr.projContent!=='' || arr.conentMarket!=='' || arr.conentPortrait!==''">编辑</view>
+				<view @tap="gotobrief" class="project-details-data-brief" v-if="arr.projImgs.length == 0 && arr.projContent=='' && arr.conentMarket==''&& arr.conentPortrait==''">
+					填写项目简介
+				</view>
+			</view>
+
+
+			<view class="jianxi"></view>
+			<view class="demand">
+				<view>融资需求</view>
+				<view class="demand-two" v-if="arr.finanLevelCode||arr.finanMoney !=='' ">{{arr.finanLevelCode}}&nbsp;&nbsp;&nbsp;&nbsp;{{arr.finanMoney}}万人民币</view>
+				<view @tap="gotodatasdemand" class="demand-an" v-if="arr.finanLevelCode|arr.finanMoney =='' ">
+					填写融资需求
+				</view>
+				<view class="demand-bian" @tap="gotodatasdemand" v-if="arr.finanLevelCode||arr.finanMoney !=='' ">编辑</view>
+			</view>
+			<view class="jianxi"></view>
+			<view class="history">
+				<view>融资历史</view>
+				<view class="history-cheng" v-for="(inss ,index) in arr.projCapis" :key="index">
+					<view>
+						<span>{{inss.capiStartime|DAta}}月</span>
+						<span>{{inss.capiStartime|forma}}</span>
+					</view>
+					<view>
+						<span v-if="inss.capiMoney!==''">金额：{{inss.capiMoney}}万</span>
+						<span v-if="inss.capiMoney==''">无</span>
+						<span>在融轮次：{{inss.levelCode}}</span>
+						<span>{{inss.capiInveCompName}}</span>
+					</view>
+					<view @tap="historybianji(inss.id)">编辑</view>
+				</view>
+				<view @tap="gotodatahistory" class="button-an">
+					填写融资历史
+				</view>
+			</view>
+			<view class="jianxi"></view>
+			<view class="team">
+				<view>团队成员</view>
+				<view class="team-cheng" v-for="(ite,index) in arr.projUsers" :key="index">
+					<view>
+						<image :src="ite.projUserImg" mode=""></image>
+					</view>
+					<view>
+						<span>{{ite.projUserName}}</span><span>{{ite.projUserPosition}}</span>
+						<span>{{ite.projUserContent}}</span>
+					</view>
+					<view @tap="teambianji(ite.id)">编辑</view>
+				</view>
+				<view @tap="gotodatasteam" class="button-an">
+					填写团队成员
+				</view>
+			</view>
+			<view class="jianxi"></view>
+			<view class="project-details-company">
+				<view>公司信息</view>
+				<view class="project-details-company-two" v-if="arr.compName !==''">公司全称</view>
+				<view class="project-details-company-thre" v-if="arr.compName !==''">{{arr.compName}}</view>
+				<view class="project-details-company-one" v-if="arr.compAddr !==''">
+					<view>公司地址</view>
+					<view>{{arr.compAddr}}</view>
+				</view>
+				<view class="gongsi" @tap="projectXQgsname" v-if="arr.compName||arr.compAddr !=='' ">编辑</view>
+				<view @tap="projectXQgsname" class="button-an" v-if="arr.compName&arr.compAddr =='' ">
+					填写公司信息
+				</view>
+			</view>
+			<view class="jianxi"></view>
+			<!-- <view class="project-details-link">
+				<view>项目数据</view>
+				<view>相关链接</view>
+				<view class="add">
+					<span @tap="addlianjie">添加链接</span>
+				</view>
+			</view> -->
+			<!-- <view class="Mask" :class="{'zhe':hiden}" @tap="cancel">
+				<view class="Mask-box" v-on:click.stop='child'>
+					<view class="Mask-box-header">
+						<view @tap="cancel">取消</view>
+						<view>添加链接</view>
+						<view @tap="Preservation">保存</view>
+					</view>
+					<view class="Mask-box-content">
+						<view>
+							<span>链接名称</span>
+							<input type="text" placeholder="请输入" v-model="linkname" />
+						</view>
+						<view>
+							<span>链接地址</span>
+							<input type="text" placeholder="请输入" v-model="linkaddress" />
+						</view>
+					</view>
+				</view>
+			</view> -->
+		</view>
+
+	</scroll-view>
 </template>
 
 <script>
@@ -253,7 +257,6 @@
 				return MM;
 			}
 		},
-
 		watch: {
 			GET_MY: {
 				handler(a, b) {
@@ -264,7 +267,6 @@
 				},
 				deep: true
 			},
-
 		},
 		computed: {
 			...mapGetters(['GET_MY'])
@@ -384,9 +386,7 @@
 							this.arr = response.data.content
 							this.$store.commit('setCompany', this.arr);
 							this.$store.commit('setHistory', this.arr);
-
 							console.log(this.arr)
-
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -468,18 +468,15 @@
 	.eirongs {
 		margin-top: 50upx;
 	}
-
 	.tou {
 		display: none;
 	}
-
 	.project-details {
 		width: 100%;
 		min-height: 100%;
 		background: #FFFFFF;
 		padding: 2upx;
 	}
-
 	.project-details-header {
 		width: 90%;
 		min-height: 304upx;
@@ -490,7 +487,6 @@
 		border-radius: 8upx;
 		padding-bottom: 20upx;
 	}
-
 	.project-details-header-one {
 		margin: 0 auto;
 		width: 90%;
@@ -500,7 +496,6 @@
 		display: flex;
 		position: relative;
 	}
-
 	.project-details-header-one>view:nth-of-type(1) {
 		width: 84upx;
 		height: 84upx;
@@ -510,13 +505,11 @@
 		right: -5upx;
 		border: 2upx solid #F5F5F5;
 	}
-
 	.project-details-header-one view:nth-of-type(1) image {
 		width: 100%;
 		height: 100%;
 		border-radius: 2upx;
 	}
-
 	.project-details-header-one>view:nth-of-type(2) {
 		width: 80%;
 		/* height: 150upx; */
@@ -527,16 +520,13 @@
 		text-overflow: ellipsis; //溢出用省略号显示
 		white-space: nowrap; //溢出不换行
 	}
-
 	.project-details-header-one>view:nth-of-type(2)>span:nth-of-type(1) {
 		display: block;
 		font-size: 40upx;
 		color: #2E2E30;
 		width: 300upx;
 		margin-top: 15upx;
-
 	}
-
 	.project-details-header-one>view:nth-of-type(2)>span:nth-of-type(2) {
 		display: block;
 		font-size: 24upx;
@@ -547,7 +537,6 @@
 		text-overflow: ellipsis; //溢出用省略号显示
 		white-space: nowrap; //溢出不换行
 	}
-
 	.project-details-header-one>view:nth-of-type(2)>view:nth-of-type(1) {
 		display: flex;
 		width: 470upx;
@@ -555,7 +544,6 @@
 		margin-top: 10upx;
 		margin-left: -20upx;
 	}
-
 	.project-details-header-one>view:nth-of-type(2)>view:nth-of-type(1)>span:nth-of-type(1) {
 		margin-left: 22upx;
 		font-size: 24upx;
@@ -568,7 +556,6 @@
 		border: 0;
 		margin-top: 4upx;
 	}
-
 	.project-details-header-one>view:nth-of-type(2)>view:nth-of-type(1)>span:nth-of-type(2) {
 		margin-left: 10upx;
 		font-size: 24upx;
@@ -579,7 +566,6 @@
 		padding-left: 15upx;
 		margin-top: 4upx;
 	}
-
 	.shanglun {
 		width: 300upx;
 		height: 100upx;
@@ -587,13 +573,11 @@
 		font-size: 24upx;
 		color: #9B9B9B;
 	}
-
 	.shanglun>view:nth-of-type(1) {
 		display: flex;
 		margin-top: 3upx;
 		margin-left: 5upx;
 	}
-
 	.shanglun-lunshu {
 		/* position: absolute; */
 		margin-top: 0upx;
@@ -605,7 +589,6 @@
 		line-height: 30upx;
 		border-radius: 0;
 	}
-
 	.shanglun-lunshu2 {
 		/* position: absolute; */
 		margin-top: 0upx;
@@ -618,7 +601,6 @@
 		border-left: 2upx solid #9B9B9B;
 		padding-left: 20upx;
 	}
-
 	.shanglun-lunshu4 {
 		margin-top: 0upx;
 		margin-left: 0upx;
@@ -629,7 +611,6 @@
 		line-height: 30upx;
 		border-radius: 0;
 	}
-
 	.shanglun-lunshu5 {
 		margin-top: 0upx;
 		margin-left: 20upx;
@@ -641,7 +622,6 @@
 		border-left: 2upx solid #9B9B9B;
 		padding-left: 20upx;
 	}
-
 	.bianji {
 		font-size: 26upx;
 		color: #02C2A2;
@@ -650,7 +630,6 @@
 		top: 190upx;
 		font-weight: 700;
 	}
-
 	.project-details-header-two {
 		width: 80%;
 		min-height: 60upx;
@@ -661,7 +640,6 @@
 		flex-wrap: wrap;
 		/* background: red; */
 	}
-
 	.project-details-header-two span {
 		padding: 8upx 12upx 8upx 12upx;
 		/* padding: 0 20upx; */
@@ -674,11 +652,9 @@
 		display: block;
 		/* min-width: 100upx; */
 	}
-
 	.project-details-header-two span:nth-of-type(1) {
 		margin-left: 0upx;
 	}
-
 	.project-details-header-two view:nth-of-type(1) {
 		font-size: 26upx;
 		color: #02C2A2;
@@ -687,7 +663,6 @@
 		top: 0upx;
 		font-weight: 700;
 	}
-
 	.project-details-header-twos {
 		height: 60upx;
 		width: 80%;
@@ -697,7 +672,6 @@
 		position: relative;
 		/* background: red; */
 	}
-
 	.project-details-header-twos span {
 		padding: 8upx 12upx 8upx 12upx;
 		font-size: 20upx;
@@ -707,7 +681,6 @@
 		margin-top: 30upx;
 		/* min-width: 100upx; */
 	}
-
 	.project-details-header-twos view:nth-of-type(1) {
 		font-size: 26upx;
 		color: #02C2A2;
@@ -716,13 +689,11 @@
 		top: 0upx;
 		font-weight: 700;
 	}
-
 	.project-details-BP {
 		width: 90%;
 		height: 260upx;
 		margin: 60upx auto auto auto;
 	}
-
 	.project-details-BP-one {
 		width: 100%;
 		height: 60upx;
@@ -730,13 +701,11 @@
 		line-height: 60upx;
 		position: relative;
 	}
-
 	.project-details-BP-one view:nth-of-type(1) {
 		font-size: 34upx;
 		color: #2E2E30;
 		font-weight: bold;
 	}
-
 	.project-details-BP-one view:nth-of-type(2) {
 		font-size: 26upx;
 		color: #02C2A2;
@@ -744,52 +713,44 @@
 		top: 10upx;
 		position: absolute;
 	}
-
 	.project-details-BP-two {
 		width: 100%;
 		height: 240upx;
 		padding: 2upx;
 		display: flex;
 	}
-
 	.project-details-BP-two view:nth-of-type(1) {
 		width: 90upx;
 		height: 90upx;
 		margin-top: 30upx;
 	}
-
 	.project-details-BP-two view:nth-of-type(1) image {
 		width: 100%;
 		height: 100%;
 		border-radius: 50%;
 	}
-
 	.project-details-BP-two view:nth-of-type(2) {
 		width: 83%;
 		margin-left: 30upx;
 		height: 120upx;
 		margin-top: 30upx;
 	}
-
 	.project-details-BP-two view:nth-of-type(2) span:nth-of-type(1) {
 		font-size: 30upx;
 		color: #2E2E30;
 		display: block;
 		line-height: 40upx;
 	}
-
 	.project-details-BP-two view:nth-of-type(2) span:nth-of-type(2) {
 		font-size: 24upx;
 		color: #9B9B9B;
 		display: block;
 	}
-
 	.jianxi {
 		width: 100%;
 		height: 30upx;
 		background: #F9F9F9;
 	}
-
 	.project-details-data {
 		width: 100%;
 		min-height: 300upx;
@@ -797,7 +758,6 @@
 		background: #FFFFFF;
 		position: relative;
 	}
-
 	.project-details-data-bianji {
 		font-size: 34upx;
 		color: #2E2E30;
@@ -805,7 +765,6 @@
 		padding-left: 30upx;
 		font-weight: 700;
 	}
-
 	.project-details-data-imges {
 		width: 90%;
 		/* height: 200upx; */
@@ -815,12 +774,10 @@
 		justify-content: space-between;
 		border-bottom: 2upx solid #F5F5F5;
 	}
-
 	.project-details-data-imges-one image {
 		width: 200upx;
 		height: 150upx;
 	}
-
 	.project-details-data-two {
 		width: 90%;
 		min-height: 150upx;
@@ -828,7 +785,6 @@
 		padding-bottom: 20upx;
 		border-bottom: 2upx solid #F5F5F5;
 	}
-
 	.project-details-data-thre {
 		width: 90%;
 		min-height: 150upx;
@@ -836,7 +792,6 @@
 		padding-bottom: 20upx;
 		border-bottom: 2upx solid #F5F5F5;
 	}
-
 	.project-details-data-thre view:nth-of-type(1) {
 		width: 100%;
 		height: 30upx;
@@ -845,7 +800,6 @@
 		padding-top: 20upx;
 		font-weight: 700;
 	}
-
 	.project-details-data-thre view:nth-of-type(2) {
 		width: 100%;
 		min-height: 30upx;
@@ -854,7 +808,6 @@
 		line-height: 34upx;
 		padding-top: 20upx;
 	}
-
 	.project-details-data-two view:nth-of-type(1) {
 		width: 100%;
 		height: 30upx;
@@ -863,7 +816,6 @@
 		padding-top: 20upx;
 		font-weight: 700;
 	}
-
 	.project-details-data-two view:nth-of-type(2) {
 		width: 100%;
 		min-height: 30upx;
@@ -872,7 +824,6 @@
 		line-height: 34upx;
 		padding-top: 40upx;
 	}
-
 	.project-details-data-bian {
 		font-size: 26upx;
 		color: #02C2A2;
@@ -881,7 +832,6 @@
 		top: 52upx;
 		font-weight: 700;
 	}
-
 	.project-details-data-brief {
 		margin: 40upx auto 0 auto;
 		width: 300upx;
@@ -893,7 +843,6 @@
 		font-size: 28upx;
 		color: #02C2A2;
 	}
-
 	.demand {
 		width: 100%;
 		min-height: 200upx;
@@ -901,7 +850,6 @@
 		position: relative;
 		padding-bottom: 40upx;
 	}
-
 	.demand view:nth-of-type(1) {
 		font-size: 34upx;
 		color: #2E2E30;
@@ -909,14 +857,12 @@
 		padding-left: 30upx;
 		font-weight: 700;
 	}
-
 	.demand-two {
 		font-size: 28upx;
 		color: #5D5D5D;
 		padding-top: 20upx;
 		padding-left: 40upx;
 	}
-
 	.demand-bian {
 		font-size: 26upx;
 		color: #02C2A2;
@@ -925,7 +871,6 @@
 		top: 52upx;
 		font-weight: 700;
 	}
-
 	.demand-an {
 		margin: 40upx auto 0 auto;
 		width: 300upx;
@@ -937,13 +882,11 @@
 		font-size: 28upx;
 		color: #02C2A2;
 	}
-
 	.project-details-company {
 		width: 100%;
 		min-height: 300upx;
 		position: relative;
 	}
-
 	.project-details-company view:nth-of-type(1) {
 		font-size: 34upx;
 		font-weight: 700;
@@ -951,7 +894,6 @@
 		padding-top: 40upx;
 		padding-left: 30upx;
 	}
-
 	.project-details-company-two {
 		font-size: 28upx;
 		color: #2E2E30;
@@ -959,21 +901,18 @@
 		padding-top: 18upx;
 		padding-left: 30upx;
 	}
-
 	.project-details-company-thre {
 		font-size: 28upx;
 		color: #5D5D5D;
 		padding-top: 0upx;
 		padding-left: 35upx;
 	}
-
 	.project-details-company-one {
 		width: 90%;
 		border-top: 2upx solid #E2E2E2;
 		height: 120upx;
 		margin: 20upx auto auto auto;
 	}
-
 	.project-details-company-one view:nth-of-type(1) {
 		font-size: 28upx;
 		color: #2E2E30;
@@ -983,7 +922,6 @@
 		width: 100%;
 		height: 40upx;
 	}
-
 	.project-details-company-one view:nth-of-type(2) {
 		font-size: 28upx;
 		color: #5D5D5D;
@@ -993,7 +931,6 @@
 		text-overflow: ellipsis; //溢出用省略号显示
 		white-space: nowrap; //溢出不换行
 	}
-
 	.gongsi {
 		font-size: 26upx;
 		color: #02C2A2;
@@ -1002,11 +939,9 @@
 		top: 52upx;
 		font-weight: 700;
 	}
-
 	.project-details-link {
 		width: 100%;
 	}
-
 	.project-details-link view:nth-of-type(1) {
 		font-size: 34upx;
 		color: #2E2E30;
@@ -1014,7 +949,6 @@
 		padding-left: 30upx;
 		font-weight: 700;
 	}
-
 	.project-details-link view:nth-of-type(2) {
 		font-size: 28upx;
 		color: #2E2E30;
@@ -1022,7 +956,6 @@
 		padding-left: 30upx;
 		font-weight: 700;
 	}
-
 	.button-an {
 		margin: 30upx auto 0 auto;
 		width: 300upx;
@@ -1034,14 +967,12 @@
 		font-size: 28upx;
 		color: #02C2A2;
 	}
-
 	.add {
 		width: 90%;
 		margin: 0 auto;
 		margin-top: 10upx;
 		display: inline-block;
 	}
-
 	.add span {
 		height: 80upx;
 		font-size: 28upx;
@@ -1054,14 +985,12 @@
 		display: block;
 		margin-top: 20upx;
 	}
-
 	.team {
 		width: 100%;
 		min-height: 300upx;
 		background: #FFFFFF;
 		padding-bottom: 20upx;
 	}
-
 	.team view:nth-of-type(1) {
 		font-size: 34upx;
 		color: #2E2E30;
@@ -1069,7 +998,6 @@
 		padding-left: 30upx;
 		font-weight: 700;
 	}
-
 	.team-cheng {
 		width: 90%;
 		height: 176upx;
@@ -1077,20 +1005,17 @@
 		margin: 0 auto;
 		display: flex;
 	}
-
 	.team-cheng view:nth-of-type(1) {
 		width: 88upx;
 		height: 88upx;
 		border-radius: 50%;
 		margin-left: 0;
 	}
-
 	.team-cheng view:nth-of-type(1) image {
 		width: 100%;
 		height: 100%;
 		border-radius: 50%;
 	}
-
 	.team-cheng view:nth-of-type(2) {
 		width: 450upx;
 		height: 88upx;
@@ -1102,12 +1027,10 @@
 		text-overflow: ellipsis; //溢出用省略号显示
 		white-space: nowrap; //溢出不换行
 	}
-
 	.team-cheng view:nth-of-type(2) span:nth-of-type(1) {
 		font-size: 32upx;
 		color: #2E2E30;
 	}
-
 	.team-cheng view:nth-of-type(2) span:nth-of-type(2) {
 		font-size: 24upx;
 		color: #9B9B9B;
@@ -1119,14 +1042,12 @@
 		line-height: 7upx;
 		margin-top: 15upx;
 	}
-
 	.team-cheng view:nth-of-type(2) span:nth-of-type(3) {
 		font-size: 12px;
 		color: #5D5D5D;
 		position: absolute;
 		top: 50upx;
 	}
-
 	.team-cheng view:nth-of-type(3) {
 		width: 80upx;
 		text-align: right;
@@ -1136,14 +1057,12 @@
 		margin-right: 0;
 		font-weight: 700;
 	}
-
 	.history {
 		width: 100%;
 		min-height: 300upx;
 		background: #FFFFFF;
 		padding-bottom: 20upx;
 	}
-
 	.history view:nth-of-type(1) {
 		font-size: 34upx;
 		color: #2E2E30;
@@ -1151,7 +1070,6 @@
 		padding-left: 30upx;
 		font-weight: 700;
 	}
-
 	.history-cheng {
 		width: 90%;
 		height: 176upx;
@@ -1159,7 +1077,6 @@
 		margin: 0 auto;
 		display: flex;
 	}
-
 	.history-cheng view:nth-of-type(1) {
 		width: 70upx;
 		height: 70upx;
@@ -1169,7 +1086,6 @@
 		position: relative;
 		text-align: center;
 	}
-
 	.history-cheng view:nth-of-type(1) span:nth-of-type(1) {
 		font-size: 38upx;
 		color: #2E2E30;
@@ -1180,7 +1096,6 @@
 		width: 100%;
 		height: 50%;
 	}
-
 	.history-cheng view:nth-of-type(1) span:nth-of-type(2) {
 		font-size: 38upx;
 		color: #9B9B9B;
@@ -1190,23 +1105,19 @@
 		width: 100%;
 		height: 50%;
 	}
-
 	.history-cheng view:nth-of-type(2) {
 		width: 70%;
 		height: 100%;
 		margin-left: 20upx;
 	}
-
 	.history-cheng view:nth-of-type(2) span {
 		display: block;
 		font-size: 26upx;
 		color: #5D5D5D;
 	}
-
 	.history-cheng view:nth-of-type(2) span:nth-of-type(1) {
 		margin-top: 10upx;
 	}
-
 	.history-cheng view:nth-of-type(2) span:nth-of-type(3) {
 		width: 500upx;
 		font-size: 26upx;
@@ -1215,7 +1126,6 @@
 		text-overflow: ellipsis; //溢出用省略号显示
 		white-space: nowrap; //溢出不换行
 	}
-
 	.history-cheng view:nth-of-type(3) {
 		width: 80upx;
 		text-align: right;
@@ -1225,12 +1135,9 @@
 		margin-right: 0;
 		font-weight: 700;
 	}
-
-
 	.zhe {
 		display: none;
 	}
-
 	.Mask {
 		position: fixed;
 		top: 0;
@@ -1239,7 +1146,6 @@
 		background: #000000;
 		background-color: rgba(000, 000, 0, 0.2);
 	}
-
 	.Mask-box {
 		width: 100%;
 		height: 540upx;
@@ -1247,7 +1153,6 @@
 		bottom: 0;
 		background: #FFFFFF;
 	}
-
 	.Mask-box-header {
 		width: 100%;
 		height: 112upx;
@@ -1255,7 +1160,6 @@
 		display: flex;
 		justify-content: space-between;
 	}
-
 	.Mask-box-header view:nth-of-type(1) {
 		width: 150upx;
 		height: 50upx;
@@ -1265,7 +1169,6 @@
 		line-height: 50upx;
 		margin-top: 40upx;
 	}
-
 	.Mask-box-header view:nth-of-type(2) {
 		width: 200upx;
 		height: 50upx;
@@ -1275,7 +1178,6 @@
 		line-height: 50upx;
 		margin-top: 40upx;
 	}
-
 	.Mask-box-header view:nth-of-type(3) {
 		width: 150upx;
 		height: 50upx;
@@ -1285,19 +1187,16 @@
 		line-height: 50upx;
 		margin-top: 40upx;
 	}
-
 	.Mask-box-content {
 		width: 100%;
 		height: 500upx;
 	}
-
 	.Mask-box-content view:nth-of-type(1) {
 		width: 90%;
 		height: 186upx;
 		border-bottom: 2upx solid #F5F5F5;
 		margin: 0 auto;
 	}
-
 	.Mask-box-content view:nth-of-type(1) span {
 		padding-top: 42upx;
 		display: block;
@@ -1305,20 +1204,17 @@
 		color: #2E2E30;
 		font-weight: 700;
 	}
-
 	.Mask-box-content view:nth-of-type(1) input {
 		border: 0;
 		width: 100%;
 		height: 100upx;
 	}
-
 	.Mask-box-content view:nth-of-type(2) {
 		width: 90%;
 		height: 186upx;
 		border-bottom: 2upx solid #F5F5F5;
 		margin: 0 auto;
 	}
-
 	.Mask-box-content view:nth-of-type(2) span {
 		padding-top: 42upx;
 		display: block;
@@ -1326,7 +1222,6 @@
 		color: #2E2E30;
 		font-weight: 700;
 	}
-
 	.Mask-box-content view:nth-of-type(2) input {
 		border: 0;
 		width: 100%;

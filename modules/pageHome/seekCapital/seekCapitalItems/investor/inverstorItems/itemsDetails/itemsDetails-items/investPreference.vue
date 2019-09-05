@@ -71,6 +71,7 @@
 	}
 	.personalProfile{
 		position: relative;
+		width: 690upx;
 		padding: 30upx;
 	}
 	.pP-title{

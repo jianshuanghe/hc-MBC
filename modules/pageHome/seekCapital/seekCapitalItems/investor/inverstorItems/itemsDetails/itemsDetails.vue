@@ -1,18 +1,21 @@
 <template>
 	<view class="itemsDetails-content">
 		<view class="k">
-			<!-- top -->
-			<inverstorTop :msgData="dataList"></inverstorTop>
-			<!-- 个人简介 -->
-			<personalProfile :msgData="dataList"></personalProfile>
-			<!-- 任职履历 -->
-			<ResumeEmploy :msgData="dataList"></ResumeEmploy>
-			<!-- 投资案例 -->
-			<investPreference :msgData="dataList"></investPreference>
-			<!-- 投资偏好 -->
-			<InvestmentCase :msgData="dataList"></InvestmentCase>
-			<!-- 底部提交 -->
-			<botBtn :msgData="data"></botBtn>
+			<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
+			@scroll="scroll">
+				<!-- top -->
+				<inverstorTop :msgData="dataList"></inverstorTop>
+				<!-- 个人简介 -->
+				<personalProfile :msgData="dataList"></personalProfile>
+				<!-- 任职履历 -->
+				<ResumeEmploy :msgData="dataList"></ResumeEmploy>
+				<!-- 投资案例 -->
+				<investPreference :msgData="dataList"></investPreference>
+				<!-- 投资偏好 -->
+				<InvestmentCase :msgData="dataList"></InvestmentCase>
+				<!-- 底部提交 -->
+				<botBtn :msgData="data"></botBtn>
+			</scroll-view>
 		</view>
 		<tipsBox v-if='AUTH.show'>
 			<image class="TIPS-img" :src="close" @tap="clickClose()"></image>
@@ -70,6 +73,7 @@
 			}
 		},
 		mounted() {
+			this.getUserData();
 		},
 		onLoad(option) {
 			this.data.userId = option.userId;

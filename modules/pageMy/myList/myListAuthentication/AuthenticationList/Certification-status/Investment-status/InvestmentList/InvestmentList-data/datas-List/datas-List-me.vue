@@ -1,10 +1,13 @@
 <template>
 	<view class="datas-List-me">
-		<view>
-			<textarea placeholder="请编辑您的个人资料" maxlength="300" @input="descInput" v-model="list.userContent" />
-			<span class="numberV">{{remnane}}/300</span>
-		</view>
-		<view @tap="mydata">保存</view>
+		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
+		@scroll="scroll">
+			<view>
+				<textarea placeholder="请编辑您的个人资料" maxlength="300" @input="descInput" v-model="list.userContent" />
+				<span class="numberV">{{remnane}}/300</span>
+			</view>
+			<view @tap="mydata">保存</view>
+		</scroll-view>
 	</view>
 </template>
 

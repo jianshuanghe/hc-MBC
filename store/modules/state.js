@@ -266,7 +266,17 @@ const state = {
 	}  
   },
   news:{//消息
-	  newsList:[]
+	  newsList:[],
+	  newsData: { // 消息
+	  	loadingText: '加载更多...',
+	  	search: { // 搜索
+	  		pageNum: 0, // 总页数
+	  		searchCondition: {  // 分页属性
+	  			page: '1'
+	  		}
+	  	},
+	  	listData: '' // 列表数据
+	  }
   }
 };
 export default state;

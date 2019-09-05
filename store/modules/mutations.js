@@ -203,6 +203,11 @@ const mutations = {
   	  console.log(info,'setNews')
   	  state.news.newsList=info
   },
+  // 消息数据
+  setNewsDate(state, info){
+  	  console.log(info,'setNewsDate')
+  	  state.news.newsData=info
+  },
   setTimes(state, info){
 	  console.log(info,'setTimes')
 	  state.my.MyList.Times=info

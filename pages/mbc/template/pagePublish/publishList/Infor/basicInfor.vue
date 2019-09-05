@@ -682,7 +682,7 @@
 		background: #02C2A2;
 		border-radius: 2px;
 		margin-top: 40upx;
-		margin-bottom: 200upx;
+		margin-bottom: 300upx;
 	}
 	.SL-btn-text{
 		font-family: PingFangSC-Regular;

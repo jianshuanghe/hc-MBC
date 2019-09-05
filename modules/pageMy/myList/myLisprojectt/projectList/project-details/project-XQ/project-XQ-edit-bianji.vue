@@ -1,20 +1,23 @@
 <template>
 	<view class="edit-bianji">
-		<view class="datas-List-vitae-name">
-			<view class="datas-List-vitae-name-box">
-				<view><input type="text" placeholder="输入标签内容" maxlength="15" placeholder-style="color:#D2D2D2" v-model="compName" /></view>
-			</view>
-		</view>
-		<view class="edit-bianji-one">
-			注：保持文字15个字以内
-		</view>
-		<view class="Investor-Submission">
-			<view @tap="Submission">
-				<view>
-					提交
+		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
+		@scroll="scroll">
+			<view class="datas-List-vitae-name">
+				<view class="datas-List-vitae-name-box">
+					<view><input type="text" placeholder="输入标签内容" maxlength="15" placeholder-style="color:#D2D2D2" v-model="compName" /></view>
 				</view>
 			</view>
-		</view>
+			<view class="edit-bianji-one">
+				注：保持文字15个字以内
+			</view>
+			<view class="Investor-Submission">
+				<view @tap="Submission">
+					<view>
+						提交
+					</view>
+				</view>
+			</view>
+		</scroll-view>
 	</view>
 </template>
 

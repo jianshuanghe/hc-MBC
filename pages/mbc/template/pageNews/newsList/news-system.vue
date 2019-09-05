@@ -4,8 +4,8 @@
 			<image :src='xiaoxo'></image>
 		</view>
 		<view class="system-notice">
-			<view>系统通知<span v-for="(items,index) in num" v-if="index<1" :key="index">{{items.createTime|formatDate}}</span></view>
-			<view v-for="(item,index) in num" v-if="index<1" :key="index">{{item.content}}
+			<view>系统通知<span v-for="(items,index) in num.rows" v-if="index<1" :key="index">{{active.listData[0].createTime|formatDate}}</span></view>
+			<view  v-if="active.listData.length > 0" >{{active.listData[0].content}}
 				<view v-if="List.noticeCount !== 0">{{List.noticeCount}}</view>
 			</view>
 		</view>
@@ -20,7 +20,17 @@
 				xiaoxo: this.Static + 'mbcImg/news/xiaoxo.png',
 				Listdata:[],
 				List:[],
-				num:[]
+				num:[],
+				active: { // 消息
+					loadingText: '加载更多...',
+					search: { // 搜索
+						pageNum: 0, // 总页数
+						searchCondition: {  // 分页属性
+							page: '1'
+						}
+					},
+					listData: '' // 列表数据
+				}
 				
 			};
 		},
@@ -36,8 +46,9 @@
 			GET_NEWS: {
 				handler(a, b) {
 					console.log(a, b,'12312318498165449816149841644');
-					this.num=a.newsList.rows
-					console.log(this.num)
+					this.num=a.newsList
+					console.log(this.num.rows);
+					this.active.listData = a.newsData.listData; // 侦听消息
 				},
 				deep: true
 			},
@@ -49,6 +60,7 @@
 			this.getHeader();
 			this.List = this.GET_MY.MyList.header;
 			console.log(this.List, 'chuan');
+			this.news(this.active); // 获取消息数据
 		},
 		filters: {
 			formatDate: function(value) {
@@ -69,6 +81,49 @@
 			
 		},
 		methods: {
+			...mapMutations({
+				setNewsDate: 'setNewsDate'
+			}),
+			news(e){
+				if (uni.getStorageSync('landRegist')) {
+					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+					console.log(landRegistLG.user.id);
+					// let params = {}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/noticeInfo/list?userId='+landRegistLG.user.id +'&page=' +  e.search.searchCondition.page, //接口地址。
+						// data: this.endParams(params),
+						method: 'GET',
+						header: {
+							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
+						},
+						success: (response) => {
+							uni.hideLoading();
+							console.log(response.data);
+							// this.Listdata=response.data.rows
+							e.listData = response.data.rows; // 第一页返回的数据
+							e.search.pageNum = this.pageNums(response.data.total) // 总页数
+							console.log(response.data.total, e.search.pageNum);
+							if (e.search.pageNum === 1) { // 总页数为1时，显示没有数据了
+								this.loadingText = '已经没有数据了';
+								e.loadingText = '已经没有数据了!';
+							};
+							this.$store.commit('setNewsDate', e);
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
 			goToMessageList(e) {
 				// console.log(this.Inarr)
 				if (uni.getStorageSync('landRegist')) {
@@ -103,6 +158,7 @@
 				}
 				let that = this;
 				var navnum = JSON.stringify(that.Innum);
+				
 				uni.navigateTo({
 					url: '/modules/pageNews/newsList/newsList?index=' + navnum,
 				});

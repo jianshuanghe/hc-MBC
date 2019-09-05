@@ -150,6 +150,13 @@
 						uni.redirectTo({
 							url: '/modules/pageHome/homeModules/lookProject/lookProject'
 						});
+					} else if (this.entrust.params.applyeType === 104) {
+						console.log('服务列表');
+						uni.navigateBack({
+							delta: 1,
+							animationType: 'pop-out',
+							animationDuration: 200 ,
+						});
 					}
 				}
 			}

@@ -1,5 +1,9 @@
 <template>
 	<view class="activeDetails-content">
+		<!-- <scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
+		@scroll="scroll">
+		
+		</scroll-view> -->
 		<view class="content-content">
 			<view class="activeDetails">
 				<view class="AD-content">
@@ -79,6 +83,7 @@
 						success: (response) => {
 							console.log(response.data.content);
 							let data = response.data.content;
+							console.log(data, '---------------------data-------------------');
 							data.activity.activityContent = data.activity.activityContent.replace(/\<img/gi, '<img style="max-width:100%;height:auto" ');
 							this.dataList = data;
 							uni.hideLoading(); // 隐藏 loading

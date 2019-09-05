@@ -1,9 +1,12 @@
 <template>
 	<view class="publishUpload-Content">
-		<!-- 扫码登录pc -->
-		<scanland :msgData="data" v-if="GET_PUBLISH.scanLandSuccess === false"></scanland>
-		<!-- 上传完成 -->
-		<uploadFile v-if="GET_PUBLISH.scanLandSuccess === true"></uploadFile>
+		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
+		@scroll="scroll">
+			<!-- 扫码登录pc -->
+			<scanland :msgData="data" v-if="GET_PUBLISH.scanLandSuccess === false"></scanland>
+			<!-- 上传完成 -->
+			<uploadFile v-if="GET_PUBLISH.scanLandSuccess === true"></uploadFile>
+		</scroll-view>
 	</view>
 </template>
 <script>

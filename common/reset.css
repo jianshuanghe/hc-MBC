@@ -404,10 +404,11 @@ padding-right: 0rpx;
 }
 .TIPS-img{
 	position: absolute;
-	right: 24upx;
-	top: 24upx;
+	right: 0upx;
+	top: 0upx;
 	height: 24upx;
 	width: 24upx;
+	padding: 24upx;
 }
 .TIPS-isnt{
 	font-family: PingFangSC-Light;

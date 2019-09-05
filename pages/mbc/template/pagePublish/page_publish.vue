@@ -4,13 +4,16 @@
 			<!-- title -->
 			<publishTitle></publishTitle>
 			<!-- content -->
-			<!-- pc登录上传 -->
-			<uploadBP v-if='GET_PUBLISH.titleIndex === 1'></uploadBP>
-			<!-- infor -->
-			<view class="inforContent"  v-if='GET_PUBLISH.titleIndex === 2'>
-				<!-- 基本信息 -->
-				<basicInfor ></basicInfor>
-			</view>
+			<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
+			@scroll="scroll">
+				<!-- pc登录上传 -->
+				<uploadBP v-if='GET_PUBLISH.titleIndex === 1'></uploadBP>
+				<!-- infor -->
+				<view class="inforContent"  v-if='GET_PUBLISH.titleIndex === 2'>
+					<!-- 基本信息 -->
+					<basicInfor ></basicInfor>
+				</view>
+			</scroll-view>
 		</view>
 		<tipsBox v-if='AUTH.show'>
 			<div class="" v-if='GET_PUBLISH.isUpLoadFile.isFileSuccess === false'>
