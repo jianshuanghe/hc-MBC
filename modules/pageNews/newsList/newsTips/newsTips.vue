@@ -289,7 +289,7 @@
 		height: 40upx;
 		font-size: 32upx;
 		text-align: center;
-		line-height: 60upx;
+		line-height: 40upx;
 		border-top: 2upx solid  #F5F5F5;
 		color: #02C2A2;
 	}
