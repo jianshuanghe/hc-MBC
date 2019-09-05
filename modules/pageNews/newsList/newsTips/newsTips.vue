@@ -280,6 +280,9 @@
 	.zhe {
 		display: none;
 	}
+	.scroll-Y{
+		height: 100vh;
+	}
 	.maske{
 		position: fixed;
 		top: 0upx;
@@ -324,10 +327,10 @@
 	}
 	.maske-box>view:nth-of-type(4){
 		width: 100%;
-		height: 70upx;
+		height: 40upx;
 		font-size: 32upx;
 		text-align: center;
-		line-height: 70upx;
+		line-height: 60upx;
 		border-top: 2upx solid  #F5F5F5;
 		color: #02C2A2;
 	}

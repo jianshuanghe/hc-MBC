@@ -269,7 +269,7 @@
   .landRegistration-content{
     position: relative;
     width: 750upx;
-    height: 1334upx;
+    height: 100vh;
     background: #fff;
   }
   .landRegistration{
