@@ -526,6 +526,7 @@
 		color: #2E2E30;
 		width: 300upx;
 		margin-top: 15upx;
+		font-weight: bold;
 	}
 	.project-details-header-one>view:nth-of-type(2)>span:nth-of-type(2) {
 		display: block;

@@ -67,7 +67,7 @@
 	.CollectionNavigation view {
 		width: 25%;
 		height: 100%;
-		font-size: 30upx;
+		font-size: 28upx;
 		letter-spacing: 0;
 		text-align: center;
 		line-height: 88upx;
@@ -75,7 +75,9 @@
 	}
 
 	.changeColor {
-		color: #02C2A2;
+		/* color: #02C2A2; */
+		font-weight: bold;
+		font-size: 32upx;
 	}
 
 	.changeColor:before {

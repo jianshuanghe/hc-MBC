@@ -42,7 +42,7 @@
 						},
 						success: (response) => {
 							uni.hideLoading();
-							// console.log(response.data);
+							console.log(response.data);
 							this.Listdata=response.data.content
 							console.log(this.Listdata,'321')
 						},
