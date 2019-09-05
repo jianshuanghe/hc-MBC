@@ -147,6 +147,7 @@
 		letter-spacing: 0;
 		line-height: 60upx;	
 		margin-top: 10upx;
+		font-weight: bold;
 	}
 	.SUI-text-bot{
 		font-family: PingFangSC-Regular;

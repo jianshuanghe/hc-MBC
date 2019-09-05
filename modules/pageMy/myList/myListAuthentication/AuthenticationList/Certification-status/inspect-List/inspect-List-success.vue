@@ -146,6 +146,7 @@
 		color: #2E2E30;
 		padding-top: 60upx;
 		padding-left: 48upx;
+		font-weight: bold;
 	}
 
 	.inspect-List-success-conter view:nth-of-type(2) {
