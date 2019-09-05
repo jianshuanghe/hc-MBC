@@ -92,6 +92,7 @@
 		color: #2E2E30;
 		text-align: center;
 		line-height: 110upx;
+		margin-top: 15upx;
 	}
 	
 </style>

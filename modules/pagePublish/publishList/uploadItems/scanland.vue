@@ -24,10 +24,12 @@
 
 <script>
 	import scanTapOne from '@/static/mbcImg/publish/scanTapOne.png'
+	
 	import { mapMutations } from 'vuex';
 	export default {
 	    data () {
 	      return {
+			scanTapOne: scanTapOne,
 	        scanTapTwo: this.Static + 'mbcImg/publish/scanTapTwo.png',
 			token: 0,
 	      };

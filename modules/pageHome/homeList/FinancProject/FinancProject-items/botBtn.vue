@@ -180,13 +180,18 @@
 					this.$store.commit('setAuthShow', true); // 更新setAuthShow
 					return
 				} else if (this.userType ==='0') {
-					this.$store.commit('setAuthShow', false); // 更新setAuthShow
-					uni.showToast({
-						title: '您已成为创业者身份，无法委托联系项目',
-						icon: 'none',
-						duration: 1000
-					});
-					return
+					if (this.authState !== '1') { // 创业者审核没有成功状态
+						this.$store.commit('setAuthShow', true); // 更新setAuthShow
+						return
+					} else if (this.authState === '1') { // 创业者成功
+						this.$store.commit('setAuthShow', false); // 更新setAuthShow
+						uni.showToast({
+							title: '您已成为创业者身份，无法委托联系项目',
+							icon: 'none',
+							duration: 1000
+						});
+						return
+					}
 				}
 				if (this.msgData.content === 1) {
 					uni.showToast({

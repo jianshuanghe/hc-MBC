@@ -122,7 +122,7 @@
 		position: relative;
 		width: 32upx;
 		margin: auto;
-		top: 12upx;
+		top: 15upx;
 	}
 	.img-box>image{
 		position: relative;
