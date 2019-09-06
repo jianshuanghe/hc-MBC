@@ -9,7 +9,7 @@
 					<span>{{item.fieldName}}</span>
 				</view>
 				<view>
-					<span>￥{{item.finanMoney}}万</span>
+					<span>¥{{item.finanMoney}}万</span>
 					<span>融资轮次：{{item.levelName}}</span>
 				</view>
 			</view>
@@ -211,16 +211,18 @@
 		height: 80upx;
 		margin-left: 0;
 		padding-top: 40upx;
+		border-radius: 4upx;
 	}
 	.footprint-works-fist view:nth-of-type(1) image{
 		width: 100%;
 		height: 100%;
+		border-radius: 4upx;
 	}
 	.footprint-works-fist view:nth-of-type(2){
 		position: absolute;
 		width: 200upx;
 		height: 80upx;
-		left: 110upx;
+		left: 102upx;
 		padding-top: 40upx;
 	}
 	.projNAme{
@@ -241,7 +243,7 @@
 		display: block;
 		font-size: 24upx;
 		color: #9B9B9B;
-		margin-top: 0upx;
+		margin-top: 16upx;
 		border: 0;
 	}
 	.footprint-works-fist view:nth-of-type(3){
@@ -257,6 +259,7 @@
 		right: 0;
 		font-size: 32upx;
 		color: #FAB100;
+		margin-top: -9upx;
 	}
 	.footprint-works-fist view:nth-of-type(3) span:nth-of-type(2){
 		position: absolute;

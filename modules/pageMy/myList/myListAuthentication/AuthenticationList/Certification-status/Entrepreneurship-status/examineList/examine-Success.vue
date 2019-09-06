@@ -92,6 +92,7 @@
 		color: #2E2E30;
 		padding-top: 20upx;
 		display: block;
+		font-weight: bold;
 	}
 
 	.examine-Success view:nth-of-type(2) span:nth-of-type(2) {
