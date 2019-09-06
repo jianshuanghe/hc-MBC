@@ -8,14 +8,14 @@
 			<view class="pP-content-box">
 				<view class="titel-pP">公司全称</view>
 				<view class="pP-content">
-					{{msgData.compName}}
+					{{msgData.compName || ''}}
 				</view>
 				<view class="line"></view>
 			</view>
 			<view class="pP-content-box" v-if="msgData.compAddr">
 				<view class="titel-pP">公司地址</view>
 				<view class="pP-content">
-					{{msgData.compAddr}}
+					{{msgData.compAddr || ''}}
 				</view>
 				<view class="line"></view>
 			</view>

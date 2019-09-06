@@ -5,7 +5,7 @@
 				<image :src="msgData.capitalComp.compLogo"></image>
 			</view>
 			<view class="left iT-text">
-				<div class="company-box">{{msgData.capitalComp.compName}}</div>
+				<div class="company-box">{{msgData.capitalComp.compName  || ''}}</div>
 			</view>
 			<div class="Authentication-type" @tap='goToAuth()' v-if='isAuth === false'>
 				<image :src="authen" class="AuType"></image>

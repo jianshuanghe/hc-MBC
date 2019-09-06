@@ -1,5 +1,5 @@
 <template>
-	<view class="comprehensive-content">
+	<view class="comprehensive-content"  v-if="GET_HOME.HomeSearch.project.listData || GET_HOME.HomeSearch.investor.listData || GET_HOME.HomeSearch.investen.listData || GET_HOME.HomeSearch.active.listData">
 		<view class=""  v-if="GET_HOME.HomeSearch.project.listData.length > 0 || GET_HOME.HomeSearch.investor.listData.length > 0 || GET_HOME.HomeSearch.investen.listData.length > 0 || GET_HOME.HomeSearch.active.listData.length > 0">
 			<!-- 项目 -->
 			<project v-if="GET_HOME.HomeSearch.project.listData.length > 0"></project>

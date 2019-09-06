@@ -4,7 +4,7 @@
 		@scroll="scroll">
 		
 		</scroll-view> -->
-		<view class="content-content">
+		<view class="content-content" v-if="dataList.activity.activityTitel">
 			<view class="activeDetails">
 				<view class="AD-content">
 					<view class="AD-title">{{dataList.activity.activityTitel || ''}}</view>

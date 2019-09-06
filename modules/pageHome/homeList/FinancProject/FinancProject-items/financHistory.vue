@@ -15,9 +15,9 @@
 					</view>
 					<view class="left Itm-right">
 						<view class="Itm-content-mm">
-							<view class="employ">金额: {{items.capiMoney}}万</view>
-							<view class="employ">在融轮次: {{items.levelCode}}</view>
-							<view class="employ fT">{{items.capiInveCompName}}</view>
+							<view class="employ">金额: {{items.capiMoney || ''}}万</view>
+							<view class="employ">在融轮次: {{items.levelCode || ''}}</view>
+							<view class="employ fT">{{items.capiInveCompName || ''}}</view>
 						</view>
 					</view>
 					<view class="clear"></view>

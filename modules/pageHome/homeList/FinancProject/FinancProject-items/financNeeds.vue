@@ -6,7 +6,7 @@
 				<text class="pP-text-right"  @tap="goToOpinion()">纠错</text>
 			</view>
 			<view class="pP-content">
-				{{msgData.finanLevelCode}} {{msgData.finanMoney}}万人民币
+				{{msgData.finanLevelCode || ''}} {{msgData.finanMoney || ''}}万人民币
 			</view>
 		</view>
 	</view>

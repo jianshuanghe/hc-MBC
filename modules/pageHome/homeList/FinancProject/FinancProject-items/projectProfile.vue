@@ -8,7 +8,7 @@
 			<view class="pP-img" >
 				<view class="img-list">
 					<view class="img-box left" v-for="(items,index) in msgData.projImgs" :key="index" @tap="previewImage(msgData.projImgs, index)">
-						<image class="items-img" mode='widthFix' :src="items.imgName"></image>
+						<image class="items-img" mode='widthFix' :src="items.imgName "></image>
 					</view>
 					<view class="clear"></view>
 				</view>
@@ -17,42 +17,42 @@
 			<view class="pP-content-box" v-if="msgData.projContent !== ''">
 				<view class="titel-pP">项目介绍</view>
 				<view class="pP-content">
-					{{msgData.projContent}}
+					{{msgData.projContent || ''}}
 				</view>
 				<view class="line"></view>
 			</view>
 			<view class="pP-content-box" v-if="msgData.conentMarket !== ''">
 				<view class="titel-pP">市场需求</view>
 				<view class="pP-content">
-					{{msgData.conentMarket}}
+					{{msgData.conentMarket || ''}}
 				</view>
 				<view class="line"></view>
 			</view>
 			<view class="pP-content-box" v-if="msgData.conentPortrait !== ''">
 				<view class="titel-pP">用户画像</view>
 				<view class="pP-content">
-					{{msgData.conentPortrait}}
+					{{msgData.conentPortrait || ''}}
 				</view>
 				<view class="line"></view>
 			</view>
 			<view class="pP-content-box" v-if="msgData.conentModel !== ''">
 				<view class="titel-pP">商业模式</view>
 				<view class="pP-content">
-					{{msgData.conentModel}}
+					{{msgData.conentModel || ''}}
 				</view>
 				<view class="line"></view>
 			</view>
 			<view class="pP-content-box" v-if="msgData.conentData !== ''">
 				<view class="titel-pP">运营数据</view>
 				<view class="pP-content">
-					{{msgData.conentData}}
+					{{msgData.conentData || ''}}
 				</view>
 				<view class="line"></view>
 			</view>
 			<view class="pP-content-box" v-if="msgData.conentCore !== ''">
 				<view class="titel-pP">核心资源</view>
 				<view class="pP-content">
-					{{msgData.conentCore}}
+					{{msgData.conentCore || ''}}
 				</view>
 			</view>
 		</view>

@@ -9,7 +9,7 @@
 				<view class="IC-box"  v-if="msgData.fieldList.length > 0">
 					<view class="title">关注领域</view>
 					<view class="IC-items-list">
-						<view class="IC-items left"  v-for="(items,index) in msgData.fieldList" :key="index">{{items.name}}</view>
+						<view class="IC-items left"  v-for="(items,index) in msgData.fieldList" :key="index">{{items.name || ''}}</view>
 						<view class="clear"></view>
 					</view>
 					<view class="line"></view>
@@ -17,7 +17,7 @@
 				<view class="IC-box"  v-if="msgData.userLevelList.length > 0">
 					<view class="title">关注领域</view>
 					<view class="IC-items-list">
-						<view class="IC-items left" v-for="(items,index) in msgData.userLevelList" :key="index">{{items.name}}</view>
+						<view class="IC-items left" v-for="(items,index) in msgData.userLevelList" :key="index">{{items.name || ''}}</view>
 						<view class="clear"></view>
 					</view>
 					<view class="line"></view>

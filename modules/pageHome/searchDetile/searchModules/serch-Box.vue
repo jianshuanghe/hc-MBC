@@ -180,11 +180,11 @@
 							if (response.data.rows.length === 0) {
 								e.loadingText = '已经没有数据了!';
 							}
-							uni.hideLoading(); // 隐藏 loading
 							this.$store.commit('setSeachProject', e); // 更新setSeachProject
 							this.$store.commit('setSeachInvestor', this.investor); // 更新setSeachInvestor
 							this.$store.commit('setSeachInvesten', this.investen); // 更新setSeachInvesten
 							this.$store.commit('setSeachActive', this.active); // 更新setSeachActive
+							uni.hideLoading(); // 隐藏 loading
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -223,11 +223,11 @@
 							if (response.data.rows.length === 0) {
 								e.loadingText = '已经没有数据了!';
 							}
-							uni.hideLoading(); // 隐藏 loading
 							this.$store.commit('setSeachProject', this.project); // 更新setSeachProject
 							this.$store.commit('setSeachInvestor', e); // 更新setSeachInvestor
 							this.$store.commit('setSeachInvesten', this.investen); // 更新setSeachInvesten
 							this.$store.commit('setSeachActive', this.active); // 更新setSeachActive
+							uni.hideLoading(); // 隐藏 loading
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -266,11 +266,11 @@
 							if (response.data.rows.length === 0) {
 								e.loadingText = '已经没有数据了!';
 							}
-							uni.hideLoading(); // 隐藏 loading
 							this.$store.commit('setSeachProject', this.project); // 更新setSeachProject
 							this.$store.commit('setSeachInvestor', this.investor); // 更新setSeachInvestor
 							this.$store.commit('setSeachInvesten', e); // 更新setSeachInvesten
 							this.$store.commit('setSeachActive', this.active); // 更新setSeachActive
+							uni.hideLoading(); // 隐藏 loading
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -310,11 +310,11 @@
 							if (response.data.rows.length === 0) {
 								e.loadingText = '已经没有数据了!';
 							}
-							uni.hideLoading(); // 隐藏 loading
 							this.$store.commit('setSeachProject', this.project); // 更新setSeachProject
 							this.$store.commit('setSeachInvestor', this.investor); // 更新setSeachInvestor
 							this.$store.commit('setSeachInvesten', this.investen); // 更新setSeachInvesten
 							this.$store.commit('setSeachActive', e); // 更新setSeachActive
+							uni.hideLoading(); // 隐藏 loading
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading

@@ -5,10 +5,10 @@
 				<image :src="msgData.user.headImg || dImg"></image>
 			</view>
 			<view class="left iT-text">
-				<view class="iT-type">{{msgData.user.userName}}</view>
-				<view class="iT-company"  v-if="msgData.user.userType === '2'">{{msgData.user.mechName}}·{{msgData.user.position}}</view>
+				<view class="iT-type">{{msgData.user.userName || ''}}</view>
+				<view class="iT-company"  v-if="msgData.user.userType === '2'">{{msgData.user.mechName || ''}}·{{msgData.user.position || ''}}</view>
 				<view class="iT-company" v-else>投资人</view>
-				<view class="iT-city">{{msgData.user.city}}</view>
+				<view class="iT-city">{{msgData.user.city || ''}}</view>
 			</view>
 			<view class="clear"></view>
 		</view>

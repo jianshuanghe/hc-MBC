@@ -1,28 +1,28 @@
 <template>
 	<view class="projectTop-content">
 		<view class="projectTop">
-			<view class="projectTop-top">
+			<view class="projectTop-top" v-if="msgData.projName">
 				
 				<view class="left text-projectTop">
-					<view class="title">{{msgData.projName}}</view>
-					<view class="ins">{{msgData.projSlogan}}</view>
-					<view class="inss">{{msgData.fieldCode}} | {{msgData.pcode}}</view>
+					<view class="title">{{msgData.projName || ''}}</view>
+					<view class="ins">{{msgData.projSlogan || ''}}</view>
+					<view class="inss">{{msgData.fieldCode || ''}} | {{msgData.pcode || ''}}</view>
 				</view>
 				<view class="projectTop-top-new" v-if="msgData.projCapis.length!==0">
 					上轮获投情况
-					<view class="">{{msgData.projCapis[0].levelCode}}</view>
-					<view v-if="msgData.projCapis[0].capiMoney!==''">{{msgData.projCapis[0].capiMoney}}万元</view>
+					<view class="">{{msgData.projCapis[0].levelCode || ''}}</view>
+					<view v-if="msgData.projCapis[0].capiMoney!==''">{{msgData.projCapis[0].capiMoney || ''}}万元</view>
 					<view v-if="msgData.projCapis[0].capiMoney==''">金额未披露</view>
 				</view>
 				<view class="left img-projectTop">
-					<image class="img" :src="msgData.projLogo"></image>
+					<image class="img" :src="msgData.projLogo || ''"></image>
 				</view>
 				<view class="clear"></view>
 			</view>
 			<view class="projectTop-bot">
 				<view class="line"></view>
 				<view class="bot-box">
-					<view class="items left" v-for="(items,index) in msgData.projLabels" :key="index">{{items.labelName}}</view>
+					<view class="items left" v-for="(items,index) in msgData.projLabels" :key="index">{{items.labelName || ''}}</view>
 					<view class="clear"></view>
 				</view>
 			</view>
@@ -67,6 +67,7 @@
 		box-shadow: 0 1px 8px 0 #EBEBEB;
 		border-radius: 4px;
 		padding: 40upx;
+		height: 304upx;
 	}
 	.projectTop-top{
 		position: relative;

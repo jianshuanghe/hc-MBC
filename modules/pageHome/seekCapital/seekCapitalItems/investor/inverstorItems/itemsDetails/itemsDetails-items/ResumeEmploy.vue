@@ -13,10 +13,10 @@
 					<view class="left Itm-right">
 						<view class="Itm-content-mm">
 							<view class="title">
-								{{items.compName}}
-								<text class="text">| {{items.position}}</text>
+								{{items.compName || ''}}
+								<text class="text">| {{items.position || ''}}</text>
 							</view>
-							<view class="employ">{{items.isIncu}}</view>
+							<view class="employ">{{items.isIncu || ''}}</view>
 						</view>
 					</view>
 					<view class="clear"></view>

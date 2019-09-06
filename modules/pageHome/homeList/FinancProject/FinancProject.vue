@@ -1,5 +1,5 @@
 <template>
-	<view class="itemsDetails-content">
+	<view class="itemsDetails-content" v-if="dataList.projName">
 		<view class="k">
 			<!-- top -->
 			<projectTop :msgData="dataList"></projectTop>

@@ -9,7 +9,7 @@
 				<div class="IC-box" v-if='msgData.capitalCompFields.length > 0'>
 					<div class="title">关注领域</div>
 					<div class="IC-items-list">
-						<div class="IC-items left" v-for="(items,index) in msgData.capitalCompFields" :key="index">{{items.fieldCode}}</div>
+						<div class="IC-items left" v-for="(items,index) in msgData.capitalCompFields" :key="index">{{items.fieldCode  || ''}}</div>
 						<div class="clear"></div>
 					</div>
 					<div class="line"></div>
@@ -17,7 +17,7 @@
 				<div class="IC-box"  v-if='msgData.capitalCompLevels.length > 0'>
 					<div class="title">关注轮次</div>
 					<div class="IC-items-list">
-						<div class="IC-items left" v-for="(items,index) in msgData.capitalCompLevels" :key="index">{{items.levelCode}}</div>
+						<div class="IC-items left" v-for="(items,index) in msgData.capitalCompLevels" :key="index">{{items.levelCode  || ''}}</div>
 						<div class="clear"></div>
 					</div>
 				</div>

@@ -13,11 +13,11 @@
 					<div class="left Itm-right">
 						<div class="Itm-content-mm">
 							<div class="title">
-								{{items.projUserName}}
+								{{items.projUserName || ''}}
 								<text class="text">| {{items.projUserPosition}}</text>
 								<text class="textChat" v-if="false">聊天</text>
 							</div>
-							<div class="employ">{{items.projUserContent}}</div>
+							<div class="employ">{{items.projUserContent || ''}}</div>
 						</div>
 					</div>
 					<div class="clear"></div>
