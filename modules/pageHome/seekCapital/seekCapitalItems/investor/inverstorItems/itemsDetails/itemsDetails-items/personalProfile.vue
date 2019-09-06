@@ -5,7 +5,7 @@
 				个人简介
 				<text class="pP-text-right"  @tap="goToOpinion()">纠错</text>
 			</view>
-			<view class="pP-content">{{msgData.user.userContent}}</view>
+			<view class="pP-content">{{msgData.user.userContent || ''}}</view>
 		</view>
 	</view>
 </template>

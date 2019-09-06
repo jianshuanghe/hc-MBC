@@ -1,6 +1,6 @@
 
 <template>
-	<view class="listInvest">
+	<view class="listInvest" v-if="list.listData">
 		<view v-if="list.listData.length > 0">
 			<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
 			@scroll="scroll">

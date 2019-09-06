@@ -13,10 +13,10 @@
 					<view class="left Itm-right">
 						<view class="Itm-content-mm">
 							<view class="title">
-								{{items.projUserName}}
-								<text class="text">| {{items.projUserPosition}}</text>
+								{{items.projUserName || ''}}
+								<text class="text">| {{items.projUserPosition || ''}}</text>
 							</view>
-							<view class="employ">{{items.projUserContent}}</view>
+							<view class="employ">{{items.projUserContent || ''}}</view>
 						</view>
 					</view>
 					<view class="clear"></view>

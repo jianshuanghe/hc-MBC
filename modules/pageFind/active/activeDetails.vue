@@ -1,6 +1,6 @@
 <template>
 	<view class="activeDetails-content">
-		<contentCC :msgData="dataList"></contentCC>
+		<contentCC :msgData="dataList" v-if='dataList.activity.activityTitel'></contentCC>
 		<constSubmit :msgData="data"></constSubmit>
 	</view>
 </template>

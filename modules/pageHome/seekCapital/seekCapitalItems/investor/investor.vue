@@ -1,19 +1,21 @@
 
 <template>
-	<view class="s"  v-if="invest.listData.length > 0">
-		<view class="listInvest">
-			<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
-			@scroll="scroll">
-				<view v-for="(items,index) in invest.listData" :key="index" >
-					<investItems :msgData="items"></investItems>
-				</view>
-				<view class="loading-more">
-					<text class="loading-more-text">{{loadingText}}</text>
-				</view>
-			</scroll-view>
+	<div class="k" v-if='invest.listData'>
+		<view class="s"  v-if="invest.listData.length > 0">
+			<view class="listInvest">
+				<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
+				@scroll="scroll">
+					<view v-for="(items,index) in invest.listData" :key="index" >
+						<investItems :msgData="items"></investItems>
+					</view>
+					<view class="loading-more">
+						<text class="loading-more-text">{{loadingText}}</text>
+					</view>
+				</scroll-view>
+			</view>
 		</view>
-	</view>
-	<empty v-else>抱歉，没有找到相关内容~</empty>
+		<empty v-else>抱歉，没有找到相关内容~</empty>
+	</div>
 </template>
 
 <script>

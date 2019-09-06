@@ -1,5 +1,5 @@
 <template>
-	<view class="itemsDetails-content">
+	<view class="itemsDetails-content" v-if="dataList.user.headImg">
 		<view class="k">
 			<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
 			@scroll="scroll">

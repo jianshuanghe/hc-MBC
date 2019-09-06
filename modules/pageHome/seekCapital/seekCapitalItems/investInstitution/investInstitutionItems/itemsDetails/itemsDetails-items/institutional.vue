@@ -6,7 +6,7 @@
 				<!-- <text class="pP-text-right">纠错</text> -->
 			</div>
 			<div class="pP-content">
-				{{msgData.capitalComp.compContent}}
+				{{msgData.capitalComp.compContent || ''}}
 			</div>
 			<div class="openOrClose" @tap='isShowAll()' v-if='msgData.capitalComp.compContent.length > 45'>
 				<div class="line"></div>
