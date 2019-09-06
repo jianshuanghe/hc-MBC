@@ -650,7 +650,7 @@
 		position: absolute;
 		right: 0;
 		top: 40upx;
-		width: 25upx;
+		width: 18upx;
 		height: 18upx;
 	}
 
@@ -709,7 +709,7 @@
 		position: absolute;
 		right: 0;
 		top: 40upx;
-		width: 25upx;
+		width: 18upx;
 		height: 18upx;
 	}
 
@@ -782,7 +782,7 @@
 		position: absolute;
 		right: 0;
 		top: 40upx;
-		width: 25upx;
+		width: 18upx;
 		height: 18upx;
 	}
 

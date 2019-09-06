@@ -2,7 +2,7 @@
 	<view class="aboutOfficial">
 		<view>客服热线 400-618 2288</view>
 		<view>工作时间 8:30-18:00</view>
-		<view>陌拜资本官网 www.xxxx.com</view>
+		<view><!-- 陌拜资本官网 www.xxxx.com --></view>
 		<view>@北京慧聪云信大数据科技有限公司</view>
 	</view>
 </template>

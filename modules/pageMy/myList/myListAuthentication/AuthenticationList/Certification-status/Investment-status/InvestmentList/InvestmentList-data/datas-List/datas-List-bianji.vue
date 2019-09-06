@@ -486,7 +486,7 @@
 		position: absolute;
 		width: 25upx;
 		height: 18upx;
-		right: 15upx;
+		right: 18upx;
 		top: 50upx;
 	}
 	
@@ -613,7 +613,7 @@
 		position: absolute;
 		right: 0;
 		top: 40upx;
-		width: 25upx;
+		width: 18upx;
 		height: 18upx;
 	}
 

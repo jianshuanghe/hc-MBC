@@ -74,6 +74,7 @@
 		color: #2E2E30;
 		padding-top:20upx ;
 		display: block;
+		font-weight: bold;
 	}.examine-progress1 view:nth-of-type(2) span:nth-of-type(2){
 		font-size: 28upx;
 		color: #5D5D5D;
