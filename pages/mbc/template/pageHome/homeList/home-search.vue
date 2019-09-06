@@ -5,7 +5,7 @@
 				<image :src='search'></image>
 			</view>
 			<view class="search-NI-text left" @tap="clickSearch">
-				<input type="text" class="left inputSearch" disabled=true placeholder="请输入您的关键词，如：项目、机构等" />
+				<input type="text" class="left inputSearch" disabled=true placeholder="请输入您的关键词，如：项目、机构等" placeholder-style="color:#D2D2D2"/>
 			</view>
 			<view class="clear"></view>
 		</view>

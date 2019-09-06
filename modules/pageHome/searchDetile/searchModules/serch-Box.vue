@@ -12,6 +12,7 @@
 						class="left inputSearch" 
 						focus 
 						placeholder="项目、机构" 
+						placeholder-style="color:#D2D2D2"
 						v-model='searchText'
 						@confirm="onSubmit"
 						@blur="onFocus"

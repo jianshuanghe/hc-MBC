@@ -1,191 +1,194 @@
 <template>
-	<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
-	@scroll="scroll">
-		<view class="project-details">
-			<view class="project-details-header">
-				<view class="project-details-header-one">
-					<view>
-						<image :src="arr.projLogo"></image>
-					</view>
-					<view>
-						<span>{{arr.projName}}</span>
-						<span>{{arr.projSlogan}}</span>
-						<view class="eirongs">
-							<span>{{arr.fieldCode}}</span>
-							<span>{{arr.pcode}}</span>
-						</view>
-						<view class="shanglun" v-if="history.projCapis.length!==0">
-							上轮获投情况
-							<view>
-								<view class="shanglun-lunshu">{{history.projCapis[0].levelCode}}</view>
-								<view v-if="history.projCapis[0].capiMoney!==''" class="shanglun-lunshu2">{{history.projCapis[0].capiMoney}}万元</view>
-								<view v-if="history.projCapis[0].capiMoney==''" class="shanglun-lunshu2">金额未披露</view>
-							</view>
-
-						</view>
-						<view class="shanglun" v-if="history.projCapis.length==0">
-							上轮获投情况
-							<view>
-								<view class="shanglun-lunshu4">无</view>
-								<view class="shanglun-lunshu5">无</view>
-							</view>
-						</view>
-					</view>
-					<view class="bianji" @tap="gotomy">编辑</view>
-				</view>
-				<view class="project-details-header-two" v-if="Labelarr.length!==0">
-					<span v-for="(items,index) in arr.projLabels" :key="index">{{items.labelName}}</span>
-					<view @tap="gotoedit">编辑</view>
-				</view>
-				<view class="project-details-header-twos" v-if="Labelarr.length==0">
-					<span>暂未添加标签</span>
-					<view class="gotoedit" @tap="gotoedit">编辑</view>
-				</view>
-			</view>
-			<view class="project-details-BP">
-				<view class="project-details-BP-one">
-					<view>BP/商业计划书</view>
-					<view @tap="goToPutIn(5)">重新上传</view>
-				</view>
-				<view class="project-details-BP-two">
-					<view>
-						<image :src="pdf" mode=""></image>
-					</view>
-					<view>
-						<span>{{arr.projFile.enclosureName}}</span>
-						<span>{{arr.projFile.enclosureSize}} &nbsp;&nbsp; {{arr.projFile.createTime | formatDate}}上传</span>
-					</view>
-				</view>
-			</view>
-			<view class="jianxi"></view>
-			<view class="project-details-data">
-				<view class="project-details-data-bianji">项目简介</view>
-				<view class="project-details-data-imges" v-if="arr.projImgs.length!==0">
-					<view class="project-details-data-imges-one" v-for="(imang,index) in arr.projImgs" :key="index">
-						<image :src="imang.imgName" mode='widthFix'></image>
-					</view>
-				</view>
-				<view class="project-details-data-two" v-if="arr.projContent!==''">
-					<view>项目介绍</view>
-					<view>{{arr.projContent}}</view>
-				</view>
-				<view class="project-details-data-two" v-if="arr.conentMarket!==''">
-					<view>市场需求</view>
-					<view>{{arr.conentMarket}}</view>
-				</view>
-				<view class="project-details-data-two" v-if="arr.conentPortrait!==''">
-					<view>用户画像</view>
-					<view>{{arr.conentPortrait}}</view>
-				</view>
-				<view class="project-details-data-two" v-if="arr.conentModel!==''">
-					<view>商业模式</view>
-					<view>{{arr.conentModel}}</view>
-				</view>
-				<view class="project-details-data-two" v-if="arr.conentData!==''">
-					<view>运营数据</view>
-					<view>{{arr.conentData}}</view>
-				</view>
-				<view class="project-details-data-thre" v-if="arr.conentCore!==''">
-					<view>核心资源</view>
-					<view>{{arr.conentCore}}</view>
-				</view>
-				<view class="project-details-data-bian" @tap="gotobrief" v-if="arr.projImgs.length !== 0 || arr.projContent!=='' || arr.conentMarket!=='' || arr.conentPortrait!==''">编辑</view>
-				<view @tap="gotobrief" class="project-details-data-brief" v-if="arr.projImgs.length == 0 && arr.projContent=='' && arr.conentMarket==''&& arr.conentPortrait==''">
-					填写项目简介
-				</view>
-			</view>
-
-
-			<view class="jianxi"></view>
-			<view class="demand">
-				<view>融资需求</view>
-				<view class="demand-two" v-if="arr.finanLevelCode||arr.finanMoney !=='' ">{{arr.finanLevelCode}}&nbsp;&nbsp;&nbsp;&nbsp;{{arr.finanMoney}}万人民币</view>
-				<view @tap="gotodatasdemand" class="demand-an" v-if="arr.finanLevelCode|arr.finanMoney =='' ">
-					填写融资需求
-				</view>
-				<view class="demand-bian" @tap="gotodatasdemand" v-if="arr.finanLevelCode||arr.finanMoney !=='' ">编辑</view>
-			</view>
-			<view class="jianxi"></view>
-			<view class="history">
-				<view>融资历史</view>
-				<view class="history-cheng" v-for="(inss ,index) in arr.projCapis" :key="index">
-					<view>
-						<span>{{inss.capiStartime|DAta}}月</span>
-						<span>{{inss.capiStartime|forma}}</span>
-					</view>
-					<view>
-						<span v-if="inss.capiMoney!==''">金额：{{inss.capiMoney}}万</span>
-						<span v-if="inss.capiMoney==''">无</span>
-						<span>在融轮次：{{inss.levelCode}}</span>
-						<span>{{inss.capiInveCompName}}</span>
-					</view>
-					<view @tap="historybianji(inss.id)">编辑</view>
-				</view>
-				<view @tap="gotodatahistory" class="button-an">
-					填写融资历史
-				</view>
-			</view>
-			<view class="jianxi"></view>
-			<view class="team">
-				<view>团队成员</view>
-				<view class="team-cheng" v-for="(ite,index) in arr.projUsers" :key="index">
-					<view>
-						<image :src="ite.projUserImg" mode=""></image>
-					</view>
-					<view>
-						<span>{{ite.projUserName}}</span><span>{{ite.projUserPosition}}</span>
-						<span>{{ite.projUserContent}}</span>
-					</view>
-					<view @tap="teambianji(ite.id)">编辑</view>
-				</view>
-				<view @tap="gotodatasteam" class="button-an">
-					填写团队成员
-				</view>
-			</view>
-			<view class="jianxi"></view>
-			<view class="project-details-company">
-				<view>公司信息</view>
-				<view class="project-details-company-two" v-if="arr.compName !==''">公司全称</view>
-				<view class="project-details-company-thre" v-if="arr.compName !==''">{{arr.compName}}</view>
-				<view class="project-details-company-one" v-if="arr.compAddr !==''">
-					<view>公司地址</view>
-					<view>{{arr.compAddr}}</view>
-				</view>
-				<view class="gongsi" @tap="projectXQgsname" v-if="arr.compName||arr.compAddr !=='' ">编辑</view>
-				<view @tap="projectXQgsname" class="button-an" v-if="arr.compName&arr.compAddr =='' ">
-					填写公司信息
-				</view>
-			</view>
-			<view class="jianxi"></view>
-			<!-- <view class="project-details-link">
-				<view>项目数据</view>
-				<view>相关链接</view>
-				<view class="add">
-					<span @tap="addlianjie">添加链接</span>
-				</view>
-			</view> -->
-			<!-- <view class="Mask" :class="{'zhe':hiden}" @tap="cancel">
-				<view class="Mask-box" v-on:click.stop='child'>
-					<view class="Mask-box-header">
-						<view @tap="cancel">取消</view>
-						<view>添加链接</view>
-						<view @tap="Preservation">保存</view>
-					</view>
-					<view class="Mask-box-content">
+	<div class="k" v-if='arr.projName'>
+		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="loadMore"
+		@scroll="scroll">
+			<view class="project-details">
+				<view class="project-details-header">
+					<view class="project-details-header-one">
 						<view>
-							<span>链接名称</span>
-							<input type="text" placeholder="请输入" v-model="linkname" />
+							<image :src="arr.projLogo"></image>
 						</view>
 						<view>
-							<span>链接地址</span>
-							<input type="text" placeholder="请输入" v-model="linkaddress" />
+							<span>{{arr.projName}}</span>
+							<span>{{arr.projSlogan}}</span>
+							<view class="eirongs">
+								<span>{{arr.fieldCode}}</span>
+								<span>{{arr.pcode}}</span>
+							</view>
+							<view class="shanglun" v-if="history.projCapis.length!==0">
+								上轮获投情况
+								<view>
+									<view class="shanglun-lunshu">{{history.projCapis[0].levelCode}}</view>
+									<view v-if="history.projCapis[0].capiMoney!==''" class="shanglun-lunshu2">{{history.projCapis[0].capiMoney}}万元</view>
+									<view v-if="history.projCapis[0].capiMoney==''" class="shanglun-lunshu2">金额未披露</view>
+								</view>
+
+							</view>
+							<view class="shanglun" v-if="history.projCapis.length==0">
+								上轮获投情况
+								<view>
+									<view class="shanglun-lunshu4">无</view>
+									<view class="shanglun-lunshu5">无</view>
+								</view>
+							</view>
+						</view>
+						<view class="bianji" @tap="gotomy">编辑</view>
+					</view>
+					<view class="project-details-header-two" v-if="Labelarr.length!==0">
+						<span v-for="(items,index) in arr.projLabels" :key="index">{{items.labelName}}</span>
+						<view @tap="gotoedit">编辑</view>
+					</view>
+					<view class="project-details-header-twos" v-if="Labelarr.length==0">
+						<span>暂未添加标签</span>
+						<view class="gotoedit" @tap="gotoedit">编辑</view>
+					</view>
+				</view>
+				<view class="project-details-BP">
+					<view class="project-details-BP-one">
+						<view>BP/商业计划书</view>
+						<view @tap="goToPutIn(5)">重新上传</view>
+					</view>
+					<view class="project-details-BP-two">
+						<view>
+							<image :src="pdf" mode=""></image>
+						</view>
+						<view>
+							<span>{{arr.projFile.enclosureName}}</span>
+							<span>{{arr.projFile.enclosureSize}} &nbsp;&nbsp; {{arr.projFile.createTime | formatDate}}上传</span>
 						</view>
 					</view>
 				</view>
-			</view> -->
-		</view>
+				<view class="jianxi"></view>
+				<view class="project-details-data">
+					<view class="project-details-data-bianji">项目简介</view>
+					<view class="project-details-data-imges" v-if="arr.projImgs.length!==0">
+						<view class="project-details-data-imges-one" v-for="(imang,index) in arr.projImgs" :key="index">
+							<image :src="imang.imgName" mode='widthFix'></image>
+						</view>
+					</view>
+					<view class="project-details-data-two" v-if="arr.projContent!==''">
+						<view>项目介绍</view>
+						<view>{{arr.projContent}}</view>
+					</view>
+					<view class="project-details-data-two" v-if="arr.conentMarket!==''">
+						<view>市场需求</view>
+						<view>{{arr.conentMarket}}</view>
+					</view>
+					<view class="project-details-data-two" v-if="arr.conentPortrait!==''">
+						<view>用户画像</view>
+						<view>{{arr.conentPortrait}}</view>
+					</view>
+					<view class="project-details-data-two" v-if="arr.conentModel!==''">
+						<view>商业模式</view>
+						<view>{{arr.conentModel}}</view>
+					</view>
+					<view class="project-details-data-two" v-if="arr.conentData!==''">
+						<view>运营数据</view>
+						<view>{{arr.conentData}}</view>
+					</view>
+					<view class="project-details-data-thre" v-if="arr.conentCore!==''">
+						<view>核心资源</view>
+						<view>{{arr.conentCore}}</view>
+					</view>
+					<view class="project-details-data-bian" @tap="gotobrief" v-if="arr.projImgs.length !== 0 || arr.projContent!=='' || arr.conentMarket!=='' || arr.conentPortrait!==''">编辑</view>
+					<view @tap="gotobrief" class="project-details-data-brief" v-if="arr.projImgs.length == 0 && arr.projContent=='' && arr.conentMarket==''&& arr.conentPortrait==''">
+						填写项目简介
+					</view>
+				</view>
 
-	</scroll-view>
+
+				<view class="jianxi"></view>
+				<view class="demand">
+					<view>融资需求</view>
+					<view class="demand-two" v-if="arr.finanLevelCode||arr.finanMoney !=='' ">{{arr.finanLevelCode}}&nbsp;&nbsp;&nbsp;&nbsp;{{arr.finanMoney}}万人民币</view>
+					<view @tap="gotodatasdemand" class="demand-an" v-if="arr.finanLevelCode|arr.finanMoney =='' ">
+						填写融资需求
+					</view>
+					<view class="demand-bian" @tap="gotodatasdemand" v-if="arr.finanLevelCode||arr.finanMoney !=='' ">编辑</view>
+				</view>
+				<view class="jianxi"></view>
+				<view class="history">
+					<view>融资历史</view>
+					<view class="history-cheng" v-for="(inss ,index) in arr.projCapis" :key="index">
+						<view>
+							<span>{{inss.capiStartime|DAta}}月</span>
+							<span>{{inss.capiStartime|forma}}</span>
+						</view>
+						<view>
+							<span v-if="inss.capiMoney!==''">金额：{{inss.capiMoney}}万</span>
+							<span v-if="inss.capiMoney==''">无</span>
+							<span>在融轮次：{{inss.levelCode}}</span>
+							<span>{{inss.capiInveCompName}}</span>
+						</view>
+						<view @tap="historybianji(inss.id)">编辑</view>
+					</view>
+					<view @tap="gotodatahistory" class="button-an">
+						填写融资历史
+					</view>
+				</view>
+				<view class="jianxi"></view>
+				<view class="team">
+					<view>团队成员</view>
+					<view class="team-cheng" v-for="(ite,index) in arr.projUsers" :key="index">
+						<view>
+							<image :src="ite.projUserImg" mode=""></image>
+						</view>
+						<view>
+							<span>{{ite.projUserName}}</span><span>{{ite.projUserPosition}}</span>
+							<span>{{ite.projUserContent}}</span>
+						</view>
+						<view @tap="teambianji(ite.id)">编辑</view>
+					</view>
+					<view @tap="gotodatasteam" class="button-an">
+						填写团队成员
+					</view>
+				</view>
+				<view class="jianxi"></view>
+				<view class="project-details-company">
+					<view>公司信息</view>
+					<view class="project-details-company-two" v-if="arr.compName !==''">公司全称</view>
+					<view class="project-details-company-thre" v-if="arr.compName !==''">{{arr.compName}}</view>
+					<view class="project-details-company-one" v-if="arr.compAddr !==''">
+						<view>公司地址</view>
+						<view>{{arr.compAddr}}</view>
+					</view>
+					<view class="gongsi" @tap="projectXQgsname" v-if="arr.compName||arr.compAddr !=='' ">编辑</view>
+					<view @tap="projectXQgsname" class="button-an" v-if="arr.compName&arr.compAddr =='' ">
+						填写公司信息
+					</view>
+				</view>
+				<view class="jianxi"></view>
+				<!-- <view class="project-details-link">
+					<view>项目数据</view>
+					<view>相关链接</view>
+					<view class="add">
+						<span @tap="addlianjie">添加链接</span>
+					</view>
+				</view> -->
+				<!-- <view class="Mask" :class="{'zhe':hiden}" @tap="cancel">
+					<view class="Mask-box" v-on:click.stop='child'>
+						<view class="Mask-box-header">
+							<view @tap="cancel">取消</view>
+							<view>添加链接</view>
+							<view @tap="Preservation">保存</view>
+						</view>
+						<view class="Mask-box-content">
+							<view>
+								<span>链接名称</span>
+								<input type="text" placeholder="请输入" v-model="linkname" />
+							</view>
+							<view>
+								<span>链接地址</span>
+								<input type="text" placeholder="请输入" v-model="linkaddress" />
+							</view>
+						</view>
+					</view>
+				</view> -->
+			</view>
+
+		</scroll-view>
+
+	</div>
 </template>
 
 <script>
@@ -207,7 +210,58 @@
 				id: '',
 				pdf: this.Static + 'mbcImg/my/pdf.png',
 				keji: this.Static + 'mbcImg/my/keji.png',
-				history: []
+				history: [],
+				// 页面销毁重置首页数据S
+				scrollTop: 0,
+				old: {
+					scrollTop: 0
+				},
+				loadingText: '加载更多...',
+				clickItemsIndex: 1,
+				HomeList:{
+					titleIndex: 1, // 切换的title
+					finance: {
+						loadingText: '加载更多...',
+						search: { // 搜索
+							pageNum: 0, // 总页数
+							searchCondition: {  // 分页属性
+								page: '1'
+							}
+						},
+						listData: '' // 主页在融项目列表数据
+					},
+					invest: {
+						loadingText: '加载更多...',
+						search: { // 搜索
+							pageNum: 0, // 总页数
+							searchCondition: {  // 分页属性
+								page: '1'
+							}
+						},
+						listData: '' // 主页投资机构列表数据
+					}
+				},
+				paramsList: {}, // 切换title，数显数据函数的参数
+				searchCondition: {  // 分页属性
+				  page: '1',
+				  name: ''
+				},
+				pageNum: 0, // 数据总页数
+				pageList: [], // 后台返回数据
+				items: { // 用户缓存用户行为的子项 ------项目
+				  id: 0, // id
+				  doc: false, // 留言
+				  find: false, // 查看
+				  like: false, // 点赞
+				  love: false // 收藏
+				},
+				clickRecordsArr: [] ,// 用户点击行为数组记录 ----项目
+				itemsInv: { // 记录用户收藏功能 ----投资人
+					userId: 0, // id
+					love: false // 收藏
+				},
+				clickRecordsInvArr: [] ,// 记录用户收藏行为 ----投资人
+				// 页面销毁重置首页数据E
 			};
 		},
 		filters: {
@@ -271,7 +325,12 @@
 			},
 		},
 		computed: {
-			...mapGetters(['GET_MY'])
+			...mapGetters(['GET_MY', 'GET_HOME', 'USERACTIVE'])
+		},
+		beforeDestroy () {
+			console.log('页面销毁之前缓存数据');
+			this.getFinanceList(this.HomeList.finance); // 首页初始化时，默认显示在融项目，参数为在融项目模块
+			this.getInvestList(this.HomeList.invest);
 		},
 		onLoad: function(options) {
 			this.id = options.id
@@ -280,13 +339,191 @@
 			this.shujuxiang();
 			//获取标签
 			this.Label();
+			this.getClickRecordsArr(); // 获取缓冲的用户行为数据
 		},
 		methods: {
 			...mapMutations({
 				setCompany: 'setCompany',
 				setHistory: 'setHistory',
-				setLabelarr: 'setLabelarr'
+				setLabelarr: 'setLabelarr',
+				setFinance: 'setFinance',
+				setInvest: 'setInvest'
 			}),
+			getClickRecordsArr () { // 获取缓冲的用户行为数据
+				// 项目
+				if (uni.getStorageSync('clickRecordsArr')) {
+			      this.clickRecordsArr = JSON.parse(uni.getStorageSync('clickRecordsArr')); // 获取缓存中的用户点击行为数组记录
+				}
+				// 投资人
+				if (uni.getStorageSync('clickRecordsInvArr')) {
+				  this.clickRecordsInvArr = JSON.parse(uni.getStorageSync('clickRecordsInvArr')); // 获取缓存中的用户点击行为数组记录
+				}
+			},
+			getFinanceList(e){
+				console.log(e, '数显数据函数的参数');
+				if (uni.getStorageSync('landRegist')) {
+				    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+				    console.log(landRegistLG.user.id);
+					let params = {}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/proj/list?page=' + this.searchCondition.page, //接口地址。
+						data: this.endParams(params),
+						method: 'POST',
+						header: {
+							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
+						},
+						success: (response) => {
+							console.log(response.data);
+							e.listData = response.data.rows; // 第一页返回的数据
+							let pageList = [...response.data.rows];
+							if (this.clickRecordsArr.length < this.pageList.length) { // 缓存中的数据小于缓存的
+								console.log('缓存中的数据小于缓存的');
+								for (let i = 0; i < this.pageList.length; i++) { // 用户行为数据
+									console.log(this.pageList[i]);
+										let items = { // 用户缓存用户行为的子项
+											id: 0, // id
+											doc: false, // 留言
+											find: false, // 查看
+											like: false, // 点赞
+											love: false // 收藏
+										};
+									items.id = this.pageList[i].id; // 赋值id
+									this.clickRecordsArr.push(items);
+									console.log(this.clickRecordsArr, '用户行为数据');
+								}
+								uni.setStorageSync('clickRecordsArr', JSON.stringify(this.clickRecordsArr));// 缓存用户点击行为数组记录
+							} else if (this.clickRecordsArr.length >= this.pageList.length) { // 缓存中的数据大于等于接口每次返回的数据
+								console.log('缓存中的数据大于等于接口每次返回的数据');
+								this.clickRecordsArr.map((item, index) => {
+									console.log(item.id, '打印缓存中的id');
+									pageList.map((item1, index) => {
+										if (item1) {
+											console.log(item1.id, '打印接口中的id');
+											if (item1.id === item.id) { // 二次校验，如果缓存中的存在该id，则不需要再次缓存，之缓存不存在的
+												pageList.splice(index, 1); // 将接口返回的数据去重
+											}
+										};
+									});
+									console.log(pageList, '去重后的数据');
+								});
+								if (pageList.length > 0) {
+									console.log('去重后剩余数据');
+									pageList.map((item, index) => {
+										let items = { // 用户缓存用户行为的子项
+											id: 0, // id
+											doc: false, // 留言
+											find: false, // 查看
+											like: false, // 点赞
+											love: false // 收藏
+										};
+										items.id = item.id; // 赋值id
+										this.clickRecordsArr.push(items);
+										uni.setStorageSync('clickRecordsArr', JSON.stringify(this.clickRecordsArr));// 缓存用户点击行为数组记录
+									});
+								}
+							}
+							e.search.pageNum = this.pageNums(response.data.total) // 总页数
+							console.log(response.data.total, e.search.pageNum);
+							uni.hideLoading(); // 隐藏 loading
+							if (e.search.pageNum === 1) {
+								this.loadingText = '已经没有数据了！';
+							}
+							this.$store.commit('setFinance', e); // 更新setFinance
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
+			getInvestList(e){
+				console.log(e, '数显数据函数的参数');
+				if (uni.getStorageSync('landRegist')) {
+				    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+				    console.log(landRegistLG.user.id);
+					let params = {}; // 请求总数居时 参数为空
+					uni.showLoading({ // 展示loading
+						title: '加载中'
+					});
+					uni.request({
+						url: this.api2 + '/inve/list?type=0&sortType=ID&area=&leves=&fields=&page=' + this.searchCondition.page, //接口地址。
+						data: this.endParams(params),
+						header: {
+							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
+						},
+						success: (response) => {
+							console.log(response.data);
+							e.listData = response.data.rows; // 第一页返回的数据
+							let pageList = [...response.data.rows];
+							if (this.clickRecordsArr.length < this.pageList.length) { // 缓存中的数据小于缓存的
+								console.log('缓存中的数据小于缓存的');
+								for (let i = 0; i < this.pageList.length; i++) { // 用户行为数据
+									console.log(this.pageList[i]);
+										let itemsInv = { // 用户缓存用户行为的子项
+											userId: 0, // id
+											love: false // 收藏
+										};
+									itemsInv.userId = this.pageList[i].userId; // 赋值id
+									this.clickRecordsInvArr.push(itemsInv);
+									console.log(this.clickRecordsInvArr, '用户行为数据');
+								}
+								uni.setStorageSync('clickRecordsInvArr', JSON.stringify(this.clickRecordsInvArr));// 缓存用户点击行为数组记录
+							} else if (this.clickRecordsInvArr.length >= this.pageList.length) { // 缓存中的数据大于等于接口每次返回的数据
+								console.log('缓存中的数据大于等于接口每次返回的数据');
+								this.clickRecordsInvArr.map((item, index) => {
+									console.log(item.userId, '打印缓存中的id');
+									pageList.map((item1, index) => {
+										if (item1) {
+											console.log(item1.userId, '打印接口中的id');
+											if (item1.userId === item.userId) { // 二次校验，如果缓存中的存在该id，则不需要再次缓存，之缓存不存在的
+												pageList.splice(index, 1); // 将接口返回的数据去重
+											}
+										};
+									});
+									console.log(pageList, '去重后的数据');
+								});
+								if (pageList.length > 0) {
+									console.log('去重后剩余数据');
+									pageList.map((item, index) => {
+										let itemsInv = { // 用户缓存用户行为的子项
+											userId: 0, // id
+											love: false // 收藏
+										};
+										itemsInv.userId = item.userId; // 赋值id
+										this.clickRecordsInvArr.push(itemsInv);
+										uni.setStorageSync('clickRecordsInvArr', JSON.stringify(this.clickRecordsInvArr));// 缓存用户点击行为数组记录
+									});
+								}
+							}
+							e.search.pageNum = this.pageNums(response.data.total) // 总页数
+							console.log(response.data.total, e.search.pageNum);
+							uni.hideLoading(); // 隐藏 loading
+							if (e.search.pageNum === 1) {
+								this.loadingText = '已经没有数据了！';
+							}
+							this.$store.commit('setInvest', e); // 更新setInvest
+						},
+						fail: (error) => {
+							uni.hideLoading(); // 隐藏 loading
+							uni.showToast({
+								title: '网络繁忙，请稍后',
+								icon: 'none',
+								duration: 1000
+							});
+							console.log(error, '网络繁忙，请稍后');
+						}
+					});
+				}
+			},
 			addlianjie() {
 				this.hiden = false
 			},

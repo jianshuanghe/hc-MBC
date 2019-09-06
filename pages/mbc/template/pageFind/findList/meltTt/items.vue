@@ -52,6 +52,7 @@
 		color: #2E2E30;
 		line-height: 40upx;
 		margin: 20upx 0;
+		margin-top: 30upx;
 	}
 	.time-active{
 		font-family: PingFangSC-Regular;

@@ -338,8 +338,8 @@
 	}
 	.img-multiple{
 		position: absolute;
-		width: 28upx;
-		height: 28upx;
+		width: 24upx;
+		height: 24upx;
 		top: 28upx;
 		left: 30%;
 	}

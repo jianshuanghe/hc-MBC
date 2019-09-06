@@ -415,7 +415,7 @@ padding-right: 0rpx;
 	font-size: 32upx;
 	color: #5D5D5D;
 	text-align: center;
-	line-height: 120upx;
+	/* line-height: 120upx; */
 }
 .TIPS-btn{
 	font-family: PingFangSC-Regular;
@@ -439,4 +439,8 @@ rich-text>img{
 	position: relative;
 	width: 100%;
 }
+page {
+	background-color: #F9F9F9 !important;
+}
+
 	

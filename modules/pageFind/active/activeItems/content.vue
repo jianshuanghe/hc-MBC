@@ -4,7 +4,7 @@
 		@scroll="scroll">
 			
 		</scroll-view> -->
-		<view class="activeDetails">
+		<view class="activeDetails" v-if="msgData.activity.activityTitel">
 			<view class="AD-img">
 				<image :src="msgData.activity.activityImg" mode='widthFix'></image>
 			</view>
@@ -233,7 +233,9 @@
 		font-size: 34upx;
 		color: #2E2E30;
 		letter-spacing: 0;
-		line-height: 100upx;
+		/* line-height: 100upx; */
+		margin-top: 40upx;
+		font-weight: bold;
 	}
 	.AD-details-text{
 		position: relative;
@@ -243,7 +245,7 @@
 		color: #5D5D5D;
 		letter-spacing: 0;
 		line-height: 40upx;
-		margin: 40upx 0;
+		margin: 18upx 0;
 	}
 	.AD-details-img>image{
 		position: relative;

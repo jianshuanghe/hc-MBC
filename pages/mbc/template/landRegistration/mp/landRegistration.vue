@@ -360,7 +360,7 @@
   .top-PWLR>image{
     position: relative;
     width: 150upx;
-    width: 100%;
+    height: 150upx;
   }
   .nameLand{
 	 font-family: PingFang-SC-Medium;

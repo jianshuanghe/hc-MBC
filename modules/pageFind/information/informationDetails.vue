@@ -206,7 +206,7 @@
 	.loveBg-box{
 		position: relative;
 		width: 100%;
-		margin: 40upx 0;
+		margin: 80upx 0;
 	}
 	.loveBg{
 		position: relative;
@@ -231,10 +231,10 @@
 	.img-box-text{
 		font-family: PingFangSC-Regular;
 		font-size: 24upx;
-		color: #9B9B9B;
+		color: #2E2E30;
 		text-align: center;
 		line-height: 36upx;
-		margin-top: 10upx;
+		margin-top: 14upx;
 	}
 	.img-box-text1{
 		font-family: PingFangSC-Regular;
@@ -273,7 +273,7 @@
 		font-family: PingFangSC-Regular;
 		font-size: 24upx;
 		color: #9B9B9B;
-		line-height: 110upx;
+		line-height: 50upx;
 	}
 	
 	.AD-details-title{

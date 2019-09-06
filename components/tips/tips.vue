@@ -51,7 +51,8 @@
 	}
 	.tips-mask{
 		position: fixed;
-		background: rgba(46,46,48,0.20);
+		background: #2E2E30;
+		opacity: 0.6;
 		height: 100vh;
 		width: 100vw;
 		top: 0;

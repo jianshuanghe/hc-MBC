@@ -79,7 +79,7 @@
 			},
 			LOOKPROJECTSEARCH: {
 				handler (a, b) {
-					console.log(a, '获取VUX投资人的参数');
+					console.log(a, '----------------------------获取VUX投资人的参数---------------------------------');
 					this.showFileText(a);
 				},
 				deep: true
@@ -102,11 +102,12 @@
 			}),
 			showFileText (a) {
 				let text = this.fileText; // 过滤器显示文字
-				if (a.sortType === 'ID') {
+				console.log(a, '------------------------------a--------------------------------')
+				if (a.order === '1') {
 					text = '综合';
-				} else if (a.sortType === 'CREATE_TIME') {
+				} else if (a.order === '0') {
 					text = '最新';
-				} else if (a.sortType === 'INFO_COUNT') {
+				} else if (a.order === '2') {
 					text = '最热';
 				}
 				setTimeout(() => {
@@ -308,8 +309,8 @@
 	}
 	.img-multiple{
 		position: absolute;
-		width: 28upx;
-		height: 28upx;
+		width: 24upx;
+		height: 24upx;
 		top: 28upx;
 		left: 30%;
 	}
