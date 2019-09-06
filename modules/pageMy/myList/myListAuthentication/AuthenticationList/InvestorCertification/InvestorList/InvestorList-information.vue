@@ -266,7 +266,7 @@
 								this.project = response.data.content.projName
 								this.company = response.data.content.compName
 								this.position = response.data.content.userPosition
-								this.pickerValue1 = response.data.content.mechIdStr
+								// this.pickerValue1 = response.data.content.mechIdStr
 
 								this.authState = response.data.content.authState;
 
@@ -274,6 +274,9 @@
 								this.logo = response.data.content.img
 								this.pickerarry = response.data.content.userFieldList[0].name
 								this.pic = response.data.content.mechIdStr
+								if (this.pic !== '请输入') {
+									this.jigou1 = true
+								}
 								if (this.pickerarry !== '请输入') {
 									this.tou = true
 								}
@@ -282,10 +285,10 @@
 									this.lunci = true
 								}
 								this.paramsPC.ptext = response.data.content.pCodeStr+'-'+response.data.content.cCodeStr
-								if (response.data.content.userType == 1) {
+								if (response.data.content.userType == '1') {
 									this.pickerValue1 = '个人投资人'
 								}
-								if (response.data.content.userType == 2) {
+								if (response.data.content.userType == '2') {
 									this.pickerValue1 = '机构投资人'
 								}
 								if (this.pickerValue1 == '机构投资人') {

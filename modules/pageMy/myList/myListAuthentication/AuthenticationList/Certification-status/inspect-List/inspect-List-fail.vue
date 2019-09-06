@@ -10,8 +10,8 @@
 			<view>{{Listdata.userName}}</view>
 			<view v-if="Listdata.userPosition!==''">职位:{{Listdata.userPosition}}</view>
 			<view>邮箱:{{Listdata.userEmail}}</view>
-			<view v-if="Listdata.compName!==''">公司名称:{{Listdata.compName}}</view>
-			<view v-if="Listdata.mechIdStr!==''">机构名称:{{Listdata.mechIdStr}}</view>
+			<view v-if="Listdata.compName!==''" :class="{'hidens':hidens}">公司名称:{{Listdata.compName}}</view>
+			<view v-if="Listdata.mechIdStr!==''" :class="{'hiden':hiden}">机构名称:{{Listdata.mechIdStr}}</view>
 			<view class="conter-img">
 				<img :src="Listdata.img"></img>
 			</view>
@@ -44,7 +44,10 @@
 				Image7:this.Static + 'mbcImg/my/Image 7.png',
 				Image4:this.Static + 'mbcImg/my/Image4.png',
 				num:[],
-				time:[]
+				time:[],
+				hiden:false,
+				hidens:false,
+				
 			};
 		},
 		computed: {
@@ -78,6 +81,12 @@
 		created() {
 			this.Listdata = this.GET_MY.MyList.Authentication;
 			console.log(this.Listdata)
+			if(this.Listdata.userType=='0'){
+				this.hiden=true
+			}
+			if(this.Listdata.userType=='1'||this.Listdata.userType=='2'){
+				this.hidens=true
+			}
 		},
 		methods: {
 			
@@ -86,6 +95,11 @@
 </script>
 
 <style>
+	.hiden{
+		display: none;
+	}.hidens{
+		display: none;
+	}
 	.inspect-List-fail {
 		width: 100%;
 		/* max-height: 100%; */
@@ -145,6 +159,11 @@
 	}
 
 	.inspect-List-fail-conter view:nth-of-type(4) {
+		font-size: 28upx;
+		color: #5D5D5D;
+		padding-left: 48upx;
+	}
+	.inspect-List-fail-conter view:nth-of-type(5) {
 		font-size: 28upx;
 		color: #5D5D5D;
 		padding-left: 48upx;
