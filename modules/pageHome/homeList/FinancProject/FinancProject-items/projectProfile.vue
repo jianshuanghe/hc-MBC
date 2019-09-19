@@ -86,10 +86,13 @@
 				})
 			},
 			goToOpinion (e){
-				console.log('to意见反馈');
-				uni.navigateTo({
-					url: '/modules/pageMy/myList/myListSetup/Setup/Opinion/Opinion'
-				});
+				this.landRegistra(); // 判断登录状态
+				if (uni.getStorageSync('landRegist')) {
+					console.log('to意见反馈');
+					uni.navigateTo({
+						url: '/modules/pageMy/myList/myListSetup/Setup/Opinion/Opinion'
+					});
+				}
 			}
 	    }
 	};

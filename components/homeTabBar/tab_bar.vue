@@ -30,7 +30,7 @@
 					<view class="tb-text">
 						<text :class="clickItems === 3 ? 'class-a' : ''">消息</text>
 					</view>
-					<view class="noticeCount" v-if="Number(List.noticeCount) !== 0">{{List.noticeCount}}</view>
+					<view class="noticeCount" v-if="Number(List.noticeCount) !== 0 && List.noticeCount" >{{List.noticeCount}}</view>
 				</view>
 				<view class="left tb-box" @tap="tabBarItems(4)">
 					<view class="tb-img">
@@ -64,7 +64,7 @@
 		},
 		
 		computed: {
-			...mapGetters(['GET_HOME', 'GET_MY'])
+			...mapGetters(['GET_HOME', 'GET_MY', 'LANDREGIST'])
 		},
 		
 		watch: {
@@ -82,6 +82,15 @@
 		  		console.log(this.List)
 		  	},
 		  	deep: true
+		  },
+		  LANDREGIST: {
+		    handler (a, b) {
+				console.log(a, b, '---------------------登录状态-------------------------');
+				if (a === 1) {
+					this.getHeader();
+				}
+		    },
+		    deep: true
 		  }
 		},
 		created() {
@@ -99,34 +108,55 @@
 			}),
 			tabBarItems (e) {
 				console.log(e, '触发tabbar按钮');
-				this.clickItems = e;
-				this.$store.commit('setHome', this.clickItems);
-				uni.setStorageSync('clickItems', e);
 				if (e === 1) {
 				  this.home = this.Static + 'mbcImg/tabBar/homed.png';
 				  this.find = this.Static + 'mbcImg/tabBar/find.png';
 				  this.news = this.Static + 'mbcImg/tabBar/news.png';
 				  this.my = this.Static + 'mbcImg/tabBar/my.png';
+					this.clickItems = e;
+					this.$store.commit('setHome', this.clickItems);
+					uni.setStorageSync('clickItems', e);
 				} else if (e === 2) {
 				  this.home = this.Static + 'mbcImg/tabBar/home.png';
 				  this.find = this.Static + 'mbcImg/tabBar/finded.png';
 				  this.news = this.Static + 'mbcImg/tabBar/news.png';
 				  this.my = this.Static + 'mbcImg/tabBar/my.png';
+					this.clickItems = e;
+					this.$store.commit('setHome', this.clickItems);
+					uni.setStorageSync('clickItems', e);
 				} else if (e === 3) {
-				  this.home = this.Static + 'mbcImg/tabBar/home.png';
-				  this.find = this.Static + 'mbcImg/tabBar/find.png';
-				  this.news = this.Static + 'mbcImg/tabBar/newsed.png';
-				  this.my = this.Static + 'mbcImg/tabBar/my.png';
+				  this.landRegistra(); // 判断登录状态
+				  if (uni.getStorageSync('landRegist')) {
+						this.home = this.Static + 'mbcImg/tabBar/home.png';
+						this.find = this.Static + 'mbcImg/tabBar/find.png';
+						this.news = this.Static + 'mbcImg/tabBar/newsed.png';
+						this.my = this.Static + 'mbcImg/tabBar/my.png';
+						this.clickItems = e;
+						this.$store.commit('setHome', this.clickItems);
+						uni.setStorageSync('clickItems', e);
+				  }
 				} else if (e === 4) {
-				  this.home = this.Static + 'mbcImg/tabBar/home.png';
-				  this.find = this.Static + 'mbcImg/tabBar/find.png';
-				  this.news = this.Static + 'mbcImg/tabBar/news.png';
-				  this.my = this.Static + 'mbcImg/tabBar/myed.png';
+				  this.landRegistra(); // 判断登录状态
+				  if (uni.getStorageSync('landRegist')) {
+					this.home = this.Static + 'mbcImg/tabBar/home.png';
+					this.find = this.Static + 'mbcImg/tabBar/find.png';
+					this.news = this.Static + 'mbcImg/tabBar/news.png';
+					this.my = this.Static + 'mbcImg/tabBar/myed.png';
+					this.clickItems = e;
+					this.$store.commit('setHome', this.clickItems);
+					uni.setStorageSync('clickItems', e);
+				  }
 				} else if (e === 5) {
-				  this.home = this.Static + 'mbcImg/tabBar/home.png';
-				  this.find = this.Static + 'mbcImg/tabBar/find.png';
-				  this.news = this.Static + 'mbcImg/tabBar/news.png';
-				  this.my = this.Static + 'mbcImg/tabBar/my.png';
+				  this.landRegistra(); // 判断登录状态
+				  if (uni.getStorageSync('landRegist')) {
+					this.home = this.Static + 'mbcImg/tabBar/home.png';
+					this.find = this.Static + 'mbcImg/tabBar/find.png';
+					this.news = this.Static + 'mbcImg/tabBar/news.png';
+					this.my = this.Static + 'mbcImg/tabBar/my.png';
+					this.clickItems = e;
+					this.$store.commit('setHome', this.clickItems);
+					uni.setStorageSync('clickItems', e);			  
+				  }
 				};
 			},
 			getHeader(){
@@ -148,6 +178,7 @@
 							console.log(response.data);
 							this.Listdata=response.data.content
 							this.$store.commit('setheader', this.Listdata);
+							uni.hideLoading(); // 隐藏 loading
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading

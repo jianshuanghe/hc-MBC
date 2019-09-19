@@ -62,9 +62,19 @@
 			botBtn
 		},
 		computed: {
-			...mapGetters(['GET_PUBLISH', 'AUTH'])
+			...mapGetters(['GET_PUBLISH', 'AUTH', 'LANDREGIST'])
 		},
 		watch: {
+			LANDREGIST: {
+			  handler (a, b) {
+				console.log(a, b, '---------------------登录状态-------------------------');
+				if (a === 1) {
+					this.getUserApply(this.id);
+					this.getUserData();
+				}
+			  },
+			  deep: true
+			}
 		},
 		created () {
 			this.getUserData();
@@ -107,62 +117,29 @@
 			},
 			getUserData () {
 			  console.log('获取用户信息，全部');
-			  let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
-			  console.log(landRegistLG.user.id);
-				uni.request({
-					url: this.api2 + '/user/' + landRegistLG.user.id, //接口地址。
-					data: {},
-					header: {
-						Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
-					},
-					success: (response) => {
-						console.log(response.data);
-						if (String(response.data.code) === '200') {
-						  let UserData = response.data.content;
-						  this.$store.commit('setheader', UserData); // 更新setheader
-						  uni.setStorageSync('UserData', JSON.stringify(UserData)); // 缓存用户信息
-						} else {
-							uni.hideLoading(); // 隐藏 loading
-							uni.showToast({
-								title: response.data.msg,
-								icon: 'none',
-								duration: 500
-							});
-						}
-					},
-					fail: (error) => {
-						uni.hideLoading(); // 隐藏 loading
-						uni.showToast({
-							title: '网络繁忙，请稍后',
-							icon: 'none',
-							duration: 1000
-						});
-						console.log(error, '网络繁忙，请稍后');
-					}
-				});
-			},
-			getList (e) {
-				if (uni.getStorageSync('landRegist')) {
-				    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
-				    console.log(landRegistLG.user.id);
-					let params = {}; // 请求总数居时 参数为空
-					uni.showLoading({ // 展示loading
-						title: '加载中'
-					});
+			  if (uni.getStorageSync('landRegist')) {
+				  let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+				  console.log(landRegistLG.user.id);
 					uni.request({
-						url: this.api2 + '/proj/' + e + '?userId=' + landRegistLG.user.id, //接口地址。
-						data: this.endParams(params),
+						url: this.api2 + '/user/' + landRegistLG.user.id, //接口地址。
+						data: {},
 						header: {
 							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
 						},
 						success: (response) => {
-							console.log(response.data.content);
-							this.dataList = response.data.content;
-							this.project.projectName = this.dataList.projName;
-							this.project.modelId = this.dataList.id;
-							this.project.enclosurePath = this.dataList.projFile.enclosurePath; // BP文件路径
-							// this.project.enclosurePath = 'https://style.iambuyer.com/doc/2019_PDF.pdf'; // 测试使用
-							uni.hideLoading(); // 隐藏 loading
+							console.log(response.data);
+							if (String(response.data.code) === '200') {
+							  let UserData = response.data.content;
+							  this.$store.commit('setheader', UserData); // 更新setheader
+							  uni.setStorageSync('UserData', JSON.stringify(UserData)); // 缓存用户信息
+							} else {
+								uni.hideLoading(); // 隐藏 loading
+								uni.showToast({
+									title: response.data.msg,
+									icon: 'none',
+									duration: 500
+								});
+							}
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -176,12 +153,43 @@
 					});
 				}
 			},
+			getList (e) {
+				let params = {}; // 请求总数居时 参数为空
+				uni.showLoading({ // 展示loading
+					mask: true,
+					title: '加载中'
+				});
+				uni.request({
+					url: this.api2 + '/proj/info/' + e, //接口地址。
+					data: params,
+					header: {},
+					success: (response) => {
+						console.log(response.data.content);
+						this.dataList = response.data.content;
+						this.project.projectName = this.dataList.projName;
+						this.project.modelId = this.dataList.id;
+						this.project.enclosurePath = this.dataList.projFile.enclosurePath; // BP文件路径
+						// this.project.enclosurePath = 'https://style.iambuyer.com/doc/2019_PDF.pdf'; // 测试使用
+						uni.hideLoading(); // 隐藏 loading
+					},
+					fail: (error) => {
+						uni.hideLoading(); // 隐藏 loading
+						uni.showToast({
+							title: '网络繁忙，请稍后',
+							icon: 'none',
+							duration: 1000
+						});
+						console.log(error, '网络繁忙，请稍后');
+					}
+				});
+			},
 			getUserApply(e){
 				if (uni.getStorageSync('landRegist')) {
 				    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 				    console.log(landRegistLG.user.id);
 					let params = {}; // 请求总数居时 参数为空
 					uni.showLoading({ // 展示loading
+						mask: true,
 						title: '加载中'
 					});
 					uni.request({

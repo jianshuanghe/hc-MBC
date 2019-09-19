@@ -10,6 +10,8 @@ const getters = {
 	AUTH: state => state.auth,
 	// 判断用户点击行为变化
 	USERACTIVE: state => state.userActive,
+	// 判断用户是否登陆
+	LANDREGIST: state => state.landRegist,
 	// 申请组件
 	ENTRUSSHOW: state => state.entrust.entrustShow,
 	ENTRUST: state => state.entrust,

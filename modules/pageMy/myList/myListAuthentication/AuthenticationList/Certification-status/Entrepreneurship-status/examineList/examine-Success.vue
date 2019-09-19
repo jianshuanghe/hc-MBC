@@ -4,7 +4,7 @@
 			<image :src="chuang"></image>
 		</view>
 		<view>
-			<span>认证成功</span>
+			<span class='fontWight'>认证成功</span>
 			<span>恭喜您成为陌拜资本认证创业者，您将拥有以下权限：</span>
 			<view>
 				<span>发布项目</span>
@@ -92,9 +92,10 @@
 		color: #2E2E30;
 		padding-top: 20upx;
 		display: block;
+	}
+	.fontWight{
 		font-weight: bold;
 	}
-
 	.examine-Success view:nth-of-type(2) span:nth-of-type(2) {
 		font-size: 28upx;
 		color: #5D5D5D;

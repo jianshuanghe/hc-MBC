@@ -24,7 +24,8 @@
 </template>
 
 <script>
-	import logo from '@/static/mbcImg/landRegistration/logo.png'
+	import logo from '@/static/mbcImg/landRegistration/logo.png';
+	import { mapMutations, mapGetters } from 'vuex';
     export default {
         name: '',
         components: {
@@ -35,6 +36,17 @@
 			phoneIsGet: true // 判断用户是否再平台注册过，默认是注册过，如果没有注册需要获取用户手机号
           };
         },
+		computed: {
+			...mapGetters(['LANDREGIST'])
+		},
+		watch: {
+		  LANDREGIST: {
+		    handler (a, b) {
+				console.log(a, b, '登录状态');
+		    },
+		    deep: true
+		  }
+		},
         created () {
         },
         mounted () {
@@ -42,6 +54,9 @@
 		   this.getSessionKey();
         },
         methods: {
+			...mapMutations({
+				setLandRegist: 'setLandRegist'
+			}),
 			getSessionKey () { // 缓存用户sessionkey
 				let _this = this;
 				uni.login({ // 授权登录 静默
@@ -86,10 +101,12 @@
             },
 			getPhoneNumber: function(e) {    
                 console.log(e);    
-                if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {    
+                if (e.detail.errMsg === 'getPhoneNumber:fail user deny') {    
                     console.log('用户拒绝提供手机号');  
+                } else if (e.detail.errMsg === 'getUserInfo:fail auth deny') {    
+                    console.log('用户拒绝授权');  
                 } else {    
-                    console.log('用户同意提供手机号');
+                    console.log('用户同意提供手机号且同意授权');
 					let evData = JSON.stringify(e.detail.encryptedData);
 					let evIv = JSON.stringify(e.detail.iv); 
 					console.log(evData, evIv, '带你花------------');
@@ -130,7 +147,7 @@
 			mpWxLand (evData, evIv) {
 				console.log('微信小程序登录');
 				uni.showLoading({ // 展示loading
-					title: '登陆中···'
+					title: '登录中···'
 				});
 				let _this = this;
 				uni.getUserInfo({ // 拉取用户信息
@@ -230,17 +247,19 @@
 						if (String(response.data.code) === '200') {
 							let UserData = response.data.content;
 							uni.setStorageSync('UserData', JSON.stringify(UserData)); // 缓存用户信息
+							console.log('-----------------------------登录成功-----------------------')
+							this.$store.commit('setLandRegist', 1); // 更新setLandRegist // 用户登录
 							uni.showToast({
-								title: '登陆成功',
+								title: '登录成功',
 								icon: 'none',
 								duration: 500
 							});
 							uni.navigateBack({delta: 1});
-							setTimeout(() => {
-								uni.reLaunch({
-									url: '/pages/mbc/home'
-								});
-							}, 500);
+							// setTimeout(() => {
+							// 	uni.reLaunch({
+							// 		url: '/pages/mbc/home'
+							// 	});
+							// }, 500);
 						} else {
 							uni.hideLoading(); // 隐藏 loading
 							uni.showToast({

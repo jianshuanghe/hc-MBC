@@ -68,7 +68,7 @@
 			}
 		},
 		computed: {
-			 ...mapGetters(['ENTRUSSHOW', 'ENTRUST', 'GET_HOME'])
+			 ...mapGetters(['ENTRUSSHOW', 'ENTRUST', 'GET_HOME', 'LANDREGIST'])
 		},
 		watch: {
 			GET_HOME: {
@@ -80,6 +80,16 @@
 		  ENTRUSSHOW: {
 		    handler (a, b) {
 		      this.entrust.entrustShow = a; // 申请组件
+		    },
+		    deep: true
+		  },
+		  LANDREGIST: {
+		    handler (a, b) {
+		  	console.log(a, b, '登录状态');
+		  	if (a === 1) {
+		  		this.getClickRecord();
+		  		this.getUserType();
+		  	}
 		    },
 		    deep: true
 		  }
@@ -129,18 +139,23 @@
 				}
 			},
 			setClickRecord (e, itemsInv, evn) {
-				console.log(e, itemsInv, evn, '记录用户行为');
-				if (e === 'love') { // 收藏
-					if (this.itemsInv.love === false) {
-						this.itemsInv.love = true; // 点击之后状态变化
-						this.upDataIsLoved(evn); // 收藏
-						this.resetClickRecord(itemsInv);
-					} else {
-						this.itemsInv.love = false; // 点击之后状态变化
-						this.upDataIsLove(evn); // 收藏
-						this.resetClickRecord(itemsInv);
-					}
+				if (!uni.getStorageSync('landRegist')) {
+					this.landRegistra(); // 判断登录状态
 				};
+				if (uni.getStorageSync('landRegist')) {
+					console.log(e, itemsInv, evn, '记录用户行为');
+					if (e === 'love') { // 收藏
+						if (this.itemsInv.love === false) {
+							this.itemsInv.love = true; // 点击之后状态变化
+							this.upDataIsLoved(evn); // 收藏
+							this.resetClickRecord(itemsInv);
+						} else {
+							this.itemsInv.love = false; // 点击之后状态变化
+							this.upDataIsLove(evn); // 收藏
+							this.resetClickRecord(itemsInv);
+						}
+					};
+				}
 			},
 			resetClickRecord (e) {
 				console.log(e, '重置缓存中用户行为数据');
@@ -209,10 +224,15 @@
 				}
 			},
 			clickTel () {
-				console.log('触发拨打电话');
-				uni.makePhoneCall({
-					phoneNumber: '010-61723026' // 拨打电话
-				});
+				if (!uni.getStorageSync('landRegist')) {
+					this.landRegistra(); // 判断登录状态
+				};
+				if (uni.getStorageSync('landRegist')) {
+					console.log('触发拨打电话');
+					uni.makePhoneCall({
+						phoneNumber: '010-61723026' // 拨打电话
+					});
+				}
 			},
 			getputInBpList(){
 				console.log('获取用户的BP列表');
@@ -260,74 +280,84 @@
 				}
 			},
 			ApplyBp () {
-				console.log('触发发BP');
-				if (this.userType === '0') { // 创业者
-					if (this.authState !== '1') { // 没有认证.或者认证没通过
+				if (!uni.getStorageSync('landRegist')) {
+					this.landRegistra(); // 判断登录状态
+				};
+				if (uni.getStorageSync('landRegist')) {
+					console.log('触发发BP');
+					if (this.userType === '0') { // 创业者
+						if (this.authState !== '1') { // 没有认证.或者认证没通过
+							this.$store.commit('setAuthShow', true); // 更新setAuthShow
+							return
+						} else {
+							console.log('认证创业者');
+							this.$store.commit('setAuthShow', false); // 更新setAuthShow
+						}
+					} else if (this.userType === '-1') { // 不是创业者
 						this.$store.commit('setAuthShow', true); // 更新setAuthShow
 						return
-					} else {
-						console.log('认证创业者');
+					} else if (this.userType === '1' || this.userType === '2') {
+						if (this.authState === '0' || this.authState === '2') { // 没有认证.或者认证没通过
+							this.$store.commit('setAuthShow', true); // 更新setAuthShow
+							return
+						}
 						this.$store.commit('setAuthShow', false); // 更新setAuthShow
-					}
-				} else if (this.userType === '-1') { // 不是创业者
-					this.$store.commit('setAuthShow', true); // 更新setAuthShow
-					return
-				} else if (this.userType === '1' || this.userType === '2') {
-					if (this.authState === '0' || this.authState === '2') { // 没有认证.或者认证没通过
-						this.$store.commit('setAuthShow', true); // 更新setAuthShow
+						uni.showToast({
+							title: '您已成为投资人身份，无法委托联系',
+							icon: 'none',
+							duration: 1000
+						});
 						return
 					}
-					this.$store.commit('setAuthShow', false); // 更新setAuthShow
-					uni.showToast({
-						title: '您已成为投资人身份，无法委托联系',
-						icon: 'none',
-						duration: 1000
-					});
-					return
+					this.$store.commit('setPutBpModelId', this.msgData.modelId); // 更新setPutBpModelId
+					this.getputInBpList();
 				}
-				this.$store.commit('setPutBpModelId', this.msgData.modelId); // 更新setPutBpModelId
-				this.getputInBpList();
 			},
 			Apply () {
-				console.log('触发申请');
-				if (this.userType === '0') { // 创业者
-					if (this.authState !== '1') { // 没有认证.或者认证没通过
+				if (!uni.getStorageSync('landRegist')) {
+					this.landRegistra(); // 判断登录状态
+				};
+				if (uni.getStorageSync('landRegist')) {
+					console.log('触发申请');
+					if (this.userType === '0') { // 创业者
+						if (this.authState !== '1') { // 没有认证.或者认证没通过
+							this.$store.commit('setAuthShow', true); // 更新setAuthShow
+							return
+						} else {
+							console.log('认证创业者');
+							this.$store.commit('setAuthShow', false); // 更新setAuthShow
+						}
+					} else if (this.userType === '-1') { // 不是创业者
 						this.$store.commit('setAuthShow', true); // 更新setAuthShow
 						return
-					} else {
-						console.log('认证创业者');
+					} else if (this.userType === '1' || this.userType === '2') {
+						if (this.authState === '0' || this.authState === '2') { // 没有认证.或者认证没通过
+							this.$store.commit('setAuthShow', true); // 更新setAuthShow
+							return
+						}
 						this.$store.commit('setAuthShow', false); // 更新setAuthShow
-					}
-				} else if (this.userType === '-1') { // 不是创业者
-					this.$store.commit('setAuthShow', true); // 更新setAuthShow
-					return
-				} else if (this.userType === '1' || this.userType === '2') {
-					if (this.authState === '0' || this.authState === '2') { // 没有认证.或者认证没通过
-						this.$store.commit('setAuthShow', true); // 更新setAuthShow
+						uni.showToast({
+							title: '您已成为投资人身份，无法委托联系',
+							icon: 'none',
+							duration: 1000
+						});
 						return
 					}
-					this.$store.commit('setAuthShow', false); // 更新setAuthShow
-					uni.showToast({
-						title: '您已成为投资人身份，无法委托联系',
-						icon: 'none',
-						duration: 1000
-					});
-					return
-				}
-				if (this.msgData.content === 1) {
-					uni.showToast({
-						title: '您已经申请过了！',
-						icon: 'none',
-						duration: 1000
-					});
-				} else {
-					this.entrust.params.serverId = this.msgData.serverId;
-					this.entrust.params.modelId = this.msgData.modelId;
-					this.entrust.params.projectName = this.msgData.projectName;
-					this.entrust.params.applyeType = 0;
-					this.$store.commit('setEntrustType', 1); // 更新setEntrustType
-					this.$store.commit('setEntrustParams', this.entrust.params); // 更新setEntrustParams
-					this.$store.commit('setEnTrustShow', true); // 更新setEnTrustShow
+					if (this.msgData.content === 1) {
+						uni.showToast({
+							title: '您已经申请过了！',
+							icon: 'none',
+							duration: 1000
+						});
+					} else {
+						this.entrust.params.serverId = this.msgData.serverId;
+						this.entrust.params.modelId = this.msgData.modelId;
+						this.entrust.params.projectName = this.msgData.projectName;
+						this.entrust.params.applyeType = 0;
+						this.$store.commit('setEntrustType', 1); // 更新setEntrustType
+						this.$store.commit('setEntrustParams', this.entrust.params); // 更新setEntrustParams
+						this.$store.commit('setEnTrustShow', true); // 更新setEnTrustShow
+					}
 				}
 			}
 		}

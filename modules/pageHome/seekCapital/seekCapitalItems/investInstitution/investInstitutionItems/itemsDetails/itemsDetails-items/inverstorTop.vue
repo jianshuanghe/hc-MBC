@@ -60,10 +60,13 @@
 				}
 			},
 			goToAuth () {
-				console.log('点击触发去认证');
-				uni.navigateTo({
-					url: '/modules/pageMy/myList/myListAuthentication/Authentication'
-				});
+				this.landRegistra(); // 判断登录状态
+				if (uni.getStorageSync('landRegist')) {
+					console.log('点击触发去认证');
+					uni.navigateTo({
+						url: '/modules/pageMy/myList/myListAuthentication/Authentication'
+					});
+				}
 			},
 			goToSeek () {
 				console.log('点击触发寻找资本');

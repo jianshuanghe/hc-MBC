@@ -112,7 +112,7 @@
 
 <script>
 	import wInput from './../../../../../components/watch-login/watch-input.vue';
-
+	import { mapMutations, mapGetters } from 'vuex';
     export default {
         name: 'landRegistration',
         components: {
@@ -157,14 +157,24 @@
             this.browserType = 'FWX';
           }
         },
+		computed: {
+			...mapGetters(['LANDREGIST'])
+		},
+		watch: {
+		  LANDREGIST: {
+		    handler (a, b) {
+				console.log(a, b, '登录状态');
+		    },
+		    deep: true
+		  }
+		},
         mounted () {
           console.log(this.api2, '全局数据');
         },
         methods: {
-          // ...mapMutations({
-          //   setLoadingShow: 'setLoadingShow',
-          //   setLoadingText: 'setLoadingText'
-          // }),
+          ...mapMutations({
+          	setLandRegist: 'setLandRegist'
+          }),
           sendMessage () {
             let phone = this.phoneLand.phone;
             if (phone === '') { // 校验手机号不能为空
@@ -335,7 +345,7 @@
 							}
 						};
 						uni.setStorageSync('landRegist', JSON.stringify(landRegist));// 缓存用户登录信息
-						console.log('登陆成功！');
+						console.log('登录成功！');
 						this.password = response.data.content.user.password; // 村密码
 						this.getUserData();
 			  		} else {
@@ -459,11 +469,12 @@
 					if (String(response.data.code) === '200') {
 					  let UserData = response.data.content;
 					  uni.setStorageSync('UserData', JSON.stringify(UserData)); // 缓存用户信息
+					  this.$store.commit('setLandRegist', 1); // 更新setLandRegist // 用户登录
 					  if (this.password === '' || this.password === null || this.password === undefined) { // 查询没有密码，去设置密码
 					    this.setPassWorld = true; // 设置密码显示
 					  } else { // 查询存在密码 返回登录
 						 uni.showToast({
-							title: '登陆成功',
+							title: '登录成功',
 							icon: 'none',
 							duration: 500
 						 });
@@ -534,7 +545,7 @@
 			  		if (String(response.data.code) === '200') {
 			  		  uni.hideLoading(); // 隐藏 loading
 			  		  uni.showToast({
-			  		  	title: '登陆成功！',
+			  		  	title: '登录成功！',
 			  		  	icon: 'none',
 			  		  	duration: 500
 			  		  });

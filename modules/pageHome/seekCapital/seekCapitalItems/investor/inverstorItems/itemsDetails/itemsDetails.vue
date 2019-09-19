@@ -43,7 +43,7 @@
 				close: this.Static + 'mbcImg/home/seekCapital/close.png',
 				data: {
 					userId: 0, // 投资人id
-					content: 1000 // 记录用户是否申请过 1申请过，0未申请
+					content: 0 // 记录用户是否申请过 1申请过，0未申请
 				}
 			};
 		},
@@ -58,9 +58,19 @@
 			botBtn
 		},
 		computed: {
-			...mapGetters(['GET_PUBLISH', 'AUTH'])
+			...mapGetters(['GET_PUBLISH', 'AUTH', 'LANDREGIST'])
 		},
 		watch: {
+			LANDREGIST: {
+			  handler (a, b) {
+				console.log(a, b, '登录状态');
+				if (a === 1) {
+					this.getUserApply(this.data.userId);
+					this.getUserData();
+				}
+			  },
+			  deep: true
+			}
 		},
 		created() {
 			console.log('在组件中并不能使用页面生命周期函数');
@@ -100,8 +110,13 @@
 			},
 			getUserData () {
 			  console.log('获取用户信息，全部');
-			  let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
-			  console.log(landRegistLG.user.id);
+			  if (uni.getStorageSync('landRegist')) {
+				  let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
+				  console.log(landRegistLG.user.id);
+				  uni.showLoading({ // 展示loading
+				  	mask: true,
+				  	title: '加载中'
+				  });
 				uni.request({
 					url: this.api2 + '/user/' + landRegistLG.user.id, //接口地址。
 					data: {},
@@ -134,44 +149,40 @@
 						console.log(error, '网络繁忙，请稍后');
 					}
 				});
+			  }
 			},
 			getList (e) {
-				if (uni.getStorageSync('landRegist')) {
-				    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
-				    console.log(landRegistLG.user.id);
-					let params = {}; // 请求总数居时 参数为空
-					uni.showLoading({ // 展示loading
-						title: '加载中'
-					});
-					uni.request({
-						url: this.api2 + '/inve/user/detail?userId=' + e, //接口地址。
-						data: this.endParams(params),
-						header: {
-							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
-						},
-						success: (response) => {
-							console.log(response.data.content);
-							let dataM = response.data.content;
-							if (dataM.user.compName === '') {
-								dataM.user.compName = '投资人'
-							};
-							this.dataList = dataM;
-							console.log(dataM, '-----------------------------------dataM---------------------------')
-							this.data.projectName = this.dataList.user.userName;
-							this.data.modelId = this.dataList.user.userId;
-							uni.hideLoading(); // 隐藏 loading
-						},
-						fail: (error) => {
-							uni.hideLoading(); // 隐藏 loading
-							uni.showToast({
-								title: '网络繁忙，请稍后',
-								icon: 'none',
-								duration: 1000
-							});
-							console.log(error, '网络繁忙，请稍后');
-						}
-					});
-				}
+				let params = {}; // 请求总数居时 参数为空
+				uni.showLoading({ // 展示loading
+					mask: true,
+					title: '加载中'
+				});
+				uni.request({
+					url: this.api2 + '/inve/user/detail?userId=' + e, //接口地址。
+					data: params,
+					header: {},
+					success: (response) => {
+						console.log(response.data.content);
+						let dataM = response.data.content;
+						if (dataM.user.compName === '') {
+							dataM.user.compName = '投资人'
+						};
+						this.dataList = dataM;
+						console.log(dataM, '-----------------------------------dataM---------------------------')
+						this.data.projectName = this.dataList.user.userName;
+						this.data.modelId = this.dataList.user.userId;
+						uni.hideLoading(); // 隐藏 loading
+					},
+					fail: (error) => {
+						uni.hideLoading(); // 隐藏 loading
+						uni.showToast({
+							title: '网络繁忙，请稍后',
+							icon: 'none',
+							duration: 1000
+						});
+						console.log(error, '网络繁忙，请稍后');
+					}
+				});
 			},
 			getUserApply(e){
 				if (uni.getStorageSync('landRegist')) {
@@ -179,6 +190,7 @@
 				    console.log(landRegistLG.user.id);
 					let params = {}; // 请求总数居时 参数为空
 					uni.showLoading({ // 展示loading
+						mask: true,
 						title: '加载中'
 					});
 					uni.request({

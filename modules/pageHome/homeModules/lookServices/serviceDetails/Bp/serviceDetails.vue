@@ -10,13 +10,14 @@
 	import detailTop from "./detailsItems/detailTop.vue";
 	import detailsContent from "./detailsItems/detailsContent.vue";
 	import constSubmit from "./detailsItems/constSubmit.vue";
+	import { mapMutations, mapGetters } from 'vuex';
 	export default {
 	    data () {
 			return {
 				dataList: [] ,// 后台返回数据
 				data: {
 					serverId: 1000, // 服务ID
-					content: 1000 // 记录用户是否申请过 1申请过，0未申请
+					content: 0 // 记录用户是否申请过 1申请过，0未申请
 				}
 			};
 	    },
@@ -25,8 +26,20 @@
 			detailsContent,
 			constSubmit
 		},
-		computed: {},
-		watch: {},
+		computed: {
+			...mapGetters(['LANDREGIST'])
+		},
+		watch: {
+			LANDREGIST: {
+			  handler (a, b) {
+				console.log(a, b, '登录状态');
+				if (a === 1) {
+					this.getUserApply(this.data.serverId);
+				}
+			  },
+			  deep: true
+			}
+		},
 		onLoad(option) {
 			this.data.serverId = option.serverId;
 			this.getUserApply(option.serverId);
@@ -38,6 +51,7 @@
 				    console.log(landRegistLG.user.id);
 					let params = {}; // 请求总数居时 参数为空
 					uni.showLoading({ // 展示loading
+						mask: true,
 						title: '加载中'
 					});
 					uni.request({

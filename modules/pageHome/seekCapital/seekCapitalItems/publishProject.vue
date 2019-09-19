@@ -23,10 +23,8 @@
 				this.clickItems = e;
 				this.$store.commit('setHome', this.clickItems);
 				uni.setStorageSync('clickItems', e);
-				uni.navigateBack({
-					delta: 1,
-					animationType: 'pop-out',
-					animationDuration: 200
+				uni.reLaunch({
+					url: '/pages/mbc/home'
 				});
 			}
 	    }

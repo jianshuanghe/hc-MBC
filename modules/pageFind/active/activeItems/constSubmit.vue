@@ -78,31 +78,40 @@
 				setEntrustSignUpShow: 'setEntrustSignUpShow'
 			}),
 			clickTel () {
-				console.log('触发拨打电话');
-				uni.makePhoneCall({
-					phoneNumber: '010-61723026' // 拨打电话
-				});
+				this.landRegistra(); // 判断登录状态
+				if (uni.getStorageSync('landRegist')) {
+					console.log('触发拨打电话');
+					uni.makePhoneCall({
+						phoneNumber: '010-61723026' // 拨打电话
+					});
+				}
 			},
 			Applyed () {
-				uni.showToast({
-					title: '该活动已结束！',
-					icon: 'none',
-					duration: 1000
-				});
-			},
-			Apply () {
-				console.log(this.msgData.content, this.entrustSignUp.success);
-				if (this.msgData.content === 1  || this.entrustSignUp.success === true) {
+				this.landRegistra(); // 判断登录状态
+				if (uni.getStorageSync('landRegist')) {
 					uni.showToast({
-						title: '该活动已报名！',
+						title: '该活动已结束！',
 						icon: 'none',
 						duration: 1000
 					});
-					return
-				};
-				this.entrustSignUp.entrustShow = true; // 显示提交组件
-				this.$store.commit('setEntrustSignUpShow', true); // 更新setEntrustSignUp
-				this.$store.commit('setEntrustSignUp', this.entrustSignUp); // 更新setEntrustSignUp
+				}
+			},
+			Apply () {
+				this.landRegistra(); // 判断登录状态
+				if (uni.getStorageSync('landRegist')) {
+					console.log(this.msgData.content, this.entrustSignUp.success);
+					if (this.msgData.content === 1  || this.entrustSignUp.success === true) {
+						uni.showToast({
+							title: '该活动已报名！',
+							icon: 'none',
+							duration: 1000
+						});
+						return
+					};
+					this.entrustSignUp.entrustShow = true; // 显示提交组件
+					this.$store.commit('setEntrustSignUpShow', true); // 更新setEntrustSignUp
+					this.$store.commit('setEntrustSignUp', this.entrustSignUp); // 更新setEntrustSignUp
+				}
 			}
 	    }
 	};

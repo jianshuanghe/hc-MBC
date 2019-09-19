@@ -15,6 +15,10 @@ const mutations = {
     console.log(info, 'setUserActive');
     state.userActive = info;
   },
+  setLandRegist (state, info) {
+    console.log(info, 'setLandRegist');
+    state.landRegist = info;
+  },
   setAreaData (state, info) { // 地区
     console.log(info, 'setAreaData');
     state.areaData = info;

@@ -55,9 +55,13 @@
 			}),
 			goToPutIn (e) {
 				console.log(e, '点击触发发布项目');
-				this.clickItems = e;
-				this.$store.commit('setHome', this.clickItems);
-				uni.setStorageSync('clickItems', e);
+				if (uni.getStorageSync('landRegist')) {
+					this.clickItems = e;
+					this.$store.commit('setHome', this.clickItems);
+					uni.setStorageSync('clickItems', e);
+				} else {
+					this.landRegistra(); // 判断登录状态
+				}
 			},
 			goToSeek () {
 				console.log('点击触发寻找资本');

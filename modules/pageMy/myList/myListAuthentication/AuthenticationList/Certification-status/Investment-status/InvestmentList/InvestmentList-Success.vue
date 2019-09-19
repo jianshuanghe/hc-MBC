@@ -2,7 +2,7 @@
 	<view class="InvestmentList-Success">
 		<view><image :src="tou"></image></view>
 		<view>
-			<span>认证成功</span>
+			<span class='fontWight'>认证成功</span>
 			<span>恭喜您成为陌拜资本认证投资人，您将拥有以下权限：</span>
 			<view>
 				<span>查看项目</span>
@@ -76,8 +76,11 @@
 		color: #2E2E30;
 		padding-top:20upx ;
 		display: block;
+	}
+	.fontWight{
 		font-weight: bold;
-	}.InvestmentList-Success view:nth-of-type(2) span:nth-of-type(2){
+	}
+	.InvestmentList-Success view:nth-of-type(2) span:nth-of-type(2){
 		font-size: 28upx;
 		color: #5D5D5D;
 		padding-top:20upx ;

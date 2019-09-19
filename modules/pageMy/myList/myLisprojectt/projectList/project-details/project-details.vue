@@ -370,11 +370,9 @@
 					});
 					uni.request({
 						url: this.api2 + '/proj/list?page=' + this.searchCondition.page, //接口地址。
-						data: this.endParams(params),
+						data: params,
 						method: 'POST',
-						header: {
-							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
-						},
+						header: {},
 						success: (response) => {
 							console.log(response.data);
 							e.listData = response.data.rows; // 第一页返回的数据
@@ -456,10 +454,8 @@
 					});
 					uni.request({
 						url: this.api2 + '/inve/list?type=0&sortType=ID&area=&leves=&fields=&page=' + this.searchCondition.page, //接口地址。
-						data: this.endParams(params),
-						header: {
-							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
-						},
+						data: params,
+						header: {},
 						success: (response) => {
 							console.log(response.data);
 							e.listData = response.data.rows; // 第一页返回的数据
@@ -614,12 +610,10 @@
 						title: '加载中'
 					});
 					uni.request({
-						url: this.api2 + '/proj/' + this.id, //接口地址。
+						url: this.api2 + '/proj/info/' + this.id, //接口地址。
 						// data: this.endParams(params),
 						method: 'GET',
-						header: {
-							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
-						},
+						header: {},
 						success: (response) => {
 							uni.hideLoading();
 							console.log(response.data);

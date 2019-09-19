@@ -7,6 +7,7 @@ import {isWeiXin} from './static/mbcJs/browserType';
 import {pageNums} from './static/mbcJs/pageNums';
 import {dateTime} from './static/mbcJs/dateTime';
 import {Static, dImg} from './static/mbcJs/static';
+import {landRegistra} from './static/mbcJs/landRegistra';
 
 Vue.config.productionTip = false
 
@@ -27,6 +28,8 @@ Vue.prototype.dateTime = dateTime
 Vue.prototype.Static = Static
 
 Vue.prototype.dImg = dImg
+
+Vue.prototype.landRegistra = landRegistra
 
 Vue.prototype.APPID = ''
 Vue.prototype.SECRET = ''

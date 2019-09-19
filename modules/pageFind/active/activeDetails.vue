@@ -25,7 +25,7 @@
 			constSubmit
 		},
 		computed: {
-			 ...mapGetters(['ENTRUSTSINGUP'])
+			 ...mapGetters(['ENTRUSTSINGUP', 'LANDREGIST'])
 		},
 		watch: {
 			ENTRUSTSINGUP: {
@@ -35,48 +35,53 @@
 				  }
 				},
 				deep: true
+			},
+			LANDREGIST: {
+			  handler (a, b) {
+				console.log(a, b, '登录状态');
+				if (a === 1) {
+					this.getUserApply(this.id);
+				}
+			  },
+			  deep: true
 			}
 		},
 		onLoad(option) {
+			console.log('回退和前景')
 			this.id = option.id;
 			this.data.id = option.id;
 			this.getUserApply(option.id);
+			this.getList(this.id)
 		},
 	    methods: {
 			getList (e) {
-				if (uni.getStorageSync('landRegist')) {
-				    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
-				    console.log(landRegistLG.user.id);
-					let params = {}; // 请求总数居时 参数为空
-					uni.showLoading({ // 展示loading
-						title: '加载中'
-					});
-					uni.request({
-						url: this.api2 + '/activity/detail?activityId=' + e, //接口地址。
-						data: this.endParams(params),
-						header: {
-							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
-						},
-						success: (response) => {
-							console.log(response.data.content);
-							this.dataList = response.data.content;
-							console.log(this.dataList, '---------------this.dataList-----------');
-							let activityContent = this.dataList.activity.activityContent.replace(/\<img/gi, '<img style="max-width:100%;height:auto" ');
-							this.dataList.activity.activityContent = activityContent;
-							this.data.isEndTime = response.data.content.isEndTime; //是否过期 1 活动过期 0 未过期可以报名
-							uni.hideLoading(); // 隐藏 loading
-						},
-						fail: (error) => {
-							uni.hideLoading(); // 隐藏 loading
-							uni.showToast({
-								title: '网络繁忙，请稍后',
-								icon: 'none',
-								duration: 1000
-							});
-							console.log(error, '网络繁忙，请稍后');
-						}
-					});
-				}
+				let params = {}; // 请求总数居时 参数为空
+				uni.showLoading({ // 展示loading
+					title: '加载中'
+				});
+				uni.request({
+					url: this.api2 + '/activity/detail?activityId=' + e, //接口地址。
+					data: params,
+					header: {},
+					success: (response) => {
+						console.log(response.data.content);
+						this.dataList = response.data.content;
+						console.log(this.dataList, '---------------this.dataList-----------');
+						let activityContent = this.dataList.activity.activityContent.replace(/\<img/gi, '<img style="max-width:100%;height:auto" ');
+						this.dataList.activity.activityContent = activityContent;
+						this.data.isEndTime = response.data.content.isEndTime; //是否过期 1 活动过期 0 未过期可以报名
+						uni.hideLoading(); // 隐藏 loading
+					},
+					fail: (error) => {
+						uni.hideLoading(); // 隐藏 loading
+						uni.showToast({
+							title: '网络繁忙，请稍后',
+							icon: 'none',
+							duration: 1000
+						});
+						console.log(error, '网络繁忙，请稍后');
+					}
+				});
 			},
 			getUserApply(e){
 				if (uni.getStorageSync('landRegist')) {

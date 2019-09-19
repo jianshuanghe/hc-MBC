@@ -175,28 +175,36 @@
 					});
 					this.resetClickRecord(items);
 				} else if (e === 'like') { // 喜欢
-					if (this.items.like === false) {
-						this.items.like = true; // 点击之后状态变化
-						this.msgDatas.likeCount = Number(this.msgDatas.likeCount) + 1;
-						this.upDataIsLike(evn);
-						this.resetClickRecord(items);
-					};
+					if (uni.getStorageSync('landRegist')) {
+						if (this.items.like === false) {
+							this.items.like = true; // 点击之后状态变化
+							this.msgDatas.likeCount = Number(this.msgDatas.likeCount) + 1;
+							this.upDataIsLike(evn);
+							this.resetClickRecord(items);
+						};
+					} else {
+						this.landRegistra(); // 判断登录状态
+					}
 				} else if (e === 'love') { // 收藏
-					if (this.items.love === false) {
-						this.items.love = true; // 点击之后状态变化
-						console.log(this.msgDatas.followCount, 'this.msgData.followCount=================+++++')
-						this.msgDatas.followCount = Number(this.msgDatas.followCount) + 1;
-						this.upDataIsLoved(evn); // 收藏
-						this.resetClickRecord(items);
-					} else if (this.items.love === true) {
-						this.items.love = false; // 点击之后状态变化
-						if (Number(this.msgDatas.followCount) === 0) {
-							this.msgDatas.followCount = this.msgDatas.followCount;
-						} else {
-							this.msgDatas.followCount = Number(this.msgDatas.followCount) - 1;
+					if (uni.getStorageSync('landRegist')) {
+						if (this.items.love === false) {
+							this.items.love = true; // 点击之后状态变化
+							console.log(this.msgDatas.followCount, 'this.msgData.followCount=================+++++')
+							this.msgDatas.followCount = Number(this.msgDatas.followCount) + 1;
+							this.upDataIsLoved(evn); // 收藏
+							this.resetClickRecord(items);
+						} else if (this.items.love === true) {
+							this.items.love = false; // 点击之后状态变化
+							if (Number(this.msgDatas.followCount) === 0) {
+								this.msgDatas.followCount = this.msgDatas.followCount;
+							} else {
+								this.msgDatas.followCount = Number(this.msgDatas.followCount) - 1;
+							}
+							this.upDataIsLove(evn); // 取消收藏
+							this.resetClickRecord(items);
 						}
-						this.upDataIsLove(evn); // 取消收藏
-						this.resetClickRecord(items);
+					} else {
+						this.landRegistra(); // 判断登录状态
 					}
 				};
 			},

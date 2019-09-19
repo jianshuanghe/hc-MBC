@@ -67,7 +67,7 @@
 		box-shadow: 0 1px 8px 0 #EBEBEB;
 		border-radius: 4px;
 		padding: 40upx;
-		height: 304upx;
+		/* height: 304upx; */
 	}
 	.projectTop-top{
 		position: relative;

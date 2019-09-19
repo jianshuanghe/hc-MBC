@@ -35,6 +35,13 @@
 		computed: {},
 		created() {},
 		mounted() {},
+		beforeDestroy () {
+			console.log('页面销毁之前缓存数据');
+			if (uni.getStorageSync('clickItems') !== 4) {
+				this.$store.commit('setHome', 4);
+				uni.setStorageSync('clickItems', 4);
+			}
+		},
 		methods: {
 			gotoGood(index) {
 				this.num = index;

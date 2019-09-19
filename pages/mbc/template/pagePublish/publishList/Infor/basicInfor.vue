@@ -280,38 +280,32 @@
 			}),
 			getField () { // 公共组件领域
 				let fieldData = [];
-				if (uni.getStorageSync('landRegist')) {
-					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
-					console.log(landRegistLG.user.id);
-					let params = {}; // 请求总数居时 参数为空
-					uni.request({
-						url: this.api2 + '/field/fieldList', //接口地址。
-						data: this.endParams(params),
-						header: {
-							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
-						},
-						success: (response) => {
-							console.log(response.data.content); // 领域
-							let field = response.data.content;
-							field.map((items, index) => {
-								let fieldItems = {
-									name: items.name,
-									value: items.id,
-								};
-								fieldData.push(fieldItems);
-							});
-							this.listData.array = fieldData;
-						},
-						fail: (error) => {
-							uni.showToast({
-								title: '网络繁忙，请稍后',
-								icon: 'none',
-								duration: 1000
-							});
-							console.log(error, '网络繁忙，请稍后');
-						}
-					});
-				}
+				let params = {}; // 请求总数居时 参数为空
+				uni.request({
+					url: this.api2 + '/field/fieldList', //接口地址。
+					data: params,
+					header: {},
+					success: (response) => {
+						console.log(response.data.content); // 领域
+						let field = response.data.content;
+						field.map((items, index) => {
+							let fieldItems = {
+								name: items.name,
+								value: items.id,
+							};
+							fieldData.push(fieldItems);
+						});
+						this.listData.array = fieldData;
+					},
+					fail: (error) => {
+						uni.showToast({
+							title: '网络繁忙，请稍后',
+							icon: 'none',
+							duration: 1000
+						});
+						console.log(error, '网络繁忙，请稍后');
+					}
+				});
 			},
 			bindPickerChange: function(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value);

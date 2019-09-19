@@ -67,38 +67,32 @@
 		},
 	    methods: {
 			getList (e) {
-				if (uni.getStorageSync('landRegist')) {
-				    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
-				    console.log(landRegistLG.user.id);
-					let params = {}; // 请求总数居时 参数为空
-					uni.showLoading({ // 展示loading
-						title: '加载中'
-					});
-					uni.request({
-						url: this.api2 + '/activity/detail?activityId=' + e, //接口地址。
-						data: this.endParams(params),
-						header: {
-							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
-						},
-						success: (response) => {
-							console.log(response.data.content);
-							let data = response.data.content;
-							console.log(data, '---------------------data-------------------');
-							data.activity.activityContent = data.activity.activityContent.replace(/\<img/gi, '<img style="max-width:100%;height:auto" ');
-							this.dataList = data;
-							uni.hideLoading(); // 隐藏 loading
-						},
-						fail: (error) => {
-							uni.hideLoading(); // 隐藏 loading
-							uni.showToast({
-								title: '网络繁忙，请稍后',
-								icon: 'none',
-								duration: 1000
-							});
-							console.log(error, '网络繁忙，请稍后');
-						}
-					});
-				}
+				let params = {}; // 请求总数居时 参数为空
+				uni.showLoading({ // 展示loading
+					title: '加载中'
+				});
+				uni.request({
+					url: this.api2 + '/activity/detail?activityId=' + e, //接口地址。
+					data: params,
+					header: {},
+					success: (response) => {
+						console.log(response.data.content);
+						let data = response.data.content;
+						console.log(data, '---------------------data-------------------');
+						data.activity.activityContent = data.activity.activityContent.replace(/\<img/gi, '<img style="max-width:100%;height:auto" ');
+						this.dataList = data;
+						uni.hideLoading(); // 隐藏 loading
+					},
+					fail: (error) => {
+						uni.hideLoading(); // 隐藏 loading
+						uni.showToast({
+							title: '网络繁忙，请稍后',
+							icon: 'none',
+							duration: 1000
+						});
+						console.log(error, '网络繁忙，请稍后');
+					}
+				});
 			},
 			getClickRecord (e) {
 				console.log('获取缓存中的用户点击行为数组记录');
@@ -115,18 +109,21 @@
 				}
 			},
 			setClickRecord (e, items, evn) {
-				console.log(e, items, evn, '记录用户行为');
-				if (e === 'love') { // 收藏
-					if (this.items.love === false) {
-						this.items.love = true; // 点击之后状态变化
-						this.upDataIsLoved(evn); // 收藏
-						this.resetClickRecord(items);
-					} else {
-						this.items.love = false; // 点击之后状态变化
-						this.upDataIsLove(evn); // 收藏
-						this.resetClickRecord(items);
-					}
-				};
+				this.landRegistra(); // 判断登录状态
+				if (uni.getStorageSync('landRegist')) {
+					console.log(e, items, evn, '记录用户行为');
+					if (e === 'love') { // 收藏
+						if (this.items.love === false) {
+							this.items.love = true; // 点击之后状态变化
+							this.upDataIsLoved(evn); // 收藏
+							this.resetClickRecord(items);
+						} else {
+							this.items.love = false; // 点击之后状态变化
+							this.upDataIsLove(evn); // 收藏
+							this.resetClickRecord(items);
+						}
+					};
+				}
 			},
 			resetClickRecord (e) {
 				console.log(e, '重置缓存中用户行为数据');

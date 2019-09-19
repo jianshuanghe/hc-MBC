@@ -129,11 +129,9 @@
 					});
 					uni.request({
 						url: this.api2 + '/proj/list?page='+ this.searchCondition.page, //接口地址。
-						data: this.endParams(params),
+						data: params,
 						method: 'POST',
-						header: {
-							Authorization: "Bearer " + landRegistLG.token //将token放到请求头中
-						},
+						header: {},
 						success: (response) => {
 							uni.hideLoading();
 							console.log(response.data);
@@ -173,11 +171,9 @@
 					});
 					uni.request({
 						url: this.api2 + '/proj/list?page=' + e.search.searchCondition.page, //接口地址。
-						data: this.endParams(params),
+						data: params,
 						method: 'POST',
-						header: {
-							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
-						},
+						header: {},
 						success: (response) => {
 							console.log(response.data);
 							e.listData = e.listData.concat(response.data.rows);

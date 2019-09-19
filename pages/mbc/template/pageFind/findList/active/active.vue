@@ -118,85 +118,73 @@
 				});
 			},
 			getList(e){
-				if (uni.getStorageSync('landRegist')) {
-				    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
-				    console.log(landRegistLG.user.id);
-					let params = {
-						activityTitel:"",
-						activityState:"2"
-					}; // 请求总数居时 参数为空
-					uni.showLoading({ // 展示loading
-						title: '加载中'
-					});
-					uni.request({
-						url: this.api2 + '/activity/list?page=' + this.searchCondition.page, //接口地址。
-						data: this.endParams(params),
-						method: 'POST',
-						header: {
-							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
-						},
-						success: (response) => {
-							console.log(response.data);
-							e.listData = response.data.rows; // 第一页返回的数据
-							e.search.pageNum = this.pageNums(response.data.total) // 总页数
-							console.log(response.data.total, e.search.pageNum);
-							if (e.search.pageNum === 1) { // 总页数为1时，显示没有数据了
-								this.loadingText = '已经没有数据了';
-								e.loadingText = '已经没有数据了!';
-							}
-							uni.hideLoading(); // 隐藏 loading
-							this.$store.commit('setActive', e); // 更新setActive
-						},
-						fail: (error) => {
-							uni.hideLoading(); // 隐藏 loading
-							uni.showToast({
-								title: '网络繁忙，请稍后',
-								icon: 'none',
-								duration: 1000
-							});
-							console.log(error, '网络繁忙，请稍后');
+				let params = {
+					activityTitel:"",
+					activityState:"2"
+				}; // 请求总数居时 参数为空
+				uni.showLoading({ // 展示loading
+					title: '加载中'
+				});
+				uni.request({
+					url: this.api2 + '/activity/list?page=' + this.searchCondition.page, //接口地址。
+					data: params,
+					method: 'POST',
+					header: {},
+					success: (response) => {
+						console.log(response.data);
+						e.listData = response.data.rows; // 第一页返回的数据
+						e.search.pageNum = this.pageNums(response.data.total) // 总页数
+						console.log(response.data.total, e.search.pageNum);
+						if (e.search.pageNum === 1) { // 总页数为1时，显示没有数据了
+							this.loadingText = '已经没有数据了';
+							e.loadingText = '已经没有数据了!';
 						}
-					});
-				}
+						uni.hideLoading(); // 隐藏 loading
+						this.$store.commit('setActive', e); // 更新setActive
+					},
+					fail: (error) => {
+						uni.hideLoading(); // 隐藏 loading
+						uni.showToast({
+							title: '网络繁忙，请稍后',
+							icon: 'none',
+							duration: 1000
+						});
+						console.log(error, '网络繁忙，请稍后');
+					}
+				});
 			},
 			getMoreList(e){
 				console.log(e, '数显数据函数的参数More');
 				e.search.searchCondition.page = String(parseInt(e.search.searchCondition.page) + 1);
-				if (uni.getStorageSync('landRegist')) {
-				    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
-				    console.log(landRegistLG.user.id);
-					let params = {
-						activityTitel:"",
-						activityState:"2"
-					}; // 请求总数居时 参数为空
-					uni.showLoading({ // 展示loading
-						title: '加载中'
-					});
-					uni.request({
-						url: this.api2 + '/activity/list?page=' + e.search.searchCondition.page, //接口地址。
-						data: this.endParams(params),
-						method: 'POST',
-						header: {
-							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
-						},
-						success: (response) => {
-							console.log(response.data);
-							e.listData = e.listData.concat(response.data.rows);
-							uni.hideLoading(); // 隐藏 loading
-							this.$store.commit('setActive', e); // 更新setActive
-							this.goScrollTop(); // 页面触底之后调取loadMore方法，为了让用户再次调用此方法，需要自動将scroll向上滚动一些位置，这样下次滑动才会触发loadMore方法，详细需要看API
-						},
-						fail: (error) => {
-							uni.hideLoading(); // 隐藏 loading
-							uni.showToast({
-								title: '网络繁忙，请稍后',
-								icon: 'none',
-								duration: 1000
-							});
-							console.log(error, '网络繁忙，请稍后');
-						}
-					});
-				}
+				let params = {
+					activityTitel:"",
+					activityState:"2"
+				}; // 请求总数居时 参数为空
+				uni.showLoading({ // 展示loading
+					title: '加载中'
+				});
+				uni.request({
+					url: this.api2 + '/activity/list?page=' + e.search.searchCondition.page, //接口地址。
+					data: params,
+					method: 'POST',
+					header: {},
+					success: (response) => {
+						console.log(response.data);
+						e.listData = e.listData.concat(response.data.rows);
+						uni.hideLoading(); // 隐藏 loading
+						this.$store.commit('setActive', e); // 更新setActive
+						this.goScrollTop(); // 页面触底之后调取loadMore方法，为了让用户再次调用此方法，需要自動将scroll向上滚动一些位置，这样下次滑动才会触发loadMore方法，详细需要看API
+					},
+					fail: (error) => {
+						uni.hideLoading(); // 隐藏 loading
+						uni.showToast({
+							title: '网络繁忙，请稍后',
+							icon: 'none',
+							duration: 1000
+						});
+						console.log(error, '网络繁忙，请稍后');
+					}
+				});
 			}
 		}
 	};

@@ -35,6 +35,7 @@ const state = {
   auth: { // 认证提示
 	  show: true, // 默认不显示
   },
+  landRegist: 0, // 0代表未登录状态 1代表登录状态
   userActive: 1, // 判断用户点击行为变化
   areaData: { // 地区
 	area: [], // 全国省市区

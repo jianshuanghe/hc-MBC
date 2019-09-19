@@ -158,176 +158,152 @@
 			},
 			getProjectList(e) {
 				console.log('搜索项目数据接口');
-				if (uni.getStorageSync('landRegist')) {
-				    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
-				    console.log(landRegistLG.user.id);
-					let params = {
-						projName: this.searchText
-					}; 
-					uni.showLoading({ // 展示loading
-						title: '加载中'
-					});
-					uni.request({
-						url: this.api2 + '/index/select/proj?page=' + e.search.searchCondition.page, //接口地址。
-						data: this.endParams(params),
-						method: 'POST',
-						header: {
-							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
-						},
-						success: (response) => {
-							console.log(response.data);
-							e.listData = response.data.rows; // 第一页返回的数据
-							e.listNum = response.data.total; // 总数居
-							if (response.data.rows.length === 0) {
-								e.loadingText = '已经没有数据了!';
-							}
-							this.$store.commit('setSeachProject', e); // 更新setSeachProject
-							this.$store.commit('setSeachInvestor', this.investor); // 更新setSeachInvestor
-							this.$store.commit('setSeachInvesten', this.investen); // 更新setSeachInvesten
-							this.$store.commit('setSeachActive', this.active); // 更新setSeachActive
-							uni.hideLoading(); // 隐藏 loading
-						},
-						fail: (error) => {
-							uni.hideLoading(); // 隐藏 loading
-							uni.showToast({
-								title: '网络繁忙，请稍后',
-								icon: 'none',
-								duration: 1000
-							});
-							console.log(error, '网络繁忙，请稍后');
+				let params = {
+					projName: this.searchText
+				}; 
+				uni.showLoading({ // 展示loading
+					title: '加载中'
+				});
+				uni.request({
+					url: this.api2 + '/index/select/proj?page=' + e.search.searchCondition.page, //接口地址。
+					data: params,
+					method: 'POST',
+					header: {},
+					success: (response) => {
+						console.log(response.data);
+						e.listData = response.data.rows; // 第一页返回的数据
+						e.listNum = response.data.total; // 总数居
+						if (response.data.rows.length === 0) {
+							e.loadingText = '已经没有数据了!';
 						}
-					});
-				}
+						this.$store.commit('setSeachProject', e); // 更新setSeachProject
+						this.$store.commit('setSeachInvestor', this.investor); // 更新setSeachInvestor
+						this.$store.commit('setSeachInvesten', this.investen); // 更新setSeachInvesten
+						this.$store.commit('setSeachActive', this.active); // 更新setSeachActive
+						uni.hideLoading(); // 隐藏 loading
+					},
+					fail: (error) => {
+						uni.hideLoading(); // 隐藏 loading
+						uni.showToast({
+							title: '网络繁忙，请稍后',
+							icon: 'none',
+							duration: 1000
+						});
+						console.log(error, '网络繁忙，请稍后');
+					}
+				});
 			},
 			getInvstorList(e) {
 				console.log(e,'搜索投资人数据接口');
-				if (uni.getStorageSync('landRegist')) {
-				    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
-				    console.log(landRegistLG.user.id);
-					let params = {
-						userName: this.searchText
-					}; 
-					uni.showLoading({ // 展示loading
-						title: '加载中'
-					});
-					uni.request({
-						url: this.api2 + '/index/select/user?page=' + e.search.searchCondition.page, //接口地址。
-						data: this.endParams(params),
-						method: 'POST',
-						header: {
-							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
-						},
-						success: (response) => {
-							console.log(response.data);
-							e.listData = response.data.rows; // 第一页返回的数据
-							e.listNum = response.data.total; // 总数居
-							if (response.data.rows.length === 0) {
-								e.loadingText = '已经没有数据了!';
-							}
-							this.$store.commit('setSeachProject', this.project); // 更新setSeachProject
-							this.$store.commit('setSeachInvestor', e); // 更新setSeachInvestor
-							this.$store.commit('setSeachInvesten', this.investen); // 更新setSeachInvesten
-							this.$store.commit('setSeachActive', this.active); // 更新setSeachActive
-							uni.hideLoading(); // 隐藏 loading
-						},
-						fail: (error) => {
-							uni.hideLoading(); // 隐藏 loading
-							uni.showToast({
-								title: '网络繁忙，请稍后',
-								icon: 'none',
-								duration: 1000
-							});
-							console.log(error, '网络繁忙，请稍后');
+				let params = {
+					userName: this.searchText
+				}; 
+				uni.showLoading({ // 展示loading
+					title: '加载中'
+				});
+				uni.request({
+					url: this.api2 + '/index/select/user?page=' + e.search.searchCondition.page, //接口地址。
+					data: params,
+					method: 'POST',
+					header: {},
+					success: (response) => {
+						console.log(response.data);
+						e.listData = response.data.rows; // 第一页返回的数据
+						e.listNum = response.data.total; // 总数居
+						if (response.data.rows.length === 0) {
+							e.loadingText = '已经没有数据了!';
 						}
-					});
-				}
+						this.$store.commit('setSeachProject', this.project); // 更新setSeachProject
+						this.$store.commit('setSeachInvestor', e); // 更新setSeachInvestor
+						this.$store.commit('setSeachInvesten', this.investen); // 更新setSeachInvesten
+						this.$store.commit('setSeachActive', this.active); // 更新setSeachActive
+						uni.hideLoading(); // 隐藏 loading
+					},
+					fail: (error) => {
+						uni.hideLoading(); // 隐藏 loading
+						uni.showToast({
+							title: '网络繁忙，请稍后',
+							icon: 'none',
+							duration: 1000
+						});
+						console.log(error, '网络繁忙，请稍后');
+					}
+				});
 			},
 			getInvstenList (e) {
 				console.log(e, '搜索投资机构数据接口');
-				if (uni.getStorageSync('landRegist')) {
-				    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
-				    console.log(landRegistLG.user.id);
-					let params = {
-						compName: this.searchText
-					}; 
-					uni.showLoading({ // 展示loading
-						title: '加载中'
-					});
-					uni.request({
-						url: this.api2 + '/index/select/capitalComp?page=' + e.search.searchCondition.page, //接口地址。
-						data: this.endParams(params),
-						method: 'POST',
-						header: {
-							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
-						},
-						success: (response) => {
-							console.log(response.data);
-							e.listData = response.data.rows; // 第一页返回的数据
-							e.listNum = response.data.total; // 总数居
-							if (response.data.rows.length === 0) {
-								e.loadingText = '已经没有数据了!';
-							}
-							this.$store.commit('setSeachProject', this.project); // 更新setSeachProject
-							this.$store.commit('setSeachInvestor', this.investor); // 更新setSeachInvestor
-							this.$store.commit('setSeachInvesten', e); // 更新setSeachInvesten
-							this.$store.commit('setSeachActive', this.active); // 更新setSeachActive
-							uni.hideLoading(); // 隐藏 loading
-						},
-						fail: (error) => {
-							uni.hideLoading(); // 隐藏 loading
-							uni.showToast({
-								title: '网络繁忙，请稍后',
-								icon: 'none',
-								duration: 1000
-							});
-							console.log(error, '网络繁忙，请稍后');
+				let params = {
+					compName: this.searchText
+				}; 
+				uni.showLoading({ // 展示loading
+					title: '加载中'
+				});
+				uni.request({
+					url: this.api2 + '/index/select/capitalComp?page=' + e.search.searchCondition.page, //接口地址。
+					data: params,
+					method: 'POST',
+					header: {},
+					success: (response) => {
+						console.log(response.data);
+						e.listData = response.data.rows; // 第一页返回的数据
+						e.listNum = response.data.total; // 总数居
+						if (response.data.rows.length === 0) {
+							e.loadingText = '已经没有数据了!';
 						}
-					});
-				}
+						this.$store.commit('setSeachProject', this.project); // 更新setSeachProject
+						this.$store.commit('setSeachInvestor', this.investor); // 更新setSeachInvestor
+						this.$store.commit('setSeachInvesten', e); // 更新setSeachInvesten
+						this.$store.commit('setSeachActive', this.active); // 更新setSeachActive
+						uni.hideLoading(); // 隐藏 loading
+					},
+					fail: (error) => {
+						uni.hideLoading(); // 隐藏 loading
+						uni.showToast({
+							title: '网络繁忙，请稍后',
+							icon: 'none',
+							duration: 1000
+						});
+						console.log(error, '网络繁忙，请稍后');
+					}
+				});
 			},
 			getActive (e) {
 				console.log(e, '搜索资讯数据接口');
-				if (uni.getStorageSync('landRegist')) {
-				    let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
-				    console.log(landRegistLG.user.id);
-					let params = {
-						activityTitel: this.searchText
-					}; 
-					uni.showLoading({ // 展示loading
-						title: '加载中'
-					});
-					uni.request({
-						url: this.api2 + '/index/select/activity?page=' + e.search.searchCondition.page, //接口地址。
-						data: this.endParams(params),
-						method: 'POST',
-						header: {
-							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
-						},
-						success: (response) => {
-							console.log(response.data);
-							e.listData = response.data.rows; // 第一页返回的数据
-							console.log(e.listData, '搜索资讯数据接口。listData');
-							e.listNum = response.data.total; // 总数居
-							if (response.data.rows.length === 0) {
-								e.loadingText = '已经没有数据了!';
-							}
-							this.$store.commit('setSeachProject', this.project); // 更新setSeachProject
-							this.$store.commit('setSeachInvestor', this.investor); // 更新setSeachInvestor
-							this.$store.commit('setSeachInvesten', this.investen); // 更新setSeachInvesten
-							this.$store.commit('setSeachActive', e); // 更新setSeachActive
-							uni.hideLoading(); // 隐藏 loading
-						},
-						fail: (error) => {
-							uni.hideLoading(); // 隐藏 loading
-							uni.showToast({
-								title: '网络繁忙，请稍后',
-								icon: 'none',
-								duration: 1000
-							});
-							console.log(error, '网络繁忙，请稍后');
+				let params = {
+					activityTitel: this.searchText
+				}; 
+				uni.showLoading({ // 展示loading
+					title: '加载中'
+				});
+				uni.request({
+					url: this.api2 + '/index/select/activity?page=' + e.search.searchCondition.page, //接口地址。
+					data: params,
+					method: 'POST',
+					header: {},
+					success: (response) => {
+						console.log(response.data);
+						e.listData = response.data.rows; // 第一页返回的数据
+						console.log(e.listData, '搜索资讯数据接口。listData');
+						e.listNum = response.data.total; // 总数居
+						if (response.data.rows.length === 0) {
+							e.loadingText = '已经没有数据了!';
 						}
-					});
-				}
+						this.$store.commit('setSeachProject', this.project); // 更新setSeachProject
+						this.$store.commit('setSeachInvestor', this.investor); // 更新setSeachInvestor
+						this.$store.commit('setSeachInvesten', this.investen); // 更新setSeachInvesten
+						this.$store.commit('setSeachActive', e); // 更新setSeachActive
+						uni.hideLoading(); // 隐藏 loading
+					},
+					fail: (error) => {
+						uni.hideLoading(); // 隐藏 loading
+						uni.showToast({
+							title: '网络繁忙，请稍后',
+							icon: 'none',
+							duration: 1000
+						});
+						console.log(error, '网络繁忙，请稍后');
+					}
+				});
 			},
 			clickClear () {
 				console.log('清空');
