@@ -48,6 +48,8 @@
 		  }
 		},
         created () {
+			// 隐藏分享
+			uni.hideShareMenu()
         },
         mounted () {
           console.log(this.api2, '全局数据');

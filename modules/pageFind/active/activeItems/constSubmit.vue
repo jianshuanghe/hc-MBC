@@ -78,7 +78,9 @@
 				setEntrustSignUpShow: 'setEntrustSignUpShow'
 			}),
 			clickTel () {
-				this.landRegistra(); // 判断登录状态
+				if (!uni.getStorageSync('landRegist')) {
+					this.landRegistra(); // 判断登录状态
+				};
 				if (uni.getStorageSync('landRegist')) {
 					console.log('触发拨打电话');
 					uni.makePhoneCall({
@@ -87,7 +89,9 @@
 				}
 			},
 			Applyed () {
-				this.landRegistra(); // 判断登录状态
+				if (!uni.getStorageSync('landRegist')) {
+					this.landRegistra(); // 判断登录状态
+				};
 				if (uni.getStorageSync('landRegist')) {
 					uni.showToast({
 						title: '该活动已结束！',
@@ -97,7 +101,9 @@
 				}
 			},
 			Apply () {
-				this.landRegistra(); // 判断登录状态
+				if (!uni.getStorageSync('landRegist')) {
+					this.landRegistra(); // 判断登录状态
+				};
 				if (uni.getStorageSync('landRegist')) {
 					console.log(this.msgData.content, this.entrustSignUp.success);
 					if (this.msgData.content === 1  || this.entrustSignUp.success === true) {

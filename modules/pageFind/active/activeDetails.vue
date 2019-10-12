@@ -2,16 +2,20 @@
 	<view class="activeDetails-content">
 		<contentCC :msgData="dataList" v-if='dataList.activity.activityTitel'></contentCC>
 		<constSubmit :msgData="data"></constSubmit>
+		<!-- 返回主页按钮 -->
+		<goHome v-if='isShare === 1'></goHome>
 	</view>
 </template>
 
 <script>
 	import contentCC from "./activeItems/content.vue";
 	import constSubmit from "./activeItems/constSubmit.vue";
+	import goHome from '@/components/goHome/goHome.vue';
 	import { mapGetters } from 'vuex';
 	export default {
 	    data () {
 			return {
+				isShare: 0, // 0代表没有分享, 1代表分享后需要展示返回主页，2代表.....
 				id: '',
 				dataList: {},// 后台返回数据
 				data: {
@@ -22,7 +26,8 @@
 	    },
 		components: {
 			contentCC,
-			constSubmit
+			constSubmit,
+			goHome
 		},
 		computed: {
 			 ...mapGetters(['ENTRUSTSINGUP', 'LANDREGIST'])
@@ -51,13 +56,29 @@
 			this.id = option.id;
 			this.data.id = option.id;
 			this.getUserApply(option.id);
-			this.getList(this.id)
+			this.getList(this.id);
+			if (option.share) { // 赋值分享参数
+				this.isShare = Number(option.share)
+			}
+		},
+		// 分享
+		onShareAppMessage(res) {
+		    if (res.from === 'button') {// 来自页面内分享按钮
+		      console.log(res.target)
+		    }
+		    return {
+		      title: this.dataList.activity.activityTitel,
+		      path: '/modules/pageFind/active/activeDetails?share=1&id=' + this.id,
+			  // share参数代表分享，
+					// share=1代表用户分享出去的是当前页，用户打开页面需要展示返回主页按钮；
+					// share=2.....
+		    }
 		},
 	    methods: {
 			getList (e) {
 				let params = {}; // 请求总数居时 参数为空
 				uni.showLoading({ // 展示loading
-					title: '加载中'
+					title: '加载中111'
 				});
 				uni.request({
 					url: this.api2 + '/activity/detail?activityId=' + e, //接口地址。

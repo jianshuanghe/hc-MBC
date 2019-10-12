@@ -264,6 +264,13 @@
 				// 页面销毁重置首页数据E
 			};
 		},
+		// 分享
+		onShareAppMessage(res) {
+			  if (res.from === 'button') {// 来自页面内分享按钮
+				console.log(res.target)
+			  }
+			  return this.titleOrPathApp
+		},
 		filters: {
 			formatDate: function(value) {
 				let date = new Date(value);

@@ -76,7 +76,9 @@
 				setEntrustParams: 'setEntrustParams'
 			}),
 			clickTel () {
-				this.landRegistra(); // 判断登录状态
+				if (!uni.getStorageSync('landRegist')) {
+					this.landRegistra(); // 判断登录状态
+				};
 				if (uni.getStorageSync('landRegist')) {
 					console.log('触发拨打电话');
 					uni.makePhoneCall({
@@ -85,7 +87,9 @@
 				}
 			},
 			Apply () {
-				this.landRegistra(); // 判断登录状态
+				if (!uni.getStorageSync('landRegist')) {
+					this.landRegistra(); // 判断登录状态
+				};
 				if (uni.getStorageSync('landRegist')) {
 					console.log('触发申请');
 					if (this.msgData.content === 1) {

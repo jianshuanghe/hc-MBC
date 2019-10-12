@@ -7,10 +7,10 @@
 			<view class="left iT-text">
 				<div class="company-box">{{msgData.capitalComp.compName  || ''}}</div>
 			</view>
-			<div class="Authentication-type" @tap='goToAuth()' v-if='isAuth === false'>
+			<!-- <div class="Authentication-type" @tap='goToAuth()' v-if='isAuth === false'>
 				<image :src="authen" class="AuType"></image>
 				成员认证
-			</div>
+			</div> -->
 			<view class="clear"></view>
 		</view>
 	</view>
@@ -125,13 +125,16 @@
 	}
 	.company-box{
 		position: relative;
-		width: 100%;
+		width: 66%;
 		font-family: PingFang-SC-Bold;
 		font-size: 40upx;
 		color: #2E2E30;
 		letter-spacing: 0;
-		line-height: 140upx;
+		line-height: 40upx;
 		font-weight: bold;
+		margin-top: 33upx;
+		display: flex;
+		align-items: center;
 	}
 	.Authentication-type{
 		position: absolute;

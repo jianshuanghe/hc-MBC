@@ -66,13 +66,25 @@
             deep: true
           }
         },
-		onLoad() {
+		// 分享
+		onShareAppMessage(res) {
+			  if (res.from === 'button') {// 来自页面内分享按钮
+				console.log(res.target)
+			  }
+			  return this.titleOrPathApp
+		},
+		onLoad(option) {
 			if(uni.getStorageSync('clickItems')) {
 				this.clickItems = uni.getStorageSync('clickItems'); // 取缓存中tabbar数据
 				this.upTitle(this.clickItems);
 			};
 			this.getArea();
 			this.$store.commit('setAuthShow', false); // 更新setAuthShow
+			if (option.shareHerf) { // 根据链接上是否存在分享链接参数，有的话指定跳转， 所有分享到到首页
+				uni.navigateTo({
+					url: decodeURIComponent(option.shareHerf)
+				});
+			}
 		},
 		methods: {
 			...mapMutations({

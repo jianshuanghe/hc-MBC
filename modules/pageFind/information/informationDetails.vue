@@ -28,24 +28,30 @@
 				</view>
 			</view>
 		</view>
+		<!-- 返回主页按钮 -->
+		<goHome v-if='isShare === 1'></goHome>
 	</view>
 </template>
 
 <script>
 	import date from '@/static/mbcJs/dateTime.js';
+	import goHome from '@/components/goHome/goHome.vue';
 	export default {
 	    data () {
 			return {
+				isShare: 0, // 0代表没有分享, 1代表分享后需要展示返回主页，2代表.....
 				dataList: {} ,// 后台返回数据
 				love: this.Static + 'mbcImg/home/lovem.png',
 				loved: this.Static + 'mbcImg/home/lovemed.png',
 				items: { // 用户缓存用户行为的子项
 					id: '', // id
 					love: false // 收藏
-				}
+				},
+				id: ''
 			};
 	    },
 		components: {
+			goHome
 		},
 		filters: {
 		  /* 格式化时间戳 */
@@ -61,9 +67,26 @@
 		computed: {},
 		watch: {},
 		onLoad(option) {
+			this.id = option.id;
 			console.log(option)
 			this.getList(option.id);
 			this.getClickRecord(option.id);
+			if (option.share) { // 赋值分享参数
+				this.isShare = Number(option.share)
+			}
+		},
+		// 分享
+		onShareAppMessage(res) {
+			if (res.from === 'button') {// 来自页面内分享按钮
+			  console.log(res.target)
+			}
+			return {
+			  title: this.dataList.activity.activityTitel,
+			  path: '/modules/pageFind/information/informationDetails?share=1&id=' + this.id,
+			  // share参数代表分享，
+					// share=1代表用户分享出去的是当前页，用户打开页面需要展示返回主页按钮；
+					// share=2.....
+			}
 		},
 	    methods: {
 			getList (e) {

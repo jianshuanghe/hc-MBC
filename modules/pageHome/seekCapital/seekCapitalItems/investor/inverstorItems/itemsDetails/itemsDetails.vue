@@ -24,10 +24,13 @@
 				<view class="TIPS-btn" @tap='goToAuth'>立即认证</view>
 			</view>
 		</tipsBox>
+		<!-- 返回主页按钮 -->
+		<goHome v-if='isShare === 1'></goHome>
 	</view>
 </template>
 
 <script>
+	import goHome from '@/components/goHome/goHome.vue';
 	import tipsBox from "@/components/tips/tips.vue";
 	import inverstorTop from "./itemsDetails-items/inverstorTop.vue";
 	import personalProfile from "./itemsDetails-items/personalProfile.vue";
@@ -39,6 +42,7 @@
 	export default {
 		data() {
 			return {
+				isShare: 0, // 0代表没有分享, 1代表分享后需要展示返回主页，2代表.....
 				dataList: {},
 				close: this.Static + 'mbcImg/home/seekCapital/close.png',
 				data: {
@@ -49,6 +53,7 @@
 		},
 		
 		components: {
+			goHome,
 			tipsBox,
 			inverstorTop,
 			personalProfile,
@@ -72,26 +77,44 @@
 			  deep: true
 			}
 		},
-		created() {
-			console.log('在组件中并不能使用页面生命周期函数');
-			this.getUserData();
-		},
 		beforeDestroy () {
 			console.log('页面销毁之前缓存数据');
 			if (uni.getStorageSync('isListSource')) {
 				uni.removeStorageSync('isListSource'); // 清除来源
 			}
 		},
+		created () {
+			this.getUserData();
+		},
 		mounted() {
 			this.getUserData();
 		},
 		onLoad(option) {
+			this.$store.commit('setAuthShow', false); // 更新setAuthShow
 			this.data.userId = option.userId;
 			this.getList(option.userId);
 			this.getUserApply(option.userId);
+			if (option.share) { // 赋值分享参数
+				this.isShare = Number(option.share)
+			}
 		},
+		// 分享
 		onShareAppMessage(res) {
-		    uni.hideShareMenu()
+			console.log(res, '-------------------onShareAppMessage-----------------')
+			if (res.from === 'button') {// 来自页面内分享按钮
+			  console.log(res.target)
+			}
+			let titleText = this.dataList.user.userName + '-投资人';
+			if (this.dataList.user.userType === '2') {
+				titleText = this.dataList.user.userName + '-' + this.dataList.user.mechName + '·' + this.dataList.user.position;
+			}
+			return {
+			  title: titleText,
+			  path: '/modules/pageHome/seekCapital/seekCapitalItems/investor/inverstorItems/itemsDetails/itemsDetails?share=1&userId=' + this.data.userId,
+			  // share参数代表分享，
+					// share=1代表用户分享出去的是当前页，用户打开页面需要展示返回主页按钮；
+					// share=2.....
+			}
 		},
 		methods: {
 			...mapMutations({
@@ -126,6 +149,7 @@
 					success: (response) => {
 						console.log(response.data);
 						if (String(response.data.code) === '200') {
+							uni.hideLoading(); // 隐藏 loading
 						  let UserData = response.data.content;
 						  this.$store.commit('setheader', UserData); // 更新setheader
 						  uni.setStorageSync('UserData', JSON.stringify(UserData)); // 缓存用户信息

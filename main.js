@@ -8,7 +8,8 @@ import {pageNums} from './static/mbcJs/pageNums';
 import {dateTime} from './static/mbcJs/dateTime';
 import {Static, dImg} from './static/mbcJs/static';
 import {landRegistra} from './static/mbcJs/landRegistra';
-
+import {titleOrPathApp} from './static/mbcJs/shareAppTitleOrPath';
+console.log(titleOrPathApp, '====================titleOrPathApp==================')
 Vue.config.productionTip = false
 
 Vue.prototype.$store = store
@@ -30,6 +31,8 @@ Vue.prototype.Static = Static
 Vue.prototype.dImg = dImg
 
 Vue.prototype.landRegistra = landRegistra
+
+Vue.prototype.titleOrPathApp = titleOrPathApp
 
 Vue.prototype.APPID = ''
 Vue.prototype.SECRET = ''

@@ -20,6 +20,13 @@
 				black: this.Static + 'mbcImg/my/black.png',
 			};
 		},
+		// 分享
+		onShareAppMessage(res) {
+			  if (res.from === 'button') {// 来自页面内分享按钮
+				console.log(res.target)
+			  }
+			  return this.titleOrPathApp
+		},
 		components: {
 			project,
 			services

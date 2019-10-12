@@ -26,10 +26,13 @@
 				<view class="TIPS-btn" @tap='goToAuth'>立即认证</view>
 			</view>
 		</tipsBox>
+		<!-- 返回主页按钮 -->
+		<goHome v-if='isShare === 1'></goHome>
 	</view>
 </template>
 
 <script>
+	import goHome from '@/components/goHome/goHome.vue';
 	import tipsBox from "@/components/tips/tips.vue";
 	import inverstorTop from "./itemsDetails-items/inverstorTop.vue";
 	import basicInformation from "./itemsDetails-items/basicInformation.vue";
@@ -42,6 +45,7 @@
 	export default {
 		data() {
 			return {
+				isShare: 0, // 0代表没有分享, 1代表分享后需要展示返回主页，2代表.....
 				dataList: {},
 				close: this.Static + 'mbcImg/home/seekCapital/close.png',
 				data: {
@@ -53,6 +57,7 @@
 		},
 		
 		components: {
+			goHome,
 			tipsBox,
 			inverstorTop,
 			basicInformation,
@@ -78,8 +83,20 @@
 			}
 		},
 		created() {
-			console.log('在组件中并不能使用页面生命周期函数');
 			this.getUserData();
+		},
+		// 分享
+		onShareAppMessage(res) {
+			if (res.from === 'button') {// 来自页面内分享按钮
+			  console.log(res.target)
+			}
+			return {
+			  title: this.dataList.capitalComp.compName,
+			  path: '/modules/pageHome/seekCapital/seekCapitalItems/investInstitution/investInstitutionItems/itemsDetails/itemsDetails?share=1&id=' + this.data.id,
+			  // share参数代表分享，
+					// share=1代表用户分享出去的是当前页，用户打开页面需要展示返回主页按钮；
+					// share=2.....
+			}
 		},
 		beforeDestroy () {
 			console.log('页面销毁之前缓存数据');
@@ -91,9 +108,13 @@
 			this.getUserData();
 		},
 		onLoad(option) {
+			this.$store.commit('setAuthShow', false); // 更新setAuthShow
 			this.data.id = option.id;
 			this.getList(option.id);
 			this.getUserApply(option.id)
+			if (option.share) { // 赋值分享参数
+				this.isShare = Number(option.share)
+			}
 		},
 		methods: {
 			...mapMutations({
