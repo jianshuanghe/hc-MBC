@@ -347,6 +347,7 @@
 			//获取标签
 			this.Label();
 			this.getClickRecordsArr(); // 获取缓冲的用户行为数据
+			this.shareToHome(option); // 转发页打开规则函数
 		},
 		methods: {
 			...mapMutations({

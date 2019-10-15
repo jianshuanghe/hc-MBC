@@ -80,11 +80,7 @@
 			};
 			this.getArea();
 			this.$store.commit('setAuthShow', false); // 更新setAuthShow
-			if (option.shareHerf) { // 根据链接上是否存在分享链接参数，有的话指定跳转， 所有分享到到首页
-				uni.navigateTo({
-					url: decodeURIComponent(option.shareHerf)
-				});
-			}
+			this.shareToHome(option); // 转发页打开规则函数
 		},
 		methods: {
 			...mapMutations({

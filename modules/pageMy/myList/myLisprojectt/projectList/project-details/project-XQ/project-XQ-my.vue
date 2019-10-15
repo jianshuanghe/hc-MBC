@@ -167,6 +167,7 @@
 		onLoad:function(options){
 			this.id = options.id
 			console.log(this.id)
+			this.shareToHome(option); // 转发页打开规则函数
 		},
 		methods: {
 			cancelPC () {

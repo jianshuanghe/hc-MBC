@@ -20,7 +20,7 @@
 				} // 判断链接上有参数
 			};
 		},
-		
+
 		components: {
 			scanland,
 			uploadFile
@@ -37,6 +37,9 @@
 		  //   deep: true
 		  // }
 		},
+       onLoad(option) {
+       	this.shareToHome(option); // 转发页打开规则函数
+       },
 		// 分享
 		onShareAppMessage(res) {
 			  if (res.from === 'button') {// 来自页面内分享按钮
@@ -46,7 +49,7 @@
 		},
 		created() {
 			console.log('在组件中并不能使用页面生命周期函数');
-			
+
 		},
 		beforeDestroy () {
 			console.log('页面销毁之前缓存数据');

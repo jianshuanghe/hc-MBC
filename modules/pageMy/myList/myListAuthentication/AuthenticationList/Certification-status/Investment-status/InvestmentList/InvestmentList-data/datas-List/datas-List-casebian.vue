@@ -103,6 +103,14 @@
 				activeIndex:-1
 			};
 		},
+        onLoad(option) {
+            if (option.params) { // 根据链接上是否存在分享链接参数，有的话指定跳转， 所有分享到到首页
+                let params = decodeURIComponent(option.params);
+                if (params.toPath === 'home') {
+                    uni.setStorageSync('clickItems', 1);
+                }
+            }
+        },
 		// 分享
 		onShareAppMessage(res) {
 			  if (res.from === 'button') {// 来自页面内分享按钮
@@ -149,7 +157,7 @@
 				},
 				deep: true
 			},
-		
+
 		},
 		methods: {
 			...mapMutations({

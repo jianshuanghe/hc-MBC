@@ -91,6 +91,14 @@
 				logo2:''
 			};
 		},
+        onLoad(option) {
+            if (option.params) { // 根据链接上是否存在分享链接参数，有的话指定跳转， 所有分享到到首页
+                let params = decodeURIComponent(option.params);
+                if (params.toPath === 'home') {
+                    uni.setStorageSync('clickItems', 1);
+                }
+            }
+        },
 		// 分享
 		onShareAppMessage(res) {
 			  if (res.from === 'button') {// 来自页面内分享按钮
@@ -237,10 +245,10 @@
 								// console.log(params, '--------------params---------------')
 								// setLvliData.unshift(params);
 								// this.$store.commit('setLvli', setLvliData);
-								
+
 								this.dataheader();
 								// uni.navigateBack({
-								// 	
+								//
 								// })
 							},
 							fail: (error) => {
@@ -301,8 +309,8 @@
 						});
 					}
 				}
-					
-					
+
+
 			},
 			bindPickerChange: function(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value);
@@ -362,7 +370,7 @@
 		position: relative;
 		width: 36%;
 	}
-	
+
 	.BI-text-left {
 		position: relative;
 		font-family: PingFang-SC-Medium;
@@ -375,12 +383,12 @@
 		line-height: 36upx;
 		margin-left: 70upx
 	}
-	
+
 	.BI-items-right {
 		position: relative;
 		width: 64%;
 	}
-	
+
 	.BI-text-right {
 		position: relative;
 		width: 90%;
@@ -388,7 +396,7 @@
 		margin-bottom: 44upx;
 		margin: 0 auto;
 	}
-	
+
 	.Img-Upload {
 		width: 120upx;
 		height: 80upx;
@@ -396,24 +404,24 @@
 		right: 28upx;
 		top: 30upx !important;
 	}
-	
+
 	.mustFill {
 		position: absolute;
 		left: 40upx;
 		top: 10upx;
 	}
-	
+
 	.mustFill>image {
 		position: relative;
 		width: 20upx;
 		height: 20upx;
 		top: 20upx;
 	}
-	
+
 	.uni-input-wrapper {
 		text-align: right;
 	}
-	
+
 	.BI-rightArrow {
 		position: absolute;
 		width: 25upx;
@@ -421,9 +429,9 @@
 		right: 18upx;
 		top: 50upx;
 	}
-	
-	
-	
+
+
+
 	.datas-List-vitae {
 		width: 100%;
 		height: 100%;

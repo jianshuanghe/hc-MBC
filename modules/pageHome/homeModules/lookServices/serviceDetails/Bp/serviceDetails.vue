@@ -3,6 +3,8 @@
 		<detailTop></detailTop>
 		<detailsContent></detailsContent>
 		<constSubmit :msgData= 'data'></constSubmit>
+		<!-- 返回主页按钮 -->
+		<goHome v-if='isShare === 1'></goHome>
 	</view>
 </template>
 
@@ -25,7 +27,11 @@
 	    },
 		onLoad(option) {
 			if (option.share) { // 赋值分享参数
-				this.isShare = Number(option.share)
+				this.isShare = Number(option.share);
+				if (this.isShare === 1) {
+					uni.setStorageSync('clickItems', 1);
+					this.$store.commit('setHome',1);
+				}
 			}
 		},
 		// 分享

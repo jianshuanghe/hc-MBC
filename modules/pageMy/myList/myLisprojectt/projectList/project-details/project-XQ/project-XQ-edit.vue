@@ -105,6 +105,7 @@
 			console.log(this.id);
 			//获取标签
 			this.edits();
+			this.shareToHome(option); // 转发页打开规则函数
 		},
 		methods: {
 			...mapMutations({

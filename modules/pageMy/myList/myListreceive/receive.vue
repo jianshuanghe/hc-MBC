@@ -34,6 +34,9 @@
 			List:[]
 	      };
 	    },
+        onLoad(option) {
+        	this.shareToHome(option); // 转发页打开规则函数
+        },
 		// 分享
 		onShareAppMessage(res) {
 			  if (res.from === 'button') {// 来自页面内分享按钮
@@ -63,7 +66,7 @@
 				});
 				uni.downloadFile({
 					url: e,
-					
+
 					success: function (res) {
 						console.log(res, '--------------------pdf----------------------')
 						var filePath = res.tempFilePath;
@@ -152,7 +155,7 @@
 		font-size: 32upx;
 		color: #2E2E30;
 		letter-spacing: 0;
-		line-height: 60upx;	
+		line-height: 60upx;
 		margin-top: 10upx;
 		font-weight: bold;
 	}
@@ -214,7 +217,7 @@
 		text-align: center;
 		color: #9B9B9B;
 	}
-	
+
 	.meirenkanwo image {
 		width: 100%;
 		height: 85%;

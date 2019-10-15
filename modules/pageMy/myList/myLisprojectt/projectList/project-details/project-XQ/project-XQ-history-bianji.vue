@@ -91,6 +91,14 @@
 				peorid:''
 			};
 		},
+        onLoad(option) {
+            if (option.params) { // 根据链接上是否存在分享链接参数，有的话指定跳转， 所有分享到到首页
+                let params = decodeURIComponent(option.params);
+                if (params.toPath === 'home') {
+                    uni.setStorageSync('clickItems', 1);
+                }
+            }
+        },
 		// 分享
 		onShareAppMessage(res) {
 			  if (res.from === 'button') {// 来自页面内分享按钮
@@ -113,6 +121,7 @@
 		onLoad:function(options){
 			this.id = options.id
 			console.log(this.id)
+			this.shareToHome(option); // 转发页打开规则函数
 		},
 		mounted() {},
 		filters: {
@@ -213,7 +222,7 @@
 							this.$store.commit('setHistory', this.arr);
 							uni.navigateBack({delta: 1});
 							console.log(this.arr)
-							
+
 						},
 						fail: (error) => {
 							uni.hideLoading(); // 隐藏 loading
@@ -232,7 +241,7 @@
 				let year = date.getFullYear();
 				let month = date.getMonth() + 1;
 				let day = date.getDate();
-	
+
 				if (type === 'start') {
 					year = year - 60;
 				} else if (type === 'end') {
@@ -398,7 +407,7 @@
 		height: 122upx;
 		background: #FFFFFF;
 	}
-	
+
 	.datas-List-vitae-yes-box {
 		width: 90%;
 		height: 100%;
@@ -407,18 +416,18 @@
 		display: flex;
 		position: relative;
 	}
-	
+
 	.datas-List-vitae-yes-box view:nth-of-type(1) {
 		width: 20upx;
 		height: 20upx;
 		padding-top: 26upx;
 	}
-	
+
 	.datas-List-vitae-yes-box view:nth-of-type(1) image {
 		width: 100%;
 		height: 100%;
 	}
-	
+
 	.datas-List-vitae-yes-box view:nth-of-type(2) {
 		width: 142upx;
 		height: 32upx;
@@ -427,18 +436,18 @@
 		padding-top: 30upx;
 		padding-left: 10upx;
 	}
-	
+
 	.datas-List-vitae-yes-box view:nth-of-type(3) {
 		width: 100upx;
 		height: 35upx;
 		position: absolute;
 		right: 40upx;
 		top: 40upx;
-	
+
 		color: #D2D2D2;
 		text-align: right;
 	}
-	
+
 	.datas-List-vitae-yes-box view:nth-of-type(4) {
 		position: absolute;
 		right: 0;
@@ -446,12 +455,12 @@
 		width: 18upx;
 		height: 18upx;
 	}
-	
+
 	.datas-List-vitae-yes-box view:nth-of-type(4) image {
 		width: 100%;
 		height: 100%;
 	}
-	
+
 	.ziti {
 		position: absolute;
 		right: 0upx;
@@ -474,7 +483,7 @@
 		height: 122upx;
 		background: #FFFFFF;
 	}
-	
+
 	.Investor-name-box {
 		width: 90%;
 		height: 100%;
@@ -483,18 +492,18 @@
 		display: flex;
 		position: relative;
 	}
-	
+
 	.Investor-name-box view:nth-of-type(1) {
 		width: 20upx;
 		height: 20upx;
 		padding-top: 26upx;
 	}
-	
+
 	.Investor-name-box view:nth-of-type(1) image {
 		width: 100%;
 		height: 100%;
 	}
-	
+
 	.Investor-name-box view:nth-of-type(2) {
 		width: 142upx;
 		height: 32upx;
@@ -503,7 +512,7 @@
 		padding-top: 30upx;
 		padding-left: 10upx;
 	}
-	
+
 	.Investor-name-box view:nth-of-type(3) {
 		width: 200upx;
 		height: 35upx;
@@ -531,7 +540,7 @@
 		bottom: 0;
 		position: absolute;
 	}
-	
+
 	.datas-List-case-bao view:nth-of-type(1) view {
 		width: 690upx;
 		height: 90upx;
@@ -543,7 +552,7 @@
 		font-size: 28upx;
 		color: #FFFFFF;
 	}
-	
+
 	.datas-List-case-bao view:nth-of-type(1) {
 		margin: 0 auto;
 	}
