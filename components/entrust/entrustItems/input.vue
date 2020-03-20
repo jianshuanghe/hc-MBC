@@ -126,11 +126,18 @@
 			},
 			clickSubmit () {
 				console.log('用户触发提交按钮')
-				if (this.entrust.type === 0) {
-					this.postFuWu();
-				} else if (this.entrust.type === 1) {
-					this.postWeiTuo();
-				}
+				this.landFail().then(res => {
+					if (res === true) {
+						if (this.entrust.type === 0) {
+							this.postFuWu();
+						} else if (this.entrust.type === 1) {
+							this.postWeiTuo();
+						}
+					}
+				})
+				.catch(err => {
+					console.log(err);
+				});
 			},
 			postFuWu () {
 				console.log('服务类')
@@ -197,7 +204,7 @@
 							Authorization:"Bearer "+landRegistLG.token//将token放到请求头中
 						},
 						success: (response) => {
-							console.log(response.data);
+							console.log(response.data, '2020-03-20');
 							if (response.data.content.time) {
 								this.entrust.params.time = response.data.content.time;
 							}

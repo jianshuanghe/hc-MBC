@@ -138,18 +138,27 @@
 			setClickRecord (e, items, evn) {
 				this.landRegistra(); // 判断登录状态
 				if (uni.getStorageSync('landRegist')) {
-					console.log(e, items, evn, '记录用户行为');
-					if (e === 'love') { // 收藏
-						if (this.items.love === false) {
-							this.items.love = true; // 点击之后状态变化
-							this.upDataIsLoved(evn); // 收藏
-							this.resetClickRecord(items);
-						} else {
-							this.items.love = false; // 点击之后状态变化
-							this.upDataIsLove(evn); // 收藏
-							this.resetClickRecord(items);
+					this.landFail().then(res => {
+						if (res === true) {
+							console.log(e, items, evn, '记录用户行为');
+							if (e === 'love') { // 收藏
+								if (this.items.love === false) {
+									this.items.love = true; // 点击之后状态变化
+									this.upDataIsLoved(evn); // 收藏
+									this.resetClickRecord(items);
+								} else {
+									this.items.love = false; // 点击之后状态变化
+									this.upDataIsLove(evn); // 收藏
+									this.resetClickRecord(items);
+								}
+							};
 						}
-					};
+					})
+					.catch(err => {
+						console.log(err);
+					});
+					
+					
 				}
 			},
 			resetClickRecord (e) {

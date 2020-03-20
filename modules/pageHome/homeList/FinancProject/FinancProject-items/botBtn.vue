@@ -269,6 +269,7 @@
 					this.landRegistra(); // 判断登录状态
 				};
 				if (uni.getStorageSync('landRegist')) {
+					this.landRegistra(); // 判断登录状态
 					console.log('触发申请');
 					if (this.userType ==='1' || this.userType === '2') { // 1 个人投资人 2 机构投资人
 						if (this.authState !== '1') { // 没有认证.或者认证没通过
@@ -330,24 +331,32 @@
 				if (!uni.getStorageSync('landRegist')) {
 					this.landRegistra(); // 判断登录状态
 				};
-				if (uni.getStorageSync('landRegist')) {
-					console.log(e, items, evn, '记录用户行为');
-					if (e === 'love') { // 收藏
-						if (this.items.love === false) {
-							this.$store.commit('setUserActive', 0); // 更新setUserActive
-							this.$store.commit('setFinance', this.finance); // 更新setFinance
-							this.items.love = true; // 点击之后状态变化
-							this.upDataIsLoved(evn); // 收藏
-							this.resetClickRecord(items);
-						} else {
-							this.$store.commit('setUserActive', 2); // 更新setUserActive
-							this.$store.commit('setFinance', this.finance); // 更新setFinance
-							this.items.love = false; // 点击之后状态变化
-							this.upDataIsLove(evn); // 收藏
-							this.resetClickRecord(items);
+				this.landFail().then(res => {
+					if (res === true) {
+						console.log('-----------345------------')
+						if (uni.getStorageSync('landRegist')) {
+							if (e === 'love') { // 收藏
+								if (this.items.love === false) {
+									this.$store.commit('setUserActive', 0); // 更新setUserActive
+									this.$store.commit('setFinance', this.finance); // 更新setFinance
+									this.items.love = true; // 点击之后状态变化
+									this.upDataIsLoved(evn); // 收藏
+									this.resetClickRecord(items);
+								} else {
+									this.$store.commit('setUserActive', 2); // 更新setUserActive
+									this.$store.commit('setFinance', this.finance); // 更新setFinance
+									this.items.love = false; // 点击之后状态变化
+									this.upDataIsLove(evn); // 收藏
+									this.resetClickRecord(items);
+								}
+							};
 						}
-					};
-				}
+					}					
+				})
+				.catch(err => {
+					console.log(err);
+				});
+				
 			},
 			resetClickRecord (e) {
 				console.log(e, '重置缓存中用户行为数据');
@@ -366,6 +375,7 @@
 			upDataIsLoved(e) { // 收藏
 				console.log('跟新用户行为数据');
 				if (uni.getStorageSync('landRegist')) {
+					
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 					console.log(landRegistLG.user.id);
 					let params = {

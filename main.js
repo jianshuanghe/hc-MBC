@@ -8,6 +8,7 @@ import {pageNums} from './static/mbcJs/pageNums';
 import {dateTime} from './static/mbcJs/dateTime';
 import {Static, dImg} from './static/mbcJs/static';
 import {landRegistra} from './static/mbcJs/landRegistra';
+import {landFail} from './static/mbcJs/landFail';
 import {titleOrPathApp, shareToHome} from './static/mbcJs/shareAppTitleOrPath';
 Vue.config.productionTip = false
 
@@ -32,6 +33,8 @@ Vue.prototype.Static = Static
 Vue.prototype.dImg = dImg
 
 Vue.prototype.landRegistra = landRegistra
+
+Vue.prototype.landFail = landFail
 
 Vue.prototype.titleOrPathApp = titleOrPathApp
 
