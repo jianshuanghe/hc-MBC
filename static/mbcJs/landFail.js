@@ -1,5 +1,10 @@
 import {api1,api2,api3} from '@/static/mbcJs/api';
 function userLandFail() {
+	// uni.showToast({
+	// 	title: '开始判断登录过期',
+	// 	icon: 'none',
+	// 	duration: 1000
+	// });
 	return new Promise(function(resolve, reject) {
 		if (uni.getStorageSync('landRegist')) { // 登录过 ，需要校验token是否过期
 			let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息

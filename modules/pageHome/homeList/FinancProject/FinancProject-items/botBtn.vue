@@ -269,48 +269,55 @@
 					this.landRegistra(); // 判断登录状态
 				};
 				if (uni.getStorageSync('landRegist')) {
-					this.landRegistra(); // 判断登录状态
-					console.log('触发申请');
-					if (this.userType ==='1' || this.userType === '2') { // 1 个人投资人 2 机构投资人
-						if (this.authState !== '1') { // 没有认证.或者认证没通过
-							this.$store.commit('setAuthShow', true); // 更新setAuthShow
-							return
-						} else {
-							this.$store.commit('setAuthShow', false); // 更新setAuthShow
-							console.log('认证投资人或者投资机构')
+					this.landFail().then(res => {
+						if (res === true) {
+							console.log('触发申请');
+							if (this.userType ==='1' || this.userType === '2') { // 1 个人投资人 2 机构投资人
+								if (this.authState !== '1') { // 没有认证.或者认证没通过
+									this.$store.commit('setAuthShow', true); // 更新setAuthShow
+									return
+								} else {
+									this.$store.commit('setAuthShow', false); // 更新setAuthShow
+									console.log('认证投资人或者投资机构')
+								}
+							} else if (this.userType ==='-1') {
+								this.$store.commit('setAuthShow', true); // 更新setAuthShow
+								return
+							} else if (this.userType ==='0') {
+								if (this.authState !== '1') { // 创业者审核没有成功状态
+									this.$store.commit('setAuthShow', true); // 更新setAuthShow
+									return
+								} else if (this.authState === '1') { // 创业者成功
+									this.$store.commit('setAuthShow', false); // 更新setAuthShow
+									uni.showToast({
+										title: '您已成为创业者身份，无法委托联系项目',
+										icon: 'none',
+										duration: 1000
+									});
+									return
+								}
+							}
+							if (this.project.content === 1) {
+								uni.showToast({
+									title: '您已经申请过了！',
+									icon: 'none',
+									duration: 1000
+								});
+							} else {
+								this.entrust.params.serverId = this.msgData.serverId;
+								this.entrust.params.modelId = this.msgData.modelId;
+								this.entrust.params.projectName = this.msgData.projectName;
+								this.entrust.params.applyeType = 2;
+								this.$store.commit('setEntrustType', 1); // 更新setEntrustType
+								this.$store.commit('setEntrustParams', this.entrust.params); // 更新setEntrustParams
+								this.$store.commit('setEnTrustShow', true); // 更新setEnTrustShow
+							}
 						}
-					} else if (this.userType ==='-1') {
-						this.$store.commit('setAuthShow', true); // 更新setAuthShow
-						return
-					} else if (this.userType ==='0') {
-						if (this.authState !== '1') { // 创业者审核没有成功状态
-							this.$store.commit('setAuthShow', true); // 更新setAuthShow
-							return
-						} else if (this.authState === '1') { // 创业者成功
-							this.$store.commit('setAuthShow', false); // 更新setAuthShow
-							uni.showToast({
-								title: '您已成为创业者身份，无法委托联系项目',
-								icon: 'none',
-								duration: 1000
-							});
-							return
-						}
-					}
-					if (this.project.content === 1) {
-						uni.showToast({
-							title: '您已经申请过了！',
-							icon: 'none',
-							duration: 1000
-						});
-					} else {
-						this.entrust.params.serverId = this.msgData.serverId;
-						this.entrust.params.modelId = this.msgData.modelId;
-						this.entrust.params.projectName = this.msgData.projectName;
-						this.entrust.params.applyeType = 2;
-						this.$store.commit('setEntrustType', 1); // 更新setEntrustType
-						this.$store.commit('setEntrustParams', this.entrust.params); // 更新setEntrustParams
-						this.$store.commit('setEnTrustShow', true); // 更新setEnTrustShow
-					}
+					})
+					.catch(err => {
+						console.log(err);
+					});
+					
 				}
 			},
 			getClickRecord () {
@@ -375,7 +382,6 @@
 			upDataIsLoved(e) { // 收藏
 				console.log('跟新用户行为数据');
 				if (uni.getStorageSync('landRegist')) {
-					
 					let landRegistLG = JSON.parse(uni.getStorageSync('landRegist')); // 读取缓存的用户信息
 					console.log(landRegistLG.user.id);
 					let params = {

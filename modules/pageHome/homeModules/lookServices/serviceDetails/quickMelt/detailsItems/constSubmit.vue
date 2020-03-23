@@ -81,10 +81,18 @@
 					this.landRegistra(); // 判断登录状态
 				};
 				if (uni.getStorageSync('landRegist')) {
-					console.log('触发拨打电话');
-					uni.makePhoneCall({
-						phoneNumber: '010-61723026' // 拨打电话
+					this.landFail().then(res => {
+						if (res === true) {
+							console.log('触发拨打电话');
+							uni.makePhoneCall({
+								phoneNumber: '010-61723026' // 拨打电话
+							});
+						}
+					})
+					.catch(err => {
+						console.log(err);
 					});
+					
 				}
 			},
 			Apply () {
@@ -93,19 +101,27 @@
 				};
 				if (uni.getStorageSync('landRegist')) {
 					console.log('触发申请');
-					if (this.msgData.content === 1) {
-						uni.showToast({
-							title: '您已经申请过了！',
-							icon: 'none',
-							duration: 1000
-						});
-					} else {
-						this.entrust.params.serverId = this.msgData.serverId;
-						this.entrust.params.applyeType = 104;
-						this.$store.commit('setEntrustType', 0); // 更新setEntrustType
-						this.$store.commit('setEntrustParams', this.entrust.params); // 更新setEntrustParams
-						this.$store.commit('setEnTrustShow', true); // 更新setEnTrustShow
-					}
+					this.landFail().then(res => {
+						if (res === true) {
+							if (this.msgData.content === 1) {
+								uni.showToast({
+									title: '您已经申请过了！',
+									icon: 'none',
+									duration: 1000
+								});
+							} else {
+								this.entrust.params.serverId = this.msgData.serverId;
+								this.entrust.params.applyeType = 104;
+								this.$store.commit('setEntrustType', 0); // 更新setEntrustType
+								this.$store.commit('setEntrustParams', this.entrust.params); // 更新setEntrustParams
+								this.$store.commit('setEnTrustShow', true); // 更新setEnTrustShow
+							}
+						}
+					})
+					.catch(err => {
+						console.log(err);
+					});
+					
 				}
 			}
 	    }
